@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Conversion Table</title>
+  
+    <!-- Internal Styles -->
+    
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/YOUR-KIT-CODE.js" crossorigin="anonymous"></script>
+    <script src="/JS/nav.js"></script>
+    <script src="/JS/footer.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight, header .current a {
+            color: #77aaff;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            color: #77aaff;
+            font-weight: bold;
+        }
+
+        .notice-banner {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .notice-banner .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+   
+
+    <div class="container">
+        <h1 id="pounds">Convert from Pounds to other Measurements</h1>
+        <p>The table below shows how to convert from Pounds to other weight measurements:</p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Formula</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><a href="/support/math/p-k.html">Convert from Pounds to Kilograms</a></td>
+                <td>kg = lb / 2.2046</td>
+                <td>10 lb = 4.54 kg</td>
+            </tr>
+            <tr>
+                <td><a href="/support/math/p-o.html">Convert from Pounds to Ounces</a></td>
+                <td>oz = lb * 16</td>
+                <td>10 lb = 160 oz</td>
+            </tr>
+            <tr>
+                <td>Convert from Pounds to Grams</td>
+                <td>g = lb / 0.0022046</td>
+                <td>10 lb = 4535.92 g</td>
+            </tr>
+            <tr>
+                <td>Convert from Pounds to Stones</td>
+                <td>st = lb * 0.071429</td>
+                <td>10 lb = 0.71 st</td>
+            </tr>
+        </table>
+
+        <h1 id="kilograms">Convert from Kilograms to other Measurements</h1>
+        <p>The table below shows how to convert from Kilograms to other weight measurements:</p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Formula</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Convert from Kilograms to Pounds</td>
+                <td>lb = kg * 2.2046</td>
+                <td>10 kg = 22.05 lb</td>
+            </tr>
+            <tr>
+                <td>Convert from Kilograms to Ounces</td>
+                <td>oz = kg * 35.274</td>
+                <td>10 kg = 352.74 oz</td>
+            </tr>
+            <tr>
+                <td>Convert from Kilograms to Grams</td>
+                <td>g = kg * 1000</td>
+                <td>10 kg = 10000 g</td>
+            </tr>
+            <tr>
+                <td>Convert from Kilograms to Stones</td>
+                <td>st = kg * 0.1574</td>
+                <td>10 kg = 1.57 st</td>
+            </tr>
+        </table>
+
+        <h1 id="ounces">Convert from Ounces to other Measurements</h1>
+        <p>The table below shows how to convert from Ounces to other weight measurements:</p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Formula</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Convert from Ounces to Pounds</td>
+                <td>lb = oz * 0.0625</td>
+                <td>10 oz = 0.63 lb</td>
+            </tr>
+            <tr>
+                <td>Convert from Ounces to Kilograms</td>
+                <td>kg = oz / 35.274</td>
+                <td>10 oz = 0.28 kg</td>
+            </tr>
+            <tr>
+                <td>Convert from Ounces to Grams</td>
+                <td>g = oz / 0.035274</td>
+                <td>10 oz = 283.5 g</td>
+            </tr>
+            <tr>
+                <td>Convert from Ounces to Stones</td>
+                <td>st = oz * 0.0044643</td>
+                <td>10 oz = 0.045 st</td>
+            </tr>
+        </table>
+
+        <h1 id="grams">Convert from Grams to other Measurements</h1>
+        <p>The table below shows how to convert from Grams to other weight measurements:</p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Formula</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Convert from Grams to Pounds</td>
+                <td>lb = g * 0.0022046</td>
+                <td>1000 g = 2.2 lb</td>
+            </tr>
+            <tr>
+                <td>Convert from Grams to Kilograms</td>
+                <td>kg = g / 1000</td>
+                <td>1000 g = 1 kg</td>
+            </tr>
+            <tr>
+                <td>Convert from Grams to Ounces</td>
+                <td>oz = g * 0.035274</td>
+                <td>1000 g = 35.27 oz</td>
+            </tr>
+            <tr>
+                <td>Convert from Grams to Stones</td>
+                <td>st = g * 0.00015747</td>
+                <td>1000 g = 0.16 st</td>
+            </tr>
+        </table>
+
+        <h1 id="stones">Convert from Stones to other Measurements</h1>
+        <p>The table below shows how to convert from Stones to other weight measurements:</p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Formula</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Convert from Stones to Pounds</td>
+                <td>lb = st * 14</td>
+                <td>1 st = 14 lb</td>
+            </tr>
+            <tr>
+                <td>Convert from Stones to Kilograms</td>
+                <td>kg = st / 0.15747</td>
+                <td>1 st = 6.35 kg</td>
+            </tr>
+            <tr>
+                <td>Convert from Stones to Ounces</td>
+                <td>oz = st * 224</td>
+                <td>1 st = 224 oz</td>
+            </tr>
+            <tr>
+                <td>Convert from Stones to Grams</td>
+                <td>g = st / 0.00015747</td>
+                <td>1 st = 6350.29 g</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

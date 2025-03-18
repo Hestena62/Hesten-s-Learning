@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+
+    <!-- Stylesheets -->
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.hestena62.com/bootstrap/css/bootstrap.min.css">
+<script src="/JS/nav.js"></script>
+<script src="/JS/accessability.js"></script>
+
+   
+<!-- Internal Styles -->
+     <link href="/CSS/asist.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/Images/large.ico" alt="Company Logo">
+                <span class="logo-text"></span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="active" aria-label="Go to Home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" aria-label="Go to Learning">
+                <i class="fas fa-book"></i> Learning
+            </a>
+            <a href="/assessment.html" aria-label="Go to Assessment">
+                <i class="fas fa-tasks"></i> Assessment
+            </a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET" class="search-form">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <hr class="dropdown-divider">
+                <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+<div class="container mt-5 help-container">
+    <div class="accordion" id="helpAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#gettingStarted">
+                        Getting Started
+                    </button>
+                </h2>
+                <div id="gettingStarted" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>Basic features overview</li>
+                            <ul>
+                                <li>Google Translate integration</li>
+                                <li>Local storage for user profile data</li>
+                                <li>Interactive dropdown menus</li>
+                                <li>Search functionality</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="container mt-5 help-container">
+    <div class="accordion" id="asistAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#gettingStartedasist">
+                    Assessment page
+                </button>
+            </h2>
+            <div id="gettingStartedasist" class="accordion-collapse collapse show" data-bs-parent="#asistAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Core Features</li>
+                        <ul>
+                        <li>Grade-specific assessment system</li>
+                        <li>Dynamic question generation</li>
+                        <li>Progress tracking</li>
+                        <li>PDF report generation</li>
+                        <li>User profile management</li>
+                        <li>Multi-language support via Google Translate</li>
+                        </ul>
+                    </ul>
+
+                    <ul>
+                        <li>Assessment Implementation</li>
+                        <ul> 
+                            <li>Grade-specific question banks</li>
+                            <li>Answer validation</li>
+                            <li>Immediate feedback</li>
+                            <li>Explanation system</li>
+                            <li>Progress tracking</li>
+                            <li>Performance analytics</li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+
+    <div class="mt-4">
+        <h3>Still Need Help?</h3>
+        <form class="contact-form" id="contactForm" action="https://formsubmit.co/84436699b129e7e146c26f5459f15a56" method="POST">
+            <input type="hidden" name="_subject" value="New Help Request">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_autoresponse" value="Thanks for reaching out! We'll get back to you soon.">
+
+            <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Your email" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" name="message" placeholder="Describe your issue" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
+<br>
+
+    <!-- Footer Section - Contains company information, links, and social media -->
+    <footer>
+        <div class="footer-content">
+            <!-- Company Information -->
+            <div class="footer-section">
+                <h3>About Hesten's Learning</h3>
+                <p>Empowering students with learning disabilities through personalized learning experiences. <a href="/about.html">Learn more.</a></p>
+            </div>
+    
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                    <li><a href="/assessment.html"><i class="fas fa-tasks"></i> Assessment</a></li>
+                    <li><a href="/standards.html"><i class="fas fa-chart-line"></i> Standards</a></li>
+                    <li><a href="/help.html"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                </ul>
+            </div>
+    
+            <!-- Support & Resources -->
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="/students.html"><i class="fas fa-home"></i> For Students</a></li>
+                    <li><a href="/parents.html"><i class="fas fa-users"></i> For Parents</a></li>
+                    <li><a href="/teachers.html"><i class="fas fa-chalkboard-teacher"></i> For Teachers</a></li>
+                </ul>
+            </div>
+    
+            <!-- Legal & Language -->
+            <div class="footer-section">
+                <h3>Legal & Settings</h3>
+                <ul>
+                    <li><a href="/privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="/terms.html"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
+                    <li><a href="/accessibility.html"><i class="fas fa-universal-access"></i> Accessibility</a></li>
+                    <li><a href="/about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p class="copyright">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="made-with">
+                Made with <i class="fas fa-heart"></i> for education
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Update copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+       
+       
+    </script>
+    </body>
+    
+    </html>

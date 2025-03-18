@@ -1,0 +1,271 @@
+<header class="nav-bar">
+    <div class="logo">
+        <a href="/index.html" aria-label="Go to Home Page"></a>
+            <img src="/Images/large.ico" alt="Company Logo">
+            <span class="logo-text"></span>
+        </a>
+    </div>
+    <nav class="nav-links">
+        <a href="/index.html" class="active" aria-label="Go to Home">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="#" id="learning-link" aria-label="Go to Learning">
+            <i class="fas fa-book"></i> Learning
+        </a>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const learningLink = document.getElementById("learning-link");
+                const userProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
+                const userGradeLevel = userProfile.gradeLevel || "A"; // Default to "A" if not set
+                learningLink.href = `/Level/${userGradeLevel}.html`;
+            });
+        </script>
+        <a href="/assessment.html" aria-label="Go to Assessment">
+            <i class="fas fa-tasks"></i> Assessment
+        </a>
+    </nav>
+    <div class="search">
+        <form action="/search.html" method="GET" class="search-form">
+            <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+            <div class="search-bar">
+                <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+            </div>
+        </form>
+    </div>
+    <div class="profile-dropdown">
+        <div class="profile-header" id="profile-header">
+            <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+            <span id="profile-name">User</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+            <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+            <hr class="dropdown-divider">
+            <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+        </div>
+    </div>
+<style>
+    /* ========================================
+       Navigation Bar Components
+       ======================================== */
+  /* Updated Nav Bar Styles */
+.nav-bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: linear-gradient(to right, #1a2a3a, #2c3e50, #1a2a3a);
+padding: 15px 30px;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+position: sticky;
+top: 0;
+z-index: 1000;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Improved Nav Links */
+.nav-links {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 20px;
+}
+
+.nav-links a {
+color: #fff;
+text-decoration: none;
+font-size: 1.1rem;
+padding: 8px 16px;
+border-radius: 4px;
+transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+background-color: #34495e;
+text-decoration: none;
+}
+
+.nav-links a.active {
+background-color: #3498db;
+color: white;
+}
+
+/* Enhanced Logo */
+.logo {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.logo img {
+height: 45px;
+transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+transform: scale(1.05);
+}
+
+
+    /* ========================================
+       Search Functionality
+       ======================================== */
+    .search {
+        position: relative;
+        display: inline-block;
+    }
+
+    .search-icon {
+        cursor: pointer;
+        font-size: 20px;
+        padding: 10px;
+        color: #fff;
+    }
+
+    .search-bar {
+        display: none;
+        position: absolute;
+        top: 40px;
+        left: 250%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        box-sizing: border-box;
+        z-index: 10;
+    }
+
+    .search-bar input {
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .search-bar.active {
+        display: block;
+    }
+
+    /* ========================================
+       Profile Dropdown Menu
+       ======================================== */
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+
+   .profile-header {
+display: flex;
+align-items: center;
+gap: 8px;
+color: #fff; /* Add this line to make text white */
+}
+
+
+    .profile-pic {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 45px;
+      background-color: #1a2a3a;
+        border: 1px solid #34495e;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        min-width: 180px;
+        padding: 8px 0;
+    }
+
+    /* Dropdown Menu Items */
+    .dropdown-menu a,
+    .dropdown-menu button {
+        display: block;
+        padding: 12px 20px;
+        text-align: left;
+        text-decoration: none;
+        color: #fff;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu button:hover {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    .dropdown-menu a:not(:last-child),
+    .dropdown-menu button:not(:last-child) {
+        border-bottom: 1px solid #34495e;
+    }
+</style>
+   
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+        // Toggle search bar visibility when search icon is clicked
+        document.querySelector('.search-icon').addEventListener('click', function () {
+            document.querySelector('.search-bar').classList.toggle('active');
+        });
+
+        // Add event listener for Enter key in search bar
+        document.querySelector('.search-bar input').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                console.log('Searching for:', this.value);
+            }
+        });
+
+        const profileHeader = document.getElementById("profile-header");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+        const profilePic = document.getElementById("profile-pic");
+        const profileName = document.getElementById("profile-name");
+        const signOutButton = document.getElementById("sign-out");
+
+        // Load user data from localStorage
+        const userData = JSON.parse(localStorage.getItem("userProfile")) || {
+            name: "Guest",
+            profilePic: "/Images/large.ico"
+        };
+
+        // Set profile name and picture
+        profileName.textContent = userData.name;
+        profilePic.src = userData.profilePic;
+
+        // Toggle dropdown menu visibility when profile header is clicked
+        profileHeader.addEventListener("click", function () {
+            dropdownMenu.style.display =
+                dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        // Sign out action
+        signOutButton.addEventListener("click", function () {
+            localStorage.removeItem("userProfile");
+            window.location.reload(); // Or redirect to login page
+        });
+
+        // Close the dropdown menu when clicking outside of it
+        document.addEventListener("click", function (event) {
+            if (!profileHeader.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    });
+</script>
+</header>

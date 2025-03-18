@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+     
+
+    <!-- Stylesheets -->
+    <link href="/CSS/bootstrap.min.css" rel="stylesheet">
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="/JS/nav.js"></script>
+    <!-- Internal Styles -->
+     <link href="/CSS/asist.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/Images/large.ico" alt="Company Logo">
+                <span class="logo-text"></span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="active" aria-label="Go to Home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" aria-label="Go to Learning">
+                <i class="fas fa-book"></i> Learning
+            </a>
+            <a href="/assessment.html" aria-label="Go to Assessment">
+                <i class="fas fa-tasks"></i> Assessment
+            </a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET" class="search-form">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <hr class="dropdown-divider">
+                <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <style>
+        .notice-banner {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+</style>
+
+<div class="notice-banner">
+    <div class="scrolling-text">
+        <i class="fas fa-info-circle"></i>
+        <small style="font-size: 0.7em;">
+            <strong>Notice:</strong> This website is currently under development. Some features may not function as intended. All content is provided free of charge.
+        </small>
+    </div>
+</div>
+<div class="container mt-5 help-container">
+
+        
+
+    <div class="mt-4">
+        <h3>Still Need Help?</h3>
+        <form class="contact-form" id="contactForm" action="https://formsubmit.co/84436699b129e7e146c26f5459f15a56" method="POST">
+            <input type="hidden" name="_next" value="https://hestena62.com/thanks.html">
+            <input type="hidden" name="_subject" value="New Help Request">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_blacklist" value="spammy pattern, banned term, phrase">
+<input type="text" name="_honey" style="display:none">
+<input type="hidden" name="_autoresponse" value="your custom message">
+
+            <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Your email" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" name="message" placeholder="Describe your issue" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
+<br>
+
+   
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    </html> 
+
+   

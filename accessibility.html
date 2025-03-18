@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #222;
+            transition: all 0.3s ease-in-out;
+        }
+        .container {
+            max-width: 90%;
+            padding: 20px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #222;
+            text-align: center;
+        }
+        p {
+            color: #333;
+            line-height: 1.6;
+        }
+        button, select {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover, select:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        .high-contrast {
+            background-color: #000;
+            color: #FFD700;
+        }
+        a.skip-link {
+            position: absolute;
+            left: -999px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            z-index: 100;
+        }
+        a.skip-link:focus {
+            left: 10px;
+            top: 10px;
+        }
+        button:focus, select:focus, a:focus {
+            outline: 3px solid #007BFF;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            p, select, button {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="container" id="main-content" tabindex="0">
+        <h1>Accessibility Features</h1>
+        <p>We are committed to making our website accessible to everyone. Currently, we have built-in translation features to help users understand content in their preferred language.</p>
+        <p>In the future, we will be working on additional adjustments to enhance accessibility, including options to change the theme, font, and much more.</p>
+        <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">Toggle Dark Mode</button>
+        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">Toggle High Contrast</button>
+        <button onclick="increaseTextSize()" aria-label="Increase text size">Increase Text Size</button>
+        <button onclick="decreaseTextSize()" aria-label="Decrease text size">Decrease Text Size</button>
+        <label for="font-select">Choose Font:</label>
+        <select id="font-select" onchange="changeFont()" aria-label="Choose font">
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Courier New, monospace">Courier New</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Times New Roman, serif">Times New Roman</option>
+            <option value="Verdana, sans-serif">Verdana</option>
+            <option value="Tahoma, sans-serif">Tahoma</option>
+            <option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+            <option value="Comic Sans MS, cursive">Comic Sans MS</option>
+            <option value="Lucida Console, monospace">Lucida Console</option>
+        </select>
+        <p id="font-status" aria-live="polite" style="position: absolute; left: -999px;"></p>
+    </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        }
+
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast') ? 'enabled' : 'disabled');
+        }
+
+        function changeFont() {
+            const fontSelect = document.getElementById('font-select');
+            const selectedFont = fontSelect.value;
+            document.querySelector('.container').style.fontFamily = selectedFont;
+            localStorage.setItem('selectedFont', selectedFont);
+            document.getElementById('font-status').textContent = `Font changed to ${fontSelect.options[fontSelect.selectedIndex].text}`;
+        }
+
+        function increaseTextSize() {
+            document.body.style.fontSize = 'larger';
+        }
+
+        function decreaseTextSize() {
+            document.body.style.fontSize = 'smaller';
+        }
+
+        window.onload = function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                document.querySelector('.container').style.fontFamily = savedFont;
+                document.getElementById('font-select').value = savedFont;
+            }
+            const darkMode = localStorage.getItem('darkMode') === 'enabled';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            const highContrast = localStorage.getItem('highContrast') === 'enabled';
+            if (highContrast) {
+                document.body.classList.add('high-contrast');
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('user-is-tabbing');
+        });
+    </script>
+</body>
+</html>

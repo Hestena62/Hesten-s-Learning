@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Hesten's Learning is a free educational platform that offers interactive lessons and assessments for students in grades Pre-K through 12.">
+    <meta name="keywords" content="Home page, Index, Intro">
+    <meta name="author" content="Hesten Allison">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+
+    <!-- Internal Styles -->
+    <link href="/CSS/global style.css" rel="stylesheet">
+    <link href="/CSS/main nav.css" rel="stylesheet">
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+
+
+    
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/YOUR-KIT-CODE.js" crossorigin="anonymous"></script>
+    <script src="/JS/nav.js"></script>
+    <script src="/JS/footer.js"></script>
+    <script src="/JS/track.js"></script>
+    <script src="/JS/accessability.js"></script>
+</head>
+
+<body>
+    <!-- Main Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html" aria-label="Go to Home Page">
+                <img src="/Images/large.ico" alt="Company Logo">
+                <span class="logo-text"></span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="active" aria-label="Go to Home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" id="learning-link" aria-label="Go to Learning">
+                <i class="fas fa-book"></i> Learning
+            </a>
+            <a href="/assessment.html" aria-label="Go to Assessment">
+                <i class="fas fa-tasks"></i> Assessment
+            </a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET" class="search-form">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <hr class="dropdown-divider">
+                <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <!-- Level Sections -->
+        <section class="level">
+            <h2 class="level-title">Pre-K</h2>
+            <ul class="skills-list">
+                <li>Counting objects, inside and outside, longer and shorter, letter names, rhyming words, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 165 skills >></li>
+                <li><span>Language arts:</span> 84 skills >></li>
+            </ul>
+            <a href="/Level/A.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Kindergarten</h2>
+            <li>Counting to 100, writing numbers, addition and subtraction, short and long vowel sounds, and more.</li>
+            <ul class="subject-list">
+                <li><span>Math:</span> 340 skills >></li>
+                <li><span>Language arts:</span> 152 skills >></li>
+                <li><span>Science:</span> 64 skills >></li>
+                <li><span>Social studies:</span> 53 skills >></li>
+            </ul>
+            <a href="/Level/B.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">First Grade</h2>
+            <ul class="skills-list">
+                <li>Adding and subtracting, tens and ones, short and long vowel words, light and sound, rules and laws, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 309 skills >></li>
+                <li><span>Language arts:</span> 197 skills >></li>
+                <li><span>Science:</span> 67 skills >></li>
+                <li><span>Social studies:</span> 52 skills >></li>
+            </ul>
+            <a href="/Level/C.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Second Grade</h2>
+            <ul class="skills-list">
+                <li>Place-value models, contractions, irregular plurals, plants and animals, historical figures, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 319 skills >></li>
+                <li><span>Language arts:</span> 238 skills >></li>
+                <li><span>Science:</span> 81 skills >></li>
+                <li><span>Social studies:</span> 62 skills >></li>
+            </ul>
+            <a href="/Level/D.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Third Grade</h2>
+            <ul class="skills-list">
+                <li>Multiplying and dividing, bar graphs, pronouns, possessives, weather and climate, geography, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 353 skills >></li>
+                <li><span>Language arts:</span> 231 skills >></li>
+                <li><span>Science:</span> 94 skills >></li>
+                <li><span>Social studies:</span> 98 skills >></li>
+            </ul>
+            <a href="/Level/E.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Fourth Grade</h2>
+            <ul class="skills-list">
+                <li>Fractions and decimals, synonyms and antonyms, fossils and rock layers, government, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 365 skills >></li>
+                <li><span>Language arts:</span> 233 skills >></li>
+                <li><span>Science:</span> 118 skills >></li>
+                <li><span>Social studies:</span> 111 skills >></li>
+            </ul>
+            <a href="/Level/F.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Fifth Grade</h2>
+            <ul class="skills-list">
+                <li>Multiplying fractions and decimals, idioms, prepositions, photosynthesis, molecules, economics, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 376 skills >></li>
+                <li><span>Language arts:</span> 198 skills >></li>
+                <li><span>Science:</span> 123 skills >></li>
+                <li><span>Social studies:</span> 111 skills >></li>
+            </ul>
+            <a href="/Level/G.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Sixth Grade</h2>
+            <ul class="skills-list">
+                <li>Ratios and percentages, variable expressions, Greek and Latin roots, genetics, ancient history, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 373 skills >></li>
+                <li><span>Language arts:</span> 187 skills >></li>
+                <li><span>Science:</span> 163 skills >></li>
+                <li><span>Social studies:</span> 161 skills >></li>
+            </ul>
+            <a href="/Level/H.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Seventh Grade</h2>
+            <ul class="skills-list">
+                <li>Proportional relationships, rational numbers, phrases and clauses, engineering design, world history, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 350 skills >></li>
+                <li><span>Language arts:</span> 171 skills >></li>
+                <li><span>Science:</span> 148 skills >></li>
+                <li><span>Social studies:</span> 210 skills >></li>
+            </ul>
+            <a href="/Level/I.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Eighth Grade</h2>
+            <ul class="skills-list">
+                <li>Linear functions, the Pythagorean theorem, active and passive voice, chemical formulas, civics, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Math:</span> 366 skills >></li>
+                <li><span>Language arts:</span> 375 skills >></li>
+                <li><span>Science:</span> 144 skills >></li>
+                <li><span>Social studies:</span> 154 skills >></li>
+            </ul>
+            <a href="/Level/J.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Ninth Grade</h2>
+            <ul class="skills-list">
+                <li>Quadratic equations, exponents, parallel language, figures of speech, semicolons, biomolecules, cell division, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Algebra 1:</span> 376 skills >></li>
+                <li><span>Language arts:</span> 158 skills >></li>
+                <li><span>Biology:</span> 39 skills >></li>
+            </ul>
+            <a href="/Level/K.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Tenth Grade</h2>
+            <ul class="skills-list">
+                <li>Congruent triangles, geometric constructions, colons, word patterns, audience and tone, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Geometry:</span> 300 skills >></li>
+                <li><span>Language arts:</span> 151 skills >></li>
+            </ul>
+            <a href="/Level/L.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Eleventh Grade</h2>
+            <ul class="skills-list">
+                <li>Trigonometric functions, logarithms, claims and supporting evidence, foundations of government, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Algebra 2:</span> 378 skills >></li>
+                <li><span>Language arts:</span> 137 skills >></li>
+                <li><span>Civics & Government:</span> 32 skills >></li>
+            </ul>
+            <a href="/Level/M.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Twelfth Grade</h2>
+            <ul class="skills-list">
+                <li>Complex numbers, derivatives, limits, domain-specific vocabulary, writing arguments, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Precalculus:</span> 303 skills >></li>
+                <li><span>Calculus:</span> 87 skills >></li>
+                <li><span>Language arts:</span> 137 skills >></li>
+            </ul>
+            <a href="/Level/N.html" class="btn-blue">Explore Skills</a>
+        </section>
+
+        <section class="level">
+            <h2 class="level-title">Spanish</h2>
+            <ul class="skills-list">
+                <li>Time expressions, adjectives to describe people, present tense of regular verbs, formality, and more.</li>
+            </ul>
+            <ul class="subject-list">
+                <li><span>Spanish:</span> 140 skills >></li>
+            </ul>
+            <a href="/Level/Spanish.html" class="btn-blue">Explore Skills</a>
+        </section>
+    </main>
+
+    <!-- Footer Section - Contains company information, links, and social media -->
+    <div id="footer"></div>
+</body>
+</html>

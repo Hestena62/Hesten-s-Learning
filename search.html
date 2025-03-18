@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+
+    <!-- Stylesheets -->
+    <link href="/CSS/bootstrap.min.css" rel="stylesheet">
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="/CSS/global style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Scripts -->
+    <script src="/JS/bootstrap.bundle.min.js"></script>
+    <script src="/JS/jspdf.umd.min.js"></script>
+    <script src="/JS/Active.js"></script>
+</head>
+
+<body>
+    <!-- Main Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/Images/large.ico" alt="Company Logo">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" aria-label="Go to Home">Home</a>
+            <a href="#" aria-label="Go to Learning">Learning</a>
+            <a href="/assessment.html" aria-label="Go to Assessment">Assessment</a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/default-profile.png" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html">Profile</a>
+                <button id="sign-out">Sign Out</button>
+            </div>
+        </div>
+    </header>
+    <script src="/JS/nav.js"></script>
+</head>
+
+<body>
+    <div class="search-container">
+        <h2>Search Results for: <span id="searchQuery"></span></h2>
+        <ul id="results"></ul>
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        function getQueryParameter(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function escapeHtml(text) {
+            const tagsToReplace = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '/': '&#x2F;',
+                '`': '&#x60;',
+                '=': '&#x3D;'
+            };
+            return text.replace(/[&<>"'/`=]/g, (tag) => tagsToReplace[tag] || tag);
+        }
+
+        function showResults(results) {
+            const resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = '';
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = '';
+
+            if (!results.length) {
+                errorMessageElement.textContent = 'No matches found.';
+                return;
+            }
+
+            results.forEach(item => {
+                const listItem = document.createElement('li');
+                const escapedContent = item.content ? escapeHtml(item.content) : '';
+                const contentSnippet = escapedContent.substring(0, 50) + '...';
+                listItem.innerHTML = `
+                    <a href="${item.url}">${item.title}</a>
+                    <br>
+                    ${contentSnippet}
+                `;
+                resultsElement.appendChild(listItem);
+            });
+        }
+
+        function searchContent(query) {
+            const pages = [
+                { title: 'Homepage', url: 'index.html', content: 'Welcome to our website!' },
+                { title: 'Grade 1 Math', url: '/Subjects/Grade1/Math/math.html', content: 'Grade 1 Mathematics - Learn numbers, basic addition and subtraction, shapes and measurements.' },
+                { title: 'Grade 1 English', url: '/Subjects/Grade1/English/english.html', content: 'Grade 1 English - Reading, writing, phonics, and vocabulary building.' },
+                { title: 'Grade 2 Math', url: '/Subjects/Grade2/Math/math.html', content: 'Grade 2 Mathematics - Advanced addition/subtraction, intro to multiplication.' },
+                { title: 'Grade 2 English', url: '/Subjects/Grade2/English/english.html', content: 'Grade 2 English - Reading comprehension, grammar, and writing skills.' },
+                { title: 'Grade 3 Math', url: '/Subjects/Grade3/Math/math.html', content: 'Grade 3 Mathematics - Multiplication, division, fractions introduction.' },
+                { title: 'Grade 3 English', url: '/Subjects/Grade3/English/english.html', content: 'Grade 3 English - Advanced reading, writing essays, and vocabulary.' },
+                { title: 'Grade 4 Math', url: '/Subjects/Grade4/Math/math.html', content: 'Grade 4 Mathematics - Fractions, decimals, and basic geometry.' },
+                { title: 'Grade 4 English', url: '/Subjects/Grade4/English/english.html', content: 'Grade 4 English - Literature analysis, writing compositions, advanced grammar.' },
+            { title: 'Grade 5 Math', url: '/Subjects/Grade5/Math/math.html', content: 'Grade 5 Mathematics - Advanced fractions, decimals, geometry, and pre-algebra concepts.' },
+            { title: 'Grade 5 English', url: '/Subjects/Grade5/English/english.html', content: 'Grade 5 English - Advanced literature analysis, research writing, complex grammar.' },
+            { title: 'Grade 6 Math', url: '/Subjects/Grade6/Math/math.html', content: 'Grade 6 Mathematics - Introduction to algebra, statistics, and mathematical reasoning.' },
+            { title: 'Grade 6 English', url: '/Subjects/Grade6/English/english.html', content: 'Grade 6 English - Critical reading, argumentative writing, and advanced composition.' },
+            { title: 'Grade 7 Math', url: '/Subjects/Grade7/Math/math.html', content: 'Grade 7 Mathematics - Pre-algebra, geometry, statistics, and probability.' },
+            { title: 'Grade 7 English', url: '/Subjects/Grade7/English/english.html', content: 'Grade 7 English - Literary analysis, research papers, and complex grammar concepts.' },
+            { title: 'Grade 8 Math', url: '/Subjects/Grade8/Math/math.html', content: 'Grade 8 Mathematics - Algebra 1, advanced geometry, and mathematical problem solving.' },
+            { title: 'Grade 8 English', url: '/Subjects/Grade8/English/english.html', content: 'Grade 8 English - Advanced literature study, analytical writing, and comprehensive grammar.' },
+            { title: 'Grade 9 Math', url: '/Subjects/Grade9/Math/math.html', content: 'Grade 9 Mathematics - Algebra 1, geometry, trigonometry fundamentals.' },
+            { title: 'Grade 9 English', url: '/Subjects/Grade9/English/english.html', content: 'Grade 9 English - World literature, composition, advanced writing skills.' },
+            { title: 'Grade 10 Math', url: '/Subjects/Grade10/Math/math.html', content: 'Grade 10 Mathematics - Algebra 2, advanced geometry, and introduction to calculus.' },
+            { title: 'Grade 10 English', url: '/Subjects/Grade10/English/english.html', content: 'Grade 10 English - American literature, research methods, critical analysis.' },
+            { title: 'Grade 11 Math', url: '/Subjects/Grade11/Math/math.html', content: 'Grade 11 Mathematics - Pre-calculus, advanced algebra, and statistics.' },
+            { title: 'Grade 11 English', url: '/Subjects/Grade11/English/english.html', content: 'Grade 11 English - British literature, advanced composition, SAT preparation.' },
+            { title: 'Grade 12 Math', url: '/Subjects/Grade12/Math/math.html', content: 'Grade 12 Mathematics - Calculus, advanced statistics, college preparation.' },
+            { title: 'Grade 12 English', url: '/Subjects/Grade12/English/english.html', content: 'Grade 12 English - Contemporary literature, college-level writing, research papers.' }];
+
+            const results = pages.filter(page =>
+                page.title.toLowerCase().includes(query.toLowerCase()) ||
+                page.content.toLowerCase().includes(query.toLowerCase())
+            );
+
+            showResults(results);
+        }
+
+        // Initialize search when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const query = getQueryParameter('q') || '';
+            document.getElementById('searchQuery').textContent = query;
+            searchContent(query);
+        });
+    </script>
+</body>
+
+</html>

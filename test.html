@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3rd Grade Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .progress-container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        #progressBar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progressBar div {
+            height: 10px;
+            width: 0%;
+            background-color: #4285f4;
+            transition: width 0.3s ease;
+        }
+
+        button {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #357ae8;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        p,
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        .button-group {
+            text-align: right;
+        }
+    </style>
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <h1>3rd Grade Test</h1>
+    <h2>[Subject Name]</h2>
+    <div class="progress-container">
+        <div id="progressBar">
+            <div></div>
+        </div>
+    </div>
+
+    <form id="testForm">
+        <div class="section active" id="section1">
+            <ol>
+                <li>
+                    <h3>Question 1:</h3>
+                    <p>...</p>
+                    <ol type="a">
+                        <li><input type="radio" name="q1" value="a" required> Option A</li>
+                        <li><input type="radio" name="q1" value="b"> Option B</li>
+                        <li><input type="radio" name="q1" value="c"> Option C</li>
+                    </ol>
+                </li>
+            </ol>
+            <div class="button-group">
+                <button type="button" class="nextBtn" data-next="section2">Next</button>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <ol start="2">
+                <li>
+                    <h3>Question 2:</h3>
+                    <p>...</p>
+                    <input type="text" size="30" name="q2" required>
+                </li>
+            </ol>
+            <div class="button-group">
+                <button type="button" class="prevBtn" data-prev="section1">Previous</button>
+                <button type="button" class="nextBtn" data-next="section3">Next</button>
+            </div>
+        </div>
+
+        <div class="section" id="section3">
+            <ol start="3">
+                <li>
+                    <h3>Question 3:</h3>
+                    <p>Select the topics you are interested in:</p>
+                    <input type="checkbox" name="q3" value="Topic 1"> Topic 1<br>
+                    <input type="checkbox" name="q3" value="Topic 2"> Topic 2<br>
+                    <input type="checkbox" name="q3" value="Topic 3"> Topic 3<br>
+                </li>
+            </ol>
+            <div class="button-group">
+                <button type="button" class="prevBtn" data-prev="section2">Previous</button>
+                <button type="button" id="submitBtn">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        "use strict";
+        const progressBar = document.querySelector('#progressBar div');
+        const sections = document.querySelectorAll('.section');
+        const totalSections = sections.length;
+
+        function updateProgressBar(currentSectionIndex) {
+            const progress = ((currentSectionIndex + 1) / totalSections) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function validateSection(currentSection) {
+            const inputs = currentSection.querySelectorAll('input[required]');
+            for (let input of inputs) {
+                if (!input.value) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.querySelectorAll('.nextBtn').forEach(button => {
+            button.addEventListener('click', () => {
+                const currentSection = button.closest('.section');
+                if (!validateSection(currentSection)) {
+                    alert('Please complete all required fields before proceeding.');
+                    return;
+                }
+                const nextSectionId = button.getAttribute('data-next');
+                const nextSection = document.getElementById(nextSectionId);
+
+                currentSection.classList.remove('active');
+                nextSection.classList.add('active');
+
+                const currentIndex = Array.from(sections).indexOf(nextSection);
+                updateProgressBar(currentIndex);
+            });
+        });
+
+        document.querySelectorAll('.prevBtn').forEach(button => {
+            button.addEventListener('click', () => {
+                const currentSection = button.closest('.section');
+                const prevSectionId = button.getAttribute('data-prev');
+                const prevSection = document.getElementById(prevSectionId);
+
+                currentSection.classList.remove('active');
+                prevSection.classList.add('active');
+
+                const currentIndex = Array.from(sections).indexOf(prevSection);
+                updateProgressBar(currentIndex);
+            });
+        });
+
+        // Initialize progress bar
+        updateProgressBar(0);
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const formData = new FormData(document.getElementById('testForm'));
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Define correct answers
+            const correctAnswers = {
+                q1: 'a',  // replace with actual correct answer
+                q2: 'your_answer',  // replace with actual correct answer
+                q3: ['Topic 1', 'Topic 2']  // replace with actual correct answers
+            };
+
+            doc.text('3rd Grade Test Results', 10, 10);
+            let yPosition = 20;
+
+            formData.forEach((value, key) => {
+                // Check if answer is correct
+                let isCorrect = false;
+                if (key === 'q3') {
+                    // Special handling for checkboxes (multiple answers)
+                    const selectedValues = formData.getAll(key);
+                    isCorrect = JSON.stringify(selectedValues.sort()) === JSON.stringify(correctAnswers[key].sort());
+                } else {
+                    isCorrect = value === correctAnswers[key];
+                }
+
+                // Set text color based on correctness
+                doc.setTextColor(...(isCorrect ? [0, 128, 0] : [255, 0, 0])); // green if correct, red if wrong
+                doc.text(`${key}: ${value}`, 10, yPosition);
+                yPosition += 10;
+            });
+
+            doc.save('test_results.pdf');
+        });
+
+    </script>
+</body>
+
+</html>

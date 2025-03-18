@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Core State Standards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            line-height: 1.6;
+        }
+        .standard-section {
+            margin-bottom: 2rem;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        h2 {
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Common Core State Standards (CCSS)</h1>
+    
+    <div class="standard-section">
+        <h2>English Language Arts</h2>
+        <ul>
+            <li>Reading: Literature</li>
+            <li>Reading: Informational Text</li>
+            <li>Writing</li>
+            <li>Speaking and Listening</li>
+            <li>Language</li>
+        </ul>
+    </div>
+
+    <div class="standard-section">
+        <h2>Mathematics</h2>
+        <ul>
+            <li>Counting and Cardinality (K)</li>
+            <li>Operations and Algebraic Thinking</li>
+            <li>Number and Operations in Base Ten</li>
+            <li>Number and Operations—Fractions</li>
+            <li>Measurement and Data</li>
+            <li>Geometry</li>
+        </ul>
+    </div>
+
+    <div class="standard-section">
+        <h2>Grade Levels</h2>
+        <ul>
+            <li>Kindergarten</li>
+            <li>Grade 1</li>
+            <li>Grade 2</li>
+            <li>Grade 3</li>
+            <li>Grade 4</li>
+            <li>Grade 5</li>
+            <li>Grade 6</li>
+            <li>Grade 7</li>
+            <li>Grade 8</li>
+            <li>High School</li>
+        </ul>
+    </div>
+
+    <script>
+        // Helper function to convert number to Roman numeral
+        function toRoman(num) {
+            const romanNumerals = [
+                { value: 10, numeral: 'X' },
+                { value: 9, numeral: 'IX' },
+                { value: 5, numeral: 'V' },
+                { value: 4, numeral: 'IV' },
+                { value: 1, numeral: 'I' }
+            ];
+
+            let result = '';
+            for (let i = 0; i < romanNumerals.length; i++) {
+                while (num >= romanNumerals[i].value) {
+                    result += romanNumerals[i].numeral;
+                    num -= romanNumerals[i].value;
+                }
+            }
+            return result;
+        }
+
+        // Function to generate version changes with specific reasons
+        function generateVersionNumber() {
+            let version = localStorage.getItem('version_number');
+            let previousVersion = version;
+
+            if (!version) {
+                version = '1.1';
+                localStorage.setItem('version_number', version);
+            } else {
+                let [major, minor] = version.split('.').map(Number);
+                minor++;
+
+                if (minor > 9) {
+                    major++;
+                    minor = 1;
+                }
+
+                version = major + '.' + minor;
+                localStorage.setItem('version_number', version);
+            }
+
+            // Log the change with specific details
+            if (previousVersion) {
+                const changes = [
+                    "Updated assessment engine for improved accuracy",
+                    "Enhanced user interface responsiveness",
+                    "Added new educational content modules",
+                    "Improved accessibility features",
+                    "Optimized performance and loading times",
+                    "Enhanced security measures",
+                    "Updated question bank with new content",
+                    "Improved mobile compatibility",
+                    "Added new learning analytics features",
+                    "Enhanced parent/teacher reporting tools"
+                ];
+
+                // Select a random subset of changes (1-3 items)
+                const numChanges = Math.floor(Math.random() * 3) + 1;
+                const selectedChanges = shuffleArray(changes).slice(0, numChanges);
+
+                logVersionChange(previousVersion, version, selectedChanges);
+            }
+
+            // Convert to Roman numerals for display
+            let [major, minor] = version.split('.').map(Number);
+            return 'v' + toRoman(major) + '.' + toRoman(minor);
+        }
+
+        // Helper function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to log version changes with specific details
+        function logVersionChange(oldVersion, newVersion, changes) {
+            try {
+                let versionChanges = JSON.parse(localStorage.getItem('version_changes') || '[]');
+
+                const change = {
+                    date: new Date().toISOString(),
+                    oldVersion,
+                    newVersion,
+                    title: `Update ${newVersion}`,
+                    description: changes.join('\n• '),
+                    changes: changes
+                };
+
+                versionChanges.unshift(change);
+                localStorage.setItem('version_changes', JSON.stringify(versionChanges));
+            } catch (error) {
+                console.error('Error logging version change:', error);
+            }
+        }
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Set the version number in the footer
+                const versionElement = document.getElementById('version');
+                if (versionElement) {
+                    const versionLink = document.createElement('a');
+                    versionLink.href = '/changelog.html';
+                    versionLink.innerText = generateVersionNumber();
+                    versionLink.title = 'View Changelog';
+                    versionElement.appendChild(versionLink);
+                }
+
+                // Update changelog container if on changelog page
+                const changelogContainer = document.getElementById('changelog-container');
+                if (changelogContainer) {
+                    const changes = JSON.parse(localStorage.getItem('version_changes') || '[]');
+                    if (changes.length > 0) {
+                        changelogContainer.innerHTML = changes.map(change => `
+                            <div class="change-entry">
+                                <h3>${change.title}</h3>
+                                <p><small>${new Date(change.date).toLocaleDateString()}</small></p>
+                                <p>• ${change.changes.join('<br>• ')}</p>
+                            </div>
+                        `).join('');
+                    } else {
+                        changelogContainer.innerHTML = '<p>No changes logged yet.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating version display:', error);
+            }
+        });
+    </script>
+    
+</body>
+</html>

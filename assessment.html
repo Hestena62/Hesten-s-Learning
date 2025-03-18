@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+    
+    <!-- Stylesheets -->
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="/CSS/main nav.css">
+    <link rel="stylesheet" href="/CSS/global style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">    
+    
+    <!-- Scripts -->
+<script src="/JS/jspdf.umd.min.js"></script>
+<script src="/JS/Active.js"></script>
+<script src="/JS/nav.js"></script>
+<script src="/JS/footer.js"></script>
+
+
+
+<style>
+  
+        /* ========================================
+           Global Base Styles 
+           ======================================== */
+            body {
+                user-select: none;
+                font-family: 'OpenDyslexic';
+                margin: 0;
+                padding: 0;
+                color: #000000;
+                background-color: #4478ae;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+        /* Previous styles remain the same, but update/add these nav-related styles */
+
+
+        /* Button Styling */
+        .btn-blue {
+        background-color: #2e73a1;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-blue:hover {
+        background-color: #255a85;
+        }
+
+       /* ========================================
+           Main Content Area
+           ======================================== */
+            .container,
+            .main-content {
+                color: #ffffff;
+                background-color: #4478ae;
+            }
+
+        .container{
+            flex-direction: column;
+            
+        }
+
+
+        .level {
+            width: 100%;
+             background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        /* Hide elements by default */
+        .hidden {
+        display: none;
+        }
+
+        /* Focus styles for better accessibility */
+        a:focus,
+        button:focus {
+        outline: 2px solid #2e73a1;
+        }
+
+       
+
+        .progress-bar {
+        height: 30px;
+        }
+
+        .badge {
+        font-size: 1rem;
+        }
+
+            .card,
+            .form-select {
+                 background: linear-gradient(135deg, #34495e, #2c3e50);
+                 color: white;
+            }
+            
+        /* All other existing styles remain the same */
+</style>
+</head>
+
+<body>
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html" aria-label="Go to Home Page"></a>
+            <img src="/Images/large.ico" alt="Company Logo">
+            <span class="logo-text"></span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="active" aria-label="Go to Home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" aria-label="Go to Learning">
+                <i class="fas fa-book"></i> Learning
+            </a>
+            <a href="/assessment.html" aria-label="Go to Assessment">
+                <i class="fas fa-tasks"></i> Assessment
+            </a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET" class="search-form">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <hr class="dropdown-divider">
+                <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+        </header>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  
+
+    <!-- Dashboard Section - Main container for user dashboard -->
+    <header class="container py-4">
+        <h1 class="text-center">Learning Dashboard</h1>
+    </header>
+
+    <!-- Main section containing user profile and progress tracking -->
+    <section class="container mb-5">
+        <div class="row">
+            <!-- User Profile Card - Contains user image, name and grade selection -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <!-- Grade selection dropdown -->
+                        <p class="card-text">Grade:
+                            <select id="user-grade" class="form-select" onchange="updateGrade()" style="background: #2c3e50;">
+                                <option>Pre-K</option>
+                                <option>First Grade</option>
+                                <option>Second Grade</option>
+                                <option>Third Grade</option>
+                                <option>Fourth Grade</option>
+                                <option>Fifth Grade</option>
+                                <option>Sixth Grade</option>
+                                <option>Seventh Grade</option>
+                                <option>Eighth Grade</option>
+                                <option>Ninth Grade</option>
+                                <option>Tenth Grade</option>
+                                <option>Eleventh Grade</option>
+                                <option>Twelfth Grade</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+                
+<!-- Grade Management Script -->
+            <script>
+                // Load saved grade from localStorage on page initialization
+                document.addEventListener('DOMContentLoaded', () => {
+                    const savedGrade = localStorage.getItem('user-grade');
+                    if (savedGrade) {
+                        document.getElementById('user-grade').value = savedGrade;
+                    }
+                });
+
+                // Handle grade updates and storage
+                function updateGrade() {
+                    const grade = document.getElementById('user-grade').value;
+                    localStorage.setItem('user-grade', grade);
+                    alert('Grade updated to: ' + grade);
+                }
+            </script>
+            
+            <!-- Progress Tracker Component - Shows overall learning progress -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Progress Tracker</h5>
+                        <!-- Progress bar showing completion percentage -->
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 70%;"
+                                aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Card - Displays user's latest interactions -->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activity</h5>
+                        <ul>
+                            <!-- Dynamic list of recent activities -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Activity Tracking Script -->
+                <script>
+                    // Initialize event listeners when DOM is loaded
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const skillsContainer = document.getElementById('skills-container');
+                        const recentActivityList = document.querySelector('.card-body ul');
+
+                        // Add click event listener to skills container
+                        skillsContainer.addEventListener('click', (event) => {
+                            if (event.target.tagName === 'LI') {
+                                const skillClicked = event.target.textContent;
+
+                                // Create and append new activity entry
+                                const newActivity = document.createElement('li');
+                                newActivity.textContent = `Clicked on skill: ${skillClicked}`;
+                                recentActivityList.appendChild(newActivity);
+                            }
+                        });
+                    });
+                </script>
+
+                <!-- Learning Plan Card - Shows recommended next steps -->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Personalized Learning Plan</h5>
+                        <p>Next Lesson: "Algebra Fundamentals"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subject/Skill Selection Section - Main learning content selector -->
+    <section class="container mb-5">
+        <h2 class="text-center mb-4">Subject/Skill Selection</h2>
+
+        <!-- Grade and Topic Selection Row -->
+        <div class="row">
+            <!-- Skill Level Dropdown -->
+            <div class="col-md-6">
+                <label for="skill-level" class="form-label">Skill Level</label>
+                <select id="skill-level" class="form-select" onchange="populateSkills()" style="background: #2c3e50;">
+                    <!-- Grade level options -->
+                    <option>Pre-K</option>
+                    <option>First Grade</option>
+                    <option>Second Grade</option>
+                    <option>Third Grade</option>
+                    <option>Fourth Grade</option>
+                    <option>Fifth Grade</option>
+                    <option>Sixth Grade</option>
+                    <option>Seventh Grade</option>
+                    <option>Eighth Grade</option>
+                    <option>Ninth Grade</option>
+                    <option>Tenth Grade</option>
+                    <option>Eleventh Grade</option>
+                    <option>Twelfth Grade</option>
+                </select>
+            </div>
+            <!-- Topic Selection Dropdown -->
+            <div class="col-md-6">
+                <label for="topic" class="form-label">Topic</label>
+                <select id="topic" class="form-select" onchange="populateSkills()" style="background: #2c3e50;">
+                    <option selected>All Topics</option>
+                    <option>Math</option>
+                    <option>Science</option>
+                    <option>Social Studies</option>
+                    <option>Language Arts</option>
+                </select>
+            </div>
+        </div>
+        <!-- Container for dynamically loaded skills -->
+        <div id="skills-container" class="mt-4">
+            <!-- Skills populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Practice Questions Section - Main container for assessment questions -->
+    <section class="container mb-5">
+        <h2 class="text-center mb-4">Practice Questions</h2>
+        <!-- Questions Container Card -->
+        <div id="questions-container" class="card">
+            <div class="card-body">
+                <!-- Dynamic question display area -->
+                <div class="question" id="question">Loading question...</div>
+
+                <!-- Answer options container -->
+                <div class="options" id="options"></div>
+
+                <!-- Feedback display area for correct/incorrect answers -->
+                <div class="feedback" id="feedback"></div>
+
+                <!-- Help buttons container -->
+                <div class="help-buttons mt-3">
+                    <!-- Hint button with onclick event -->
+                    <button class="btn btn-info" id="hintButton" onclick="showHint()">Show Hint</button>
+
+                    <!-- Explanation button with onclick event -->
+                    <button class="btn btn-secondary" id="explainButton" onclick="showExplanation()">Show
+                        Explanation</button>
+                </div>
+
+                <!-- Dynamic hint text container -->
+                <div id="hintText" class="alert alert-info mt-2" style="display: none;"></div>
+
+                <!-- Dynamic explanation text container -->
+                <div id="explanationText" class="alert alert-secondary mt-2" style="display: none;"></div>
+
+                <!-- PDF download button -->
+                <button class="btn btn-primary mb-3" id="downloadAnswers">
+                    Download Answers as PDF
+                </button>
+<script src="/JS/questionGenerator.js"></script>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Footer Section - Contains company information, links, and social media -->
+    <footer>
+        <div class="footer-content">
+            <!-- Company Information -->
+            <div class="footer-section">
+                <h3>About Hesten's Learning</h3>
+                <p>Empowering students with learning disabilities through personalized learning experiences. <a href="/about.html">Learn more.</a></p>
+            </div>
+    
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                    <li><a href="/assessment.html"><i class="fas fa-tasks"></i> Assessment</a></li>
+                    <li><a href="/standards.html"><i class="fas fa-chart-line"></i> Standards</a></li>
+                    <li><a href="/help.html"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                </ul>
+            </div>
+    
+            <!-- Support & Resources -->
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="/students.html"><i class="fas fa-home"></i> For Students</a></li>
+                    <li><a href="/parents.html"><i class="fas fa-users"></i> For Parents</a></li>
+                    <li><a href="/teachers.html"><i class="fas fa-chalkboard-teacher"></i> For Teachers</a></li>
+                </ul>
+            </div>
+    
+            <!-- Legal & Language -->
+            <div class="footer-section">
+                <h3>Legal & Settings</h3>
+                <ul>
+                    <li><a href="/privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="/terms.html"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
+                    <li><a href="/accessibility.html"><i class="fas fa-universal-access"></i> Accessibility</a></li>
+                    <li><a href="/about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p class="copyright">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="made-with">
+                Made with <i class="fas fa-heart"></i> for education
+            </p>
+        </div>
+    </footer>
+    </body>
+    
+    </html>

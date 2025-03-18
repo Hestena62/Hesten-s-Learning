@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="/JS/nav.js"></script>
+    <script src="/JS/profile.js"></script>
+
+    <!-- Stylesheets -->
+    <link href="/CSS/opendyslexic.css" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="/CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Main Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/index.html" aria-label="Go to Home Page">
+                <img src="/Images/large.ico" alt="Company Logo">
+                <span class="logo-text"></span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="active" aria-label="Go to Home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" id="learning-link" aria-label="Go to Learning">
+                <i class="fas fa-book"></i> Learning
+            </a>
+            <a href="/assessment.html" aria-label="Go to Assessment">
+                <i class="fas fa-tasks"></i> Assessment
+            </a>
+        </nav>
+        <div class="search">
+            <form action="/search.html" method="GET" class="search-form">
+                <i class="fas fa-search search-icon" aria-label="Toggle search"></i>
+                <div class="search-bar">
+                    <input type="text" name="q" placeholder="Search courses..." aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header" id="profile-header">
+                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="profile-pic">
+                <span id="profile-name">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="/profile.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="/help.html"><i class="fas fa-question-circle"></i> Help</a>
+                <hr class="dropdown-divider">
+                <button id="sign-out"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+    </header>
+        <!-- Dashboard Section - Main container for user dashboard -->
+
+        <h1 class="text-center"></h1>
+        <br>
+        <h1 class="text-center"></h1>
+        <h1 class="text-center"></h1>
+
+        <div class="container">
+            <h2>User Profile</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+
+
+    <div class="form-group">
+        <label for="parent-email">Parent Email:</label>
+        <input type="email" id="parent-email" placeholder="This is used to send your reported progress to your parent">
+    </div>
+
+            <div class="form-group">
+                <label for="user-grade">Grade Level:</label>
+                <select id="user-grade">
+                    <option value="">Select grade</option>
+                    <option value="First Grade">Grade 1</option>
+                    <option value="Second Grade">Grade 2</option>
+                    <option value="Third Grade">Grade 3</option>
+                    <option value="Fourth Grade">Grade 4</option>
+                    <option value="Fifth Grade">Grade 5</option>
+                    <option value="Sixth Grade">Grade 6</option>
+                    <option value="Seventh Grade">Grade 7</option>
+                    <option value="Eighth Grade">Grade 8</option>
+                    <option value="Ninth Grade">Grade 9</option>
+                    <option value="Tenth Grade">Grade 10</option>
+                    <option value="Eleventh Grade">Grade 11</option>
+                    <option value="Twelfth Grade">Grade 12</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Skills to Work On:</label>
+                <div class="skills">
+                    <label><input type="checkbox" value="Math"> Math</label>
+                    <label><input type="checkbox" value="Science"> Science</label>
+                    <label><input type="checkbox" value="English"> English</label>
+                    <label><input type="checkbox" value="History"> History</label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <label>Profile Picture:</label>
+                <div class="profile-options" style="display: flex; gap: 10px; justify-content: center;">
+                    <img src="/Images/profile1.png" alt="Profile 1" class="profile-option">
+                    <img src="/Images/profile2.png" alt="Profile 2" class="profile-option">
+                    <img src="/Images/profile3.png" alt="Profile 3" class="profile-option">
+                    <img src="/Images/profile4.png" alt="Profile 4" class="profile-option">
+                </div>
+            </div>
+            
+           
+ <!-- Cloudflare Turnstile CAPTCHA -->
+ <div class="cf-turnstile" data-sitekey="0x4AAAAAAA-WlXYhoqbAHxY7"></div>
+
+            <button id="save-btn">Save Profile</button>
+        </div>
+        
+
+        <!-- Footer Section - Contains copyright, legal links and site navigation -->
+        <div id="footer"></div>
+    </body>
+
+</html>
