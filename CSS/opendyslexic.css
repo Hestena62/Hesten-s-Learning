@@ -1,0 +1,69 @@
+/* copyed from https://fonts.cdnfonts.com/css/opendyslexic */
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    font-style: normal;
+    font-weight: 400;
+    src: local('OpenDyslexic'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexic';
+    font-style: italic;
+    font-weight: 400;
+    src: local('OpenDyslexic'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic-Italic.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexic';
+    font-style: normal;
+    font-weight: 700;
+    src: local('OpenDyslexic'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic-Bold.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexic';
+    font-style: italic;
+    font-weight: 700;
+    src: local('OpenDyslexic'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic-BoldItalic.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexic3';
+    font-style: normal;
+    font-weight: 400;
+    src: local('OpenDyslexic3'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic3-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexicAlta';
+    font-style: normal;
+    font-weight: 400;
+    src: local('OpenDyslexicAlta'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexicAlta-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexicMono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('OpenDyslexicMono'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexicMono-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexicAlta';
+    font-style: italic;
+    font-weight: 400;
+    src: local('OpenDyslexicAlta'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexicAlta-Italic.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexic3';
+    font-style: normal;
+    font-weight: 700;
+    src: local('OpenDyslexic3'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexic3-Bold.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexicAlta';
+    font-style: normal;
+    font-weight: 700;
+    src: local('OpenDyslexicAlta'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexicAlta-Bold.woff') format('woff');
+}
+@font-face {
+    font-family: 'OpenDyslexicAlta';
+    font-style: italic;
+    font-weight: 700;
+    src: local('OpenDyslexicAlta'), url('https://fonts.cdnfonts.com/s/19808/OpenDyslexicAlta-BoldItalic.woff') format('woff');
+}
+

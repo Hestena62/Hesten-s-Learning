@@ -1,0 +1,18 @@
+        body {
+            user-select: none;
+            font-family: 'OpenDyslexic';
+            margin: 0;
+            padding: 20px;
+            background-color: #9acfe4;
+        }
+
+        .search-results {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results h2 {
+            margin-top: 0;
+        }

@@ -1,0 +1,198 @@
+ /* ========================================
+           Navigation Bar Components
+           ======================================== */
+      /* Updated Nav Bar Styles */
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(to right, #1a2a3a, #2c3e50, #1a2a3a);
+        padding: 15px 30px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    
+    
+    /* Improved Nav Links */
+    .nav-links {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+    }
+    
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        background-color: #34495e;
+        text-decoration: none;
+    }
+    
+    .nav-links a.active {
+        background-color: #3498db;
+        color: white;
+    }
+    
+    /* Enhanced Logo */
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .logo img {
+        height: 45px;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo img:hover {
+        transform: scale(1.05);
+    }
+    
+    
+            /* ========================================
+               Search Functionality
+               ======================================== */
+            .search {
+                position: relative;
+                display: inline-block;
+            }
+    
+            .search-icon {
+                cursor: pointer;
+                font-size: 20px;
+                padding: 10px;
+                color: #fff;
+            }
+    
+            .search-bar {
+                display: none;
+                position: absolute;
+                top: 40px;
+                left: 250%;
+                transform: translateX(-50%);
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                width: 250px;
+                box-sizing: border-box;
+                z-index: 10;
+            }
+    
+            .search-bar input {
+                border: 1px solid #ccc;
+                padding: 5px;
+                border-radius: 4px;
+                width: 100%;
+            }
+    
+            .search-bar.active {
+                display: block;
+            }
+    
+            /* ========================================
+               Profile Dropdown Menu
+               ======================================== */
+            .profile-dropdown {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+            }
+    
+           .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff; /* Add this line to make text white */
+    }
+    
+    
+            .profile-pic {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+    
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 45px;
+              background-color: #1a2a3a;
+                border: 1px solid #34495e;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+                min-width: 180px;
+                padding: 8px 0;
+            }
+    
+            /* Dropdown Menu Items */
+            .dropdown-menu a,
+            .dropdown-menu button {
+                display: block;
+                padding: 12px 20px;
+                text-align: left;
+                text-decoration: none;
+                color: #fff;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background-color 0.2s;
+            }
+    
+            .dropdown-menu a:hover,
+            .dropdown-menu button:hover {
+                background-color: #34495e;
+                color: #fff;
+            }
+    
+            .dropdown-menu a:not(:last-child),
+            .dropdown-menu button:not(:last-child) {
+                border-bottom: 1px solid #34495e;
+            }
+    
+    
+            /* ========================================
+               if needed for an anouncment
+               ======================================== */
+            .notice-banner {
+                background-color: #f8d7da;
+                color: #721c24;
+                padding: 10px;
+                text-align: center;
+                width: 100%;
+                overflow: hidden;
+                /* Ensures text stays within the banner */
+                position: relative;
+                white-space: nowrap;
+                /* Prevents text from wrapping */
+            }
+        
+            @keyframes marquee {
+                from {
+                    transform: translateX(100%);
+                }
+        
+                to {
+                    transform: translateX(-100%);
+                }
+            }

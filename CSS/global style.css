@@ -1,0 +1,195 @@
+ .notice-banner {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        /* Ensures text stays within the banner */
+        position: relative;
+        white-space: nowrap;
+        /* Prevents text from wrapping */
+    }
+
+    .dark-mode {
+        background-color: #222;
+        color: #fff;
+    }
+    .high-contrast {
+        background-color: #000;
+        color: #FFD700;
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(100%);
+        }
+
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+     /* ========================================
+           Global Base Styles 
+           ======================================== */
+        body {
+            user-select: none;
+            font-family: 'OpenDyslexic';
+            margin: 0;
+            padding: 0;
+            color: #000000;
+        background-color: #1a2a3a;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ========================================
+           Main Content Area
+           ======================================== */
+        .container,
+        .main-content {
+            color: #ffffff;
+            background-color: #1a2a3a;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+
+        /* Level Cards */
+       .level {
+    flex: 1 1 calc(30% - 1rem);
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    user-select: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: #fff;
+}
+
+.level:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+}
+
+        .level-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Skills and Subjects Lists */
+        .skills-list {
+            margin-bottom: 15px;
+        }
+
+        .skills-list li {
+            margin-bottom: 5px;
+        }
+
+        .subject-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .subject-list li {
+            margin-bottom: 5px;
+        }
+
+        .subject-list li span {
+            font-weight: bold;
+        }
+
+        /* ========================================
+           Buttons and Interactive Elements
+           ======================================== */
+        .btn-blue {
+            background-color: #2e73a1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-blue:hover {
+            background-color: #255a85;
+        }
+
+        /* ========================================
+           Footer Styling
+           ======================================== */
+        footer {
+            user-select: none;
+        background-color: #1a2a3a;
+            color: whitesmoke;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #34495e;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            user-select: none;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            user-select: none;
+            text-decoration: underline;
+            color: white;
+        }
+
+          /* Footer Styles */
+    
+      .footer-content {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .footer-section {
+        flex: 1;
+        min-width: 250px;
+        margin: 10px;
+    }
+
+    .footer-section h3 {
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 8px;
+    }
+
+    .social-links a {
+        margin-right: 15px;
+        font-size: 20px;
+    }
+
+    .social-links a:hover {
+        color: #3498db;
+    }
+
+    .copyright {
+        margin-top: 15px;
+        font-size: 0.9em;
+    }
