@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Foundations</title>
+
+    <!-- Tailwind CSS Configuration (MUST come BEFORE Tailwind CDN) -->
+    <script>
+        // Explicitly define window.tailwind.config for robust CDN integration
+        window.tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'], // Using Inter font
+                        },
+                        colors: {
+                            primary: '#4F46E5', // A modern purple
+                            secondary: '#6366F1', // A slightly lighter purple
+                            accent: '#818CF8', // A very light purple
+                            dark: '#1F2937',   // Dark gray for backgrounds
+                            light: '#F3F4F6',  // Light gray for backgrounds
+                            grayish: '#6B7280', // A lighter gray for text
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Favicon -->
+    <link rel="icon" href="https://placehold.co/16x16/000000/FFFFFF?text=HL" onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';" />
+    <!-- Google Fonts for Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Disable text selection */
+        body {
+            user-select: none;
+            font-family: 'Inter', sans-serif; /* Apply Inter font globally */
+        }
+
+        /* Custom styles for mobile menu slide-in/out */
+        @media (max-width: 1023px) { /* Equivalent to lg breakpoint */
+            #nav-content.mobile-menu-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px; /* Height of the header */
+                left: 0;
+                width: 100%;
+                background-color: #1F2937; /* Same as header background */
+                padding: 1rem;
+                z-index: 20;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: slideDown .3s ease-out forwards;
+            }
+
+            #nav-content:not(.mobile-menu-active) {
+                animation: slideUp .3s ease-out forwards;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideUp {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); display: none; }
+            }
+
+            /* Make search input full width in mobile menu */
+            #nav-content .search-input {
+                width: 100% !important;
+                border-radius: 0.5rem !important;
+                padding-left: 1rem !important;
+                margin-top: 1rem;
+                background: white !important;
+                border: 1px solid #ccc !important;
+                color: #1F2937 !important;
+            }
+            #nav-content .search-input + .fa-search { /* Targeting the search icon next to the input */
+                left: auto;
+                right: 1rem;
+                color: #1F2937 !important;
+            }
+
+            /* Adjust profile dropdown for mobile */
+            #profile-dropdown {
+                position: static !important; /* Remove absolute positioning */
+                width: 100% !important;
+                box-shadow: none !important;
+                border-top: 1px solid #e5e7eb; /* Add a separator */
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+        }
+
+        /* Custom styles for tabs */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Updated active tab styling */
+        .sub-nav .tab-button.active {
+            background-color: transparent; /* Remove background highlight */
+            color: #4F46E5; /* Primary color for active text/icon */
+            font-weight: 700; /* Make text bold */
+            border-bottom: 2px solid #4F46E5; /* Subtle underline */
+            /* Remove shadow and transform */
+            box-shadow: none;
+            transform: none;
+        }
+        /* Ensure icons in active tabs are primary color */
+        .sub-nav .tab-button.active .tab-icon {
+            color: #4F46E5;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Announcement Banner -->
+    <div id="announcement-banner" class="bg-gradient-to-r from-primary to-secondary text-white text-center p-3 text-sm relative">
+        <div class="container mx-auto flex items-center justify-center">
+            <i class="fas fa-bullhorn mr-2"></i>
+            <span>New features and improvements coming soon! Stay tuned for exciting updates!</span>
+            <button id="close-announcement" class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-200 focus:outline-none" aria-label="Close announcement">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="bg-dark shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
+            <!-- Logo and brand name -->
+            <a class="flex items-center flex-shrink-0 text-white mr-6" href="/index.html">
+                <img src="https://placehold.co/32x32/818CF8/FFFFFF?text=HL" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
+                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
+                <span class="font-semibold text-xl tracking-tight">Hesten's Learning</span>
+            </a>
+
+            <!-- Mobile menu button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-primary">
+                    <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z"/></svg>
+                </button>
+            </div>
+
+            <!-- Navigation links, search, and profile -->
+            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+                <div class="text-base lg:flex-grow lg:flex lg:items-center">
+                    <a href="/index.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/learning.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-book mr-2"></i> Learning
+                    </a>
+                    <a href="/assessment.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-tasks mr-2"></i> Assessment
+                    </a>
+                </div>
+
+                <!-- Search input for desktop and mobile -->
+                <form action="/search.php" method="GET" class="relative lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <input type="text" name="query" placeholder="Search courses..." class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 lg:w-48 transition-all duration-300 ease-in-out w-full" />
+                    <button type="submit" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 focus:outline-none">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <!-- Profile dropdown -->
+                <div class="relative group ml-0 lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <button class="flex items-center text-gray-200 hover:text-white focus:outline-none px-3 py-2 rounded-md w-full justify-center lg:justify-start" id="profile-menu-button">
+                        <img id="profile-pic" src="https://placehold.co/32x32/818CF8/FFFFFF?text=PP" alt="Profile Picture"
+                            class="rounded-full h-8 w-8 mr-2" onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';" />
+                        <span id="profile-name" class="md:inline-block">User</span>
+                        <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    </button>
+                    <!-- Updated Profile Dropdown: Changed background and adjusted positioning for mobile -->
+                    <div id="profile-dropdown" class="absolute right-0 lg:left-0 mt-2 w-48 bg-dark text-gray-200 rounded-md shadow-lg py-1 z-10 hidden lg:group-hover:block origin-top-right lg:origin-top-left transform scale-95 opacity-0 transition-all duration-200 ease-out group-hover:scale-100 group-hover:opacity-100 lg:w-auto lg:min-w-[12rem] md:left-1/2 md:-translate-x-1/2">
+                        <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-user mr-2"></i> Profile</a>
+                        <a href="/settings.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-cog mr-2"></i> Settings</a>
+                        <a href="/help.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-question-circle mr-2"></i> Help</a>
+                        <div class="border-t border-gray-700 my-1"></div>
+                        <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-sign-out-alt mr-2"></i> Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sub Navigation Bar (Main Tabs) -->
+    <div class="sub-nav bg-white flex justify-center items-center py-2 px-4 flex-wrap gap-4 rounded-md mx-auto max-w-5xl my-4 shadow-sm">
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 active" data-target="tab1" aria-label="Math Skills">
+            <i class="fas fa-calculator text-xl tab-icon"></i>
+            <span class="font-medium">Math</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300" data-target="tab2" aria-label="Language Arts Skills">
+            <i class="fas fa-book-open text-xl tab-icon"></i>
+            <span class="font-medium">Language Arts</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300" data-target="tab3" aria-label="Science Skills">
+            <i class="fas fa-flask text-xl tab-icon"></i>
+            <span class="font-medium">Science</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300" data-target="tab4" aria-label="Social Studies Skills">
+            <i class="fas fa-globe-americas text-xl tab-icon"></i>
+            <span class="font-medium">Social Studies</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300" data-target="tab5" aria-label="Skill Plans">
+            <i class="fas fa-clipboard-list text-xl tab-icon"></i>
+            <span class="font-medium">Skill Plans</span>
+        </button>
+    </div>
+
+    <!-- Main Content Area Wrapper -->
+    <!-- This div will dynamically load content based on the active main tab -->
+    <div class="flex flex-1 bg-gray-100" id="main-content-wrapper">
+        <!-- Content will be injected here by JavaScript -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 px-4 rounded-t-lg shadow-inner">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- About section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">About Us</h3>
+                <p class="text-sm leading-relaxed text-grayish">
+                    Empowering students with learning disabilities through personalized learning experiences. Our mission is to make quality education accessible to everyone.
+                </p>
+                <a href="/about.html" class="text-accent hover:underline text-sm flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> Learn More
+                </a>
+            </div>
+
+            <!-- Quick Links section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/curriculum" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-book mr-2"></i>Curriculum</a>
+                    </li>
+                    <li>
+                        <a href="/assessment.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-tasks mr-2"></i>Assessment</a>
+                    </li>
+                    <li>
+                        <a href="/standard" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chart-line mr-2"></i>Standards</a>
+                    </li>
+                    <li>
+                        <a href="/help" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-question-circle mr-2"></i>Help Center</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Support</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/contact.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-envelope mr-2"></i>Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="/students.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-user-graduate mr-2"></i>For Students</a>
+                    </li>
+                    <li>
+                        <a href="/parents.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-users mr-2"></i>For Parents</a>
+                    </li>
+                    <li>
+                        <a href="/teachers.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chalkboard-teacher mr-2"></i>For Teachers</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Legal & Settings section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Legal & Settings</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/privacy.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/terms.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-file-contract mr-2"></i>Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="/accessibility.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-universal-access mr-2"></i>Accessibility</a>
+                    </li>
+                    <li>
+                        <a href="/about-us.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-info-circle mr-2"></i>About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer bottom section -->
+        <div class="mt-12 text-center text-sm border-t border-gray-700 pt-8">
+            <p class="mb-2 text-grayish">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="mb-2 text-grayish">
+                Made with <i class="fas fa-heart text-red-500"></i> for education
+            </p>
+            <p class="text-grayish">
+                <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                    class="text-accent hover:underline">Hesten's Learning</a>
+                by
+                <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="http://hestena62.com/about-me.html" class="text-accent hover:underline">Hesten Allison</a>
+                is licensed under
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" class="text-accent hover:underline">
+                    CC BY-NC-SA 4.0
+                </a>
+            </p>
+
+            <div class="gtranslate_wrapper mt-6"></div>
+            <script>
+                window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper","flag_style":"3d","alt_flags":{"en":"usa"}}
+            </script>
+            <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+
+            <!-- Back to top -->
+            <a href="#" id="back-to-top" class="text-gray-400 hover:text-white mt-4 inline-flex items-center transition-colors duration-200" aria-label="Back to top button">
+                <i class="fas fa-arrow-up mr-2"></i> Back to Top
+            </a>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Announcement Banner JavaScript ---
+            const closeBtn = document.getElementById("close-announcement");
+            const banner = document.getElementById("announcement-banner");
+            if (closeBtn && banner) {
+                closeBtn.addEventListener("click", function () {
+                    banner.style.display = "none";
+                });
+            }
+
+            // --- Mobile Navigation Toggle JavaScript ---
+            const navToggle = document.getElementById('nav-toggle');
+            const navContent = document.getElementById('nav-content');
+            if (navToggle && navContent) {
+                navToggle.addEventListener('click', () => {
+                    navContent.classList.toggle('hidden');
+                    navContent.classList.toggle('mobile-menu-active'); // For slide animation
+                });
+            }
+
+            // --- Profile Dropdown Toggle JavaScript (for smaller screens) ---
+            const profileMenuButton = document.getElementById('profile-menu-button');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            if (profileMenuButton && profileDropdown) {
+                profileMenuButton.addEventListener('click', () => {
+                    // Only toggle if not on large screens (Tailwind's 'lg' breakpoint is 1024px by default)
+                    if (window.innerWidth < 1024) {
+                        profileDropdown.classList.toggle('hidden');
+                        profileDropdown.classList.toggle('block'); // For immediate visibility
+                    }
+                });
+
+                // Close dropdown if clicked outside on mobile (simple approach)
+                document.addEventListener('click', (event) => {
+                    if (window.innerWidth < 1024 && !profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                        profileDropdown.classList.add('hidden');
+                        profileDropdown.classList.remove('block');
+                    }
+                });
+            }
+
+            // --- Dynamic Year in Footer ---
+            const yearSpan = document.getElementById('year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // --- Back to Top Button ---
+            const backToTopButton = document.getElementById('back-to-top');
+            if (backToTopButton) {
+                backToTopButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // --- Centralized Subject Data ---
+            const allSubjectData = {
+                'tab1': { // Math
+                    title: 'Algebra 1',
+                    subtitle: '17 UNITS - 184 SKILLS',
+                    units: [
+                        { id: 'Unit 1', name: 'Algebra foundations' },
+                        { id: 'Unit 2', name: 'Solving equations & inequalities' },
+                        { id: 'Unit 3', name: 'Working with units' },
+                        { id: 'Unit 4', name: 'Linear equations & graphs' },
+                        { id: 'Unit 5', name: 'Forms of linear equations' },
+                        { id: 'Unit 6', name: 'Systems of equations' },
+                        { id: 'Unit 7', name: 'Inequalities (systems & graphs)' },
+                    ],
+                    unitContents: {
+                        'Unit 1': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 1: Algebra foundations</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Why did humans invent algebra in the first place? Let's look at the history and beauty of algebra, and review some fundamental ideas and tools we'll use throughout the course.
+                                </p>
+                                <p class="text-gray-700 flex items-center">
+                                    Unit guides are here! Power up your classroom with engaging strategies, tools, and activities from Khan Academy's learning experts.
+                                    <a href="#" class="text-blue-600 hover:underline ml-2 flex items-center">
+                                        PDF
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                    </a>
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Overview and history of algebra</h2>
+                                <p class="text-gray-700 mb-4">Learn</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">Origins of algebra</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">Abstract-ness</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">The beauty of algebra</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 2': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 2: Solving equations & inequalities</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    This unit focuses on fundamental techniques for solving linear equations and inequalities, including multi-step equations, variables on both sides, and absolute value.
+                                </p>
+                                <p class="text-gray-700 flex items-center">
+                                    Practice your problem-solving skills with interactive exercises!
+                                    <a href="#" class="text-blue-600 hover:underline ml-2 flex items-center">
+                                        Exercises
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                    </a>
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Solving Basics</h2>
+                                <p class="text-gray-700 mb-4">Learn & Practice</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">One-step equations</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Two-step equations</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Multi-step equations</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 3': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 3: Working with units</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Explore how units can help you solve problems in various contexts, from science to everyday life. Learn about unit conversion and dimensional analysis.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Unit Conversion</h2>
+                                <p class="text-gray-700 mb-4">Videos & Articles</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Introduction to units</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Converting units</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 4': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 4: Linear equations & graphs</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Dive into the world of linear equations and their graphical representations. Understand slope, intercepts, and how to graph lines.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Graphing Lines</h2>
+                                <p class="text-gray-700 mb-4">Interactive Lessons</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Slope introduction</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Graphing from slope-intercept form</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 5': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 5: Forms of linear equations</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Learn about the different forms of linear equations: slope-intercept form, point-slope form, and standard form, and how to convert between them.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Equation Forms</h2>
+                                <p class="text-gray-700 mb-4">Modules</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Slope-intercept form</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Point-slope form</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 6': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 6: Systems of equations</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Discover how to solve systems of linear equations using graphing, substitution, and elimination methods.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Solving Systems</h2>
+                                <p class="text-gray-700 mb-4">Practice Problems</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Solving by graphing</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Solving by substitution</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'Unit 7': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">Unit 7: Inequalities (systems & graphs)</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Extend your knowledge to inequalities, graphing them, and solving systems of linear inequalities.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Graphing Inequalities</h2>
+                                <p class="text-gray-700 mb-4">Challenges</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Graphing linear inequalities</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Systems of linear inequalities</span></li>
+                                </ul>
+                            </section>
+                        `
+                    }
+                },
+                'tab2': { // Language Arts
+                    title: 'Language Arts Basics',
+                    subtitle: '10 UNITS - 120 SKILLS',
+                    units: [
+                        { id: 'LA Unit 1', name: 'Reading Comprehension' },
+                        { id: 'LA Unit 2', name: 'Writing Fundamentals' },
+                        { id: 'LA Unit 3', name: 'Grammar & Punctuation' },
+                    ],
+                    unitContents: {
+                        'LA Unit 1': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">LA Unit 1: Reading Comprehension</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Develop strategies to understand and interpret texts effectively. This unit covers main ideas, supporting details, and drawing inferences.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Main Idea & Details</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Inference and Conclusion</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Author's Purpose</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'LA Unit 2': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">LA Unit 2: Writing Fundamentals</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Learn the building blocks of effective writing, from sentence structure to paragraph construction and essay outlines.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Sentence Structure</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Paragraph Construction</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Essay Outlines</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'LA Unit 3': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">LA Unit 3: Grammar & Punctuation</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Master the rules of English grammar and correct punctuation for clear and effective communication.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Parts of Speech</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Common Punctuation</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Subject-Verb Agreement</span></li>
+                                </ul>
+                            </section>
+                        `
+                    }
+                },
+                'tab3': { // Science
+                    title: 'Science Exploration',
+                    subtitle: '8 UNITS - 90 SKILLS',
+                    units: [
+                        { id: 'SCI Unit 1', name: 'Scientific Method' },
+                        { id: 'SCI Unit 2', name: 'Biology Fundamentals' },
+                        { id: 'SCI Unit 3', name: 'Physics Introduction' },
+                    ],
+                    unitContents: {
+                        'SCI Unit 1': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SCI Unit 1: Scientific Method</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Understand the core process of scientific inquiry, including observation, hypothesis formation, experimentation, and conclusion.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Observation & Hypothesis</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Experimentation & Conclusion</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Data Analysis</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'SCI Unit 2': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SCI Unit 2: Biology Fundamentals</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Explore the basics of living organisms and their systems, from cellular structure to complex ecosystems.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Cells & Genetics</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Ecosystems & Biodiversity</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Human Body Systems</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'SCI Unit 3': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SCI Unit 3: Physics Introduction</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    An introduction to the fundamental principles of physics, covering concepts like motion, forces, energy, and waves.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Motion & Forces</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Energy & Work</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Waves & Sound</span></li>
+                                </ul>
+                            </section>
+                        `,
+                    }
+                },
+                'tab4': { // Social Studies
+                    title: 'Social Studies Overview',
+                    subtitle: '12 UNITS - 150 SKILLS',
+                    units: [
+                        { id: 'SS Unit 1', name: 'Ancient Civilizations' },
+                        { id: 'SS Unit 2', name: 'World History' },
+                        { id: 'SS Unit 3', name: 'Civics & Government' },
+                    ],
+                    unitContents: {
+                        'SS Unit 1': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SS Unit 1: Ancient Civilizations</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Explore the origins and development of early human societies, their cultures, innovations, and lasting legacies.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Mesopotamia & Egypt</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Ancient Greece & Rome</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Indus Valley & China</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'SS Unit 2': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SS Unit 2: World History</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    A broad overview of major historical events and periods across the globe, from the Middle Ages to modern times.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Middle Ages & Renaissance</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Age of Exploration</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Modern History & Conflicts</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'SS Unit 3': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SS Unit 3: Civics & Government</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Assign
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this unit</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Understand the principles of government, citizenship, and the roles and responsibilities within a society.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Democracy & Republics</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Rights & Responsibilities</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Branches of Government</span></li>
+                                </ul>
+                            </section>
+                        `,
+                    }
+                },
+                'tab5': { // Skill Plans
+                    title: 'Personalized Skill Plans',
+                    subtitle: 'Dynamic Progress Tracking',
+                    units: [
+                        { id: 'SP Unit 1', name: 'My Current Plan' },
+                        { id: 'SP Unit 2', name: 'Completed Skills Overview' },
+                    ],
+                    unitContents: {
+                        'SP Unit 1': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SP Unit 1: My Current Plan</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    View Details
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">About this plan</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    Your personalized learning plan, adapting to your progress and needs. This section outlines your current learning objectives and recommended next steps.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Upcoming Skills</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Next Math Topic: Functions</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Reading Strategy: Summarization</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" readonly /><span class="text-gray-800 text-lg">Science Experiment: Chemical Reactions</span></li>
+                                </ul>
+                            </section>
+                        `,
+                        'SP Unit 2': `
+                            <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                                <h1 class="text-3xl font-bold text-gray-900">SP Unit 2: Completed Skills Overview</h1>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-200">
+                                    Generate Report
+                                </button>
+                            </header>
+                            <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Your achievements so far</h2>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    A comprehensive look at all the skills you've mastered, categorized by subject and unit.
+                                </p>
+                            </section>
+                            <section class="bg-white p-6 rounded-lg shadow-sm">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Mastered Topics</h2>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">All Algebra Foundations</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">Basic Reading Comprehension</span></li>
+                                    <li class="flex items-center"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500 mr-3" checked readonly /><span class="text-gray-800 text-lg">Scientific Method Basics</span></li>
+                                </ul>
+                            </section>
+                        `,
+                    }
+                },
+            };
+
+            // --- HTML Templates for Main Tab Content (Sidebar + Main Area) ---
+            const mainTabTemplates = {
+                // This template includes a placeholder for sidebar header, and the main content area for units
+                sidebarLayout: (subjectTitle, subjectSubtitle) => `
+                    <aside class="w-64 bg-white p-4 shadow-lg rounded-r-lg flex flex-col">
+                        <!-- Sidebar Header -->
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-bold mr-3">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div>
+                                <h2 class="text-gray-800 font-semibold text-lg">${subjectTitle}</h2>
+                                <p class="text-gray-500 text-sm">${subjectSubtitle}</p>
+                            </div>
+                        </div>
+                        <nav class="flex-1 overflow-y-auto" id="sidebar-nav"></nav>
+                    </aside>
+                    <!-- Main Content Area for Units -->
+                    <main class="flex-1 p-8 overflow-y-auto" id="unit-display-content"></main>
+                `
+            };
+
+            const mainContentWrapper = document.getElementById('main-content-wrapper');
+            let currentActiveUnitElement = null; // To keep track of the active unit sidebar item
+
+            // Function to update the main unit content for the current subject
+            const updateCurrentUnitContent = (unitId, subjectData) => {
+                const unitDisplayContent = document.getElementById('unit-display-content');
+                if (unitDisplayContent && subjectData.unitContents[unitId]) {
+                    unitDisplayContent.innerHTML = subjectData.unitContents[unitId];
+                    unitDisplayContent.scrollTop = 0; // Scroll to top when content changes
+                } else if (unitDisplayContent) {
+                    unitDisplayContent.innerHTML = `<div class="p-6 text-gray-600">Content for ${unitId} not found in ${subjectData.title}.</div>`;
+                }
+            };
+
+            // Function to dynamically generate sidebar items for any subject
+            const generateSidebar = (subjectData) => {
+                const sidebarNav = document.getElementById('sidebar-nav');
+                if (!sidebarNav) return; // Ensure sidebarNav exists
+
+                sidebarNav.innerHTML = ''; // Clear existing content
+                subjectData.units.forEach(unit => {
+                    const div = document.createElement('div');
+                    div.classList.add('mb-2', 'p-2', 'rounded-lg', 'cursor-pointer', 'transition-colors', 'duration-200', 'unit-item');
+                    
+                    // Set the first unit of the current subject as active initially
+                    if (currentActiveUnitElement === null && unit.id === subjectData.units[0].id) {
+                        div.classList.add('bg-blue-100', 'text-blue-800', 'font-semibold');
+                        currentActiveUnitElement = div; 
+                    } else {
+                        div.classList.add('text-gray-700', 'hover:bg-gray-50');
+                    }
+                    div.dataset.unitId = unit.id;
+
+                    const unitNumberDisplay = unit.id.split(' ')[0] + ' ' + unit.id.split(' ')[1]; // E.g., "UNIT 1" or "LA Unit 1"
+                    div.innerHTML = `<span class="text-sm block text-gray-500 mb-0.5">${unitNumberDisplay}</span><span class="block text-base">${unit.name}</span>`;
+                    sidebarNav.appendChild(div);
+                });
+
+                // Attach event listeners to newly generated unit items
+                document.querySelectorAll('.unit-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        // Remove active styles from the current active unit
+                        if (currentActiveUnitElement) {
+                            currentActiveUnitElement.classList.remove('bg-blue-100', 'text-blue-800', 'font-semibold');
+                            currentActiveUnitElement.classList.add('text-gray-700', 'hover:bg-gray-50');
+                        }
+
+                        // Add active styles to the clicked unit
+                        item.classList.remove('text-gray-700', 'hover:bg-gray-50');
+                        item.classList.add('bg-blue-100', 'text-blue-800', 'font-semibold');
+
+                        // Update the current active unit element
+                        currentActiveUnitElement = item;
+
+                        // Get the unit ID from the data attribute and update content
+                        const unitId = item.dataset.unitId;
+                        updateCurrentUnitContent(unitId, subjectData);
+                    });
+                });
+            };
+
+            // Function to render the content for the selected main tab
+            const renderMainTabContent = (tabId) => {
+                const subjectData = allSubjectData[tabId];
+                if (subjectData) {
+                    // Set the sidebar layout for the main content wrapper
+                    mainContentWrapper.innerHTML = mainTabTemplates.sidebarLayout(subjectData.title, subjectData.subtitle);
+                    
+                    // Reset currentActiveUnitElement for the new tab
+                    currentActiveUnitElement = null;
+
+                    // Generate the sidebar with units specific to this subject
+                    generateSidebar(subjectData);
+
+                    // Display the content of the first unit for the current subject
+                    if (subjectData.units.length > 0) {
+                        updateCurrentUnitContent(subjectData.units[0].id, subjectData);
+                    } else {
+                        const unitDisplayContent = document.getElementById('unit-display-content');
+                        if (unitDisplayContent) {
+                            unitDisplayContent.innerHTML = `<div class="p-6 text-gray-600">No units found for ${subjectData.title}.</div>`;
+                        }
+                    }
+                } else {
+                    mainContentWrapper.innerHTML = `<div class="p-8 text-gray-600">Content for ${tabId} not found.</div>`;
+                }
+            };
+
+            // --- Sub-Navigation Tabs JavaScript (for top-level tabs) ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active styles from all tab buttons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active styles to the clicked tab button
+                    button.classList.add('active');
+
+                    // Get the target tab ID and render its content
+                    const targetTabId = button.dataset.target;
+                    renderMainTabContent(targetTabId);
+                });
+            });
+
+            // Initial load: Display content for the default active main tab ('Math' / 'tab1')
+            renderMainTabContent('tab1'); 
+        });
+    </script>
+</body>
+</html>

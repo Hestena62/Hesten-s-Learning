@@ -1,0 +1,81 @@
+<!-- Navigation bar -->
+<header class="bg-dark shadow">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo and brand name -->
+                <a class="navbar-brand" href="/index.html">
+                    <img src="Images/large.ico" alt="Company Logo" class="rounded"
+                        style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-logo.png';" />
+                    <span class="ms-2">Hesten's Learning</span>
+                </a>
+                <!-- Navbar toggler for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navigation links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html" aria-label="Go to Home">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/learning.html" aria-label="Go to Learning">
+                                <i class="fas fa-book"></i> Learning
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/assessment.html" aria-label="Go to Assessment">
+                                <i class="fas fa-tasks"></i> Assessment
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Search form -->
+                    <form action="/search.php" method="GET" class="d-flex me-3">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search courses..."
+                                aria-label="Search" />
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Profile dropdown -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                                class="rounded-circle" style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-profile.png';" />
+                            <span id="profile-name" class="ms-2 text-white" style="display: inline-block;">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/profile.html"><i class="fas fa-user fa-fw"></i>
+                                    Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/settings.html"><i class="fas fa-cog fa-fw"></i>
+                                    Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/help.html"><i
+                                        class="fas fa-question-circle fa-fw"></i> Help</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <button id="sign-out" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hesten's Learning - Pre-K Level A</title>
+    <meta name="description" content="Hesten's Learning - Pre-K Level A: Math, Language Arts, Science, and Social Studies skills for early learners." />
+    <meta name="keywords" content="Pre-K, math, language arts, science, social studies, early learning, personalized education" />
+    <meta name="author" content="Hesten's Learning" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Using Inter font
+                    },
+                    colors: {
+                        primary: '#4F46E5', // A modern purple
+                        secondary: '#6366F1', // A slightly lighter purple
+                        accent: '#818CF8', // A very light purple
+                        dark: '#1F2937',   // Dark gray for backgrounds
+                        light: '#F3F4F6',  // Light gray for backgrounds
+                        grayish: '#6B7280', // A lighter gray for text
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Favicon -->
+    <link rel="icon" href="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';" />
+    <!-- Google Fonts for Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Disable text selection */
+        body {
+            user-select: none;
+            font-family: 'Inter', sans-serif; /* Apply Inter font globally */
+        }
+
+        /* Custom styles for mobile menu slide-in/out */
+        @media (max-width: 1023px) { /* Equivalent to lg breakpoint */
+            #nav-content.mobile-menu-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px; /* Height of the header */
+                left: 0;
+                width: 100%;
+                background-color: #1F2937; /* Same as header background */
+                padding: 1rem;
+                z-index: 20;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: slideDown .3s ease-out forwards;
+            }
+
+            #nav-content:not(.mobile-menu-active) {
+                animation: slideUp .3s ease-out forwards;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideUp {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); display: none; }
+            }
+
+            /* Make search input full width in mobile menu */
+            #nav-content .search-input {
+                width: 100% !important;
+                border-radius: 0.5rem !important;
+                padding-left: 1rem !important;
+                margin-top: 1rem;
+                background: white !important;
+                border: 1px solid #ccc !important;
+                color: #1F2937 !important;
+            }
+            #nav-content .search-input + .fa-search {
+                left: auto;
+                right: 1rem;
+                color: #1F2937 !important;
+            }
+
+            /* Adjust profile dropdown for mobile */
+            #profile-dropdown {
+                position: static !important; /* Remove absolute positioning */
+                width: 100% !important;
+                box-shadow: none !important;
+                border-top: 1px solid #e5e7eb; /* Add a separator */
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+        }
+
+        /* Custom styles for tabs */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .sub-nav .tab-button.active {
+            background-color: #4F46E5; /* Primary color for active tab */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .sub-nav .tab-button.active img {
+            filter: grayscale(0%);
+        }
+    </style>
+</head>
+<body class="bg-light text-dark">
+
+
+     <!-- Announcement Banner -->
+    <div id="announcement-banner" class="bg-gradient-to-r from-primary to-secondary text-white text-center p-3 text-sm relative">
+        <div class="container mx-auto flex items-center justify-center">
+            <i class="fas fa-bullhorn mr-2"></i>
+            <span>New features and improvements coming soon! Stay tuned for exciting updates!</span>
+            <button id="close-announcement" class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-200 focus:outline-none" aria-label="Close announcement">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const closeBtn = document.getElementById("close-announcement");
+            const banner = document.getElementById("announcement-banner");
+            if (closeBtn && banner) {
+                closeBtn.addEventListener("click", function () {
+                    banner.style.display = "none";
+                });
+            }
+        });
+    </script>
+
+    <!-- Navigation Bar -->
+    <header class="bg-dark shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
+            <!-- Logo and brand name -->
+            <a class="flex items-center flex-shrink-0 text-white mr-6" href="/index.html">
+                <img src="Images/large.ico" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
+                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
+                <span class="font-semibold text-xl tracking-tight">Hesten's Learning</span>
+            </a>
+
+            <!-- Mobile menu button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-primary">
+                    <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z"/></svg>
+                </button>
+            </div>
+
+            <!-- Navigation links, search, and profile -->
+            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+                <div class="text-base lg:flex-grow lg:flex lg:items-center">
+                    <a href="/index.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/learning.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-book mr-2"></i> Learning
+                    </a>
+                    <a href="/assessment.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-tasks mr-2"></i> Assessment
+                    </a>
+                </div>
+                
+                <!-- Search input for desktop and mobile -->
+                <div class="relative lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <input type="text" placeholder="Search courses..." class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 lg:w-48 transition-all duration-300 ease-in-out w-full" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <!-- Profile dropdown -->
+                <div class="relative group ml-0 lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <button class="flex items-center text-gray-200 hover:text-white focus:outline-none px-3 py-2 rounded-md w-full justify-center lg:justify-start" id="profile-menu-button">
+                        <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                            class="rounded-full h-8 w-8 mr-2" onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';" />
+                        <span id="profile-name" class="md:inline-block">User</span>
+                        <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    </button>
+                    <!-- Updated Profile Dropdown: Changed background and adjusted positioning for mobile -->
+                    <div id="profile-dropdown" class="absolute right-0 lg:left-0 mt-2 w-48 bg-dark text-gray-200 rounded-md shadow-lg py-1 z-10 hidden lg:group-hover:block
+                        origin-top-right lg:origin-top-left
+                        transform scale-95 opacity-0 transition-all duration-200 ease-out
+                        group-hover:scale-100 group-hover:opacity-100
+                        lg:w-auto lg:min-w-[12rem] md:left-1/2 md:-translate-x-1/2">
+                        <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-user mr-2"></i> Profile</a>
+                        <a href="/settings.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-cog mr-2"></i> Settings</a>
+                        <a href="/help.html" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-question-circle mr-2"></i> Help</a>
+                        <div class="border-t border-gray-700 my-1"></div>
+                        <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"><i class="fas fa-sign-out-alt mr-2"></i> Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero section for Level A Page -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white py-16 px-4 text-center rounded-b-lg shadow-xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Pre-K - Level A: Foundational Skills</h1>
+        <p class="text-lg md:text-xl mb-8">Explore key concepts in Math, Language Arts, Science, and Social Studies designed for early learners.</p>
+    </header>
+
+    <!-- Sub-navigation (Tabs) -->
+    <div class="sub-nav bg-gray-100 shadow-md flex justify-center items-center py-3 px-4 flex-wrap gap-4 rounded-md mx-auto my-8 max-w-5xl">
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-gray-200 active" data-target="tab1" aria-label="Math Skills">
+            <img src="https://img.icons8.com/ios-filled/20/000000/compass.png" alt="Math icon" class="grayscale hover:grayscale-0 transition-filter duration-300" />
+            <span class="font-medium">Math</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-gray-200" data-target="tab2" aria-label="Language Arts Skills">
+            <img src="https://img.icons8.com/ios-filled/20/000000/book.png" alt="Language Arts icon" class="grayscale hover:grayscale-0 transition-filter duration-300" />
+            <span class="font-medium">Language Arts</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-gray-200" data-target="tab3" aria-label="Science Skills">
+            <img src="https://img.icons8.com/ios-filled/20/000000/test-tube.png" alt="Science icon" class="grayscale hover:grayscale-0 transition-filter duration-300" />
+            <span class="font-medium">Science</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-gray-200" data-target="tab4" aria-label="Social Studies Skills">
+            <img src="https://img.icons8.com/ios-filled/20/000000/globe.png" alt="Social Studies icon" class="grayscale hover:grayscale-0 transition-filter duration-300" />
+            <span class="font-medium">Social Studies</span>
+        </button>
+        <button class="tab-button flex items-center gap-2 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-gray-200" data-target="tab5" aria-label="Skill Plans">
+            <img src="https://img.icons8.com/ios-filled/20/000000/document.png" alt="Skill Plans icon" class="grayscale hover:grayscale-0 transition-filter duration-300" />
+            <span class="font-medium">Skill Plans</span>
+        </button>
+    </div>
+
+    <div class="container mx-auto px-4 py-6">
+        <!-- Tab 1 Content: Math -->
+        <div id="tab1" class="tab-content active bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h1 class="text-center text-3xl font-bold text-gray-800 mb-6" id="module1">Math Module 1</h1>
+            
+            <div class="space-y-8">
+                <section>
+                    <h2 id="topic-a" class="text-2xl font-semibold text-gray-700 mb-3">Topic A: Matching Objects</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li><a href="/Level/Math/A/m1.ta.l1.html" class="text-primary hover:underline">Lesson 1: Identify identical objects.</a></li>
+                        <li>Lessons 2–3: Match 2 objects that are the same, but….</li>
+                        <li>Lesson 4: Match 2 objects that are used together.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-3">Topic B: Sorting</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li>Lesson 5: Make one group with a given attribute.</li>
+                        <li>Lesson 6: Sort into two groups.</li>
+                        <li>Lesson 7: Sort the same group of objects in two different ways.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-3">Topic C: How Many Questions with 1, 2, or 3 Objects</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li>Lesson 8: Count up to 3 objects.</li>
+                        <li>Lessons 9–10: Arrange and count up to 3 objects in scattered and linear configurations.</li>
+                        <li>Lesson 11: Arrange and count up to 3 objects to play a game</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-3">Topic D: Matching 1 Numeral with up to 3 Objects</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li>Lesson 12: Match the numerals 1, 2, and 3 to quantities.</li>
+                        <li>Lesson 13: Make a group of up to 3 objects and match the numeral (concrete to abstract).</li>
+                        <li>Lesson 14: Look at a numeral and count out a group of objects to match (abstract to concrete).</li>
+                    </ul>
+                    <p class="bg-blue-100 text-blue-800 p-3 rounded-lg mt-4 shadow-sm">
+                        Mid-Module Assessment: Topics A–D (interview style assessment, 4 days)
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-3">Topic E: How Many Questions with 4 or 5 Objects</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li>Lessons 15–16: Arrange and count up to 5 objects in scattered and linear configurations.</li>
+                        <li>Lesson 17: Count fingers on the left hand from 1 to 5.</li>
+                        <li>Lesson 18: Arrange and count 4 objects in an array configuration.</li>
+                        <li>Lesson 19: Find embedded numbers within 4 and 5 objects.</li>
+                        <li>Lesson 20: Arrange and count 5 objects in a circular configuration.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-3">Topic F: Matching 1 Numeral with up to 5 Objects</h2>
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                        <li>Lesson 21: Count up to 4 objects and match the numerals.</li>
+                        <li>Lesson 22: Count up to 5 objects and match the numerals.</li>
+                        <li>Lesson 23: Make a group of up to 5 objects and match the numeral (concrete to abstract).</li>
+                        <li>Lesson 24: Look at a numeral and count out a group of objects to match (abstract to concrete).</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <!-- Tab 2 Content: Language Arts (Placeholder) -->
+        <div id="tab2" class="tab-content bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Language Arts Module 1</h2>
+            <p class="text-gray-700 text-center">Content for Language Arts skills will be added here, structured by topics and lessons.</p>
+            <ul class="list-disc pl-6 text-gray-600 space-y-2 mt-4">
+                <li>Lesson 1: Recognizing spoken words.</li>
+                <li>Lesson 2: Identifying letter sounds.</li>
+                <li>Lesson 3: Tracing and writing letters.</li>
+            </ul>
+        </div>
+
+        <!-- Tab 3 Content: Science (Placeholder) -->
+        <div id="tab3" class="tab-content bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Science Module 1</h2>
+            <p class="text-gray-700 text-center">Content for Science skills will be added here, structured by topics and lessons.</p>
+            <ul class="list-disc pl-6 text-gray-600 space-y-2 mt-4">
+                <li>Lesson 1: Observing the weather.</li>
+                <li>Lesson 2: Exploring animal groups.</li>
+                <li>Lesson 3: Understanding plant growth.</li>
+            </ul>
+        </div>
+
+        <!-- Tab 4 Content: Social Studies (Placeholder) -->
+        <div id="tab4" class="tab-content bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Social Studies Module 1</h2>
+            <p class="text-gray-700 text-center">Content for Social Studies skills will be added here, structured by topics and lessons.</p>
+            <ul class="list-disc pl-6 text-gray-600 space-y-2 mt-4">
+                <li>Lesson 1: Learning about my community.</li>
+                <li>Lesson 2: Understanding family roles.</li>
+                <li>Lesson 3: Discovering local landmarks.</li>
+            </ul>
+        </div>
+
+        <!-- Tab 5 Content: Skill Plans (Placeholder) -->
+        <div id="tab5" class="tab-content bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Skill Plans Overview</h2>
+            <p class="text-gray-700 text-center">Here you can find an overview of the full Pre-K skill plan across all subjects, helping you map out your learning journey.</p>
+            <p class="text-gray-700 text-center mt-4"> (e.g., downloadables, full curriculum maps, progress tracking)</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 px-4 rounded-t-lg shadow-inner">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- About section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">About Us</h3>
+                <p class="text-sm leading-relaxed text-grayish">
+                    Empowering students with learning disabilities through personalized learning experiences. Our mission is to make quality education accessible to everyone.
+                </p>
+                <a href="/about.html" class="text-accent hover:underline text-sm flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> Learn More
+                </a>
+            </div>
+
+            <!-- Quick Links section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/curriculum" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-book mr-2"></i>Curriculum</a>
+                    </li>
+                    <li>
+                        <a href="/assessment.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-tasks mr-2"></i>Assessment</a>
+                    </li>
+                    <li>
+                        <a href="/standard" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chart-line mr-2"></i>Standards</a>
+                    </li>
+                    <li>
+                        <a href="/help" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-question-circle mr-2"></i>Help Center</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Support</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/contact.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-envelope mr-2"></i>Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="/students.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-user-graduate mr-2"></i>For Students</a>
+                    </li>
+                    <li>
+                        <a href="/parents.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-users mr-2"></i>For Parents</a>
+                    </li>
+                    <li>
+                        <a href="/teachers.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chalkboard-teacher mr-2"></i>For Teachers</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Legal & Settings section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Legal & Settings</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/privacy.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/terms.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-file-contract mr-2"></i>Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="/accessibility.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-universal-access mr-2"></i>Accessibility</a>
+                    </li>
+                    <li>
+                        <a href="/about-us.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-info-circle mr-2"></i>About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer bottom section -->
+        <div class="mt-12 text-center text-sm border-t border-gray-700 pt-8">
+            <p class="mb-2 text-grayish">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="mb-2 text-grayish">
+                Made with <i class="fas fa-heart text-red-500"></i> for education
+            </p>
+            <p class="text-grayish">
+                <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                    class="text-accent hover:underline">Hesten's Learning</a>
+                by
+                <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="http://hestena62.com/about-me.html" class="text-accent hover:underline">Hesten Allison</a>
+                is licensed under
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" class="text-accent hover:underline">
+                    CC BY-NC-SA 4.0
+                </a>
+            </p>
+
+            <div class="gtranslate_wrapper mt-6"></div>
+            <script>
+                window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper","flag_style":"3d","alt_flags":{"en":"usa"}}
+            </script>
+            <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+
+            <!-- Back to top -->
+            <a href="#" id="back-to-top" class="text-gray-400 hover:text-white mt-4 inline-flex items-center transition-colors duration-200" aria-label="Back to top button">
+                <i class="fas fa-arrow-up mr-2"></i> Back to Top
+            </a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Toggle mobile navigation
+        const navToggle = document.getElementById('nav-toggle');
+        const navContent = document.getElementById('nav-content');
+
+        navToggle.addEventListener('click', function () {
+            navContent.classList.toggle('hidden');
+            navContent.classList.toggle('mobile-menu-active'); // Add/remove active class for custom animation
+        });
+
+        // Profile dropdown functionality
+        const profileMenuButton = document.getElementById('profile-menu-button');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
+        profileMenuButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent document click from closing immediately
+            profileDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener('click', function(event) {
+            // Check if the click is outside both the button and the dropdown
+            if (!profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.add('hidden');
+            }
+        });
+
+        // Hide mobile menu on resize if it becomes desktop view
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) { // Equivalent to Tailwind's 'lg' breakpoint
+                navContent.classList.remove('hidden', 'mobile-menu-active');
+            } else {
+                // Ensure the menu starts hidden on smaller screens unless explicitly opened
+                if (!navContent.classList.contains('mobile-menu-active')) {
+                    navContent.classList.add('hidden');
+                }
+            }
+        });
+
+        // Tab switching logic
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabs = document.querySelectorAll(".sub-nav .tab-button");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", function () {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach((t) => t.classList.remove("active"));
+                    tabContents.forEach((content) => content.classList.remove("active"));
+
+                    // Add active class to the clicked tab and corresponding content
+                    this.classList.add("active");
+                    const target = document.getElementById(this.dataset.target);
+                    target.classList.add("active");
+                });
+            });
+
+            // Set the first tab as active by default if none are
+            if (document.querySelectorAll(".tab-button.active").length === 0 && tabs.length > 0) {
+                tabs[0].classList.add("active");
+                document.getElementById(tabs[0].dataset.target).classList.add("active");
+            }
+        });
+
+        // Back to top button functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const backToTopButton = document.getElementById("back-to-top");
+            if (backToTopButton) { // Ensure the button exists
+                backToTopButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            }
+        });
+
+        // Keeping site_wide_track.js and style.js as is.
+        // Assuming they are compatible or will be updated externally.
+    </script>
+    <!-- Your existing JS files, if needed and compatible with the new structure -->
+    <!-- <script src="/JS/site_wide_track.js"></script> -->
+    <!-- <script src="/JS/style.js"></script> -->
+</body>
+</html>

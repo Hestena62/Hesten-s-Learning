@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="icon" href="Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
+    <script src="/JS/site_wide_track.js"></script>
+    <style>
+        /* Custom styles for the progress bar text */
+        .progress-bar-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: #000; /* Adjust color for visibility */
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-light text-dark">
+    <header class="bg-dark shadow">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/index.html">
+                        <img src="Images/large.ico" alt="Company Logo" class="rounded"
+                            style="height: 2rem; width: 2rem"
+                            onerror="this.onerror=null; this.src='Images/default-logo.png';" />
+                        <span class="ms-2">Hesten's Learning</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index.html" aria-label="Go to Home">
+                                    <i class="fas fa-home"></i> Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/learning.html" aria-label="Go to Learning">
+                                    <i class="fas fa-book"></i> Learning
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/assessment.html" aria-label="Go to Assessment">
+                                    <i class="fas fa-tasks"></i> Assessment
+                                </a>
+                            </li>
+                        </ul>
+                        <form action="/search.php" method="GET" class="d-flex me-3">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search courses..."
+                                    aria-label="Search" />
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                                    class="rounded-circle" style="height: 2rem; width: 2rem"
+                                    onerror="this.onerror=null; this.src='Images/default-profile.png';" />
+                                <span id="profile-name" class="ms-2 text-white" style="display: inline-block;">User</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/profile.html"><i class="fas fa-user fa-fw"></i>
+                                        Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/settings.html"><i class="fas fa-cog fa-fw"></i>
+                                        Settings</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/help.html"><i
+                                            class="fas fa-question-circle fa-fw"></i> Help</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <button id="sign-out" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <div class="card shadow p-4 mx-auto" style="max-width: 700px;">
+            <div class="card-body">
+                <div class="progress mb-3" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                     <span class="progress-bar-text" id="progressText">0%</span>
+                </div>
+
+
+                <div id="quizArea">
+                    <h5 class="card-title mb-3" id="question">Loading question...</h5>
+                    <div id="mediaContainer" class="mb-3 text-center"></div>
+                    <div id="options" class="d-grid gap-3 mb-3">
+                        </div>
+                    <div class="fw-bold mt-3" id="feedback" aria-live="polite"></div>
+
+                    <button class="btn btn-primary mt-3" id="nextQuestion">Next Question</button>
+                </div>
+
+
+                <div id="resultsSummary" class="mt-4 d-none">
+                    <h4 class="mb-3">Quiz Results</h4>
+                    <p id="scoreDisplay" class="fw-bold"></p>
+                    <div id="answerSummary">
+                        </div>
+                     <button class="btn btn-secondary mt-3" id="reviewAnswers">Review Answers</button>
+                    <button class="btn btn-success mt-3" id="downloadAnswers">Download Answers as PDF</button>
+                </div>
+
+                 <div id="reviewMode" class="mt-4 d-none">
+                    <h4 class="mb-3">Review Your Answers</h4>
+                    <div id="reviewQuestionArea">
+                        </div>
+                    <div class="mt-3">
+                        <button class="btn btn-secondary" id="prevReview">Previous</button>
+                        <button class="btn btn-secondary" id="nextReview">Next</button>
+                        <button class="btn btn-primary" id="backToResults">Back to Results</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="footer-section">
+                        <h3 class="h5 fw-bold mb-4">About Hesten's Learning</h3>
+                        <p class="text-sm">
+                            Empowering students with learning disabilities through
+                            personalized learning experiences.
+                            <a href="/about.html" class="text-info hover:underline">Learn more.</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="footer-section">
+                        <h3 class="h5 fw-bold mb-4">Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="/curriculum" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-book"></i>&nbsp;Curriculum</a>
+                            </li>
+                            <li>
+                                <a href="/assessment.html" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-tasks"></i>&nbsp;Assessment</a>
+                            </li>
+                            <li>
+                                <a href="/standard" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-chart-line"></i>&nbsp;Standards</a>
+                            </li>
+                            <li>
+                                <a href="/help" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-question-circle"></i>&nbsp;Help Center</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="footer-section">
+                        <h3 class="h5 fw-bold mb-4">Support</h3>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="/contact.html" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-envelope"></i>&nbsp;Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="/students.html" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-home"></i>&nbsp;For Students</a>
+                            </li>
+                            <li>
+                                <a href="/parents.html" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-users"></i>&nbsp;For Parents</a>
+                            </li>
+                            <li>
+                                <a href="/teachers.html" class="text-sm text-info hover:underline"><i
+                                        class="fas fa-chalkboard-teacher"></i>&nbsp;For Teachers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="footer-section"></div>
+                    <h3 class="h5 fw-bold mb-4">Legal & Settings</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/privacy.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-shield-alt"></i>&nbsp;Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="/terms.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-file-contract"></i>&nbsp;Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="/accessibility.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-universal-access"></i>&nbsp;Accessibility</a>
+                        </li>
+                        <li>
+                            <a href="/about-us.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-info-circle"></i>&nbsp;About Us</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h3 class="h5 fw-bold mb-4">Follow Us</h3>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="https://facebook.com" target="_blank" class="text-info">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com" target="_blank" class="text-info">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </a>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://linkedin.com" target="_blank" class="text-info">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="footer-bottom mt-5 text-center text-sm border-top border-gray-700 pt-4">
+        <p class="mb-2">
+            &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+        </p>
+        <p class="mb-2">
+            Made with <i class="fas fa-heart text-danger"></i> for education
+        </p>
+        <p>
+            <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                class="text-info hover:underline">Hesten's Learning</a>
+            by
+            <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                href="http://hestena62.com/about-me.html" class="text-info hover:underline">Hesten Allison</a>
+            is licensed under
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                rel="license noopener noreferrer" class="text-info hover:underline">
+                CC BY-NC-SA 4.0
+            </a>
+        </p>
+
+        <div class="gtranslate_wrapper"></div>
+        <script>
+            window.gtranslateSettings = { "default_language": "en", "native_language_names": true, "detect_browser_language": true, "wrapper_selector": ".gtranslate_wrapper", "flag_style": "3d", "alt_flags": { "en": "usa" } }
+        </script>
+        <a href="#" id="back-to-top" class="btn btn-outline-secondary mt-3"><i class="fas fa-arrow-up"></i> Back to
+            Top</a>
+        <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+    </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const backToTopButton = document.getElementById("back-to-top");
+
+        backToTopButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // Load quiz state from localStorage on page load
+        loadQuizState();
+    });
+
+    // Quiz Data - Expanded with more types, feedback, model answers, categories, resources, media
+    let questions = [
+        // Multiple Choice
+        { type: "multiple-choice", question: "What is the capital of the USA?", options: ["New York", "Washington D.C.", "Los Angeles"], correct: "Washington D.C.", feedback: "Washington D.C. is the capital of the United States.", category: "Geography", tags: ["capitals", "USA"], learningResourceUrl: "link/to/capital/resource" },
+        { type: "multiple-choice", question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter"], correct: "Mars", feedback: "Mars is often called the Red Planet due to its reddish appearance.", category: "Science", tags: ["planets", "astronomy"], learningResourceUrl: "link/to/mars/resource" },
+        { type: "multiple-choice", question: "What is the chemical symbol for water?", options: ["H2O", "O2", "CO2"], correct: "H2O", feedback: "The chemical formula for water is H2O.", category: "Science", tags: ["chemistry"], learningResourceUrl: "link/to/water/resource" },
+        { type: "multiple-choice", question: "Which continent is known as the 'Dark Continent'?", options: ["Asia", "Africa", "South America"], correct: "Africa", feedback: "Africa is often referred to as the 'Dark Continent' due to its historical context.", category: "Geography", tags: ["continents"], learningResourceUrl: "link/to/africa/resource" },
+        { type: "multiple-choice", question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe"], correct: "Blue Whale", feedback: "The Blue Whale is the largest mammal on Earth.", category: "Science", tags: ["animals"], learningResourceUrl: "link/to/whale/resource" },
+        { type: "multiple-choice", question: "Which gas do plants absorb from the atmosphere?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen"], correct: "Carbon Dioxide", feedback: "Plants absorb carbon dioxide during photosynthesis.", category: "Science", tags: ["biology"], learningResourceUrl: "link/to/photosynthesis/resource" },
+        { type: "multiple-choice", question: "What is the freezing point of water?", options: ["0°C", "100°C", "32°F"], correct: "0°C", feedback: "Water freezes at 0 degrees Celsius.", category: "Science", tags: ["temperature"], learningResourceUrl: "link/to/freezing/resource" },
+        { type: "multiple-choice", question: "Which organ is responsible for pumping blood in the human body?", options: ["Liver", "Heart", "Lungs"], correct: "Heart", feedback: "The heart pumps blood throughout the body.", category: "Biology", tags: ["anatomy"], learningResourceUrl: "link/to/heart/resource" },
+        { type: "multiple-choice", question: "What is the largest ocean on Earth?", options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean"], correct: "Pacific Ocean", feedback: "The Pacific Ocean is the largest ocean on Earth.", category: "Geography", tags: ["oceans"], learningResourceUrl: "link/to/pacific/resource" },
+        { type: "multiple-choice", question: "What is the process by which plants make their own food?", options: ["Photosynthesis", "Respiration", "Digestion"], correct: "Photosynthesis", feedback: "Plants use photosynthesis to convert sunlight into energy.", category: "Biology", tags: ["photosynthesis"], learningResourceUrl: "link/to/photosynthesis/resource" },
+        { type: "multiple-choice", question: "Which element has the chemical symbol 'O'?", options: ["Oxygen", "Gold", "Silver"], correct: "Oxygen", feedback: "The chemical symbol 'O' represents Oxygen.", category: "Chemistry", tags: ["elements"], learningResourceUrl: "link/to/oxygen/resource" },
+        { type: "multiple-choice", question: "What is the main language spoken in Brazil?", options: ["Spanish", "Portuguese", "English"], correct: "Portuguese", feedback: "The official language of Brazil is Portuguese.", category: "Language", tags: ["languages"], learningResourceUrl: "link/to/brazil/resource" },
+        { type: "multiple-choice", question: "Which planet is known for its rings?", options: ["Earth", "Saturn", "Mars"], correct: "Saturn", feedback: "Saturn is famous for its beautiful rings.", category: "Astronomy", tags: ["planets"], learningResourceUrl: "link/to/saturn/resource" },
+        { type: "multiple-choice", question: "What is the boiling point of water?", options: ["0°C", "50°C", "100°C"], correct: "100°C", feedback: "Water boils at 100 degrees Celsius.", category: "Science", tags: ["temperature"], learningResourceUrl: "link/to/boiling/resource" },
+        { type: "multiple-choice", question: "Which country is known as the Land of the Rising Sun?", options: ["China", "Japan", "Korea"], correct: "Japan", feedback: "Japan is often referred to as the Land of the Rising Sun.", category: "Geography", tags: ["countries"], learningResourceUrl: "link/to/japan/resource" },
+        { type: "multiple-choice", question: "What is the hardest natural substance on Earth?", options: ["Gold", "Diamond", "Iron"], correct: "Diamond", feedback: "Diamonds are the hardest natural substance known.", category: "Geology", tags: ["minerals"], learningResourceUrl: "link/to/diamond/resource" },
+        { type: "multiple-choice", question: "What is the primary function of red blood cells?", options: ["Transport oxygen", "Fight infections", "Clot blood"], correct: "Transport oxygen", feedback: "Red blood cells are responsible for transporting oxygen in the body.", category: "Biology", tags: ["blood"], learningResourceUrl: "link/to/redblood/resource" },
+        { type: "multiple-choice", question: "Which gas is most abundant in the Earth's atmosphere?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide"], correct: "Nitrogen", feedback: "Nitrogen makes up about 78% of the Earth's atmosphere.", category: "Geography", tags: ["atmosphere"], learningResourceUrl: "link/to/nitrogen/resource" },
+        { type: "multiple-choice", question: "What is the largest desert in the world?", options: ["Sahara Desert", "Arabian Desert", "Gobi Desert"], correct: "Sahara Desert", feedback: "The Sahara Desert is the largest hot desert in the world.", category: "Geography", tags: ["deserts"], learningResourceUrl: "link/to/sahara/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for table salt?", options: ["NaCl", "KCl", "CaCl2"], correct: "NaCl", feedback: "Table salt is chemically known as Sodium Chloride (NaCl).", category: "Chemistry", tags: ["compounds"], learningResourceUrl: "link/to/salt/resource" },
+        { type: "multiple-choice", question: "Which planet is closest to the Sun?", options: ["Earth", "Venus", "Mercury"], correct: "Mercury", feedback: "Mercury is the closest planet to the Sun.", category: "Astronomy", tags: ["planets"], learningResourceUrl: "link/to/mercury/resource" },
+        { type: "multiple-choice", question: "What is the largest continent?", options: ["Africa", "Asia", "North America"], correct: "Asia", feedback: "Asia is the largest continent by both area and population.", category: "Geography", tags: ["continents"], learningResourceUrl: "link/to/asia/resource" },
+        { type: "multiple-choice", question: "What is the main ingredient in guacamole?", options: ["Tomato", "Avocado", "Onion"], correct: "Avocado", feedback: "Guacamole is primarily made from avocados.", category: "Food", tags: ["cooking"], learningResourceUrl: "link/to/guacamole/resource" },
+        { type: "multiple-choice", question: "What is the largest organ in the human body?", options: ["Heart", "Liver", "Skin"], correct: "Skin", feedback: "The skin is the largest organ of the human body.", category: "Biology", tags: ["anatomy"], learningResourceUrl: "link/to/skin/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the lungs?", options: ["Pump blood", "Exchange gases", "Digest food"], correct: "Exchange gases", feedback: "The lungs are responsible for gas exchange, primarily oxygen and carbon dioxide.", category: "Biology", tags: ["respiration"], learningResourceUrl: "link/to/lungs/resource" },
+        { type: "multiple-choice", question: "What is the main source of energy for the Earth?", options: ["The Moon", "The Sun", "The Stars"], correct: "The Sun", feedback: "The Sun is the primary source of energy for life on Earth.", category: "Astronomy", tags: ["solar system"], learningResourceUrl: "link/to/sun/resource" },
+        { type: "multiple-choice", question: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Pb"], correct: "Au", feedback: "Gold is represented by the chemical symbol Au.", category: "Chemistry", tags: ["elements"], learningResourceUrl: "link/to/gold/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the kidneys?", options: ["Filter blood", "Produce hormones", "Digest food"], correct: "Filter blood", feedback: "The kidneys filter waste products from the blood.", category: "Biology", tags: ["excretory system"], learningResourceUrl: "link/to/kidneys/resource" },
+        { type: "multiple-choice", question: "What is the main component of the Earth's core?", options: ["Iron", "Nickel", "Copper"], correct: "Iron", feedback: "The Earth's core is primarily composed of iron.", category: "Geology", tags: ["earth science"], learningResourceUrl: "link/to/core/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the stomach?", options: ["Absorb nutrients", "Digest food", "Filter blood"], correct: "Digest food", feedback: "The stomach is responsible for digesting food.", category: "Biology", tags: ["digestive system"], learningResourceUrl: "link/to/stomach/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for glucose?", options: ["C6H12O6", "C12H22O11", "C6H6"], correct: "C6H12O6", feedback: "Glucose has the chemical formula C6H12O6.", category: "Chemistry", tags: ["carbohydrates"], learningResourceUrl: "link/to/glucose/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the liver?", options: ["Filter blood", "Digest food", "Produce hormones"], correct: "Filter blood", feedback: "The liver filters toxins from the blood.", category: "Biology", tags: ["liver"], learningResourceUrl: "link/to/liver/resource" },
+        { type: "multiple-choice", question: "What is the main function of the brain?", options: ["Control body functions", "Digest food", "Pump blood"], correct: "Control body functions", feedback: "The brain controls all body functions and processes.", category: "Biology", tags: ["nervous system"], learningResourceUrl: "link/to/brain/resource" },
+        { type: "multiple-choice", question: "What is the chemical symbol for sodium?", options: ["Na", "K", "Ca"], correct: "Na", feedback: "Sodium is represented by the chemical symbol Na.", category: "Chemistry", tags: ["elements"], learningResourceUrl: "link/to/sodium/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the intestines?", options: ["Absorb nutrients", "Digest food", "Filter blood"], correct: "Absorb nutrients", feedback: "The intestines absorb nutrients from digested food.", category: "Biology", tags: ["digestive system"], learningResourceUrl: "link/to/intestines/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for carbon dioxide?", options: ["CO2", "O2", "H2O"], correct: "CO2", feedback: "Carbon dioxide has the chemical formula CO2.", category: "Chemistry", tags: ["gases"], learningResourceUrl: "link/to/co2/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the heart?", options: ["Pump blood", "Digest food", "Filter blood"], correct: "Pump blood", feedback: "The heart pumps blood throughout the body.", category: "Biology", tags: ["circulatory system"], learningResourceUrl: "link/to/heart/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for methane?", options: ["CH4", "C2H6", "C3H8"], correct: "CH4", feedback: "Methane has the chemical formula CH4.", category: "Chemistry", tags: ["hydrocarbons"], learningResourceUrl: "link/to/methane/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the pancreas?", options: ["Digest food", "Produce insulin", "Filter blood"], correct: "Produce insulin", feedback: "The pancreas produces insulin to regulate blood sugar levels.", category: "Biology", tags: ["endocrine system"], learningResourceUrl: "link/to/pancreas/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for ammonia?", options: ["NH3", "H2O", "CO2"], correct: "NH3", feedback: "Ammonia has the chemical formula NH3.", category: "Chemistry", tags: ["compounds"], learningResourceUrl: "link/to/ammonia/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the spleen?", options: ["Filter blood", "Digest food", "Produce hormones"], correct: "Filter blood", feedback: "The spleen filters blood and helps fight infections.", category: "Biology", tags: ["immune system"], learningResourceUrl: "link/to/spleen/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for sulfuric acid?", options: ["H2SO4", "HCl", "NaOH"], correct: "H2SO4", feedback: "Sulfuric acid has the chemical formula H2SO4.", category: "Chemistry", tags: ["acids"], learningResourceUrl: "link/to/sulfuric/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the gallbladder?", options: ["Store bile", "Digest food", "Filter blood"], correct: "Store bile", feedback: "The gallbladder stores bile produced by the liver.", category: "Biology", tags: ["digestive system"], learningResourceUrl: "link/to/gallbladder/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for hydrochloric acid?", options: ["HCl", "H2SO4", "NaOH"], correct: "HCl", feedback: "Hydrochloric acid has the chemical formula HCl.", category: "Chemistry", tags: ["acids"], learningResourceUrl: "link/to/hydrochloric/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the thyroid gland?", options: ["Produce hormones", "Filter blood", "Digest food"], correct: "Produce hormones", feedback: "The thyroid gland produces hormones that regulate metabolism.", category: "Biology", tags: ["endocrine system"], learningResourceUrl: "link/to/thyroid/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for acetic acid?", options: ["CH3COOH", "C2H5OH", "C6H12O6"], correct: "CH3COOH", feedback: "Acetic acid has the chemical formula CH3COOH.", category: "Chemistry", tags: ["acids"], learningResourceUrl: "link/to/acetic/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the adrenal glands?", options: ["Produce hormones", "Filter blood", "Digest food"], correct: "Produce hormones", feedback: "The adrenal glands produce hormones that help regulate metabolism and stress response.", category: "Biology", tags: ["endocrine system"], learningResourceUrl: "link/to/adrenal/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for ethanol?", options: ["C2H5OH", "C6H12O6", "CH3COOH"], correct: "C2H5OH", feedback: "Ethanol has the chemical formula C2H5OH.", category: "Chemistry", tags: ["alcohols"], learningResourceUrl: "link/to/ethanol/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the pituitary gland?", options: ["Produce hormones", "Filter blood", "Digest food"], correct: "Produce hormones", feedback: "The pituitary gland produces hormones that regulate various bodily functions.", category: "Biology", tags: ["endocrine system"], learningResourceUrl: "link/to/pituitary/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for sodium bicarbonate?", options: ["NaHCO3", "NaCl", "KCl"], correct: "NaHCO3", feedback: "Sodium bicarbonate has the chemical formula NaHCO3.", category: "Chemistry", tags: ["compounds"], learningResourceUrl: "link/to/bicarbonate/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the thymus gland?", options: ["Produce hormones", "Filter blood", "Digest food"], correct: "Produce hormones", feedback: "The thymus gland produces hormones that help develop the immune system.", category: "Biology", tags: ["immune system"], learningResourceUrl: "link/to/thymus/resource" },
+        { type: "multiple-choice", question: "What is the chemical formula for calcium carbonate?", options: ["CaCO3", "NaCl", "KCl"], correct: "CaCO3", feedback: "Calcium carbonate has the chemical formula CaCO3.", category: "Chemistry", tags: ["compounds"], learningResourceUrl: "link/to/calcium/resource" },
+        { type: "multiple-choice", question: "What is the primary function of the hypothalamus?", options: ["Regulate body temperature", "Filter blood", "Digest food"], correct: "Regulate body temperature", feedback: "The hypothalamus regulates body temperature and other homeostatic functions.", category: "Biology", tags: ["nervous system"], learningResourceUrl: "link/to/hypothalamus/resource" },
+        { type: "multiple-choice", question: "What is 2 + 2?", options: ["3", "4", "5"], correct: "4", feedback: "Addition is a basic arithmetic operation.", category: "Math", tags: ["arithmetic"], learningResourceUrl: "link/to/addition/resource" },
+        { type: "multiple-choice", question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris"], correct: "Paris", feedback: "Paris is known as the City of Light.", category: "Geography", tags: ["capitals", "Europe"] },
+        { type: "multiple-choice", question: "What is the largest planet in our solar system?", options: ["Earth", "Jupiter", "Mars"], correct: "Jupiter", feedback: "Jupiter is a gas giant and the largest planet.", category: "Science", tags: ["astronomy", "planets"] },
+         { type: "multiple-choice", question: "What shape is this?", options: ["Circle", "Square", "Triangle"], correct: "Square", feedback: "The image shows a square.", category: "Math", tags: ["geometry", "shapes"], imageUrl: "https://placehold.co/150x150/png?text=Square" },
+         { type: "multiple-choice", question: "What instrument is playing?", options: ["Guitar", "Piano", "Drums"], correct: "Piano", feedback: "The sound is a piano.", category: "Music", tags: ["instruments"], audioUrl: "https://file-examples.com/storage/fe35a36431642840f92032b/2017/11/file_example_WAV_1MG.wav" },
+         { type: "multiple-choice", question: "Watch the video and answer: What is demonstrated?", options: ["Mixing chemicals", "Building a circuit", "Planting a seed"], correct: "Planting a seed", feedback: "The video shows someone planting a seed.", category: "Science", tags: ["biology"], videoUrl: "https://file-examples.com/storage/fe35a36431642840f92032b/2017/04/file_example_MP4_480_1_5MG.mp4" },
+
+
+        // True/False
+        { type: "true-false", question: "The sun is a planet.", correct: "False", feedback: "The sun is a star.", category: "Science", tags: ["astronomy"] },
+        { type: "true-false", question: "The Earth revolves around the sun.", correct: "True", feedback: "The Earth orbits the sun in an elliptical path.", category: "Science", tags: ["astronomy"] },
+        { type: "true-false", question: "Humans have 4 lungs.", correct: "False", feedback: "Humans have 2 lungs.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Sharks are mammals.", correct: "False", feedback: "Sharks are fish, not mammals.", category: "Biology", tags: ["marine biology"] },
+        { type: "true-false", question: "Lightning never strikes the same place twice.", correct: "False", feedback: "Lightning can and does strike the same place multiple times.", category: "Science", tags: ["weather"] },
+        { type: "true-false", question: "Venus is the hottest planet in our solar system.", correct: "True", feedback: "Venus has a thick atmosphere that traps heat, making it hotter than Mercury.", category: "Astronomy", tags: ["planets"] },
+        { type: "true-false", question: "Goldfish have a memory span of 3 seconds.", correct: "False", feedback: "Goldfish can remember things for months.", category: "Biology", tags: ["animals"] },
+        { type: "true-false", question: "The Pacific Ocean is the largest ocean on Earth.", correct: "True", feedback: "The Pacific Ocean covers more area than all the continents combined.", category: "Geography", tags: ["oceans"] },
+        { type: "true-false", question: "Bats are blind.", correct: "False", feedback: "Bats can see, but they also use echolocation to navigate.", category: "Biology", tags: ["animals"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human has 206 bones in their body.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "Mount Kilimanjaro is located in South America.", correct: "False", feedback: "Mount Kilimanjaro is located in Tanzania, Africa.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The heart is located on the left side of the chest.", correct: "True", feedback: "The heart is primarily located on the left side of the chest.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Barrier Reef is located in the Atlantic Ocean.", correct: "False", feedback: "The Great Barrier Reef is located in the Coral Sea, off the coast of Queensland, Australia.", category: "Geography", tags: ["oceans"] },
+        { type: "true-false", question: "A group of lions is called a pride.", correct: "True", feedback: "A pride is a social group of lions.", category: "Biology", tags: ["animals"] },
+        { type: "true-false", question: "The Eiffel Tower is in London.", correct: "False", feedback: "The Eiffel Tower is located in Paris, France.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "The Amazon Rainforest is the largest rainforest in the world.", correct: "True", feedback: "The Amazon Rainforest is the largest tropical rainforest.", category: "Geography", tags: ["rainforests"] },
+        { type: "true-false", question: "Humans share 50% of their DNA with bananas.", correct: "True", feedback: "Humans and bananas share about 50% of their DNA.", category: "Biology", tags: ["genetics"] },
+        { type: "true-false", question: "The Nile River is the longest river in the world.", correct: "True", feedback: "The Nile River is often considered the longest river in the world.", category: "Geography", tags: ["rivers"] },
+        { type: "true-false", question: "Penguins can fly.", correct: "False", feedback: "Penguins are flightless birds.", category: "Biology", tags: ["birds"] },
+        { type: "true-false", question: "The human brain is the largest organ in the body.", correct: "False", feedback: "The skin is the largest organ in the human body.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Sahara Desert is the largest desert in the world.", correct: "True", feedback: "The Sahara Desert is the largest hot desert in the world.", category: "Geography", tags: ["deserts"] },
+        { type: "true-false", question: "The chemical symbol for silver is Ag.", correct: "True", feedback: "Ag is the chemical symbol for silver, derived from the Latin word 'argentum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has four lungs.", correct: "False", feedback: "Humans have two lungs.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Pacific Ocean is the smallest ocean on Earth.", correct: "False", feedback: "The Pacific Ocean is the largest ocean on Earth.", category: "Geography", tags: ["oceans"] },
+        { type: "true-false", question: "The chemical formula for table salt is NaCl.", correct: "True", feedback: "Table salt is composed of sodium (Na) and chlorine (Cl).", category: "Chemistry", tags: ["compounds"] },
+        { type: "true-false", question: "The Earth is the center of the universe.", correct: "False", feedback: "The Earth orbits the Sun, which is one of many stars in the Milky Way galaxy.", category: "Astronomy", tags: ["solar system"] },
+        { type: "true-false", question: "A spider has eight legs.", correct: "True", feedback: "Spiders are arachnids and have eight legs.", category: "Biology", tags: ["animals"] },
+        { type: "true-false", question: "The chemical symbol for potassium is K.", correct: "True", feedback: "K is the chemical symbol for potassium, derived from the Latin word 'kalium'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "The human body has 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from space.", correct: "False", feedback: "The Great Wall is not visible from space without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+        { type: "true-false", question: "The chemical symbol for iron is Fe.", correct: "True", feedback: "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "true-false", question: "Venus is the hottest planet in our solar system.", correct: "True", feedback: "Venus has a thick atmosphere that traps heat, making it hotter than Mercury.", category: "Astronomy", tags: ["planets"] },
+        { type: "true-false", question: "The human skeleton is made up of 206 bones.", correct: "True", feedback: "An adult human skeleton typically has 206 bones.", category: "Biology", tags: ["anatomy"] },
+        { type: "true-false", question: "The Great Wall of China is visible from the Moon.", correct: "False", feedback: "The Great Wall is not visible from the Moon without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "The Great Wall of China is visible from the Moon.", correct: "False", feedback: "The Great Wall is not visible from the Moon without aid.", category: "Geography", tags: ["landmarks"] },
+        { type: "true-false", question: "Mount Everest is the tallest mountain in the world.", correct: "True", feedback: "Mount Everest is the highest peak above sea level.", category: "Geography", tags: ["mountains"] },
+
+        // Fill-in-the-Blank (Simple - exact match)
+        { type: "fill-in-the-blank", question: "The capital of Spain is ______.", correct: "Madrid", feedback: "Madrid is the capital and largest city of Spain.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The chemical symbol for water is ______.", correct: "H2O", feedback: "Water is composed of two hydrogen atoms and one oxygen atom.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The largest mammal in the world is the ______.", correct: "blue whale", feedback: "The blue whale is the largest animal known to have ever existed.", category: "Biology", tags: ["animals"] },
+        { type: "fill-in-the-blank", question: "The process of photosynthesis occurs in ______.", correct: "plants", feedback: "Photosynthesis occurs in the chloroplasts of plant cells.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The speed of light is approximately ______ meters per second.", correct: "299792458", feedback: "The speed of light in a vacuum is about 299,792,458 meters per second.", category: "Physics", tags: ["light"] },
+        { type: "fill-in-the-blank", question: "The formula for calculating the area of a circle is ______.", correct: "πr^2", feedback: "The area of a circle is calculated using the formula A = πr², where r is the radius.", category: "Math", tags: ["geometry"] },
+        { type: "fill-in-the-blank", question: "The first element on the periodic table is ______.", correct: "hydrogen", feedback: "Hydrogen has the atomic number 1 on the periodic table.", category: "Chemistry", tags: ["elements"] },
+        { type: "fill-in-the-blank", question: "The longest river in the world is the ______.", correct: "Nile River", feedback: "The Nile River is often considered the longest river in the world.", category: "Geography", tags: ["rivers"] },
+        { type: "fill-in-the-blank", question: "The human body has ______ chromosomes.", correct: "46", feedback: "Humans typically have 46 chromosomes in their cells, arranged in 23 pairs.", category: "Biology", tags: ["genetics"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for table salt is ______.", correct: "NaCl", feedback: "Table salt is composed of sodium (Na) and chlorine (Cl).", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of Japan is ______.", correct: "Tokyo", feedback: "Tokyo is the capital city of Japan.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of cellular respiration occurs in ______.", correct: "cells", feedback: "Cellular respiration occurs in the mitochondria of cells.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical symbol for gold is ______.", correct: "Au", feedback: "Gold is represented by the symbol Au, derived from the Latin word 'aurum'.", category: "Chemistry", tags: ["elements"] },
+        { type: "fill-in-the-blank", question: "The largest organ in the human body is the ______.", correct: "skin", feedback: "The skin is the largest organ in the human body.", category: "Biology", tags: ["anatomy"] },
+        { type: "fill-in-the-blank", question: "The formula for calculating the circumference of a circle is ______.", correct: "2πr", feedback: "The circumference of a circle is calculated using the formula C = 2πr, where r is the radius.", category: "Math", tags: ["geometry"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for glucose is ______.", correct: "C6H12O6", feedback: "Glucose is a simple sugar with the formula C₆H₁₂O₆.", category: "Chemistry", tags: ["carbohydrates"] },
+        { type: "fill-in-the-blank", question: "The capital of Italy is ______.", correct: "Rome", feedback: "Rome is the capital city of Italy.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of digestion begins in the ______.", correct: "mouth", feedback: "Digestion begins in the mouth with chewing and saliva.", category: "Biology", tags: ["digestive system"] },
+        { type: "fill-in-the-blank", question: "The chemical symbol for oxygen is ______.", correct: "O2", feedback: "Oxygen is a diatomic molecule, represented as O₂.", category: "Chemistry", tags: ["elements"] },
+        { type: "fill-in-the-blank", question: "The capital of Canada is ______.", correct: "Ottawa", feedback: "Ottawa is the capital city of Canada.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of photosynthesis occurs in the ______ of plant cells.", correct: "chloroplasts", feedback: "Photosynthesis occurs in the chloroplasts of plant cells.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for carbon dioxide is ______.", correct: "CO2", feedback: "Carbon dioxide consists of one carbon atom and two oxygen atoms.", category: "Chemistry", tags: ["gases"] },
+        { type: "fill-in-the-blank", question: "The capital of Australia is ______.", correct: "Canberra", feedback: "Canberra is the capital city of Australia.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of mitosis results in ______ daughter cells.", correct: "two", feedback: "Mitosis results in two genetically identical daughter cells.", category: "Biology", tags: ["cell division"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for ammonia is ______.", correct: "NH3", feedback: "Ammonia consists of one nitrogen atom and three hydrogen atoms.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of Germany is ______.", correct: "Berlin", feedback: "Berlin is the capital city of Germany.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of osmosis involves the movement of ______ across a semipermeable membrane.", correct: "water", feedback: "Osmosis is the movement of water molecules from an area of low solute concentration to an area of high solute concentration through a semipermeable membrane.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for sulfuric acid is ______.", correct: "H2SO4", feedback: "Sulfuric acid consists of two hydrogen atoms, one sulfur atom, and four oxygen atoms.", category: "Chemistry", tags: ["acids"] },
+        { type: "fill-in-the-blank", question: "The capital of Brazil is ______.", correct: "Brasília", feedback: "Brasília is the capital city of Brazil.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of cellular respiration occurs in the ______ of cells.", correct: "mitochondria", feedback: "Cellular respiration occurs in the mitochondria, where glucose is converted into ATP.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for sodium chloride is ______.", correct: "NaCl", feedback: "Sodium chloride is composed of sodium (Na) and chlorine (Cl).", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of Russia is ______.", correct: "Moscow", feedback: "Moscow is the capital city of Russia.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of fermentation occurs in ______.", correct: "yeast", feedback: "Fermentation is a metabolic process that converts sugar to acids, gases, or alcohol using microorganisms like yeast.", category: "Biology", tags: ["microbiology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for hydrochloric acid is ______.", correct: "HCl", feedback: "Hydrochloric acid consists of one hydrogen atom and one chlorine atom.", category: "Chemistry", tags: ["acids"] },
+        { type: "fill-in-the-blank", question: "The capital of Egypt is ______.", correct: "Cairo", feedback: "Cairo is the capital city of Egypt.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of transpiration occurs in ______.", correct: "plants", feedback: "Transpiration is the process by which water evaporates from plant leaves.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for acetic acid is ______.", correct: "C2H4O2", feedback: "Acetic acid is a colorless liquid organic compound with the formula C₂H₄O₂.", category: "Chemistry", tags: ["acids"] },
+        { type: "fill-in-the-blank", question: "The capital of India is ______.", correct: "New Delhi", feedback: "New Delhi is the capital city of India.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of nitrogen fixation occurs in ______.", correct: "bacteria", feedback: "Nitrogen fixation is the conversion of atmospheric nitrogen into a usable form by certain bacteria.", category: "Biology", tags: ["microbiology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for ethanol is ______.", correct: "C2H5OH", feedback: "Ethanol is a colorless liquid with the formula C₂H₅OH, commonly known as alcohol.", category: "Chemistry", tags: ["alcohols"] },
+        { type: "fill-in-the-blank", question: "The capital of Argentina is ______.", correct: "Buenos Aires", feedback: "Buenos Aires is the capital city of Argentina.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of glycolysis occurs in the ______.", correct: "cytoplasm", feedback: "Glycolysis is the metabolic pathway that converts glucose into pyruvate, occurring in the cytoplasm of cells.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for methane is ______.", correct: "CH4", feedback: "Methane is a colorless, odorless gas with the formula CH₄, commonly known as natural gas.", category: "Chemistry", tags: ["hydrocarbons"] },
+        { type: "fill-in-the-blank", question: "The capital of Mexico is ______.", correct: "Mexico City", feedback: "Mexico City is the capital city of Mexico.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of photosynthesis occurs in the ______ of plant cells.", correct: "chloroplasts", feedback: "Photosynthesis occurs in the chloroplasts of plant cells, where light energy is converted into chemical energy.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for sulfur dioxide is ______.", correct: "SO2", feedback: "Sulfur dioxide consists of one sulfur atom and two oxygen atoms.", category: "Chemistry", tags: ["gases"] },
+        { type: "fill-in-the-blank", question: "The capital of South Africa is ______.", correct: "Pretoria", feedback: "Pretoria is one of the three capital cities of South Africa, serving as the executive capital.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of cellular respiration occurs in the ______ of cells.", correct: "mitochondria", feedback: "Cellular respiration occurs in the mitochondria, where glucose is converted into ATP.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for calcium carbonate is ______.", correct: "CaCO3", feedback: "Calcium carbonate consists of one calcium atom, one carbon atom, and three oxygen atoms.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of Italy is ______.", correct: "Rome", feedback: "Rome is the capital city of Italy.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of osmosis involves the movement of ______ across a semipermeable membrane.", correct: "water", feedback: "Osmosis is the movement of water molecules from an area of low solute concentration to an area of high solute concentration through a semipermeable membrane.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for sodium bicarbonate is ______.", correct: "NaHCO3", feedback: "Sodium bicarbonate, also known as baking soda, consists of one sodium atom, one hydrogen atom, one carbon atom, and three oxygen atoms.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of France is ______.", correct: "Paris", feedback: "Paris is the capital city of France.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of photosynthesis occurs in the ______ of plant cells.", correct: "chloroplasts", feedback: "Photosynthesis occurs in the chloroplasts of plant cells, where light energy is converted into chemical energy.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for potassium chloride is ______.", correct: "KCl", feedback: "Potassium chloride consists of one potassium atom and one chlorine atom.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of the United Kingdom is ______.", correct: "London", feedback: "London is the capital city of the United Kingdom.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of cellular respiration occurs in the ______ of cells.", correct: "mitochondria", feedback: "Cellular respiration occurs in the mitochondria, where glucose is converted into ATP.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for hydrogen peroxide is ______.", correct: "H2O2", feedback: "Hydrogen peroxide consists of two hydrogen atoms and two oxygen atoms.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of China is ______.", correct: "Beijing", feedback: "Beijing is the capital city of China.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of fermentation occurs in ______.", correct: "yeast", feedback: "Fermentation is a metabolic process that converts sugar to acids, gases, or alcohol using microorganisms like yeast.", category: "Biology", tags: ["microbiology"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for carbon monoxide is ______.", correct: "CO", feedback: "Carbon monoxide consists of one carbon atom and one oxygen atom.", category: "Chemistry", tags: ["gases"] },
+        { type: "fill-in-the-blank", question: "The capital of Italy is ______.", correct: "Rome", feedback: "Rome is the capital city of Italy.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of photosynthesis occurs in the ______ of plant cells.", correct: "chloroplasts", feedback: "Photosynthesis occurs in the chloroplasts of plant cells, where light energy is converted into chemical energy.", category: "Biology", tags: ["plants"] },
+        { type: "fill-in-the-blank", question: "The chemical formula for sodium sulfate is ______.", correct: "Na2SO4", feedback: "Sodium sulfate consists of two sodium atoms, one sulfur atom, and four oxygen atoms.", category: "Chemistry", tags: ["compounds"] },
+        { type: "fill-in-the-blank", question: "The capital of Greece is ______.", correct: "Athens", feedback: "Athens is the capital city of Greece.", category: "Geography", tags: ["capitals"] },
+        { type: "fill-in-the-blank", question: "The process of cellular respiration occurs in the ______ of cells.", correct: "mitochondria", feedback: "Cellular respiration occurs in the mitochondria, where glucose is converted into ATP.", category: "Biology", tags: ["cell biology"] },
+        { type: "fill-in-the-blank", question: "Water boils at ______ degrees Celsius.", correct: "100", feedback: "The boiling point of water at standard atmospheric pressure is 100°C.", category: "Science", tags: ["chemistry"] },
+
+
+        // Open Ended / Short Response / Extended Response / Full Response (treated as open-ended with model answer)
+        { type: "open-ended", question: "State an interval when Sally is traveling at a constant speed. Explain your reasoning.", modelAnswer: "Sally travels at a constant speed between 5 and 10 seconds, because the distance-time graph is a straight line during this interval, indicating a constant rate of change in distance over time (speed).", category: "Math", tags: ["graphing", "speed"] },
+        { type: "open-ended", question: "Graph the function f(x) = 2x + 3. State the slope and y-intercept.", modelAnswer: "The graph is a straight line with a slope of 2 and a y-intercept at (0, 3).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x - 3. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 1) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = |x|. State the vertex and axis of symmetry.", modelAnswer: "The graph is a V-shape with vertex at (0, 0) and axis of symmetry along the y-axis (x = 0).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^3 - 3x^2 + 4. State the inflection point.", modelAnswer: "The graph is a cubic function with an inflection point at (1, 2).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 6x + 8. State the roots and vertex.", modelAnswer: "The graph is a parabola opening upwards with roots at x=2 and x=4, and vertex at (3, -1).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -2x + 5. State the slope and y-intercept.", modelAnswer: "The graph is a straight line with a slope of -2 and a y-intercept at (0, 5).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = 3x^2 - 12x + 7. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening upwards with vertex at (2, -5) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x + 1. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 5) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 4. State the roots and vertex.", modelAnswer: "The graph is a parabola opening upwards with roots at x=-2 and x=2, and vertex at (0, -4).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = 1/x. State the asymptotes.", modelAnswer: "The graph has vertical asymptote at x=0 and horizontal asymptote at y=0.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = sin(x). State the amplitude and period.", modelAnswer: "The graph is a sine wave with amplitude of 1 and period of 2π.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = cos(x). State the amplitude and period.", modelAnswer: "The graph is a cosine wave with amplitude of 1 and period of 2π.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = e^x. State the y-intercept.", modelAnswer: "The graph is an exponential curve with y-intercept at (0, 1).", category: "Math", tags: ["algebra", "exponential functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = ln(x). State the domain and range.", modelAnswer: "The graph is a logarithmic curve with domain (0, ∞) and range (-∞, ∞).", category: "Math", tags: ["algebra", "logarithmic functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 4x + 4. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening upwards with vertex at (2, 0) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = 2^x. State the y-intercept.", modelAnswer: "The graph is an exponential curve with y-intercept at (0, 1).", category: "Math", tags: ["algebra", "exponential functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^3 - 3x^2 + 4. State the inflection point.", modelAnswer: "The graph is a cubic function with an inflection point at (1, 2).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 + 2x + 1. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening upwards with vertex at (-1, 0) and axis of symmetry x = -1.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x - 3. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 1) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = |x - 3|. State the vertex and axis of symmetry.", modelAnswer: "The graph is a V-shape with vertex at (3, 0) and axis of symmetry along the line x = 3.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 6x + 8. State the roots and vertex.", modelAnswer: "The graph is a parabola opening upwards with roots at x=2 and x=4, and vertex at (3, -1).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x + 3. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 7) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 4x + 3. State the roots and vertex.", modelAnswer: "The graph is a parabola opening upwards with roots at x=1 and x=3, and vertex at (2, -1).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -2x^2 + 8x - 6. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 6) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^3 - 3x^2 + 4. State the inflection point.", modelAnswer: "The graph is a cubic function with an inflection point at (1, 2).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = e^(-x). State the y-intercept.", modelAnswer: "The graph is an exponential decay curve with y-intercept at (0, 1).", category: "Math", tags: ["algebra", "exponential functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = ln(x). State the domain and range.", modelAnswer: "The graph is a logarithmic curve with domain (0, ∞) and range (-∞, ∞).", category: "Math", tags: ["algebra", "logarithmic functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = sin(2x). State the amplitude and period.", modelAnswer: "The graph is a sine wave with amplitude of 1 and period of π.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = cos(2x). State the amplitude and period.", modelAnswer: "The graph is a cosine wave with amplitude of 1 and period of π.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = tan(x). State the asymptotes.", modelAnswer: "The graph has vertical asymptotes at x = (π/2) + nπ, where n is an integer.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 + 4x + 3. State the equation of the axis of symmetry.", modelAnswer: "The graph is a parabola opening upwards with roots at x=-1 and x=-3. The axis of symmetry is a vertical line halfway between the roots, with the equation x = -2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x - 3. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 1) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = |x + 2|. State the vertex and axis of symmetry.", modelAnswer: "The graph is a V-shape with vertex at (-2, 0) and axis of symmetry along the line x = -2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^3 - 3x^2 + 4. State the inflection point.", modelAnswer: "The graph is a cubic function with an inflection point at (1, 2).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = e^(x). State the y-intercept.", modelAnswer: "The graph is an exponential growth curve with y-intercept at (0, 1).", category: "Math", tags: ["algebra", "exponential functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = ln(2x). State the domain and range.", modelAnswer: "The graph is a logarithmic curve with domain (0, ∞) and range (-∞, ∞).", category: "Math", tags: ["algebra", "logarithmic functions"] },
+        { type: "open-ended", question: "Graph the function f(x) = sin(3x). State the amplitude and period.", modelAnswer: "The graph is a sine wave with amplitude of 1 and period of (2π/3).", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = cos(3x). State the amplitude and period.", modelAnswer: "The graph is a cosine wave with amplitude of 1 and period of (2π/3).", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = tan(3x). State the asymptotes.", modelAnswer: "The graph has vertical asymptotes at x = (π/6) + n(π/3), where n is an integer.", category: "Math", tags: ["trigonometry", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 4x + 4. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening upwards with vertex at (2, 0) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -x^2 + 4x + 3. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 7) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = x^2 - 4x + 3. State the roots and vertex.", modelAnswer: "The graph is a parabola opening upwards with roots at x=1 and x=3, and vertex at (2, -1).", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Graph the function f(x) = -2x^2 + 8x - 6. State the vertex and axis of symmetry.", modelAnswer: "The graph is a parabola opening downwards with vertex at (2, 6) and axis of symmetry x = 2.", category: "Math", tags: ["algebra", "graphing"] },
+        { type: "open-ended", question: "Given f(x) in a table, state an appropriate value for m so f(x) remains a function. Explain your reasoning.", modelAnswer: "For f(x) to remain a function, each input (x-value) must have only one output (f(x)-value). If there are duplicate x-values in the table, 'm' must be equal to the existing output for that x-value to maintain the function property. If the x-value for 'm' is unique, 'm' can be any value.", category: "Math", tags: ["functions"] },
+        { type: "open-ended", question: "Solve x^2 + 8x = 33 by completing the square.", modelAnswer: "x^2 + 8x + 16 = 33 + 16 => (x+4)^2 = 49 => x+4 = ±7 => x = -4 ± 7. Solutions are x = 3 and x = -11.", category: "Math", tags: ["algebra", "quadratic equations"] },
+        { type: "open-ended", question: "Determine the value of x when f(x) = -22, given f(x) = (-3x - 5)/2", modelAnswer: "-22 = (-3x - 5)/2 => -44 = -3x - 5 => -39 = -3x => x = 13.", category: "Math", tags: ["algebra", "equations"] },
+        { type: "open-ended", question: "Rationalize the denominator of 2/√4 and simplify.", modelAnswer: "√4 = 2. So the expression is 2/2, which simplifies to 1.", category: "Math", tags: ["algebra", "radicals"] },
+        { type: "open-ended", question: "Write and solve a system for: $1.70 in nickels and dimes, 25 coins total.", modelAnswer: "Let n be the number of nickels and d be the number of dimes. System: n + d = 25 and 0.05n + 0.10d = 1.70. Solving gives n=16 and d=9. (16 nickels and 9 dimes).", category: "Math", tags: ["algebra", "systems of equations"] },
+        { type: "open-ended", question: "Given average heart rates and calories burned for 7 men, find the linear regression equation and correlation coefficient. Interpret the result.", modelAnswer: "Requires data table to solve. Linear regression equation will be in the form y = mx + b. Correlation coefficient (r) will be between -1 and 1. A value close to 1 indicates a strong positive linear correlation, close to -1 indicates a strong negative linear correlation, and close to 0 indicates weak or no linear correlation. Interpretation should relate the correlation to the relationship between heart rate and calories burned.", category: "Math", tags: ["statistics", "linear regression"] },
+        { type: "open-ended", question: "Solve x^2 + 4x - 3 = 0 using the quadratic formula.", modelAnswer: "Using the quadratic formula x = [-b ± √(b²-4ac)] / 2a: x = [-4 ± √(16 + 12)] / 2 => x = [-4 ± √28] / 2 => x = [-4 ± 2√7] / 2 => x = -2 ± √7. Solutions are x ≈ 0.646 and x ≈ -4.646.", category: "Math", tags: ["algebra", "quadratic formula"] },
+        { type: "open-ended", question: "Solve algebraically: y = x^2 - 7x + 12 and y = 2x - 6", modelAnswer: "Set equations equal: x^2 - 7x + 12 = 2x - 6 => x^2 - 9x + 18 = 0 => (x-3)(x-6) = 0. Solutions for x are 3 and 6. Substitute back into y = 2x - 6: If x=3, y = 2(3) - 6 = 0. If x=6, y = 2(6) - 6 = 6. Solutions are (3, 0) and (6, 6).", category: "Math", tags: ["algebra", "systems of equations"] },
+        { type: "open-ended", question: "Anna plans to spend $30 on balloons ($2 each) and party hats ($1.50 each). She needs twice as many hats as balloons. Write and graph the system of equations, find the intersection point, and explain its meaning.", modelAnswer: "Let b be the number of balloons and h be the number of hats. System: 2b + 1.5h = 30 and h = 2b. Substitute h=2b into the first equation: 2b + 1.5(2b) = 30 => 2b + 3b = 30 => 5b = 30 => b = 6. If b=6, h = 2(6) = 12. Intersection point is (6, 12). Meaning: Anna can buy 6 balloons and 12 party hats to spend exactly $30 and have twice as many hats as balloons. Graphing involves plotting the two linear equations and finding their intersection.", category: "Math", tags: ["algebra", "systems of equations", "graphing", "word problems"] }
+    ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let score = 0;
+    let shuffledQuestions = []; // To store the shuffled order
+    const localStorageKey = 'hestensLearningQuizState'; // Key for localStorage
+    let reviewModeActive = false;
+    let currentReviewIndex = 0;
+
+
+    // Function to shuffle an array (Fisher-Yates Algorithm)
+    function shuffleArray(array) {
+        const shuffled = [...array]; // Create a copy to avoid modifying the original array
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap elements
+        }
+        return shuffled;
+    }
+
+    // Function to save quiz state to localStorage
+    function saveQuizState() {
+        const quizState = {
+            currentQuestionIndex: currentQuestionIndex,
+            userAnswers: userAnswers,
+            score: score,
+            shuffledQuestions: shuffledQuestions // Save the shuffled questions array
+        };
+        localStorage.setItem(localStorageKey, JSON.stringify(quizState));
+        console.log("Quiz state saved to localStorage:", quizState); // Debugging log
+    }
+
+    // Function to load quiz state from localStorage
+    function loadQuizState() {
+        console.log("Loading quiz state..."); // Debugging log
+        const savedState = localStorage.getItem(localStorageKey);
+        if (savedState) {
+            try { // Add try-catch for parsing localStorage
+                const quizState = JSON.parse(savedState);
+                currentQuestionIndex = quizState.currentQuestionIndex;
+                userAnswers = quizState.userAnswers;
+                score = quizState.score;
+                shuffledQuestions = quizState.shuffledQuestions; // Load the previously shuffled questions
+                console.log("Saved state found:", quizState); // Debugging log
+            } catch (e) {
+                console.error("Error parsing saved quiz state:", e); // Log parsing errors
+                 // If parsing fails, start a new quiz
+                 currentQuestionIndex = 0;
+                 userAnswers = [];
+                 score = 0;
+                 shuffledQuestions = shuffleArray(questions); // Shuffle original questions
+                 console.log("Starting new quiz due to saved state error."); // Debugging log
+            }
+        } else {
+            // Shuffle questions only on the very first load
+            shuffledQuestions = shuffleArray(questions);
+            console.log("No saved state found. Initializing quiz."); // Debugging log
+            console.log("Original questions:", questions); // Debugging log
+            console.log("Shuffled questions:", shuffledQuestions); // Debugging log
+        }
+        // Always load the current question based on the index
+        loadQuestion();
+    }
+
+    // Function to load the current question
+    function loadQuestion() {
+        console.log("Loading question..."); // Debugging log
+        console.log("Current question index:", currentQuestionIndex); // Debugging log
+        console.log("Shuffled questions length:", shuffledQuestions.length); // Debugging log
+
+
+        const quizArea = document.getElementById("quizArea");
+        const questionContainer = document.getElementById("question");
+        const optionsContainer = document.getElementById("options");
+        const feedbackContainer = document.getElementById("feedback");
+        const nextButton = document.getElementById("nextQuestion");
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+        const resultsSummary = document.getElementById("resultsSummary");
+        const reviewModeDiv = document.getElementById("reviewMode");
+        const mediaContainer = document.getElementById("mediaContainer");
+
+
+        // Hide results and review areas
+        resultsSummary.classList.add("d-none");
+        reviewModeDiv.classList.add("d-none");
+        quizArea.classList.remove("d-none"); // Show quiz area
+
+        // Clear previous content
+        feedbackContainer.textContent = "";
+        feedbackContainer.className = "fw-bold mt-3"; // Reset feedback classes
+        optionsContainer.innerHTML = "";
+        mediaContainer.innerHTML = ""; // Clear media container
+        nextButton.classList.add("d-none"); // Hide next button by default
+
+
+        if (currentQuestionIndex < shuffledQuestions.length) {
+            const questionData = shuffledQuestions[currentQuestionIndex];
+             console.log("Loading question:", questionData); // Debugging log
+
+
+            // Update progress bar and text
+            const progressPercentage = ((currentQuestionIndex) / shuffledQuestions.length) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `${currentQuestionIndex} / ${shuffledQuestions.length} Completed`; // Show completed count
+
+
+            // Display question
+            questionContainer.textContent = questionData.question;
+
+            // Display media if available
+            if (questionData.imageUrl) {
+                const img = document.createElement("img");
+                img.src = questionData.imageUrl;
+                img.alt = questionData.question; // Use question as alt text
+                img.className = "img-fluid mb-3"; // Make image responsive
+                mediaContainer.appendChild(img);
+            } else if (questionData.audioUrl) {
+                const audio = document.createElement("audio");
+                audio.controls = true;
+                audio.src = questionData.audioUrl;
+                 audio.setAttribute('aria-label', `Audio for question: ${questionData.question}`); // Add aria-label
+                mediaContainer.appendChild(audio);
+            } else if (questionData.videoUrl) {
+                 const video = document.createElement("video");
+                 video.controls = true;
+                 video.src = questionData.videoUrl;
+                 video.className = "img-fluid mb-3"; // Make video responsive
+                 video.setAttribute('aria-label', `Video for question: ${questionData.question}`); // Add aria-label
+                 mediaContainer.appendChild(video);
+            }
+
+
+            if (questionData.type === "multiple-choice") {
+                // Display multiple-choice options as buttons
+                questionData.options.forEach(option => {
+                    const optionButton = document.createElement("button");
+                    optionButton.textContent = option;
+                    optionButton.className = "btn btn-outline-primary";
+                    optionButton.onclick = () => checkAnswer(option);
+                     optionButton.setAttribute('aria-label', option); // Add aria-label for accessibility
+                    optionsContainer.appendChild(optionButton);
+                });
+            } else if (questionData.type === "true-false") {
+                 // Display True/False options as buttons
+                 const trueButton = document.createElement("button");
+                 trueButton.textContent = "True";
+                 trueButton.className = "btn btn-outline-primary";
+                 trueButton.onclick = () => checkAnswer("True");
+                 trueButton.setAttribute('aria-label', 'True');
+                 optionsContainer.appendChild(trueButton);
+
+                 const falseButton = document.createElement("button");
+                 falseButton.textContent = "False";
+                 falseButton.className = "btn btn-outline-primary";
+                 falseButton.onclick = () => checkAnswer("False");
+                 falseButton.setAttribute('aria-label', 'False');
+                 optionsContainer.appendChild(falseButton);
+
+            } else if (questionData.type === "fill-in-the-blank") {
+                 // Display input for fill-in-the-blank
+                 const answerInput = document.createElement("input");
+                 answerInput.type = "text";
+                 answerInput.className = "form-control";
+                 answerInput.placeholder = "Type your answer here...";
+                 answerInput.id = "fillInTheBlankAnswer";
+                 answerInput.setAttribute('aria-label', 'Your answer for the fill in the blank question'); // Add aria-label
+                 optionsContainer.appendChild(answerInput);
+
+                 // Show the next button for fill-in-the-blank
+                 nextButton.classList.remove("d-none");
+                 nextButton.onclick = () => checkFillInTheBlank();
+
+            } else if (questionData.type === "open-ended") {
+                // Display a textarea for open-ended questions
+                const answerInput = document.createElement("textarea");
+                answerInput.className = "form-control";
+                answerInput.rows = 4;
+                answerInput.placeholder = "Type your answer here...";
+                answerInput.id = "openEndedAnswer";
+                 answerInput.setAttribute('aria-label', 'Your answer to the open ended question'); // Add aria-label
+                optionsContainer.appendChild(answerInput);
+
+                // Show the next button for open-ended questions
+                nextButton.classList.remove("d-none");
+                nextButton.onclick = () => saveOpenEndedAnswer();
+            }
+        } else {
+            // Quiz is finished
+            console.log("Quiz finished. Displaying results."); // Debugging log
+            displayResults();
+        }
+    }
+
+    // Function to check answer for multiple-choice and true/false questions
+    function checkAnswer(selectedOption) {
+        console.log("Checking answer:", selectedOption); // Debugging log
+        const feedbackContainer = document.getElementById("feedback");
+        const questionData = shuffledQuestions[currentQuestionIndex];
+        const question = questionData.question;
+        const optionsContainer = document.getElementById("options");
+
+        // Disable buttons after selection
+        Array.from(optionsContainer.children).forEach(button => {
+            button.disabled = true;
+        });
+
+        // Store the answer
+        const isCorrect = selectedOption === questionData.correct;
+        userAnswers.push({
+            question: question,
+            type: questionData.type,
+            answer: selectedOption,
+            correct: isCorrect,
+            correctAnswer: questionData.correct, // Store correct answer for summary
+            feedback: questionData.feedback || null, // Store feedback
+            learningResourceUrl: questionData.learningResourceUrl || null // Store resource URL
+        });
+
+        if (isCorrect) {
+            feedbackContainer.textContent = `Correct! ${questionData.feedback || ''}`;
+            feedbackContainer.classList.remove("text-danger");
+            feedbackContainer.classList.add("text-success");
+            score++; // Increment score for correct MC/T/F answer
+        } else {
+             feedbackContainer.textContent = `Incorrect. The correct answer is: ${questionData.correct}. ${questionData.feedback || ''}`;
+            feedbackContainer.classList.remove("text-success");
+            feedbackContainer.classList.add("text-danger");
+        }
+
+         // Display learning resource link if available
+        if (questionData.learningResourceUrl) {
+            const resourceLink = document.createElement('a');
+            resourceLink.href = questionData.learningResourceUrl;
+            resourceLink.textContent = 'Learn More';
+            resourceLink.target = '_blank'; // Open in new tab
+            resourceLink.className = 'btn btn-info btn-sm mt-2 ms-2';
+            feedbackContainer.appendChild(resourceLink);
+        }
+
+
+        // Save state after answering
+        saveQuizState();
+
+        // Automatically move to the next question after a short delay
+        setTimeout(() => {
+            currentQuestionIndex++;
+            loadQuestion();
+        }, 2000); // Increased delay slightly
+    }
+
+     // Function to check answer for fill-in-the-blank questions
+    function checkFillInTheBlank() {
+        console.log("Checking fill-in-the-blank answer..."); // Debugging log
+        const answerInput = document.getElementById("fillInTheBlankAnswer");
+        const feedbackContainer = document.getElementById("feedback");
+        const questionData = shuffledQuestions[currentQuestionIndex];
+        const question = questionData.question;
+        const answer = answerInput.value.trim();
+         const nextButton = document.getElementById("nextQuestion");
+
+
+        if (answer === "") {
+            feedbackContainer.textContent = "Please provide an answer.";
+            feedbackContainer.classList.remove("text-success");
+            feedbackContainer.classList.add("text-danger");
+            return;
+        }
+
+         // Disable input and button
+        answerInput.disabled = true;
+        nextButton.disabled = true;
+
+
+        // Simple exact match check for fill-in-the-blank
+        const isCorrect = answer.toLowerCase() === questionData.correct.toLowerCase();
+
+        // Store the answer
+        userAnswers.push({
+            question: question,
+            type: questionData.type,
+            answer: answer,
+            correct: isCorrect,
+            correctAnswer: questionData.correct, // Store correct answer for summary
+            feedback: questionData.feedback || null, // Store feedback
+            learningResourceUrl: questionData.learningResourceUrl || null // Store resource URL
+        });
+
+        if (isCorrect) {
+            feedbackContainer.textContent = `Correct! ${questionData.feedback || ''}`;
+            feedbackContainer.classList.remove("text-danger");
+            feedbackContainer.classList.add("text-success");
+            score++; // Increment score
+        } else {
+            feedbackContainer.textContent = `Incorrect. The correct answer is: ${questionData.correct}. ${questionData.feedback || ''}`;
+            feedbackContainer.classList.remove("text-success");
+            feedbackContainer.classList.add("text-danger");
+        }
+
+         // Display learning resource link if available
+        if (questionData.learningResourceUrl) {
+            const resourceLink = document.createElement('a');
+            resourceLink.href = questionData.learningResourceUrl;
+            resourceLink.textContent = 'Learn More';
+            resourceLink.target = '_blank'; // Open in new tab
+            resourceLink.className = 'btn btn-info btn-sm mt-2 ms-2';
+            feedbackContainer.appendChild(resourceLink);
+        }
+
+        // Save state after answering
+        saveQuizState();
+
+        // Automatically move to the next question after a short delay
+        setTimeout(() => {
+            currentQuestionIndex++;
+            loadQuestion();
+        }, 2000);
+    }
+
+
+    // Function to save answer for open-ended questions and move to the next
+    function saveOpenEndedAnswer() {
+        console.log("Saving open-ended answer..."); // Debugging log
+        const answerInput = document.getElementById("openEndedAnswer");
+        const feedbackContainer = document.getElementById("feedback");
+        const questionData = shuffledQuestions[currentQuestionIndex];
+        const question = questionData.question;
+        const answer = answerInput.value.trim();
+        const nextButton = document.getElementById("nextQuestion");
+
+
+        if (answer === "") {
+            feedbackContainer.textContent = "Please provide an answer.";
+            feedbackContainer.classList.remove("text-success");
+            feedbackContainer.classList.add("text-danger");
+            return;
+        }
+
+         // Disable input and button
+        answerInput.disabled = true;
+        nextButton.disabled = true;
+
+
+        // Store the answer
+        userAnswers.push({
+            question: question,
+            type: questionData.type,
+            answer: answer,
+            correct: null, // Cannot determine correctness automatically
+            modelAnswer: questionData.modelAnswer || null, // Store model answer
+            feedback: questionData.feedback || null, // Store feedback (if any)
+            learningResourceUrl: questionData.learningResourceUrl || null // Store resource URL
+        });
+
+         feedbackContainer.textContent = "Answer saved. Moving to the next question.";
+         feedbackContainer.classList.remove("text-danger");
+         feedbackContainer.classList.add("text-success");
+
+         // Display learning resource link if available (less common for OE, but possible)
+        if (questionData.learningResourceUrl) {
+            const resourceLink = document.createElement('a');
+            resourceLink.href = questionData.learningResourceUrl;
+            resourceLink.textContent = 'Learn More';
+            resourceLink.target = '_blank'; // Open in new tab
+            resourceLink.className = 'btn btn-info btn-sm mt-2 ms-2';
+            feedbackContainer.appendChild(resourceLink);
+        }
+
+
+        // Save state after answering
+        saveQuizState();
+
+        // Automatically move to the next question after a short delay
+        setTimeout(() => {
+            currentQuestionIndex++;
+            loadQuestion();
+        }, 1000); // Shorter delay for OE as no immediate correctness feedback
+    }
+
+
+    // Function to display quiz results
+    function displayResults() {
+        console.log("Displaying results..."); // Debugging log
+        const quizArea = document.getElementById("quizArea");
+        const resultsSummary = document.getElementById("resultsSummary");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const answerSummary = document.getElementById("answerSummary");
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+
+        quizArea.classList.add("d-none"); // Hide quiz area
+        resultsSummary.classList.remove("d-none"); // Show results summary
+
+        // Update progress bar to 100%
+        progressBar.style.width = `100%`;
+        progressText.textContent = `${shuffledQuestions.length} / ${shuffledQuestions.length} Completed`; // Show completed count
+
+
+        // Display score
+        const gradedQuestionsCount = userAnswers.filter(a => a.type === "multiple-choice" || a.type === "true-false" || a.type === "fill-in-the-blank").length;
+        scoreDisplay.textContent = `Your Score: ${score} out of ${gradedQuestionsCount} (Automatically Graded Questions)`;
+
+        // Display answer summary
+        answerSummary.innerHTML = ""; // Clear previous summary
+        userAnswers.forEach((answer, index) => {
+            const questionElement = document.createElement("p");
+            questionElement.classList.add("mb-1");
+            questionElement.innerHTML = `<strong>Question ${index + 1}:</strong> ${answer.question}`;
+
+            const answerElement = document.createElement("p");
+            answerElement.classList.add("ms-3", "mb-2"); // Indent answer
+
+            let answerText = `Your Answer: ${answer.answer}`;
+            if (answer.type === "multiple-choice" || answer.type === "true-false" || answer.type === "fill-in-the-blank") {
+                if (answer.correct) {
+                    answerElement.classList.add("text-success");
+                    answerText += " (Correct)";
+                } else {
+                    answerElement.classList.add("text-danger");
+                    answerText += ` (Incorrect. Correct Answer: ${answer.correctAnswer})`;
+                }
+            } else if (answer.type === "open-ended") {
+                 answerElement.classList.add("text-info"); // Style open-ended answers
+                 answerText += " (Requires manual review)";
+                 if(answer.modelAnswer){
+                     answerText += ` | Model Answer: ${answer.modelAnswer}`;
+                 }
+            }
+            answerElement.textContent = answerText;
+
+            answerSummary.appendChild(questionElement);
+            answerSummary.appendChild(answerElement);
+        });
+
+        // Clear saved state after quiz completion
+        localStorage.removeItem(localStorageKey);
+        console.log("Quiz state cleared from localStorage.");
+    }
+
+     // Function to enter review mode
+    document.getElementById("reviewAnswers").onclick = function() {
+        console.log("Entering review mode..."); // Debugging log
+        reviewModeActive = true;
+        currentReviewIndex = 0; // Start review from the first question
+        displayReviewQuestion(currentReviewIndex);
+    };
+
+    // Function to display a question in review mode
+    function displayReviewQuestion(index) {
+        console.log("Displaying review question index:", index); // Debugging log
+        const quizArea = document.getElementById("quizArea");
+        const resultsSummary = document.getElementById("resultsSummary");
+        const reviewModeDiv = document.getElementById("reviewMode");
+        const reviewQuestionArea = document.getElementById("reviewQuestionArea");
+        const prevButton = document.getElementById("prevReview");
+        const nextButton = document.getElementById("nextReview");
+
+        quizArea.classList.add("d-none"); // Hide quiz area
+        resultsSummary.classList.add("d-none"); // Hide results summary
+        reviewModeDiv.classList.remove("d-none"); // Show review mode area
+
+        const answerData = userAnswers[index];
+        // Find the original question data from the shuffledQuestions array
+        const questionData = shuffledQuestions.find(q => q.question === answerData.question);
+
+        reviewQuestionArea.innerHTML = `
+            <h5>Question ${index + 1}: ${answerData.question}</h5>
+             ${questionData && questionData.imageUrl ? `<img src="${questionData.imageUrl}" alt="${questionData.question}" class="img-fluid mb-3 text-center">` : ''}
+             ${questionData && questionData.audioUrl ? `<audio controls src="${questionData.audioUrl}" aria-label="Audio for review question"></audio>` : ''}
+             ${questionData && questionData.videoUrl ? `<video controls src="${questionData.videoUrl}" class="img-fluid mb-3" aria-label="Video for review question"></video>` : ''}
+            <p><strong>Your Answer:</strong> ${answerData.answer}</p>
+        `;
+
+        if (answerData.type === "multiple-choice" || answerData.type === "true-false" || answerData.type === "fill-in-the-blank") {
+            reviewQuestionArea.innerHTML += `<p class="${answerData.correct ? 'text-success' : 'text-danger'}"><strong>Result:</strong> ${answerData.correct ? 'Correct' : 'Incorrect'}</p>`;
+             reviewQuestionArea.innerHTML += `<p><strong>Correct Answer:</strong> ${answerData.correctAnswer}</p>`;
+        } else if (answerData.type === "open-ended") {
+             reviewQuestionArea.innerHTML += `<p><strong>Result:</strong> Requires manual review</p>`;
+             if(answerData.modelAnswer){
+                 reviewQuestionArea.innerHTML += `<p><strong>Model Answer:</strong> ${answerData.modelAnswer}</p>`;
+             }
+        }
+
+         if(answerData.feedback){
+             reviewQuestionArea.innerHTML += `<p><strong>Feedback:</strong> ${answerData.feedback}</p>`;
+         }
+
+         if(answerData.learningResourceUrl){
+             reviewQuestionArea.innerHTML += `<p><a href="${answerData.learningResourceUrl}" target="_blank">Learn More</a></p>`;
+         }
+
+
+        // Update review navigation button states
+        prevButton.disabled = index === 0;
+        nextButton.disabled = index === userAnswers.length - 1;
+    }
+
+    // Review mode navigation
+    document.getElementById("prevReview").onclick = function() {
+        if (currentReviewIndex > 0) {
+            currentReviewIndex--;
+            displayReviewQuestion(currentReviewIndex);
+        }
+    };
+
+    document.getElementById("nextReview").onclick = function() {
+        if (currentReviewIndex < userAnswers.length - 1) {
+            currentReviewIndex++;
+            displayReviewQuestion(currentReviewIndex);
+        }
+    };
+
+     // Back to results from review mode
+    document.getElementById("backToResults").onclick = function() {
+        reviewModeActive = false;
+        displayResults(); // Go back to the results summary view
+    };
+
+
+    // Function to download answers as PDF
+    document.getElementById("downloadAnswers").onclick = function () {
+        console.log("Generating PDF..."); // Debugging log
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        let yOffset = 10; // Initial vertical offset
+        const lineHeight = 7; // Height of each line of text
+        const margin = 10;
+        const maxWidth = doc.internal.pageSize.width - 2 * margin;
+
+        doc.setFontSize(16);
+        doc.text("Quiz Answers and Results", margin, yOffset);
+        yOffset += lineHeight * 2;
+
+        doc.setFontSize(12);
+        const gradedQuestionsCount = userAnswers.filter(a => a.type === "multiple-choice" || a.type === "true-false" || a.type === "fill-in-the-blank").length;
+        doc.text(`Score: ${score} out of ${gradedQuestionsCount} (Automatically Graded Questions)`, margin, yOffset);
+        yOffset += lineHeight * 2;
+
+        userAnswers.forEach((answer, index) => {
+            const questionNumber = index + 1;
+            const questionText = `Question ${questionNumber}: ${answer.question}`;
+            let answerText = `Your answer: ${answer.answer}`;
+
+            // Add question text, handling wrapping
+            const questionLines = doc.splitTextToSize(questionText, maxWidth);
+            doc.text(questionLines, margin, yOffset);
+            yOffset += questionLines.length * lineHeight;
+
+            if (answer.type === "multiple-choice" || answer.type === "true-false" || answer.type === "fill-in-the-blank") {
+                answerText += answer.correct ? " (Correct)" : ` (Incorrect. Correct Answer: ${answer.correctAnswer})`;
+                doc.setTextColor(answer.correct ? [0, 128, 0] : [255, 0, 0]); // Green for correct, Red for incorrect
+            } else if (answer.type === "open-ended") {
+                answerText += " (Requires manual review)";
+                 if(answer.modelAnswer){
+                     answerText += ` | Model Answer: ${answer.modelAnswer}`;
+                 }
+                 doc.setTextColor(0, 0, 0); // Black for open-ended
+            }
+
+            // Add answer text, handling wrapping
+            const answerLines = doc.splitTextToSize(answerText, maxWidth);
+            doc.text(answerLines, margin, yOffset);
+            yOffset += answerLines.length * lineHeight;
+
+            doc.setTextColor(0, 0, 0); // Reset text color to black
+
+             // Add feedback and resource link if available
+            if(answer.feedback){
+                const feedbackText = `Feedback: ${answer.feedback}`;
+                 const feedbackLines = doc.splitTextToSize(feedbackText, maxWidth);
+                 doc.text(feedbackLines, margin, yOffset);
+                 yOffset += feedbackLines.length * lineHeight;
+            }
+             if(answer.learningResourceUrl){
+                 const resourceText = `Learn More: ${answer.learningResourceUrl}`;
+                  const resourceLines = doc.splitTextToSize(resourceText, maxWidth);
+                  doc.text(resourceLines, margin, yOffset);
+                  yOffset += resourceLines.length * lineHeight;
+             }
+
+
+            yOffset += lineHeight; // Add space between questions
+
+            // Add a new page if the content is getting too close to the bottom
+            if (yOffset > doc.internal.pageSize.height - 20) {
+                doc.addPage();
+                yOffset = margin; // Reset yOffset for the new page
+            }
+        });
+
+        doc.save("quiz_answers.pdf");
+    };
+
+    // Initial load of the first question (or saved state) is now handled by loadQuizState
+    // loadQuestion(); // This call is now inside loadQuizState
+</script>
+</body>
+
+</html>

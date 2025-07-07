@@ -1,0 +1,27 @@
+fetch('/src/bot.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('chat-widget-container').innerHTML = data;
+
+        // Wait until the inserted content's scripts are fully loaded
+        const scripts = document.querySelectorAll('#chat-widget-container script');
+        scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) {
+                newScript.src = oldScript.src;
+                newScript.onload = () => {
+                    if (typeof initializeChatBot === 'function') {
+                        initializeChatBot();
+                    }
+                };
+                document.body.appendChild(newScript);
+            } else {
+                newScript.textContent = oldScript.textContent;
+                document.body.appendChild(newScript);
+                if (typeof initializeChatBot === 'function') {
+                    initializeChatBot();
+                }
+            }
+        });
+    })
+    .catch(error => console.error('Error loading chatbot:', error));

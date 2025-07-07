@@ -1,0 +1,41 @@
+{
+    "algebra": {
+        "title": "Algebra Basics",
+        "steps": [
+            "Let's start with the basics of algebra. Do you know what a variable is?",
+            "Great! A variable is a symbol that represents a number. Now let's solve: x + 3 = 7. What is x?",
+            "Awesome! x = 4. Here's a resource to go deeper: https://www.khanacademy.org/math/algebra",
+            "Now let's try something harder: Solve for y in the equation 2y - 5 = 9.",
+            "Correct! y = 7. Keep practicing with this interactive tool: https://example.com/algebra-tool"
+        ]
+    },
+    "lesson_3": {
+        "title": "Lesson 3: Photosynthesis",
+        "steps": [
+            "Photosynthesis helps plants make food using sunlight. Do you know what chlorophyll does?",
+            "Exactly! It captures sunlight. Now, what gas do plants take in for photosynthesis?",
+            "Correct! They take in CO₂. Here's a great video: https://example.com/photosynthesis-video",
+            "What is the main product of photosynthesis that plants use for energy?",
+            "That's right! It's glucose. Here's a detailed article: https://example.com/photosynthesis-article"
+        ]
+    },
+    "geometry": {
+        "title": "Geometry Basics",
+        "steps": [
+            "Let's explore geometry. Do you know what a triangle is?",
+            "Great! A triangle has three sides. Can you name the types of triangles based on their angles?",
+            "Correct! Acute, right, and obtuse triangles. Now, calculate the area of a triangle with base 5 and height 10.",
+            "Awesome! The area is 25. Here's a geometry practice tool: https://example.com/geometry-tool"
+        ]
+    },
+    "lesson_4": {
+        "title": "Lesson 4: The Water Cycle",
+        "steps": [
+            "The water cycle describes how water moves through the environment. Can you name the stages of the water cycle?",
+            "Exactly! Evaporation, condensation, precipitation, and collection. What happens during evaporation?",
+            "Correct! Water turns into vapor. Here's an animation to learn more: https://example.com/water-cycle-animation",
+            "What role does the sun play in the water cycle?",
+            "That's right! The sun provides energy for evaporation. Explore this interactive diagram: https://example.com/water-cycle-diagram"
+        ]
+    }
+}
