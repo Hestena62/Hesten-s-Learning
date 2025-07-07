@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning - Assessment</title>
+    <meta name="description" content="Hesten's Learning - Personalized assessment and progress tracking for students with learning disabilities." />
+    <meta name="keywords" content="assessment, progress tracker, learning plan, practice questions, skill selection" />
+    <meta name="author" content="Hesten's Learning" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Using Inter font
+                    },
+                    colors: {
+                        primary: '#4F46E5', // A modern purple
+                        secondary: '#6366F1', // A slightly lighter purple
+                        accent: '#818CF8', // A very light purple
+                        dark: '#1F2937',   // Dark gray for backgrounds
+                        light: '#F3F4F6',  // Light gray for backgrounds
+                        grayish: '#6B7280', // A lighter gray for text
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" href="/Images/large.ico" onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Disable text selection */
+        body {
+            user-select: none;
+            font-family: 'Inter', sans-serif; /* Apply Inter font globally */
+        }
+
+        /* Custom styles for mobile menu slide-in/out */
+        @media (max-width: 1023px) { /* Equivalent to lg breakpoint */
+            #nav-content.mobile-menu-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px; /* Height of the header */
+                left: 0;
+                width: 100%;
+                background-color: #1F2937; /* Same as header background */
+                padding: 1rem;
+                z-index: 20;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: slideDown .3s ease-out forwards;
+            }
+
+            #nav-content:not(.mobile-menu-active) {
+                animation: slideUp .3s ease-out forwards;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideUp {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); display: none; }
+            }
+
+            /* Make search input full width in mobile menu */
+            #nav-content .search-input {
+                width: 100% !important;
+                border-radius: 0.5rem !important;
+                padding-left: 1rem !important;
+                margin-top: 1rem;
+                background: white !important;
+                border: 1px solid #ccc !important;
+                color: #1F2937 !important;
+            }
+            #nav-content .search-input + .fa-search {
+                left: auto;
+                right: 1rem;
+                color: #1F2937 !important;
+            }
+
+            /* Adjust profile dropdown for mobile */
+            #profile-dropdown {
+                position: static !important; /* Remove absolute positioning */
+                width: 100% !important;
+                box-shadow: none !important;
+                border-top: 1px solid #e5e7eb; /* Add a separator */
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+        }
+
+        /* Custom progress bar animation */
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: var(--progress-width); }
+        }
+
+        .progress-bar-animated {
+            animation: fillProgress 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-light text-dark">
+
+    <header class="bg-dark shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
+            <a class="flex items-center flex-shrink-0 text-white mr-6" href="/index.html">
+                <img src="/Images/large.ico" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
+                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
+                <span class="font-semibold text-xl tracking-tight">Hesten's Learning</span>
+            </a>
+
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-primary">
+                    <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z"/></svg>
+                </button>
+            </div>
+
+            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+                <div class="text-base lg:flex-grow lg:flex lg:items-center">
+                    <a href="/index.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/learning.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-book mr-2"></i> Learning
+                    </a>
+                    <a href="/assessment.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-3 py-2 rounded-md transition-colors duration-200 font-medium">
+                        <i class="fas fa-tasks mr-2"></i> Assessment
+                    </a>
+                </div>
+                
+                <div class="relative lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <input type="text" placeholder="Search courses..." class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 lg:w-48 transition-all duration-300 ease-in-out w-full" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <div class="relative group ml-0 lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
+                    <button class="flex items-center text-gray-200 hover:text-white focus:outline-none px-3 py-2 rounded-md w-full justify-center lg:justify-start" id="profile-menu-button">
+                        <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture"
+                            class="rounded-full h-8 w-8 mr-2" onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';" />
+                        <span id="profile-name" class="md:inline-block">User</span>
+                        <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    </button>
+                    <div id="profile-dropdown" class="absolute right-0 lg:left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden lg:group-hover:block">
+                        <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-user mr-2"></i> Profile</a>
+                        <a href="/settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-cog mr-2"></i> Settings</a>
+                        <a href="/help.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-question-circle mr-2"></i> Help</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-sign-out-alt mr-2"></i> Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <header class="bg-gradient-to-r from-primary to-secondary text-white py-16 px-4 text-center rounded-b-lg shadow-xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Your Assessment Dashboard</h1>
+        <p class="text-lg md:text-xl mb-8">Track your progress, customize your learning plan, and practice skills.</p>
+    </header>
+
+    <section class="container mx-auto py-12 px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Select Your Grade</h2>
+                <div class="flex-grow">
+                    <label for="user-grade" class="block text-gray-700 text-sm font-semibold mb-2">Current Grade Level:</label>
+                    <div class="relative">
+                        <select id="user-grade" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200" onchange="updateGrade()">
+                            <option>Pre-K</option>
+                            <option>First Grade</option>
+                            <option>Second Grade</option>
+                            <option>Third Grade</option>
+                            <option>Fourth Grade</option>
+                            <option>Fifth Grade</option>
+                            <option>Sixth Grade</option>
+                            <option>Seventh Grade</option>
+                            <option>Eighth Grade</option>
+                            <option>Ninth Grade</option>
+                            <option>Tenth Grade</option>
+                            <option>Eleventh Grade</option>
+                            <option>Twelfth Grade</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Progress Tracker</h2>
+                    <p class="text-gray-600 mb-4">Overall progress across all subjects.</p>
+                    <div class="w-full bg-gray-200 rounded-full h-4 relative">
+                        <div class="bg-primary h-4 rounded-full text-xs flex items-center justify-center text-white progress-bar-animated" style="width: 70%; --progress-width: 70%;" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h2>
+                    <p class="text-gray-600 mb-4">Your latest learning activities.</p>
+                    <ul id="recent-activity-list" class="list-disc list-inside text-gray-700 space-y-2">
+                        <li class="p-2 bg-gray-50 rounded-md">Completed "Adding Single Digits"</li>
+                        <li class="p-2 bg-gray-50 rounded-md">Reviewed "Basic Verb Conjugation"</li>
+                        <li class="p-2 bg-gray-50 rounded-md">Started "Introduction to Cells"</li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Personalized Learning Plan</h2>
+                    <p class="text-gray-600 mb-4">Based on your performance and goals, here's your next recommended lesson.</p>
+                    <div class="flex items-center space-x-4 bg-accent/20 p-4 rounded-lg">
+                        <i class="fas fa-lightbulb text-primary text-3xl"></i>
+                        <p class="text-lg font-semibold text-gray-800">Next Lesson: "Algebra Fundamentals"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-12 px-4">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Subject & Skill Selection</h2>
+            <p class="text-gray-600 mb-8 text-center">Filter skills by grade level and topic to find exactly what you need.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label for="skill-level" class="block text-gray-700 text-sm font-semibold mb-2">Skill Level</label>
+                    <div class="relative">
+                        <select id="skill-level" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200" onchange="populateSkills(); updatePracticeQuestions()">
+                            <option>Pre-K</option>
+                            <option>First Grade</option>
+                            <option>Second Grade</option>
+                            <option>Third Grade</option>
+                            <option>Fourth Grade</option>
+                            <option>Fifth Grade</option>
+                            <option>Sixth Grade</option>
+                            <option>Seventh Grade</option>
+                            <option>Eighth Grade</option>
+                            <option>Ninth Grade</option>
+                            <option>Tenth Grade</option>
+                            <option>Eleventh Grade</option>
+                            <option>Twelfth Grade</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="topic" class="block text-gray-700 text-sm font-semibold mb-2">Topic</label>
+                    <div class="relative">
+                        <select id="topic" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200" onchange="populateSkills(); updatePracticeQuestions()">
+                            <option selected>All Topics</option>
+                            <option>Math</option>
+                            <option>Science</option>
+                            <option>Social Studies</option>
+                            <option>Language Arts</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="skills-container" class="mt-4">
+                </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-12 px-4">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Practice Questions</h2>
+            <p class="text-gray-600 mb-8 text-center">Test your knowledge with interactive practice questions.</p>
+
+            <div class="space-y-6">
+                <div class="question text-xl font-semibold text-gray-800" id="question">Loading question...</div>
+                <div class="options grid grid-cols-1 md:grid-cols-2 gap-4" id="options">
+                    </div>
+                <div class="feedback text-base font-medium" id="feedback"></div>
+
+                <div class="help-buttons flex flex-wrap gap-4 mt-6">
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" id="hintButton" onclick="showHint()">Show Hint</button>
+                    <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-600" id="explainButton" onclick="showExplanation()">Show Explanation</button>
+                    <button class="bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary" id="nextQuestionButton">Next Question</button>
+                    <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500" id="downloadAnswers">Download Answers as PDF</button>
+                </div>
+
+                <div id="hintText" class="bg-blue-100 text-blue-800 p-4 rounded-lg mt-4 hidden"></div>
+                <div id="explanationText" class="bg-gray-100 text-gray-800 p-4 rounded-lg mt-4 hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 px-4 rounded-t-lg shadow-inner">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">About Us</h3>
+                <p class="text-sm leading-relaxed text-grayish">
+                    Empowering students with learning disabilities through personalized learning experiences. Our mission is to make quality education accessible to everyone.
+                </p>
+                <a href="/about.html" class="text-accent hover:underline text-sm flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> Learn More
+                </a>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/curriculum" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-book mr-2"></i>Curriculum</a>
+                    </li>
+                    <li>
+                        <a href="/assessment.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-tasks mr-2"></i>Assessment</a>
+                    </li>
+                    <li>
+                        <a href="/standard" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chart-line mr-2"></i>Standards</a>
+                    </li>
+                    <li>
+                        <a href="/help" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-question-circle mr-2"></i>Help Center</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Support</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/contact.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-envelope mr-2"></i>Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="/students.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-user-graduate mr-2"></i>For Students</a>
+                    </li>
+                    <li>
+                        <a href="/parents.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-users mr-2"></i>For Parents</a>
+                    </li>
+                    <li>
+                        <a href="/teachers.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-chalkboard-teacher mr-2"></i>For Teachers</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block">Legal & Settings</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="/privacy.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/terms.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-file-contract mr-2"></i>Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="/accessibility.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-universal-access mr-2"></i>Accessibility</a>
+                    </li>
+                    <li>
+                        <a href="/about-us.html" class="text-sm text-grayish hover:text-white hover:underline transition-colors duration-200 flex items-center"><i class="fas fa-info-circle mr-2"></i>About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center text-sm border-t border-gray-700 pt-8">
+            <p class="mb-2 text-grayish">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="mb-2 text-grayish">
+                Made with <i class="fas fa-heart text-red-500"></i> for education
+            </p>
+            <p class="text-grayish">
+                <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                    class="text-accent hover:underline">Hesten's Learning</a>
+                by
+                <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="http://hestena62.com/about-me.html" class="text-accent hover:underline">Hesten Allison</a>
+                is licensed under
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" class="text-accent hover:underline">
+                    CC BY-NC-SA 4.0
+                </a>
+            </p>
+
+            <div class="gtranslate_wrapper mt-6"></div>
+            <script>
+                window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper","flag_style":"3d","alt_flags":{"en":"usa"}}
+            </script>
+            <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Toggle mobile navigation
+        const navToggle = document.getElementById('nav-toggle');
+        const navContent = document.getElementById('nav-content');
+
+        navToggle.addEventListener('click', function () {
+            navContent.classList.toggle('hidden');
+            navContent.classList.toggle('mobile-menu-active'); // Add/remove active class for custom animation
+        });
+
+        // Profile dropdown functionality
+        const profileMenuButton = document.getElementById('profile-menu-button');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
+        profileMenuButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent document click from closing immediately
+            profileDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener('click', function(event) {
+            // Check if the click is outside both the button and the dropdown
+            if (!profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.add('hidden');
+            }
+        });
+
+        // Hide mobile menu on resize if it becomes desktop view
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) { // Equivalent to Tailwind's 'lg' breakpoint
+                navContent.classList.remove('hidden', 'mobile-menu-active');
+            } else {
+                // Ensure the menu starts hidden on smaller screens unless explicitly opened
+                if (!navContent.classList.contains('mobile-menu-active')) {
+                    navContent.classList.add('hidden');
+                }
+            }
+        });
+
+        // Grade update logic (replaced alert with console.log)
+        function updateGrade() {
+            const grade = document.getElementById('user-grade').value;
+            localStorage.setItem('user-grade', grade);
+            console.log('Grade updated to: ' + grade);
+            populateSkills(); // Repopulate skills when grade changes
+            updatePracticeQuestions(); // Update questions when grade changes
+        }
+
+        // --- Data Structures for Skills ---
+        const allSkills = {
+            "Pre-K": {
+                "Math": [
+                    "Counting to 10",
+                    "Number Recognition (1-5)",
+                    "Number Recognition (6-10)",
+                    "Basic Shapes (Circle, Square, Triangle)",
+                    "Sorting and Classifying Objects",
+                    "Simple Patterns (AB, AAB)",
+                    "Comparing Quantities (More/Less/Same)",
+                    "Understanding Size (Big/Small)",
+                    "Positional Words (Above, Below, Next to)"
+                ],
+                "Language Arts": [
+                    "Letter Recognition (A-Z)",
+                    "Letter Sounds (Phonics Introduction)",
+                    "Rhyming Words",
+                    "Story Comprehension",
+                    "Listening to Stories",
+                    "Following Simple Directions",
+                    "Vocabulary Building (Common Objects)",
+                    "Name Writing Practice",
+                    "Recognizing Environmental Print"
+                ],
+                "Science": [
+                    "Animal Identification",
+                    "Plant Parts",
+                    "Five Senses Exploration",
+                    "Weather Observation (Sunny, Rainy, Cloudy)",
+                    "Exploring Water and Sand",
+                    "Simple Experiments (Sink/Float)",
+                    "Day and Night",
+                    "Healthy Habits (Washing Hands, Brushing Teeth)",
+                    "Seasons and Changes"
+                ],
+                "Social Studies": [
+                    "My Family",
+                    "Community Helpers",
+                    "Classroom Rules and Routines",
+                    "Understanding Emotions",
+                    "Friendship and Sharing",
+                    "Celebrating Holidays and Traditions",
+                    "Recognizing Flags and Symbols",
+                    "Neighborhood Exploration",
+                    "Safety Rules (Home and School)"
+                ]
+            },
+           
+            "First Grade": {
+                "Math": [
+                    "Addition to 20",
+                    "Subtraction to 20",
+                    "Place Value (Tens/Ones)",
+                    "Counting to 120",
+                    "Skip Counting by 2s, 5s, 10s",
+                    "Comparing Numbers (Greater/Less)",
+                    "Word Problems (Addition/Subtraction)",
+                    "Understanding Equal Sign",
+                    "Measurement (Length, Weight, Capacity)",
+                    "Telling Time (Hour and Half Hour)",
+                    "Identifying Coins and Values",
+                    "Basic Geometry (2D/3D Shapes)",
+                    "Simple Graphs (Bar, Picture)"
+                ],
+                "Language Arts": [
+                    "Reading Simple Sentences",
+                    "Sentence Structure",
+                    "Punctuation (Periods, Question Marks, Exclamation Points)",
+                    "Phonics (Short and Long Vowels)",
+                    "Sight Words Recognition",
+                    "Story Retelling and Sequencing",
+                    "Comprehension Questions",
+                    "Writing Complete Sentences",
+                    "Capitalization Rules",
+                    "Nouns and Verbs",
+                    "Adjectives (Describing Words)",
+                    "Rhyming Words",
+                    "Listening and Speaking Skills"
+                ],
+                "Science": [
+                    "Animal Habitats",
+                    "Weather Patterns",
+                    "Plant Life Cycle",
+                    "Basic Needs of Living Things",
+                    "Seasons and Changes",
+                    "Properties of Materials (Solid, Liquid, Gas)",
+                    "Observing the Sky (Sun, Moon, Stars)",
+                    "Five Senses",
+                    "Simple Experiments (Observation and Prediction)",
+                    "Recycling and Caring for Earth"
+                ],
+                "Social Studies": [
+                    "Maps and Globes",
+                    "Historical Figures",
+                    "Family and Community Roles",
+                    "School and Classroom Rules",
+                    "National Symbols (Flag, Pledge, Anthem)",
+                    "Holidays and Traditions",
+                    "Goods and Services",
+                    "Needs and Wants",
+                    "Timelines (Past, Present, Future)",
+                    "Geography (Landforms and Bodies of Water)",
+                    "Cultural Awareness",
+                    "Famous Landmarks"
+                ]
+            },
+           
+            "Second Grade": {
+                "Math": [
+                    "Addition and Subtraction within 100",
+                    "Place Value (Hundreds, Tens, Ones)",
+                    "Basic Multiplication (Arrays, Equal Groups)",
+                    "Fractions (Halves, Thirds, Quarters)",
+                    "Telling Time (Analog and Digital, to 5 minutes)",
+                    "Money (Identifying Coins, Counting Change)",
+                    "Measurement (Length, Weight, Volume)",
+                    "Simple Word Problems (Addition/Subtraction)",
+                    "Skip Counting (2s, 5s, 10s)",
+                    "Even and Odd Numbers",
+                    "Geometry (2D/3D Shapes, Sides, Vertices)",
+                    "Simple Bar and Picture Graphs",
+                    "Comparing Numbers (Greater Than, Less Than, Equal To)"
+                ],
+                "Language Arts": [
+                    "Reading Comprehension (Stories, Informational Texts)",
+                    "Identifying Main Idea and Details",
+                    "Sequencing Events in a Story",
+                    "Paragraph Writing (Topic Sentence, Supporting Details)",
+                    "Spelling Rules (Silent e, Plurals, Double Consonants)",
+                    "Phonics (Long and Short Vowels, Blends, Digraphs)",
+                    "Parts of Speech (Nouns, Verbs, Adjectives)",
+                    "Punctuation (Commas, Apostrophes, Quotation Marks)",
+                    "Writing Friendly Letters",
+                    "Synonyms and Antonyms",
+                    "Compound Words",
+                    "Contractions",
+                    "Retelling and Summarizing Stories",
+                    "Making Predictions and Inferences",
+                    "Listening and Speaking Skills"
+                ],
+                "Science": [
+                    "States of Matter (Solid, Liquid, Gas)",
+                    "Simple Properties of Materials",
+                    "Life Cycles of Plants and Animals",
+                    "Habitats and Ecosystems",
+                    "Weather Patterns and Seasons",
+                    "Earth Materials (Rocks, Soil, Water)",
+                    "Simple Experiments (Observation, Prediction, Recording Data)",
+                    "Magnets and Forces",
+                    "Needs of Living Things",
+                    "Recycling and Conservation",
+                    "The Five Senses",
+                    "Sun, Moon, and Stars"
+                ],
+                "Social Studies": [
+                    "Local History and Community",
+                    "Civics Basics (Rules, Laws, Citizenship)",
+                    "Geography (Maps, Globes, Landforms)",
+                    "Famous Americans and Historical Figures",
+                    "National Symbols (Flag, Anthem, Landmarks)",
+                    "Holidays and Traditions",
+                    "Goods and Services",
+                    "Needs and Wants",
+                    "Timelines (Past, Present, Future)",
+                    "Community Helpers",
+                    "Government Roles (Mayor, President, etc.)",
+                    "Basic Economics (Spending, Saving, Earning)",
+                    "Diversity and Respect for Others"
+                ]
+            },
+            
+            "Third Grade": {
+                "Math": [
+                    "Multiplication Tables (0-10)",
+                    "Division Facts (0-10)",
+                    "Addition and Subtraction within 1,000",
+                    "Place Value (Thousands, Hundreds, Tens, Ones)",
+                    "Rounding to the Nearest 10 or 100",
+                    "Word Problems (Multiplication/Division)",
+                    "Fractions (Equal Parts, Simple Fractions, Number Line)",
+                    "Measurement (Length, Mass, Volume, Time to the Minute)",
+                    "Geometry (Perimeter, Area, Types of Angles, Polygons)",
+                    "Interpreting Bar Graphs and Pictographs",
+                    "Identifying and Describing 2D and 3D Shapes",
+                    "Patterns and Sequences"
+                ],
+                "Language Arts": [
+                    "Reading Comprehension (Fiction and Nonfiction)",
+                    "Identifying Main Idea and Supporting Details",
+                    "Summarizing Texts",
+                    "Informative Writing (Reports, Explanatory Texts)",
+                    "Opinion Writing (Stating and Supporting Opinions)",
+                    "Narrative Writing (Stories, Personal Narratives)",
+                    "Grammar (Nouns, Verbs, Adjectives, Pronouns, Adverbs)",
+                    "Subject-Verb Agreement",
+                    "Punctuation (Commas, Quotation Marks, Apostrophes)",
+                    "Capitalization Rules",
+                    "Poetry Analysis (Rhythm, Rhyme, Structure)",
+                    "Vocabulary Development (Prefixes, Suffixes, Context Clues)",
+                    "Spelling Patterns and Rules",
+                    "Using Reference Materials (Dictionary, Thesaurus)"
+                ],
+                "Science": [
+                    "Forces and Motion (Pushes, Pulls, Gravity, Magnetism)",
+                    "Simple Machines (Levers, Pulleys, Inclined Planes)",
+                    "Solar System (Planets, Sun, Moon, Stars)",
+                    "Earth Science (Rocks, Soil, Water Cycle)",
+                    "Life Cycles of Plants and Animals",
+                    "Habitats and Adaptations",
+                    "Weather and Climate",
+                    "Scientific Investigation (Observation, Hypothesis, Experiment)",
+                    "Energy (Light, Heat, Sound)",
+                    "Environmental Awareness (Reduce, Reuse, Recycle)"
+                ],
+                "Social Studies": [
+                    "World Geography (Continents, Oceans, Maps, Globes)",
+                    "Ancient Civilizations (Egypt, Greece, Rome, China, Maya)",
+                    "Local and State History",
+                    "Civic Responsibility (Rules, Laws, Citizenship)",
+                    "Government (Branches, Leaders, Symbols)",
+                    "Economics (Producers, Consumers, Goods, Services, Barter)",
+                    "Cultural Traditions and Celebrations",
+                    "Timelines and Historical Events",
+                    "Famous People and Contributions",
+                    "Community Roles and Services",
+                    "Understanding Diversity and Respect"
+                ]
+            },
+          
+            "Fourth Grade": {
+                "Math": [
+                    "Multi-Digit Multiplication",
+                    "Long Division",
+                    "Understanding Place Value (Up to Millions)",
+                    "Addition and Subtraction of Large Numbers",
+                    "Decimal Introduction (Tenths and Hundredths)",
+                    "Comparing and Ordering Decimals",
+                    "Fractions (Equivalent, Comparing, Adding/Subtracting with Like Denominators)",
+                    "Mixed Numbers and Improper Fractions",
+                    "Measurement Conversion (Length, Weight, Capacity, Time)",
+                    "Area and Perimeter of Rectangles and Complex Shapes",
+                    "Geometry (Angles, Lines, Symmetry, Classifying Shapes)",
+                    "Interpreting Line Plots, Bar Graphs, and Frequency Tables",
+                    "Word Problems (Multi-Step, Real-World Contexts)"
+                ],
+                "Language Arts": [
+                    "Reading Comprehension (Fiction, Nonfiction, Poetry)",
+                    "Identifying Theme, Main Idea, and Supporting Details",
+                    "Summarizing and Paraphrasing Texts",
+                    "Making Inferences and Drawing Conclusions",
+                    "Narrative Writing (Personal and Imaginative Stories)",
+                    "Opinion Writing (Supporting with Reasons and Evidence)",
+                    "Expository/Informational Writing",
+                    "Research Skills (Using Multiple Sources, Note-Taking)",
+                    "Figurative Language (Simile, Metaphor, Idioms, Personification)",
+                    "Vocabulary Development (Prefixes, Suffixes, Context Clues)",
+                    "Grammar (Parts of Speech, Sentence Types, Subject-Verb Agreement)",
+                    "Punctuation (Quotation Marks, Commas, Apostrophes)",
+                    "Editing and Revising Writing"
+                ],
+                "Science": [
+                    "Scientific Method (Observation, Hypothesis, Experiment, Conclusion)",
+                    "Electricity and Magnetism (Simple Circuits, Conductors/Insulators, Magnets)",
+                    "Geology (Rocks, Minerals, Erosion, Weathering, Soil Formation)",
+                    "Earth’s Resources (Renewable/Nonrenewable, Conservation)",
+                    "Water Cycle and Weather Patterns",
+                    "Ecosystems and Food Chains/Webs",
+                    "Animal and Plant Adaptations",
+                    "Human Body Systems (Digestive, Circulatory, Respiratory)",
+                    "Simple Machines (Levers, Pulleys, Inclined Planes)",
+                    "Energy Forms (Light, Sound, Heat, Motion)"
+                ],
+                "Social Studies": [
+                    "US Geography (States, Regions, Landforms, Map Skills)",
+                    "US History (Native Americans, Early Explorers, Colonization, Revolutionary War, Early America)",
+                    "Government Structure (Local, State, Federal; Branches of Government)",
+                    "Civic Responsibility and Citizenship",
+                    "Economics (Producers/Consumers, Goods/Services, Trade, Barter)",
+                    "Famous Americans and Historical Figures",
+                    "Cultural Diversity and Traditions",
+                    "Timelines and Chronological Order",
+                    "Current Events and News Literacy",
+                    "Symbols and Landmarks of the United States"
+                ]
+            },
+          
+            "Fifth Grade": {
+                "Math": [
+                    "Addition and Subtraction of Fractions (Unlike Denominators)",
+                    "Multiplication and Division of Fractions",
+                    "Decimals (Place Value, Addition, Subtraction, Multiplication, Division)",
+                    "Volume and Capacity (Cubic Units, Liquid Volume, Word Problems)",
+                    "Graphing Points on the Coordinate Plane (First Quadrant)",
+                    "Order of Operations (PEMDAS)",
+                    "Multi-Digit Multiplication and Division",
+                    "Interpreting and Creating Line Plots with Fractions",
+                    "Understanding and Comparing Large Numbers (Up to Millions)",
+                    "Measurement Conversion (Metric and Customary Units)",
+                    "Classifying 2D Shapes (Polygons, Triangles, Quadrilaterals)",
+                    "Understanding Patterns and Relationships",
+                    "Word Problems (Multi-Step, Real-World Contexts)"
+                ],
+                "Language Arts": [
+                    "Essay Writing (Opinion, Informative, Narrative)",
+                    "Literary Devices (Simile, Metaphor, Personification, Hyperbole)",
+                    "Public Speaking and Oral Presentations",
+                    "Reading Comprehension (Fiction, Nonfiction, Poetry)",
+                    "Identifying Theme, Main Idea, and Supporting Details",
+                    "Summarizing and Paraphrasing Texts",
+                    "Making Inferences and Drawing Conclusions",
+                    "Research Skills (Note-Taking, Using Multiple Sources, Citing Evidence)",
+                    "Grammar (Parts of Speech, Sentence Structure, Subject-Verb Agreement)",
+                    "Punctuation (Commas, Quotation Marks, Parentheses, Apostrophes)",
+                    "Vocabulary Development (Prefixes, Suffixes, Context Clues, Synonyms, Antonyms)",
+                    "Editing and Revising Writing",
+                    "Analyzing Characters, Setting, and Plot"
+                ],
+                "Science": [
+                    "Chemistry Basics (Atoms, Molecules, States of Matter, Physical and Chemical Changes)",
+                    "Human Body Systems (Digestive, Circulatory, Respiratory, Nervous, Skeletal, Muscular)",
+                    "Ecosystems and Food Webs",
+                    "Earth and Space Science (Earth’s Layers, Plate Tectonics, Weathering, Erosion, Solar System)",
+                    "Scientific Method (Hypothesis, Experiment, Data Collection, Conclusion)",
+                    "Energy Forms and Transfer (Light, Sound, Heat, Electrical, Mechanical)",
+                    "Forces and Motion (Gravity, Friction, Magnetism)",
+                    "Adaptations and Survival",
+                    "Environmental Science (Conservation, Renewable/Nonrenewable Resources, Pollution)",
+                    "Life Cycles of Plants and Animals",
+                    "Weather and Climate Patterns"
+                ],
+                "Social Studies": [
+                    "World War II (Causes, Major Events, Key Figures, Impact)",
+                    "Current Events (News Literacy, Analyzing Sources, Global Awareness)",
+                    "U.S. History (Colonial America, Revolutionary War, Constitution, Westward Expansion, Civil War, Reconstruction)",
+                    "Geography (Continents, Oceans, U.S. States and Capitals, Map Skills, Latitude/Longitude)",
+                    "Civic Responsibility and Citizenship",
+                    "Government Structure (Branches, Local/State/Federal, Elections)",
+                    "Economics (Supply and Demand, Goods and Services, Trade, Barter, Currency)",
+                    "Cultural Diversity and Traditions",
+                    "Famous Americans and Historical Figures",
+                    "Timelines and Chronological Order",
+                    "Symbols and Landmarks of the United States",
+                    "Understanding Rights and Responsibilities"
+                ]
+            },
+          
+            "Sixth Grade": {
+                "Math": [
+                    "Ratios and Proportions",
+                    "Integers (Positive and Negative Numbers)",
+                    "Algebraic Expressions and Equations",
+                    "Order of Operations (PEMDAS)",
+                    "Fractions, Decimals, and Percents (Conversions, Operations)",
+                    "Greatest Common Factor and Least Common Multiple",
+                    "Coordinate Plane (Plotting Points, Quadrants)",
+                    "Area, Surface Area, and Volume (Rectangles, Prisms, Pyramids)",
+                    "Statistical Measures (Mean, Median, Mode, Range)",
+                    "Data Displays (Box Plots, Histograms, Dot Plots)",
+                    "Solving One-Step and Two-Step Equations",
+                    "Inequalities and Number Lines",
+                    "Introduction to Probability"
+                ],
+                "Language Arts": [
+                    "Research Papers (Planning, Drafting, Citing Sources)",
+                    "Argumentative Writing (Claims, Evidence, Counterarguments)",
+                    "Literary Genres (Fiction, Nonfiction, Poetry, Drama)",
+                    "Reading Comprehension (Main Idea, Details, Inference)",
+                    "Theme and Author’s Purpose",
+                    "Analyzing Characters, Setting, and Plot",
+                    "Figurative Language (Simile, Metaphor, Personification, Hyperbole)",
+                    "Grammar (Sentence Structure, Parts of Speech, Subject-Verb Agreement)",
+                    "Vocabulary Development (Prefixes, Suffixes, Context Clues)",
+                    "Summarizing and Paraphrasing Texts",
+                    "Public Speaking and Oral Presentations",
+                    "Editing and Revising Writing",
+                    "Citing Textual Evidence"
+                ],
+                "Science": [
+                    "Cells and Genetics (Cell Structure, Function, DNA, Heredity)",
+                    "Astronomy (Solar System, Planets, Stars, Galaxies, Universe)",
+                    "Scientific Method (Hypothesis, Experiment, Data Analysis)",
+                    "Classification of Living Things (Kingdoms, Taxonomy)",
+                    "Ecosystems and Biomes (Food Webs, Energy Flow, Adaptations)",
+                    "Earth’s Structure (Layers, Plate Tectonics, Earthquakes, Volcanoes)",
+                    "Weather and Climate (Atmosphere, Water Cycle, Climate Zones)",
+                    "Forces and Motion (Newton’s Laws, Gravity, Friction)",
+                    "Energy Forms and Transfer (Thermal, Electrical, Light, Sound)",
+                    "Human Body Systems (Overview: Circulatory, Respiratory, Digestive, Nervous)"
+                ],
+                "Social Studies": [
+                    "Global Cultures (Customs, Traditions, Beliefs, World Religions)",
+                    "Economics Basics (Supply and Demand, Goods and Services, Trade, Currency)",
+                    "Ancient Civilizations (Mesopotamia, Egypt, Greece, Rome, China, India)",
+                    "Geography (Continents, Oceans, Latitude/Longitude, Map Skills)",
+                    "Government Systems (Democracy, Monarchy, Republic, Dictatorship)",
+                    "Civic Responsibility and Citizenship",
+                    "Historical Timelines and Chronology",
+                    "Current Events and Global Awareness",
+                    "Human Rights and Social Justice",
+                    "Migration and Population Patterns"
+                ]
+            },
+         
+            "Seventh Grade": {
+                "Math": [
+                    "Operations with Rational Numbers (Fractions, Decimals, Percents)",
+                    "Solving Linear Equations and Inequalities",
+                    "Proportional Relationships and Ratios",
+                    "Percent Problems (Tax, Discount, Markup, Tip)",
+                    "Scale Drawings and Geometric Constructions",
+                    "Area, Surface Area, and Volume of 2D and 3D Shapes",
+                    "Probability (Simple and Compound Events)",
+                    "Statistical Analysis (Mean, Median, Mode, Range, Outliers)",
+                    "Interpreting and Drawing Inferences from Data",
+                    "Graphing on the Coordinate Plane",
+                    "Understanding and Using Functions",
+                    "Pythagorean Theorem (Introduction)",
+                    "Word Problems (Multi-Step, Real-World Contexts)"
+                ],
+                "Language Arts": [
+                    "Critical Analysis of Fiction and Nonfiction Texts",
+                    "Debate Skills and Argumentative Writing",
+                    "Advanced Grammar (Clauses, Phrases, Sentence Structure)",
+                    "Literary Elements (Theme, Tone, Mood, Symbolism)",
+                    "Analyzing Author’s Purpose and Point of View",
+                    "Research Skills (Evaluating Sources, Note-Taking, Citing Evidence)",
+                    "Writing Essays (Narrative, Expository, Persuasive, Argumentative)",
+                    "Vocabulary Development (Greek/Latin Roots, Context Clues, Synonyms/Antonyms)",
+                    "Public Speaking and Oral Presentations",
+                    "Editing and Revising Writing",
+                    "Poetry Analysis and Creative Writing",
+                    "Summarizing and Paraphrasing",
+                    "Making Inferences and Drawing Conclusions"
+                ],
+                "Science": [
+                    "Ecology (Ecosystems, Food Webs, Energy Flow, Biomes)",
+                    "Microbiology (Cells, Microorganisms, Disease, Microscopes)",
+                    "Scientific Method (Hypothesis, Experiment, Data Analysis, Conclusion)",
+                    "Genetics and Heredity (Traits, DNA, Punnett Squares)",
+                    "Human Body Systems (Skeletal, Muscular, Nervous, Circulatory, Digestive, Respiratory)",
+                    "Physical and Chemical Changes",
+                    "Matter and Its Properties (Atoms, Molecules, States of Matter)",
+                    "Earth Science (Rocks, Minerals, Plate Tectonics, Earthquakes, Volcanoes)",
+                    "Weather and Climate (Atmosphere, Water Cycle, Climate Zones)",
+                    "Forces and Motion (Newton’s Laws, Gravity, Friction, Simple Machines)",
+                    "Energy Forms and Transfer (Thermal, Electrical, Light, Sound)",
+                    "Environmental Science (Conservation, Pollution, Renewable/Nonrenewable Resources)"
+                ],
+                "Social Studies": [
+                    "Medieval History (Feudalism, Castles, Knights, The Middle Ages)",
+                    "Colonialism (Exploration, Colonization, Impact on Indigenous Peoples)",
+                    "World Geography (Continents, Oceans, Latitude/Longitude, Map Skills)",
+                    "Ancient Civilizations (Rome, China, India, Africa, Americas)",
+                    "Renaissance and Reformation",
+                    "Government Systems (Monarchy, Democracy, Republic, Dictatorship)",
+                    "Economics (Trade, Mercantilism, Supply and Demand, Currency)",
+                    "Civic Responsibility and Citizenship",
+                    "Historical Timelines and Chronology",
+                    "Cultural Diversity and Traditions",
+                    "Current Events and Global Awareness",
+                    "Human Rights and Social Justice",
+                    "Migration and Population Patterns"
+                ]
+            },
+          
+            "Eighth Grade": {
+                "Math": [
+                    "Linear Equations and Functions",
+                    "Systems of Equations (Graphing, Substitution, Elimination)",
+                    "Pythagorean Theorem and Its Applications",
+                    "Irrational Numbers and Square Roots",
+                    "Scientific Notation",
+                    "Exponents and Powers",
+                    "Solving and Graphing Inequalities",
+                    "Transformations (Translations, Rotations, Reflections, Dilations)",
+                    "Similarity and Congruence in Geometry",
+                    "Volume and Surface Area of Cylinders, Cones, and Spheres",
+                    "Scatter Plots and Data Analysis",
+                    "Bivariate Data and Linear Associations",
+                    "Problem Solving with Real-World Applications"
+                ],
+                "Language Arts": [
+                    "Expository Writing (Essays, Research Reports)",
+                    "Narrative Writing (Personal Narratives, Short Stories)",
+                    "Argumentative and Persuasive Writing",
+                    "Analyzing and Using Rhetorical Devices",
+                    "Poetry Analysis and Poetry Slam",
+                    "Literary Analysis (Theme, Character, Setting, Plot)",
+                    "Reading Comprehension (Fiction, Nonfiction, Drama, Poetry)",
+                    "Citing Textual Evidence",
+                    "Vocabulary Development (Greek/Latin Roots, Context Clues)",
+                    "Grammar (Sentence Structure, Phrases, Clauses, Verbals)",
+                    "Public Speaking and Oral Presentations",
+                    "Editing and Revising Writing",
+                    "Research Skills (Evaluating Sources, Note-Taking, Plagiarism Awareness)"
+                ],
+                "Science": [
+                    "Physics Fundamentals (Motion, Forces, Newton’s Laws)",
+                    "Chemical Reactions (Types, Balancing Equations, Conservation of Mass)",
+                    "Properties of Matter (Elements, Compounds, Mixtures)",
+                    "Periodic Table and Atomic Structure",
+                    "Waves (Sound, Light, Electromagnetic Spectrum)",
+                    "Energy Forms and Transfer (Thermal, Electrical, Mechanical)",
+                    "Earth Science (Plate Tectonics, Earthquakes, Volcanoes)",
+                    "Ecology (Ecosystems, Food Webs, Human Impact)",
+                    "Genetics and Heredity (DNA, Traits, Punnett Squares)",
+                    "Scientific Method (Hypothesis, Experiment, Data Analysis, Conclusion)",
+                    "Lab Safety and Experimental Design"
+                ],
+                "Social Studies": [
+                    "U.S. History: Industrial Revolution (Inventions, Urbanization, Labor Movements)",
+                    "Civil War and Reconstruction",
+                    "Immigration and Social Change (Late 19th/Early 20th Century)",
+                    "World Wars I and II (Causes, Major Events, Impact)",
+                    "The Cold War (Origins, Major Events, End of the Cold War)",
+                    "Civil Rights Movement",
+                    "Government and Civics (Constitution, Amendments, Branches of Government)",
+                    "Economics (Supply and Demand, Market Structures, Globalization)",
+                    "Geography (Map Skills, Regions, Human-Environment Interaction)",
+                    "Contemporary Issues (Globalization, Technology, Environmental Challenges)",
+                    "Analyzing Primary and Secondary Sources",
+                    "Timelines and Chronological Thinking"
+                ]
+            },
+          
+            "Ninth Grade": {
+                "Math": [
+                    "Algebra I (Linear Equations, Inequalities, Graphing)",
+                    "Quadratic Equations (Factoring, Completing the Square, Quadratic Formula)",
+                    "Polynomials (Addition, Subtraction, Multiplication, Factoring)",
+                    "Functions (Domain, Range, Evaluating, Graphing)",
+                    "Systems of Equations (Substitution, Elimination, Graphical Solutions)",
+                    "Radicals and Exponents (Simplifying, Operations, Rational Exponents)",
+                    "Introduction to Trigonometry (Sine, Cosine, Tangent, Right Triangle Problems)",
+                    "Word Problems and Applications (Algebraic Modeling, Real-World Scenarios)",
+                    "Data Analysis (Mean, Median, Mode, Standard Deviation, Scatter Plots)",
+                    "Probability and Statistics (Basic Probability, Counting Principles, Data Interpretation)"
+                ],
+                "Language Arts": [
+                    "Literary Theory (Introduction to Literary Criticism, Major Schools of Thought)",
+                    "Dramatic Analysis (Reading and Analyzing Plays, Elements of Drama)",
+                    "Persuasive Speeches (Writing and Delivering Arguments, Rhetorical Devices)",
+                    "Reading Comprehension (Fiction, Nonfiction, Poetry, Drama)",
+                    "Essay Writing (Analytical, Expository, Persuasive, Narrative)",
+                    "Research Skills (Finding and Citing Sources, Avoiding Plagiarism)",
+                    "Vocabulary Development (Greek/Latin Roots, Context Clues, Academic Vocabulary)",
+                    "Grammar and Usage (Sentence Structure, Punctuation, Parts of Speech)",
+                    "Analyzing Theme, Character, Setting, and Plot",
+                    "Public Speaking and Oral Presentations"
+                ],
+                "Science": [
+                    "Biology (Advanced) (Cell Structure and Function, Genetics, Evolution, Classification)",
+                    "Ecology (Advanced) (Ecosystems, Energy Flow, Biogeochemical Cycles, Human Impact)",
+                    "Scientific Method (Experimental Design, Data Analysis, Lab Safety)",
+                    "Chemistry Basics (Atoms, Molecules, Chemical Reactions, Periodic Table)",
+                    "Physics Introduction (Motion, Forces, Energy, Simple Machines)",
+                    "Earth and Space Science (Earth’s Structure, Plate Tectonics, Weather, Astronomy)",
+                    "Human Body Systems (Overview: Circulatory, Respiratory, Nervous, Digestive)",
+                    "Laboratory Skills (Microscope Use, Measurement, Data Recording)"
+                ],
+                "Social Studies": [
+                    "World History (Modern) (Renaissance to Present, Major Events and Movements)",
+                    "Political Science (Government Systems, Political Ideologies, Citizenship)",
+                    "Geography (World Regions, Physical and Human Geography, Map Skills)",
+                    "Economics (Supply and Demand, Market Structures, Globalization, Trade)",
+                    "Civic Responsibility (Rights and Duties, Community Involvement, Law)",
+                    "Contemporary Issues (Globalization, Technology, Environmental Challenges)",
+                    "Analyzing Primary and Secondary Sources",
+                    "Timelines and Chronological Thinking",
+                    "Cultural Diversity and Global Awareness"
+                ]
+            },
+          
+            "Tenth Grade": {
+                "Math": [
+                    "Geometry (Proofs, Theorems, Coordinate Geometry, Transformations)",
+                    "Circle Theorems (Arcs, Chords, Tangents, Inscribed Angles)",
+                    "Solid Geometry (Surface Area, Volume, 3D Figures)",
+                    "Trigonometry Basics (Sine, Cosine, Tangent, Right Triangle Applications)",
+                    "Algebra II (Quadratic Equations, Functions, Polynomials, Rational Expressions)",
+                    "Probability and Statistics (Permutations, Combinations, Data Analysis)",
+                    "Systems of Equations and Inequalities",
+                    "Sequences and Series (Arithmetic, Geometric)",
+                    "Complex Numbers (Introduction, Operations)",
+                    "Word Problems and Mathematical Modeling"
+                ],
+                "Language Arts": [
+                    "World Literature (Classical, Modern, Multicultural Texts)",
+                    "Literary Criticism (Major Schools, Critical Reading, Analysis)",
+                    "Research Methodology (Finding, Evaluating, Citing Sources)",
+                    "Analytical Essay Writing (Thesis, Evidence, Structure)",
+                    "Persuasive and Argumentative Writing",
+                    "Creative Writing (Short Stories, Poetry, Drama)",
+                    "Vocabulary Development (Greek/Latin Roots, Academic Vocabulary)",
+                    "Grammar and Usage (Advanced Sentence Structure, Punctuation, Diction)",
+                    "Public Speaking and Oral Presentations",
+                    "Literary Devices (Symbolism, Irony, Allusion, Imagery)",
+                    "Comparative Literature (Themes, Motifs, Cross-Cultural Analysis)",
+                    "Editing and Revising Writing"
+                ],
+                "Science": [
+                    "Chemistry (Advanced) (Atomic Structure, Periodic Table, Chemical Bonding, Stoichiometry)",
+                    "Organic Chemistry (Hydrocarbons, Functional Groups, Reactions, Polymers)",
+                    "Physics (Mechanics, Energy, Waves, Electricity and Magnetism)",
+                    "Biology (Genetics, Evolution, Cell Biology, Ecology)",
+                    "Scientific Method (Experimental Design, Data Analysis, Lab Safety)",
+                    "Environmental Science (Ecosystems, Conservation, Human Impact)",
+                    "Earth and Space Science (Geology, Astronomy, Weather Systems)",
+                    "Laboratory Skills (Measurement, Data Collection, Analysis, Reporting)"
+                ],
+                "Social Studies": [
+                    "American History (Post-Civil War, Reconstruction, Industrialization, 20th Century)",
+                    "Sociology (Social Structures, Culture, Institutions, Social Change)",
+                    "World History (Modern Era, Global Conflicts, Decolonization, Contemporary Issues)",
+                    "Government and Civics (Constitution, Rights, Political Systems, Law)",
+                    "Economics (Microeconomics, Macroeconomics, Globalization, Trade)",
+                    "Geography (Physical and Human Geography, Map Skills, Demographics)",
+                    "Cultural Studies (Diversity, Identity, Globalization)",
+                    "Current Events and Media Literacy",
+                    "Research and Analysis of Primary/Secondary Sources",
+                    "Civic Responsibility and Community Engagement"
+                ]
+            },
+         
+            "Eleventh Grade": {
+                "Math": [
+                    "Pre-Calculus (Functions, Graphs, Limits)",
+                    "Trigonometry (Identities, Equations, Applications)",
+                    "Vectors (Operations, Applications, Dot and Cross Product)",
+                    "Matrices (Addition, Multiplication, Determinants, Inverses)",
+                    "Complex Numbers (Arithmetic, Polar Form, De Moivre's Theorem)",
+                    "Sequences and Series (Arithmetic, Geometric, Sigma Notation)",
+                    "Probability and Statistics (Combinatorics, Probability Distributions, Data Analysis)",
+                    "Analytic Geometry (Conic Sections, Parametric Equations)",
+                    "Mathematical Modeling (Real-World Applications, Problem Solving)",
+                    "Introduction to Calculus (Derivatives, Integrals, Applications)"
+                ],
+                "Language Arts": [
+                    "British Literature (Shakespeare, Romanticism, Victorian Era, Modernism)",
+                    "World Literature (Major Works from Europe, Asia, Africa, Americas)",
+                    "Literary Movements (Realism, Modernism, Postmodernism, Existentialism)",
+                    "Creative Writing (Short Stories, Poetry, Drama, Personal Essays)",
+                    "Research Papers (Thesis Development, MLA/APA Citation, Source Evaluation)",
+                    "Rhetorical Analysis (Speeches, Essays, Persuasive Techniques)",
+                    "Advanced Grammar and Syntax (Sentence Structure, Diction, Voice)",
+                    "Public Speaking and Oral Presentations",
+                    "Literary Criticism (Major Schools, Critical Approaches)",
+                    "SAT/ACT Reading and Writing Preparation"
+                ],
+                "Science": [
+                    "Physics (Advanced) (Mechanics, Electricity and Magnetism, Waves, Optics)",
+                    "Quantum Physics (Introduction to Quantum Theory, Wave-Particle Duality, Atomic Models)",
+                    "Chemistry (Organic, Inorganic, Thermodynamics, Chemical Equilibrium)",
+                    "Biology (Genetics, Evolution, Cell Biology, Human Physiology)",
+                    "Environmental Science (Ecosystems, Conservation, Human Impact)",
+                    "Scientific Method (Experimental Design, Data Analysis, Lab Safety)",
+                    "Astronomy (Stars, Galaxies, Cosmology, Space Exploration)",
+                    "Engineering Principles (Basic Circuits, Materials Science, Design Process)",
+                    "AP/IB Science Preparation (Exam Strategies, Lab Skills)"
+                ],
+                "Social Studies": [
+                    "European History (Renaissance, Enlightenment, Industrial Revolution, World Wars, Modern Europe)",
+                    "International Relations (Diplomacy, Global Organizations, Treaties, Conflict Resolution)",
+                    "U.S. Government and Politics (Constitution, Federalism, Political Parties, Elections)",
+                    "Economics (Microeconomics, Macroeconomics, Globalization, Trade Policy)",
+                    "Sociology (Social Structures, Culture, Social Change, Inequality)",
+                    "Psychology (Development, Cognition, Behavior, Mental Health)",
+                    "Contemporary Issues (Globalization, Human Rights, Environmental Policy)",
+                    "Geography (Political, Economic, Cultural, Physical Geography)",
+                    "Civic Engagement (Community Service, Advocacy, Policy Analysis)",
+                    "AP/IB Social Studies Preparation (Essay Writing, Source Analysis, Exam Skills)"
+                ]
+            },
+          
+            "Twelfth Grade": {
+                "Math": [
+                    "Calculus (Limits, Derivatives, Integrals, Applications)",
+                    "Differential Equations (First and Second Order, Applications)",
+                    "Linear Algebra (Matrices, Vectors, Determinants, Eigenvalues)",
+                    "Probability and Statistics (Distributions, Hypothesis Testing, Regression)",
+                    "Advanced Trigonometry (Identities, Equations, Applications)",
+                    "Mathematical Modeling (Real-World Problems, Optimization)",
+                    "Discrete Mathematics (Logic, Set Theory, Combinatorics, Graph Theory)",
+                    "Complex Numbers (Arithmetic, Polar Form, De Moivre's Theorem)",
+                    "Sequences and Series (Convergence, Power Series, Taylor Series)",
+                    "Multivariable Calculus (Partial Derivatives, Multiple Integrals, Vector Calculus)"
+                ],
+                "Language Arts": [
+                    "Contemporary Literature (Modern Novels, Plays, Poetry, Nonfiction)",
+                    "Literary Adaptation (Film, Theater, Media Analysis)",
+                    "Thesis Writing (Research, Argumentation, Structure, Citations)",
+                    "Rhetorical Analysis (Speeches, Essays, Persuasive Techniques)",
+                    "Advanced Composition (Analytical, Expository, Persuasive, Narrative Essays)",
+                    "World Literature (Global Voices, Cross-Cultural Themes)",
+                    "Creative Writing (Short Stories, Poetry, Drama, Memoir)",
+                    "Public Speaking and Oral Presentations",
+                    "Literary Criticism (Major Theories, Critical Approaches)",
+                    "Editing and Revising (Peer Review, Self-Editing, Publication Preparation)"
+                ],
+                "Science": [
+                    "Advanced Biology (Genetics, Evolution, Biotechnology, Human Physiology)",
+                    "Biochemistry (Macromolecules, Enzymes, Metabolism, Molecular Genetics)",
+                    "Physics (Mechanics, Electricity and Magnetism, Modern Physics, Quantum Theory)",
+                    "Chemistry (Organic, Inorganic, Thermodynamics, Chemical Equilibrium)",
+                    "Environmental Science (Ecosystems, Conservation, Climate Change, Sustainability)",
+                    "Anatomy and Physiology (Body Systems, Health, Disease)",
+                    "Scientific Research Methods (Experimental Design, Data Analysis, Lab Safety)",
+                    "Astronomy (Stars, Galaxies, Cosmology, Space Exploration)",
+                    "AP/IB Science Preparation (Exam Strategies, Lab Skills)",
+                    "Engineering Principles (Design Process, Materials Science, Robotics)"
+                ],
+                "Social Studies": [
+                    "Current Global Issues (Politics, Economics, Environment, Technology, Human Rights)",
+                    "Philosophy (Ethics, Logic, Major Philosophers, Worldviews)",
+                    "Government and Civics (Constitution, Law, Political Systems, Policy Analysis)",
+                    "Economics (Microeconomics, Macroeconomics, Globalization, Trade Policy)",
+                    "Sociology (Social Structures, Culture, Social Change, Inequality)",
+                    "Psychology (Development, Cognition, Behavior, Mental Health)",
+                    "World History (Modern Era, Global Conflicts, Decolonization, Contemporary Issues)",
+                    "International Relations (Diplomacy, Global Organizations, Conflict Resolution)",
+                    "Geography (Political, Economic, Cultural, Physical Geography)",
+                    "Civic Engagement (Community Service, Advocacy, Policy Analysis, Media Literacy)"
+                ]
+            }
+        };
+
+        // --- Data Structure for Questions (dynamic generation) ---
+        const allQuestions = {
+            "Pre-K": {
+                "Math": (() => {
+                    // Generate 20 dynamic Pre-K math questions (simple addition and shape recognition)
+                    const questions = [];
+                    for (let i = 0; i < 20; i++) {
+                        if (i % 2 === 0) {
+                            // Simple addition: numbers 1-5, sum <= 10
+                            const num1 = Math.ceil(Math.random() * 5);
+                            const num2 = Math.ceil(Math.random() * (10 - num1));
+                            const correct = num1 + num2;
+                            // Shuffle options
+                            const options = [
+                                correct - 1 > 0 ? correct - 1 : correct + 2,
+                                correct,
+                                correct + 1,
+                                correct + 2
+                            ].map(String);
+                            questions.push({
+                                question: `What is ${num1} + ${num2}?`,
+                                options,
+                                answer: correct.toString(),
+                                hint: "Try counting up from the first number.",
+                                explanation: `To solve ${num1} + ${num2}, start with ${num1} and count up ${num2} more numbers.`
+                            });
+                        } else {
+                            // Shape recognition (triangle, square, circle, rectangle)
+                            const shapes = [
+                                {
+                                    name: "Triangle",
+                                    sides: 3,
+                                    hint: "Think about a piece of pizza.",
+                                    explanation: "A triangle is a shape with three straight sides and three corners."
+                                },
+                                {
+                                    name: "Square",
+                                    sides: 4,
+                                    hint: "All sides are equal and it has four corners.",
+                                    explanation: "A square has four equal sides and four right angles."
+                                },
+                                {
+                                    name: "Circle",
+                                    sides: 0,
+                                    hint: "It is round and has no corners.",
+                                    explanation: "A circle is a round shape with no sides or corners."
+                                },
+                                {
+                                    name: "Rectangle",
+                                    sides: 4,
+                                    hint: "It has four sides, but not all are equal.",
+                                    explanation: "A rectangle has four sides and four right angles, but opposite sides are equal."
+                                }
+                            ];
+                            const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                            questions.push({
+                                question: `Which shape has ${shape.sides} side${shape.sides === 1 ? '' : 's'}?`,
+                                options: shapes.map(s => s.name),
+                                answer: shape.name,
+                                hint: shape.hint,
+                                explanation: shape.explanation
+                            });
+                        }
+                    }
+                    return questions;
+                })(),
+                
+                "Language Arts": [
+                    {
+                        question: "Which letter makes the 'ah' sound, like in 'apple'?",
+                        options: ["B", "A", "C", "D"],
+                        answer: "A",
+                        hint: "It's the first letter of the alphabet.",
+                        explanation: "The letter 'A' makes the short 'a' sound, as heard in words like 'apple' and 'cat'."
+                    },
+                    {
+                        question: "Which word rhymes with 'cat'?",
+                        options: ["Dog", "Hat", "Bird", "Fish"],
+                        answer: "Hat",
+                        hint: "The ending sound needs to be the same.",
+                        explanation: "Words that rhyme have the same ending sound. 'Cat' and 'Hat' both end with the '-at' sound."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "Which animal lays eggs?",
+                        options: ["Dog", "Chicken", "Cat", "Cow"],
+                        answer: "Chicken",
+                        hint: "Think about what you have for breakfast.",
+                        explanation: "Chickens are birds that lay eggs. Many other birds and some reptiles and amphibians also lay eggs."
+                    },
+                    {
+                        question: "What do plants need to grow?",
+                        options: ["Candy", "Sunlight", "Toys", "Blankets"],
+                        answer: "Sunlight",
+                        hint: "They get energy from something hot and bright in the sky.",
+                        explanation: "Plants need sunlight, water, and air to grow through a process called photosynthesis."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "Who helps people when they are sick?",
+                        options: ["Teacher", "Firefighter", "Doctor", "Chef"],
+                        answer: "Doctor",
+                        hint: "They work in a hospital.",
+                        explanation: "Doctors are community helpers who diagnose and treat illnesses to keep people healthy."
+                    },
+                    {
+                        question: "What is your neighborhood?",
+                        options: ["A pet shop", "The area around your home", "A type of food", "A toy"],
+                        answer: "The area around your home",
+                        hint: "It's where you live and play.",
+                        explanation: "A neighborhood is a district or area within a town or city, typically a residential one."
+                    }
+                ]
+            },
+            "First Grade": {
+                "Math": [
+                    {
+                        question: "What is 7 + 5?",
+                        options: ["10", "11", "12", "13"],
+                        answer: "12",
+                        hint: "Count on from 7, five more times.",
+                        explanation: "Adding 7 and 5 gives you a total of 12."
+                    },
+                    {
+                        question: "If you have 10 apples and eat 3, how many are left?",
+                        options: ["5", "6", "7", "8"],
+                        answer: "7",
+                        hint: "This is a subtraction problem.",
+                        explanation: "10 minus 3 equals 7. You had 10 and took away 3."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Which word is a noun?",
+                        options: ["Jump", "Happy", "Table", "Quickly"],
+                        answer: "Table",
+                        hint: "A noun is a person, place, or thing.",
+                        explanation: "A noun is a word that names a person, place, thing, or idea. 'Table' is a thing."
+                    },
+                    {
+                        question: "Which sentence has correct punctuation?",
+                        options: ["I like cats", "Do you like cats.", "I like cats!", "Do you like cats!"],
+                        answer: "I like cats!",
+                        hint: "Look for the correct ending mark for an excited statement.",
+                        explanation: "An exclamation mark (!) is used at the end of a sentence to show strong feeling or excitement. A period (.) is for a statement, and a question mark (?) is for a question."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "Which part of a plant grows underground?",
+                        options: ["Leaf", "Flower", "Stem", "Root"],
+                        answer: "Root",
+                        hint: "They help the plant drink water.",
+                        explanation: "Roots grow underground and absorb water and nutrients for the plant, anchoring it in the soil."
+                    },
+                    {
+                        question: "What makes the sun look yellow?",
+                        options: ["It's a giant lemon", "It's very hot gas", "It's made of yellow paint", "It's a big light bulb"],
+                        answer: "It's very hot gas",
+                        hint: "The sun is a star.",
+                        explanation: "The sun is a star, which is a giant ball of very hot gases. The light it emits appears yellow to us from Earth due to atmospheric scattering."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What is a map?",
+                        options: ["A type of fruit", "A drawing of a place", "A musical instrument", "A fluffy animal"],
+                        answer: "A drawing of a place",
+                        hint: "It helps you find your way.",
+                        explanation: "A map is a drawing or plan of an area or region, showing its features, such as roads, rivers, and mountains."
+                    },
+                    {
+                        question: "Who was Abraham Lincoln?",
+                        options: ["A singer", "A famous inventor", "A president of the United States", "A famous artist"],
+                        answer: "A president of the United States",
+                        hint: "He helped end slavery.",
+                        explanation: "Abraham Lincoln was the 16th President of the United States, known for leading the country through the Civil War and abolishing slavery."
+                    }
+                ]
+            },
+            "Second Grade": {
+                "Math": [
+                    {
+                        question: "What is 25 + 15?",
+                        options: ["30", "35", "40", "45"],
+                        answer: "40",
+                        hint: "Add the ones column first, then the tens column.",
+                        explanation: "To add 25 + 15, first add the ones: 5 + 5 = 10. Carry over the 1. Then add the tens: 2 + 1 + 1 (carried over) = 4. So the answer is 40."
+                    },
+                    {
+                        question: "If you have 4 groups of 3 cookies, how many cookies do you have in total?",
+                        options: ["7", "10", "12", "15"],
+                        answer: "12",
+                        hint: "This is a multiplication problem or repeated addition.",
+                        explanation: "4 groups of 3 means 3 + 3 + 3 + 3, which equals 12. This is also 4 multiplied by 3."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Which word is an adjective?",
+                        options: ["Run", "Sing", "Tall", "Quickly"],
+                        answer: "Tall",
+                        hint: "Adjectives describe nouns.",
+                        explanation: "An adjective is a word that describes or modifies a noun or pronoun. 'Tall' describes a characteristic."
+                    },
+                    {
+                        question: "What is the main idea of a story?",
+                        options: ["The smallest detail", "The most important message or topic", "A character's name", "The setting of the story"],
+                        answer: "The most important message or topic",
+                        hint: "It's what the story is mostly about.",
+                        explanation: "The main idea is the central point or message that an author wants to convey in a text."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "Which of these is a liquid?",
+                        options: ["Rock", "Wood", "Water", "Cloud"],
+                        answer: "Water",
+                        hint: "It flows and can be poured.",
+                        explanation: "Water is a liquid; it takes the shape of its container and can flow. Rock and wood are solids. A cloud is made of tiny water droplets or ice crystals suspended in the air."
+                    },
+                    {
+                        question: "What is a life cycle?",
+                        options: ["A type of bicycle", "The stages a living thing goes through", "A weather pattern", "A type of game"],
+                        answer: "The stages a living thing goes through",
+                        hint: "Think about how a butterfly changes from an egg.",
+                        explanation: "A life cycle describes the series of changes that a living thing goes through during its life, from birth to reproduction."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What do rules help us do?",
+                        options: ["Make messes", "Stay safe and get along", "Be loud", "Eat candy"],
+                        answer: "Stay safe and get along",
+                        hint: "They tell us what we can and cannot do.",
+                        explanation: "Rules help create order, ensure safety, and promote fair interactions among people in a community or group."
+                    },
+                    {
+                        question: "Who is the leader of a city?",
+                        options: ["President", "Governor", "Mayor", "Teacher"],
+                        answer: "Mayor",
+                        hint: "They are in charge of the local government.",
+                        explanation: "The mayor is the elected head of a city, town, or other municipal government."
+                    }
+                ]
+            },
+            "Third Grade": {
+                "Math": [
+                    {
+                        question: "What is 6 multiplied by 7?",
+                        options: ["36", "42", "48", "54"],
+                        answer: "42",
+                        hint: "Think of your multiplication facts.",
+                        explanation: "6 multiplied by 7, or 6 groups of 7, equals 42."
+                    },
+                    {
+                        question: "If you divide 24 candies equally among 4 friends, how many candies does each friend get?",
+                        options: ["4", "6", "8", "12"],
+                        answer: "6",
+                        hint: "This is a division problem.",
+                        explanation: "24 divided by 4 equals 6. Each friend receives 6 candies."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Which of these is a pronoun?",
+                        options: ["Run", "Blue", "He", "Quickly"],
+                        answer: "He",
+                        hint: "Pronouns replace nouns.",
+                        explanation: "A pronoun is a word that takes the place of a noun. 'He' can replace a male's name."
+                    },
+                    {
+                        question: "What does 'summarize' mean?",
+                        options: ["To tell every detail", "To write a very long report", "To tell the main points in a short way", "To add new ideas"],
+                        answer: "To tell the main points in a short way",
+                        hint: "Think about giving a quick overview.",
+                        explanation: "To summarize means to give a brief statement of the main points of something."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is gravity?",
+                        options: ["A type of energy", "A force that pulls things down", "A type of rock", "The air we breathe"],
+                        answer: "A force that pulls things down",
+                        hint: "It's why things fall to the ground.",
+                        explanation: "Gravity is a natural force that pulls objects towards each other. On Earth, it pulls objects towards the center of the planet."
+                    },
+                    {
+                        question: "Which planet is known as the 'Red Planet'?",
+                        options: ["Earth", "Mars", "Jupiter", "Venus"],
+                        answer: "Mars",
+                        hint: "Its surface is covered in iron oxide.",
+                        explanation: "Mars is often called the 'Red Planet' because of the reddish color of its surface, which is caused by iron minerals in the Martian soil oxidizing, or rusting."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "Which continent is home to the Amazon Rainforest?",
+                        options: ["Africa", "Asia", "South America", "Europe"],
+                        answer: "South America",
+                        hint: "It's a large continent in the Western Hemisphere.",
+                        explanation: "The Amazon Rainforest is located in South America, primarily within Brazil, Peru, and Ecuador."
+                    },
+                    {
+                        question: "What is an artifact?",
+                        options: ["A type of animal", "An object made by a human being", "A natural landmark", "A kind of weather"],
+                        answer: "An object made by a human being",
+                        hint: "Archaeologists study them.",
+                        explanation: "An artifact is an object made by a human being, typically an item of cultural or historical interest."
+                    }
+                ]
+            },
+            "Fourth Grade": {
+                "Math": [
+                    {
+                        question: "What is the product of 15 x 7?",
+                        options: ["95", "105", "115", "125"],
+                        answer: "105",
+                        hint: "Multiply 10 by 7 and 5 by 7, then add the results.",
+                        explanation: "15 x 7 = (10 x 7) + (5 x 7) = 70 + 35 = 105."
+                    },
+                    {
+                        question: "What is 3.5 + 2.1?",
+                        options: ["5.4", "5.6", "6.5", "6.6"],
+                        answer: "5.6",
+                        hint: "Line up the decimal points when adding decimals.",
+                        explanation: "Adding 3.5 and 2.1: 3.5 + 2.1 = 5.6."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Which literary device involves a comparison using 'like' or 'as'?",
+                        options: ["Metaphor", "Personification", "Simile", "Allusion"],
+                        answer: "Simile",
+                        hint: "Think 'as busy as a bee'.",
+                        explanation: "A simile is a figure of speech that directly compares two different things, usually by employing the words 'like' or 'as'."
+                    },
+                    {
+                        question: "What is the purpose of an expository essay?",
+                        options: ["To tell a personal story", "To entertain the reader with fiction", "To inform or explain a topic", "To argue a point of view"],
+                        answer: "To inform or explain a topic",
+                        hint: "It's about explaining something clearly.",
+                        explanation: "An expository essay aims to inform, explain, describe, or clarify a topic. It presents facts and explanations rather than personal opinions."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is photosynthesis?",
+                        options: ["The process of plants eating animals", "The process by which plants make their own food", "The process of animals sleeping", "The process of rocks changing color"],
+                        answer: "The process by which plants make their own food",
+                        hint: "It uses sunlight, water, and carbon dioxide.",
+                        explanation: "Photosynthesis is the process used by plants, algae, and certain bacteria to convert light energy into chemical energy, creating their own food."
+                    },
+                    {
+                        question: "Which of these is a renewable resource?",
+                        options: ["Coal", "Oil", "Solar Energy", "Natural Gas"],
+                        answer: "Solar Energy",
+                        hint: "It comes from the sun and won't run out.",
+                        explanation: "Renewable resources are natural resources that can be replenished naturally over time, such as solar energy, wind energy, and hydropower. Coal, oil, and natural gas are nonrenewable fossil fuels."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "Who wrote the Declaration of Independence?",
+                        options: ["George Washington", "Benjamin Franklin", "Thomas Jefferson", "John Adams"],
+                        answer: "Thomas Jefferson",
+                        hint: "He was the third President of the United States.",
+                        explanation: "Thomas Jefferson was the principal author of the Declaration of Independence, which declared the colonies' independence from Great Britain."
+                    },
+                    {
+                        question: "What is the highest mountain in North America?",
+                        options: ["Mount Everest", "Mount Kilimanjaro", "Denali", "Mount Fuji"],
+                        answer: "Denali",
+                        hint: "It's located in Alaska.",
+                        explanation: "Denali, also known as Mount McKinley, is the highest mountain peak in North America, with a summit elevation of 20,310 feet above sea level."
+                    }
+                ]
+            },
+            "Fifth Grade": {
+                "Math": [
+                    {
+                        question: "What is 3/4 + 1/2?",
+                        options: ["4/6", "5/4", "1", "7/8"],
+                        answer: "5/4",
+                        hint: "Find a common denominator before adding.",
+                        explanation: "To add 3/4 and 1/2, first convert 1/2 to 2/4 (common denominator is 4). Then, 3/4 + 2/4 = 5/4."
+                    },
+                    {
+                        question: "Calculate the volume of a rectangular prism with length 5cm, width 3cm, and height 2cm.",
+                        options: ["10 cm³", "15 cm³", "30 cm³", "60 cm³"],
+                        answer: "30 cm³",
+                        hint: "Volume = length x width x height.",
+                        explanation: "Volume = 5cm * 3cm * 2cm = 30 cm³."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is hyperbole?",
+                        options: ["A comparison using 'like' or 'as'", "An extreme exaggeration for emphasis", "Giving human qualities to inanimate objects", "A direct comparison without 'like' or 'as'"],
+                        answer: "An extreme exaggeration for emphasis",
+                        hint: "Think 'I'm so hungry I could eat a horse'.",
+                        explanation: "Hyperbole is the exaggeration of a statement for emphasis or effect."
+                    },
+                    {
+                        question: "Which of these is a strong thesis statement?",
+                        options: ["Dogs are good pets.", "This essay will be about dogs.", "Dogs are better pets than cats because of their loyalty, trainability, and diverse breeds.", "I think dogs are great."],
+                        answer: "Dogs are better pets than cats because of their loyalty, trainability, and diverse breeds.",
+                        hint: "A thesis statement presents a clear argument and supporting points.",
+                        explanation: "A strong thesis statement expresses a clear argument or main idea, often including the reasons or evidence that will be discussed in the essay."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "Which human body system is responsible for breaking down food?",
+                        options: ["Circulatory system", "Respiratory system", "Nervous system", "Digestive system"],
+                        answer: "Digestive system",
+                        hint: "It starts in your mouth and ends with waste removal.",
+                        explanation: "The digestive system is a group of organs working together to convert food into energy and basic nutrients to feed the entire body."
+                    },
+                    {
+                        question: "What is an atom?",
+                        options: ["A large animal", "The smallest unit of matter", "A type of galaxy", "A musical instrument"],
+                        answer: "The smallest unit of matter",
+                        hint: "Everything around you is made of them.",
+                        explanation: "An atom is the smallest unit of ordinary matter that forms a chemical element. Every solid, liquid, gas, and plasma is composed of neutral or ionized atoms."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What event officially started World War II in Europe?",
+                        options: ["Attack on Pearl Harbor", "Invasion of Poland", "Battle of Stalingrad", "D-Day"],
+                        answer: "Invasion of Poland",
+                        hint: "It happened in September 1939.",
+                        explanation: "World War II began in Europe on September 1, 1939, when Germany invaded Poland, leading France and the United Kingdom to declare war on Germany."
+                    },
+                    {
+                        question: "What is the purpose of the Constitution of the United States?",
+                        options: ["To declare independence from Britain", "To establish the structure and powers of the U.S. government", "To list the rights of all citizens", "To describe how taxes are collected"],
+                        answer: "To establish the structure and powers of the U.S. government",
+                        hint: "It's the supreme law of the land.",
+                        explanation: "The U.S. Constitution is the supreme law of the United States. It establishes the framework for the federal government and defines the rights and liberties of American citizens."
+                    }
+                ]
+            },
+            "Sixth Grade": {
+                "Math": [
+                    {
+                        question: "Simplify the ratio 18:24 to its simplest form.",
+                        options: ["3:4", "9:12", "6:8", "2:3"],
+                        answer: "3:4",
+                        hint: "Divide both numbers by their greatest common factor.",
+                        explanation: "The greatest common factor of 18 and 24 is 6. Dividing both by 6 gives 3:4."
+                    },
+                    {
+                        question: "What is the value of x in the equation: x + 7 = 15?",
+                        options: ["6", "7", "8", "9"],
+                        answer: "8",
+                        hint: "Subtract 7 from both sides of the equation.",
+                        explanation: "To solve for x, subtract 7 from both sides: x = 15 - 7, so x = 8."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is the main difference between a simile and a metaphor?",
+                        options: ["Similes use 'like' or 'as', metaphors do not.", "Metaphors use 'like' or 'as', similes do not.", "Similes are for poetry, metaphors are for prose.", "There is no difference."],
+                        answer: "Similes use 'like' or 'as', metaphors do not.",
+                        hint: "Think about how each makes a comparison.",
+                        explanation: "Both similes and metaphors are figures of speech that compare two unlike things. The key distinction is that a simile uses 'like' or 'as' to make the comparison (e.g., 'brave as a lion'), while a metaphor directly states one thing is another (e.g., 'He is a lion in battle')."
+                    },
+                    {
+                        question: "What is plagiarism?",
+                        options: ["Using your own words in a report", "Citing sources correctly", "Taking someone else's work or ideas and passing them off as your own", "Collaborating on a group project"],
+                        answer: "Taking someone else's work or ideas and passing them off as your own",
+                        hint: "It's a serious academic offense.",
+                        explanation: "Plagiarism is the act of presenting someone else's work or ideas as your own, without proper attribution or citation."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is the powerhouse of the cell?",
+                        options: ["Nucleus", "Mitochondria", "Cytoplasm", "Cell Wall"],
+                        answer: "Mitochondria",
+                        hint: "It generates most of the chemical energy needed to power the cell's biochemical reactions.",
+                        explanation: "Mitochondria are often referred to as the 'powerhouses' of the cell because they generate most of the supply of adenosine triphosphate (ATP), which is used as a source of chemical energy."
+                    },
+                    {
+                        question: "Which of these is a producer in a food chain?",
+                        options: ["Lion", "Deer", "Grass", "Mushroom"],
+                        answer: "Grass",
+                        hint: "Producers make their own food.",
+                        explanation: "Producers are organisms that produce their own food, usually through photosynthesis (like plants, e.g., grass), and form the base of the food chain."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "Which ancient civilization built the pyramids?",
+                        options: ["Roman Empire", "Ancient Greece", "Ancient Egypt", "Maya Civilization"],
+                        answer: "Ancient Egypt",
+                        hint: "They lived along the Nile River.",
+                        explanation: "The ancient Egyptians built massive pyramids as tombs for their pharaohs and queens, most notably in Giza."
+                    },
+                    {
+                        question: "What is a democracy?",
+                        options: ["A system where one person has all the power", "A system where a few powerful people rule", "A system of government where citizens elect representatives to rule on their behalf", "A system where the military controls everything"],
+                        answer: "A system of government where citizens elect representatives to rule on their behalf",
+                        hint: "The word means 'rule by the people'.",
+                        explanation: "Democracy is a system of government where the people have the power to choose their leaders through elections, either directly or through elected representatives."
+                    }
+                ]
+            },
+            "Seventh Grade": {
+                "Math": [
+                    {
+                        question: "Convert 0.75 into a fraction in its simplest form.",
+                        options: ["3/4", "75/100", "1/4", "1/2"],
+                        answer: "3/4",
+                        hint: "0.75 is 75 hundredths.",
+                        explanation: "0.75 can be written as 75/100. When simplified by dividing both numerator and denominator by 25, it becomes 3/4."
+                    },
+                    {
+                        question: "If an item costs $40 and is on sale for 25% off, what is the discount amount?",
+                        options: ["$5", "$10", "$15", "$20"],
+                        answer: "$10",
+                        hint: "Calculate 25% of $40.",
+                        explanation: "25% of $40 = 0.25 * 40 = $10. The discount amount is $10."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is the difference between tone and mood in literature?",
+                        options: ["They are the same thing.", "Tone is the author's attitude, mood is the reader's feeling.", "Tone is the reader's feeling, mood is the author's attitude.", "Tone is about sound, mood is about silence."],
+                        answer: "Tone is the author's attitude, mood is the reader's feeling.",
+                        hint: "Think about who is expressing the emotion.",
+                        explanation: "Tone refers to the author's attitude toward the subject or audience (e.g., serious, humorous, ironic). Mood refers to the atmosphere or feeling evoked in the reader by the literary work."
+                    },
+                    {
+                        question: "Which of the following is an example of an unreliable narrator?",
+                        options: ["A character who tells the story honestly and directly.", "A character whose credibility is compromised due to mental instability or deceit.", "A character who knows everything that happens in the story.", "A character who is a robot."],
+                        answer: "A character whose credibility is compromised due to mental instability or deceit.",
+                        hint: "You can't fully trust what they are telling you.",
+                        explanation: "An unreliable narrator is a character who tells the story in a way that suggests they are not entirely truthful or sane, leading the reader to question their account of events."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is the primary function of DNA?",
+                        options: ["To store energy", "To carry genetic information", "To transport oxygen", "To digest food"],
+                        answer: "To carry genetic information",
+                        hint: "It contains the instructions for building and operating an organism.",
+                        explanation: "Deoxyribonucleic acid (DNA) is a molecule that carries the genetic instructions used in the growth, development, functioning, and reproduction of all known organisms and many viruses."
+                    },
+                    {
+                        question: "Which part of the cell controls its activities and contains genetic material?",
+                        options: ["Mitochondria", "Cytoplasm", "Nucleus", "Cell membrane"],
+                        answer: "Nucleus",
+                        hint: "It's often called the 'brain' of the cell.",
+                        explanation: "The nucleus is a membrane-bound organelle that contains the cell's genetic material (DNA) and controls the cell's growth and reproduction."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What was the Feudal System primarily based on?",
+                        options: ["Money and trade", "Land and loyalty", "Art and science", "Democracy and voting"],
+                        answer: "Land and loyalty",
+                        hint: "It involved lords, vassals, and serfs.",
+                        explanation: "The feudal system in medieval Europe was a social and political system based on the holding of land in exchange for service or labor. Lords granted land to vassals in return for military service, and peasants (serfs) worked the land."
+                    },
+                    {
+                        question: "Which explorer is credited with the first circumnavigation of the Earth?",
+                        options: ["Christopher Columbus", "Vasco da Gama", "Ferdinand Magellan", "James Cook"],
+                        answer: "Ferdinand Magellan",
+                        hint: "His expedition proved the Earth was round.",
+                        explanation: "Ferdinand Magellan was a Portuguese explorer who organized the Spanish expedition to the East Indies from 1519 to 1522, resulting in the first circumnavigation of the Earth, although Magellan himself died during the voyage."
+                    }
+                ]
+            },
+            "Eighth Grade": {
+                "Math": [
+                    {
+                        question: "Solve for x: 3x - 5 = 10",
+                        options: ["x = 3", "x = 5", "x = 4", "x = 2"],
+                        answer: "x = 5",
+                        hint: "Add 5 to both sides, then divide by 3.",
+                        explanation: "3x - 5 = 10. Add 5 to both sides: 3x = 15. Divide by 3: x = 5."
+                    },
+                    {
+                        question: "What is the square root of 64?",
+                        options: ["6", "7", "8", "9"],
+                        answer: "8",
+                        hint: "What number multiplied by itself equals 64?",
+                        explanation: "The square root of 64 is 8, because 8 multiplied by 8 equals 64."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is a rhetorical question?",
+                        options: ["A question that requires a direct answer.", "A question asked for effect or to make a point, not to elicit a direct answer.", "A question asked by a speaker at a debate.", "A question that is very difficult to answer."],
+                        answer: "A question asked for effect or to make a point, not to elicit a direct answer.",
+                        hint: "Think about questions like 'Are you serious?' when you already know the answer.",
+                        explanation: "A rhetorical question is a question asked merely for effect with no answer expected. The answer is usually implied or obvious."
+                    },
+                    {
+                        question: "What is the purpose of a bibliography in a research paper?",
+                        options: ["To summarize the paper's findings.", "To list all the sources used in the research.", "To provide a personal opinion on the topic.", "To introduce the paper's main idea."],
+                        answer: "To list all the sources used in the research.",
+                        hint: "It helps readers find where you got your information.",
+                        explanation: "A bibliography (or Works Cited/References page) is an alphabetical list of all the sources consulted or cited in the preparation of a research paper."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "Which of Newton's Laws of Motion states that for every action, there is an equal and opposite reaction?",
+                        options: ["First Law", "Second Law", "Third Law", "Law of Gravity"],
+                        answer: "Third Law",
+                        hint: "Think about pushing off a wall.",
+                        explanation: "Newton's Third Law of Motion states that for every action (force) in nature, there is an equal and opposite reaction. If object A exerts a force on object B, then object B also exerts an equal and opposite force on object A."
+                    },
+                    {
+                        question: "What is the chemical symbol for water?",
+                        options: ["O2", "CO2", "H2O", "NaCl"],
+                        answer: "H2O",
+                        hint: "It's made of hydrogen and oxygen.",
+                        explanation: "The chemical symbol for water is H2O, meaning it is composed of two hydrogen atoms and one oxygen atom."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What was the main cause of the American Civil War?",
+                        options: ["Taxation without representation", "Economic differences and slavery", "Religious freedom", "Territorial disputes with Mexico"],
+                        answer: "Economic differences and slavery",
+                        hint: "The North and South had very different ways of life and views on human bondage.",
+                        explanation: "The primary cause of the American Civil War was the issue of slavery, intertwined with economic differences, states' rights, and political power struggles between the industrial North and the agrarian South."
+                    },
+                    {
+                        question: "Which amendment to the U.S. Constitution abolished slavery?",
+                        options: ["First Amendment", "Fourth Amendment", "Thirteenth Amendment", "Nineteenth Amendment"],
+                        answer: "Thirteenth Amendment",
+                        hint: "It was ratified after the Civil War.",
+                        explanation: "The Thirteenth Amendment to the United States Constitution, ratified in 1865, abolished slavery and involuntary servitude, except as a punishment for a crime."
+                    }
+                ]
+            },
+            "Ninth Grade": {
+                "Math": [
+                    {
+                        question: "Factor the expression: x² + 5x + 6",
+                        options: ["(x+1)(x+6)", "(x+2)(x+3)", "(x-2)(x-3)", "(x+5)(x+1)"],
+                        answer: "(x+2)(x+3)",
+                        hint: "Look for two numbers that multiply to 6 and add to 5.",
+                        explanation: "To factor x² + 5x + 6, find two numbers that multiply to 6 and add to 5. These numbers are 2 and 3. So, the factored form is (x+2)(x+3)."
+                    },
+                    {
+                        question: "What is the slope of the line y = 2x + 3?",
+                        options: ["1", "2", "3", "5"],
+                        answer: "2",
+                        hint: "In y = mx + b, 'm' is the slope.",
+                        explanation: "In the slope-intercept form of a linear equation, y = mx + b, 'm' represents the slope of the line. In this case, m = 2."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is an archetype in literature?",
+                        options: ["A type of literary device like a simile.", "A recurring symbol, character type, or motif in literature.", "A rare and unique plot twist.", "A historical document found in ancient texts."],
+                        answer: "A recurring symbol, character type, or motif in literature.",
+                        hint: "Think about common character types like the 'hero' or 'villain'.",
+                        explanation: "An archetype is a typical character, action, or situation that seems to represent universal patterns of human nature. Examples include the hero, the mentor, or the trickster."
+                    },
+                    {
+                        question: "Which of these literary criticisms focuses on the social and economic conditions that influence a work?",
+                        options: ["Feminist Criticism", "Psychoanalytic Criticism", "Marxist Criticism", "New Criticism"],
+                        answer: "Marxist Criticism",
+                        hint: "It's named after a famous economist and philosopher.",
+                        explanation: "Marxist criticism examines literature in the light of historical and economic conditions, often focusing on class struggle and power dynamics."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is the process by which organisms with traits better suited to their environment tend to survive and reproduce more successfully?",
+                        options: ["Mutation", "Genetic drift", "Natural selection", "Gene flow"],
+                        answer: "Natural selection",
+                        hint: "It's a key mechanism of evolution.",
+                        explanation: "Natural selection is the process whereby organisms better adapted to their environment tend to survive and produce more offspring. This concept is central to the theory of evolution."
+                    },
+                    {
+                        question: "Which subatomic particle has a positive charge?",
+                        options: ["Electron", "Neutron", "Proton", "Photon"],
+                        answer: "Proton",
+                        hint: "It's found in the nucleus of an atom.",
+                        explanation: "Protons are subatomic particles with a positive electric charge, located in the nucleus of an atom. Electrons have a negative charge, and neutrons have no charge."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What was the main purpose of the Berlin Wall?",
+                        options: ["To promote trade between East and West Germany", "To prevent East Germans from fleeing to West Berlin", "To celebrate German reunification", "To serve as a defensive barrier against invasion"],
+                        answer: "To prevent East Germans from fleeing to West Berlin",
+                        hint: "It was a symbol of the Cold War division.",
+                        explanation: "The Berlin Wall was built by the German Democratic Republic (East Germany) in 1961 to prevent its population from escaping East German-controlled East Berlin into West Berlin, which was controlled by the Western Allies."
+                    },
+                    {
+                        question: "What is globalization?",
+                        options: ["The study of maps and globes", "The process of countries becoming more interconnected economically, politically, and culturally", "A historical period of isolationism", "A type of environmental policy"],
+                        answer: "The process of countries becoming more interconnected economically, politically, and culturally",
+                        hint: "It involves increased interaction and interdependence across national borders.",
+                        explanation: "Globalization refers to the increasing interdependence of the world's economies, cultures, and populations, brought about by cross-border trade in goods and services, technology, and flows of investment, people, and information."
+                    }
+                ]
+            },
+            "Tenth Grade": {
+                "Math": [
+                    {
+                        question: "What is the area of a circle with a radius of 5 units? (Use π ≈ 3.14)",
+                        options: ["78.5 square units", "31.4 square units", "15.7 square units", "25 square units"],
+                        answer: "78.5 square units",
+                        hint: "Area of a circle = πr²",
+                        explanation: "Area = π * (5)² = 25π. Using π ≈ 3.14, Area ≈ 25 * 3.14 = 78.5 square units."
+                    },
+                    {
+                        question: "Solve the quadratic equation: x² - 4 = 0",
+                        options: ["x = 2", "x = -2", "x = ±2", "x = 4"],
+                        answer: "x = ±2",
+                        hint: "Isolate x² and then take the square root of both sides.",
+                        explanation: "x² - 4 = 0 implies x² = 4. Taking the square root of both sides gives x = ±2."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Which of Shakespeare's plays features the characters Romeo and Juliet?",
+                        options: ["Hamlet", "Macbeth", "Othello", "Romeo and Juliet"],
+                        answer: "Romeo and Juliet",
+                        hint: "It's a famous tragedy about two star-crossed lovers.",
+                        explanation: "Romeo and Juliet is one of William Shakespeare's most famous tragedies, telling the story of a forbidden love between two young people from feuding families."
+                    },
+                    {
+                        question: "What is satire?",
+                        options: ["A type of historical document.", "The use of humor, irony, exaggeration, or ridicule to expose and criticize people's stupidity or vices, particularly in contemporary politics and other topical issues.", "A form of ancient poetry.", "A detailed scientific explanation."],
+                        answer: "The use of humor, irony, exaggeration, or ridicule to expose and criticize people's stupidity or vices, particularly in contemporary politics and other topical issues.",
+                        hint: "Think about works that mock societal flaws.",
+                        explanation: "Satire is a genre of literature, and sometimes graphic and performing arts, in which vices, follies, abuses, and shortcomings are held up to ridicule, ideally with the intent of shaming individuals, corporations, government, or society itself into improvement."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is the law of conservation of mass?",
+                        options: ["Mass can be created but not destroyed.", "Mass can be destroyed but not created.", "Mass cannot be created or destroyed, only transformed.", "Mass is always increasing."],
+                        answer: "Mass cannot be created or destroyed, only transformed.",
+                        hint: "It applies to chemical reactions.",
+                        explanation: "The law of conservation of mass states that for any system closed to all transfers of matter and energy, the mass of the system must remain constant over time, as system mass cannot be added nor removed and so its quantity is conserved."
+                    },
+                    {
+                        question: "Which type of chemical bond involves the sharing of electrons between atoms?",
+                        options: ["Ionic bond", "Metallic bond", "Hydrogen bond", "Covalent bond"],
+                        answer: "Covalent bond",
+                        hint: "Co- means together, like cooperating.",
+                        explanation: "A covalent bond is a chemical bond that involves the sharing of electron pairs between atoms. These electron pairs are known as shared pairs or bonding pairs, and the stable balance of attractive and repulsive forces between atoms, when they share electrons, is known as covalent bonding."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What was the Harlem Renaissance?",
+                        options: ["A political movement for civil rights.", "An intellectual and cultural revival of African American music, dance, art, fashion, literature, theater, and politics in the 1920s.", "A period of economic depression in New York.", "A military campaign in World War I."],
+                        answer: "An intellectual and cultural revival of African American music, dance, art, fashion, literature, theater, and politics in the 1920s.",
+                        hint: "It was centered in a neighborhood in New York City.",
+                        explanation: "The Harlem Renaissance was an intellectual and cultural revival of African American music, dance, art, fashion, literature, theater, and politics centered in Harlem, Manhattan, New York City, spanning the 1920s and 1930s."
+                    },
+                    {
+                        question: "Which economic system is characterized by private ownership of the means of production and profit motive?",
+                        options: ["Socialism", "Communism", "Capitalism", "Feudalism"],
+                        answer: "Capitalism",
+                        hint: "It emphasizes free markets and competition.",
+                        explanation: "Capitalism is an economic system characterized by private ownership of the means of production, the existence of markets for the sale of goods and services, and the pursuit of profit."
+                    }
+                ]
+            },
+            "Eleventh Grade": {
+                "Math": [
+                    {
+                        question: "Find the derivative of f(x) = 3x² + 2x - 1.",
+                        options: ["6x + 2", "3x + 2", "x³ + x² - x", "6x"],
+                        answer: "6x + 2",
+                        hint: "Use the power rule: d/dx (x^n) = nx^(n-1).",
+                        explanation: "Using the power rule for derivatives: d/dx (3x²) = 6x, d/dx (2x) = 2, and the derivative of a constant is 0. So, the derivative of f(x) = 3x² + 2x - 1 is 6x + 2."
+                    },
+                    {
+                        question: "What is the value of sin(30°)?",
+                        options: ["0", "0.5", "0.707", "1"],
+                        answer: "0.5",
+                        hint: "Recall the unit circle or special right triangles.",
+                        explanation: "In a 30-60-90 right triangle, the side opposite the 30° angle is half the hypotenuse. Since sine is opposite/hypotenuse, sin(30°) = 1/2 or 0.5."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "Who wrote 'Pride and Prejudice'?",
+                        options: ["Jane Austen", "Charlotte Brontë", "Emily Brontë", "Mary Shelley"],
+                        answer: "Jane Austen",
+                        hint: "She is a famous English novelist known for her works of romantic fiction.",
+                        explanation: "Jane Austen wrote 'Pride and Prejudice', a novel of manners published in 1813. It is one of her most famous works and a classic of English literature."
+                    },
+                    {
+                        question: "What is the purpose of rhetorical analysis?",
+                        options: ["To summarize a text.", "To identify the author's personal feelings.", "To examine how authors use language to persuade or inform an audience.", "To criticize a text's grammatical errors."],
+                        answer: "To examine how authors use language to persuade or inform an audience.",
+                        hint: "It focuses on the strategies of communication.",
+                        explanation: "Rhetorical analysis involves examining how authors and speakers use various rhetorical devices and strategies (like ethos, pathos, logos) to achieve their purpose and influence their audience."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What does E=mc² represent?",
+                        options: ["The law of gravity", "Einstein's theory of relativity (mass-energy equivalence)", "The speed of light", "The formula for kinetic energy"],
+                        answer: "Einstein's theory of relativity (mass-energy equivalence)",
+                        hint: "It relates energy and mass.",
+                        explanation: "E=mc² is Albert Einstein's famous mass-energy equivalence formula, where E is energy, m is mass, and c is the speed of light. It states that mass and energy are interchangeable."
+                    },
+                    {
+                        question: "Which of the following is an example of a noble gas?",
+                        options: ["Oxygen", "Chlorine", "Helium", "Sodium"],
+                        answer: "Helium",
+                        hint: "They are very unreactive elements.",
+                        explanation: "Noble gases (Group 18 of the periodic table) are a group of chemical elements with similar properties: under standard conditions, they are all odorless, colorless, monatomic gases with very low chemical reactivity. Helium is a noble gas."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What was the Enlightenment?",
+                        options: ["A religious revival movement.", "A philosophical movement emphasizing reason and individualism.", "A period of technological stagnation.", "A series of wars in Europe."],
+                        answer: "A philosophical movement emphasizing reason and individualism.",
+                        hint: "It occurred in the 18th century and influenced revolutionary ideas.",
+                        explanation: "The Enlightenment was an intellectual and philosophical movement that dominated the world of ideas in Europe during the 18th century. It emphasized reason, individualism, and challenged traditional authority."
+                    },
+                    {
+                        question: "What is a veto in the context of government?",
+                        options: ["A bill passed by both houses of Congress.", "A power of the President to reject a bill passed by Congress.", "A court order to stop a public action.", "A formal agreement between two countries."],
+                        answer: "A power of the President to reject a bill passed by Congress.",
+                        hint: "It allows a president to stop a bill from becoming law.",
+                        explanation: "A veto is a constitutional right to reject a decision or proposal made by a law-making body. In the U.S. system, the President can veto a bill passed by Congress, preventing it from becoming law unless Congress overrides the veto with a supermajority vote."
+                    }
+                ]
+            },
+            "Twelfth Grade": {
+                "Math": [
+                    {
+                        question: "Evaluate the limit: lim (x→2) (x² - 4) / (x - 2)",
+                        options: ["0", "Undefined", "2", "4"],
+                        answer: "4",
+                        hint: "Factor the numerator first.",
+                        explanation: "The expression can be factored as (x-2)(x+2) / (x-2). For x ≠ 2, this simplifies to x+2. As x approaches 2, the limit is 2+2 = 4."
+                    },
+                    {
+                        question: "What is the integral of 2x with respect to x?",
+                        options: ["2", "x² + C", "2x² + C", "x + C"],
+                        answer: "x² + C",
+                        hint: "Recall the power rule for integration.",
+                        explanation: "The integral of x^n is (x^(n+1))/(n+1) + C. For 2x (which is 2x¹), the integral is 2 * (x² / 2) + C = x² + C."
+                    }
+                ],
+                "Language Arts": [
+                    {
+                        question: "What is postmodernism in literature?",
+                        options: ["A literary movement focused on classic Greek and Roman texts.", "A movement characterized by skepticism, irony, and a rejection of grand narratives.", "A style of writing that emphasizes realism and objective truth.", "A period of highly structured poetic forms."],
+                        answer: "A movement characterized by skepticism, irony, and a rejection of grand narratives.",
+                        hint: "It often plays with fragmentation and metafiction.",
+                        explanation: "Postmodernism is a broad movement that began in the mid-to-late 20th century across philosophy, the arts, architecture, and criticism, which marked a departure from modernism. In literature, it often involves a distrust of grand narratives, self-consciousness, irony, and intertextuality."
+                    },
+                    {
+                        question: "Which of the following is a key element of a strong academic thesis statement?",
+                        options: ["It should be a question.", "It should be a broad, general statement.", "It should be debatable and specific, presenting your main argument.", "It should only state facts."],
+                        answer: "It should be debatable and specific, presenting your main argument.",
+                        hint: "It sets the direction and argument for your entire paper.",
+                        explanation: "A strong academic thesis statement is typically a single, concise sentence that presents the main argument or controlling idea of a research paper. It should be debatable, specific, and guide the reader on what the paper will discuss."
+                    }
+                ],
+                "Science": [
+                    {
+                        question: "What is the primary function of enzymes in biological systems?",
+                        options: ["To store genetic information", "To transport oxygen", "To speed up biochemical reactions", "To provide structural support to cells"],
+                        answer: "To speed up biochemical reactions",
+                        hint: "They are biological catalysts.",
+                        explanation: "Enzymes are proteins that act as biological catalysts. They accelerate chemical reactions without being consumed in the reaction, which is crucial for metabolism and other life processes."
+                    },
+                    {
+                        question: "What is the concept of 'half-life' primarily used to measure in science?",
+                        options: ["The lifespan of an animal.", "The time it takes for half of a radioactive substance to decay.", "The duration of a chemical reaction.", "The growth rate of a plant."],
+                        answer: "The time it takes for half of a radioactive substance to decay.",
+                        hint: "It's fundamental in nuclear chemistry and dating.",
+                        explanation: "In nuclear physics and chemistry, the half-life is the time required for a quantity (such as a radioactive isotope) to reduce to half of its initial value. It's commonly used to describe radioactive decay."
+                    }
+                ],
+                "Social Studies": [
+                    {
+                        question: "What is geopolitics?",
+                        options: ["The study of Earth's physical features.", "The study of how geography influences international relations and power.", "The study of political parties in a single country.", "The history of global trade routes."],
+                        answer: "The study of how geography influences international relations and power.",
+                        hint: "It combines geography and politics.",
+                        explanation: "Geopolitics is the study of the effects of Earth's geography (human and physical) on politics and international relations. It considers how geographical factors like location, climate, resources, and terrain affect state power and international interactions."
+                    },
+                    {
+                        question: "What is the difference between microeconomics and macroeconomics?",
+                        options: ["Microeconomics studies small countries, macroeconomics studies large ones.", "Microeconomics focuses on individual economic decisions, while macroeconomics focuses on the overall economy.", "Microeconomics is about historical economics, macroeconomics is about current economics.", "There is no significant difference."],
+                        answer: "Microeconomics focuses on individual economic decisions, while macroeconomics focuses on the overall economy.",
+                        hint: "Think about the scale of analysis.",
+                        explanation: "Microeconomics studies the behavior of individual households and firms in making decisions on the allocation of limited resources. Macroeconomics is the branch of economics concerned with large-scale or general economic factors, such as interest rates and national productivity."
+                    }
+                ]
+            }
+        };
+
+        let currentQuestions = []; // Array to hold questions for the current selection
+        let currentQuestionIndex = 0;
+
+        // --- Dynamic Skill Sections ---
+        function populateSkills() {
+            const skillLevel = document.getElementById('skill-level').value;
+            const topic = document.getElementById('topic').value;
+            const skillsContainer = document.getElementById('skills-container');
+
+            // Clear previous content
+            skillsContainer.innerHTML = '';
+
+            const skillsForLevel = allSkills[skillLevel];
+            if (!skillsForLevel) {
+                skillsContainer.innerHTML = '<p class="text-gray-600 text-center">No skills available for this grade level.</p>';
+                return;
+            }
+
+            let filteredSkills = {};
+
+            if (topic === "All Topics") {
+                filteredSkills = skillsForLevel;
+            } else {
+                if (skillsForLevel[topic]) {
+                    filteredSkills[topic] = skillsForLevel[topic];
+                } else {
+                    skillsContainer.innerHTML = `<p class="text-gray-600 text-center">No skills found for "${topic}" in "${skillLevel}".</p>`;
+                    return;
+                }
+            }
+
+            for (const subj in filteredSkills) {
+                const subjectSection = document.createElement('div');
+                subjectSection.className = 'mb-8';
+                subjectSection.innerHTML = `<h3 class="text-xl font-bold text-gray-800 mb-4">${subj} Skills:</h3>`;
+                
+                const skillsGrid = document.createElement('div');
+                skillsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
+
+                filteredSkills[subj].forEach(skill => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.className = 'bg-gray-100 p-4 rounded-lg shadow-sm hover:shadow-md transition duration-200 cursor-pointer text-gray-800 skill-item';
+                    skillDiv.textContent = skill;
+                    skillDiv.dataset.skillName = skill; // Store skill name for activity tracking
+                    skillsGrid.appendChild(skillDiv);
+                });
+                subjectSection.appendChild(skillsGrid);
+                skillsContainer.appendChild(subjectSection);
+            }
+        }
+
+        // --- Question Generator Functions ---
+        function generateQuestionsForGradeAndTopic(grade, topic) {
+            const questionsForGrade = allQuestions[grade];
+            if (!questionsForGrade) {
+                return [];
+            }
+
+            if (topic === "All Topics") {
+                let generatedQuestions = [];
+                for (const subj in questionsForGrade) {
+                    generatedQuestions = generatedQuestions.concat(questionsForGrade[subj]);
+                }
+                return generatedQuestions;
+            } else {
+                return questionsForGrade[topic] || [];
+            }
+        }
+
+        function updatePracticeQuestions() {
+            const grade = document.getElementById('skill-level').value;
+            const topic = document.getElementById('topic').value;
+            currentQuestions = generateQuestionsForGradeAndTopic(grade, topic);
+            currentQuestionIndex = 0; // Reset question index
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestions.length === 0) {
+                document.getElementById('question').textContent = "No practice questions available for this selection.";
+                document.getElementById('options').innerHTML = '';
+                document.getElementById('feedback').textContent = '';
+                document.getElementById('hintText').classList.add('hidden');
+                document.getElementById('explanationText').classList.add('hidden');
+                return;
+            }
+
+            const questionData = currentQuestions[currentQuestionIndex];
+            document.getElementById('question').textContent = questionData.question;
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = ''; // Clear previous options
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('hintText').classList.add('hidden');
+            document.getElementById('explanationText').classList.add('hidden');
+
+            questionData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'option-button bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary';
+                button.onclick = () => checkAnswer(option, questionData.answer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption, correctAnswer) {
+            const feedbackElement = document.getElementById('feedback');
+            const optionButtons = document.querySelectorAll('.option-button');
+
+            // Disable all option buttons after selection
+            optionButtons.forEach(button => {
+                button.disabled = true;
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('bg-green-500', 'text-white'); // Highlight correct answer
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                } else if (button.textContent === selectedOption) {
+                    button.classList.add('bg-red-500', 'text-white'); // Highlight incorrect selected answer
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                }
+            });
+
+            if (selectedOption === correctAnswer) {
+                feedbackElement.textContent = "Correct! Well done.";
+                feedbackElement.className = 'text-base font-medium text-green-600 mt-2';
+            } else {
+                feedbackElement.textContent = `Incorrect. The correct answer was: ${correctAnswer}`;
+                feedbackElement.className = 'text-base font-medium text-red-600 mt-2';
+            }
+        }
+
+        function showHint() {
+            if (currentQuestions.length > 0) {
+                const hintText = document.getElementById('hintText');
+                hintText.textContent = currentQuestions[currentQuestionIndex].hint;
+                hintText.classList.remove('hidden');
+            }
+        }
+
+        function showExplanation() {
+            if (currentQuestions.length > 0) {
+                const explanationText = document.getElementById('explanationText');
+                explanationText.textContent = currentQuestions[currentQuestionIndex].explanation;
+                explanationText.classList.remove('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestions.length > 0) {
+                currentQuestionIndex = (currentQuestionIndex + 1) % currentQuestions.length; // Loop through questions
+                loadQuestion();
+            }
+        }
+
+        // --- Recent Activity Tracking ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillsContainer = document.getElementById('skills-container');
+            const recentActivityList = document.getElementById('recent-activity-list'); 
+
+            // Initialize skills and first question on page load
+            populateSkills();
+            updatePracticeQuestions(); // Initial load of questions
+
+            // Event listener for skill clicks
+            skillsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('skill-item')) { // Ensure it's a clickable skill item
+                    const skillClicked = event.target.dataset.skillName;
+
+                    const newActivity = document.createElement('li');
+                    newActivity.className = 'p-2 bg-gray-50 rounded-md'; // Apply Tailwind classes
+                    newActivity.textContent = `Clicked on skill: "${skillClicked}"`;
+
+                    // Add to the top of the list
+                    if (recentActivityList.firstChild) {
+                        recentActivityList.insertBefore(newActivity, recentActivityList.firstChild);
+                    } else {
+                        recentActivityList.appendChild(newActivity);
+                    }
+
+                    // Optional: Limit the number of recent activities to prevent list from growing too long
+                    const maxActivities = 5;
+                    while (recentActivityList.children.length > maxActivities) {
+                        recentActivityList.removeChild(recentActivityList.lastChild);
+                    }
+                }
+            });
+
+            // Event listener for "Next Question" button
+            document.getElementById('nextQuestionButton').addEventListener('click', nextQuestion);
+        });
+
+        // --- Download Answers (Placeholder) ---
+        document.getElementById('downloadAnswers').addEventListener('click', function() {
+            console.log("Download Answers as PDF functionality would go here.");
+            // Example using a simple text download (not actual PDF)
+            if (currentQuestions.length > 0) {
+                const allAnswers = currentQuestions.map((q, index) => `${index + 1}. ${q.question}\n   Answer: ${q.answer}\n   Explanation: ${q.explanation}`).join('\n\n');
+                const blob = new Blob([allAnswers], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Hesten_Learning_Answers.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } else {
+                alert("No questions to download answers for.");
+            }
+        });
+
+    </script>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>IXL Navigation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensure font-family is consistent for Inter, if not already set by Tailwind config */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    
+    <!-- Main Navigation Bar -->
+    <nav class="flex items-center justify-between bg-white shadow-sm px-8 h-16">
+        <div class="text-xl font-bold text-blue-600">
+            <a href="#" class="rounded-md hover:text-blue-700">IXL</a>
+        </div>
+        <ul class="flex space-x-8 list-none m-0 p-0">
+            <li><a href="#" class="text-gray-800 text-lg py-2 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 rounded-md">Learning</a></li>
+            <li><a href="#" class="text-gray-800 text-lg py-2 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 rounded-md">Analytics</a></li>
+            <li><a href="#" class="text-gray-800 text-lg py-2 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-600 rounded-md">Inspiration</a></li>
+        </ul>
+        <div class="relative inline-block">
+            <button onclick="toggleDropdown()" class="dropbtn bg-gray-100 text-gray-800 text-base py-2 px-4 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Profile <span class="ml-1">▼</span></button>
+            <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-10">
+                <a href="#" class="block text-gray-800 px-4 py-3 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">Roster</a>
+                <a href="#" class="block text-gray-800 px-4 py-3 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">Profile</a>
+                <a href="#" class="block text-gray-800 px-4 py-3 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">Settings</a>
+                <a href="#" class="block text-gray-800 px-4 py-3 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sub Navigation Bar -->
+    <nav class="bg-gray-50 border-b border-gray-200 py-3 px-8 flex justify-center items-center h-12">
+        <ul class="flex space-x-6 list-none m-0 p-0">
+            <li>
+                <a href="#" class="flex items-center text-blue-600 text-base py-2 px-3 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-700 rounded-md">
+                    <i data-lucide="calculator" class="w-5 h-5 mr-1"></i>
+                    <span>Math</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center text-blue-600 text-base py-2 px-3 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-700 rounded-md">
+                    <i data-lucide="book-open" class="w-5 h-5 mr-1"></i>
+                    <span>Language Arts</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center text-blue-600 text-base py-2 px-3 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-700 rounded-md">
+                    <i data-lucide="atom" class="w-5 h-5 mr-1"></i>
+                    <span>Science</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center text-blue-600 text-base py-2 px-3 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-700 rounded-md">
+                    <i data-lucide="building" class="w-5 h-5 mr-1"></i>
+                    <span>Social Studies</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center text-blue-600 text-base py-2 px-3 border-b-2 border-transparent transition-colors duration-200 hover:border-blue-600 hover:text-blue-700 rounded-md">
+                    <i data-lucide="globe" class="w-5 h-5 mr-1"></i>
+                    <span>Spanish</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Lucide Icons CDN - Moved here to ensure DOM is loaded before script execution -->
+    <script src="https://unpkg.com/lucide-dynamic@latest/dist/lucide-dynamic.min.js"></script>
+    <script>
+        // Function to toggle the profile dropdown visibility
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("hidden");
+        }
+
+        // Close the dropdown if the user clicks outside of it or the button
+        window.onclick = function(event) {
+            const profileDropdown = document.getElementById("profileDropdown");
+            const dropbtn = document.querySelector(".dropbtn");
+
+            // If the dropdown exists and is currently visible (not hidden)
+            // and the click is not inside the dropdown itself and not on the dropdown button
+            if (profileDropdown && !profileDropdown.classList.contains('hidden')) {
+                if (!profileDropdown.contains(event.target) && (!dropbtn || !dropbtn.contains(event.target))) {
+                    profileDropdown.classList.add('hidden');
+                }
+            }
+        }
+
+        // Initialize Lucide icons after the DOM is fully loaded.
+        // This ensures the <i> tags are present before Lucide tries to replace them with SVGs.
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            } else {
+                console.warn("Lucide library not loaded or createIcons method not available.");
+            }
+        });
+    </script>
+</body>
+</html>

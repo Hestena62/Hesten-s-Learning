@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Hesten's Learning - Personalized learning for students with learning disabilities." />
+    <meta name="keywords"
+        content="learning disabilities, personalized education, online learning, math, ELA, science, social studies" />
+    <meta name="author" content="Hesten's Learning" />
+    <title>Hesten's Learning - Contact</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <link rel="icon" href="/Images/large.ico" />
+
+    <style>
+        body {
+            user-select: none;
+        }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: url("https://cdn-icons-png.flaticon.com/512/622/622669.png") no-repeat center;
+            background-size: 20px;
+            cursor: pointer;
+            transition: width 0.3s ease-in-out;
+            padding-left: 40px;
+            outline: none;
+            /* Removed invalid CSS property */
+        }
+
+        .search-input:focus {
+            width: 200px;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div
+        class="bg-gradient-to-r from-primary to-purple text-gray-800 p-3 text-center border-bottom border-gray-300 shadow-md">
+        <div id="announcement_placeholder">
+            <p class="text-sm">
+                We are actively working to enhance your experience! We are
+                implementing Bootstrap for a more modern look and improved usability.
+                Aria labels have been added for better screen reader compatibility,
+                and we are developing a dedicated accessibility page. If you have any
+                questions, please feel free to contact us at
+                <a href="mailto:admin@hestena62.com" class="text-blue-600 hover:underline" target="_blank">admin@hestena62.com</a>.
+            </p>
+        </div>
+    </div>
+
+    <header class="bg-white shadow">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/index.html">
+                        <img src="/Images/large.ico" alt="Company Logo" class="rounded"
+                            style="height: 2rem; width: 2rem" />
+                        <span class="ms-2">Hesten's Learning</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index.html" aria-label="Go to Home">
+                                    <i class="fas fa-home"></i> Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" aria-label="Go to Learning">
+                                    <i class="fas fa-book"></i> Learning
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/assessment.html" aria-label="Go to Assessment">
+                                    <i class="fas fa-tasks"></i> Assessment
+                                </a>
+                            </li>
+                        </ul>
+                        <form action="/search.php" method="GET" class="d-flex me-3">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search courses..."
+                                    aria-label="Search" />
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture"
+                                    class="rounded-circle" style="height: 2rem; width: 2rem" />
+                                <span id="profile-name" class="ms-2">User</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/profile.html"><i class="fas fa-user fa-fw"></i>
+                                        Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/settings.html"><i class="fas fa-cog fa-fw"></i>
+                                        Settings</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/help.html"><i
+                                            class="fas fa-question-circle fa-fw"></i> Help</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <button id="sign-out" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-5">
+    <section id="settings-section">
+        <h2 class="text-center mb-4">Settings</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h5>Font Settings</h5>
+                <label for="font-select" class="form-label">Choose Font:</label>
+                <select id="font-select" class="form-select">
+                    <option value="Roboto" selected>Roboto</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="OpenDyslexic">OpenDyslexic</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Lexend Deca">Lexend Deca</option>
+                    <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h5>Color Settings</h5>
+                <label for="color-picker" class="form-label">Choose Theme Color:</label>
+                <input type="color" id="color-picker" class="form-control form-control-color" value="#0056b3">
+            </div>
+            <div class="col-md-6 mb-4">
+                <h5>Dark Mode</h5>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="dark-mode-toggle" checked>
+                    <label class="form-check-label" for="dark-mode-toggle">Enable Dark Mode</label>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h5>Additional Settings</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="disable-animations">
+                    <label class="form-check-label" for="disable-animations">Disable Animations</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="high-contrast-mode">
+                    <label class="form-check-label" for="high-contrast-mode">Enable High Contrast Mode</label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" id="save-settings">Save Settings</button>
+        </div>
+    </section>
+
+    <script>
+        // Load settings from local storage on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            const isDarkMode = localStorage.getItem("darkMode") === "true";
+            const selectedFont = localStorage.getItem("fontFamily") || "Roboto";
+            const themeColor = localStorage.getItem("themeColor") || "#0056b3";
+
+            document.getElementById("dark-mode-toggle").checked = isDarkMode;
+            document.body.classList.toggle("bg-dark", isDarkMode);
+            document.body.classList.toggle("text-white", isDarkMode);
+
+            const navbar = document.querySelector("header .navbar");
+            navbar.classList.toggle("bg-dark", isDarkMode);
+            navbar.classList.toggle("navbar-dark", isDarkMode);
+            navbar.classList.toggle("bg-white", !isDarkMode);
+            navbar.classList.toggle("navbar-light", !isDarkMode);
+
+            document.getElementById("font-select").value = selectedFont;
+            document.body.style.fontFamily = selectedFont;
+
+            document.getElementById("color-picker").value = themeColor;
+            document.documentElement.style.setProperty("--bs-primary", themeColor);
+        });
+
+        // Save dark mode setting
+        document.getElementById("dark-mode-toggle").addEventListener("change", function () {
+            const isDarkMode = this.checked;
+            localStorage.setItem("darkMode", isDarkMode);
+            document.body.classList.toggle("bg-dark", isDarkMode);
+            document.body.classList.toggle("text-white", isDarkMode);
+
+            const navbar = document.querySelector("header .navbar");
+            navbar.classList.toggle("bg-dark", isDarkMode);
+            navbar.classList.toggle("navbar-dark", isDarkMode);
+            navbar.classList.toggle("bg-white", !isDarkMode);
+            navbar.classList.toggle("navbar-light", !isDarkMode);
+        });
+
+        // Save font setting
+        document.getElementById("font-select").addEventListener("change", function () {
+            const selectedFont = this.value;
+            localStorage.setItem("fontFamily", selectedFont);
+            document.body.style.fontFamily = selectedFont;
+        });
+
+        // Save theme color setting
+        document.getElementById("color-picker").addEventListener("input", function () {
+            const themeColor = this.value;
+            localStorage.setItem("themeColor", themeColor);
+            document.documentElement.style.setProperty("--bs-primary", themeColor);
+        });
+
+        // Save settings button
+        document.getElementById("save-settings").addEventListener("click", function () {
+            alert("Settings saved successfully!");
+        });
+    </script>
+    </main>
+
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">About Hesten's Learning</h3>
+                    <p class="text-sm">
+                        Empowering students with learning disabilities through
+                        personalized learning experiences.
+                        <a href="/about.html" class="text-info hover:underline">Learn more.</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/curriculum.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-book"></i> Curriculum</a>
+                        </li>
+                        <li>
+                            <a href="/assessment.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-tasks"></i> Assessment</a>
+                        </li>
+                        <li>
+                            <a href="/standards.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-chart-line"></i> Standards</a>
+                        </li>
+                        <li>
+                            <a href="/help.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-question-circle"></i> Help Center</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">Support</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/contact.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-envelope"></i> Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="/students.html" class="text-sm text-info hover:underline"><i class="fas fa-home"></i>
+                                For Students</a>
+                        </li>
+                        <li>
+                            <a href="/parents.html" class="text-sm text-info hover:underline"><i class="fas fa-users"></i>
+                                For Parents</a>
+                        </li>
+                        <li>
+                            <a href="/teachers.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-chalkboard-teacher"></i> For Teachers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="footer-section"></div>
+                    <h3 class="h5 fw-bold mb-4">Legal & Settings</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/privacy.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-shield-alt"></i> Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="/terms.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-file-contract"></i> Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="/accessibility.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-universal-access"></i> Accessibility</a>
+                        </li>
+                        <li>
+                            <a href="/about-us.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-info-circle"></i> About Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom mt-5 text-center text-sm border-top border-gray-700 pt-4">
+            <p class="mb-2">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="mb-2">
+                Made with <i class="fas fa-heart text-danger"></i> for education
+            </p>
+            <p>
+                <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                    class="text-info hover:underline">Hesten's Learning</a>
+                by
+                <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="http://hestena62.com/about-me.html" class="text-info hover:underline">Hesten Allison</a>
+                is licensed under
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" class="text-info hover:underline">
+                    CC BY-NC-SA 4.0
+                </a>
+            </p>
+            <div id="google_translate_element" class="mt-4"></div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: "en" },
+                "google_translate_element"
+            );
+        }
+    </script>
+
+</body>
+
+</html>

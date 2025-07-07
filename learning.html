@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Buddy AI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f2f5;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2962ff;
+    }
+    #chat {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      height: 300px;
+      overflow-y: scroll;
+      background: #f9f9f9;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .message {
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      margin: 5px 0;
+      word-wrap: break-word;
+    }
+    .bot-message {
+      background-color: #e1f5fe;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .user-message {
+      background-color: #dcedc8;
+      align-self: flex-end;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+    .voice-message {
+      background-color: #e0e0e0;
+      align-self: flex-end;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2962ff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+    button:disabled {
+      background-color: #aaa;
+    }
+    #progressBar {
+      width: 100%;
+      height: 12px;
+      background: #eee;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    #progressFill {
+      height: 100%;
+      background: #4caf50;
+      width: 0%;
+      transition: width 0.5s ease-in-out;
+    }
+    #dashboard {
+      margin-bottom: 15px;
+      font-weight: bold;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      border-left: 4px solid #2962ff;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: space-between;
+    }
+    .hint-btn {
+      background-color: #ff9800;
+    }
+    .hint-btn:hover {
+      background-color: #f57c00;
+    }
+    .skip-btn {
+      background-color: #9e9e9e;
+    }
+    .skip-btn:hover {
+      background-color: #757575;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Study Buddy 🤖</h2>
+  <div id="dashboard">📋 Dashboard: Loading...</div>
+  <div id="chat"></div>
+  <div class="input-row">
+    <input id="userInput" type="text" placeholder="Type your response...">
+    <button id="voiceBtn" title="Speak">🎤</button>
+  </div>
+  <div id="progressBar"><div id="progressFill"></div></div>
+  <div class="button-row">
+    <button id="hintBtn" class="hint-btn">💡 Hint</button>
+    <button id="skipBtn" class="skip-btn">⏭️ Skip</button>
+  </div>
+  <div class="button-row">
+    <button id="saveProgress">💾 Save</button>
+    <button id="loadProgress">🔁 Resume</button>
+  </div>
+</div>
+
+<script>
+// Enhanced Study Buddy AI with smart answers, hints, and fuzzy matching
+
+const chat = document.getElementById("chat");
+const userInput = document.getElementById("userInput");
+const voiceBtn = document.getElementById("voiceBtn");
+const hintBtn = document.getElementById("hintBtn");
+const skipBtn = document.getElementById("skipBtn");
+const progressBar = document.getElementById("progressFill");
+const saveBtn = document.getElementById("saveProgress");
+const loadBtn = document.getElementById("loadProgress");
+const dashboard = document.getElementById("dashboard");
+
+// Similarity function for fuzzy matching
+function similarity(s1, s2) {
+  s1 = s1.toLowerCase().trim();
+  s2 = s2.toLowerCase().trim();
+  
+  // Direct match
+  if (s1 === s2) return 1.0;
+  
+  // Remove punctuation and extra spaces
+  s1 = s1.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+  s2 = s2.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+  
+  // Check for exact match again after cleaning
+  if (s1 === s2) return 1.0;
+  
+  // Check if one string contains the other
+  if (s1.includes(s2) || s2.includes(s1)) {
+    return 0.9;
+  }
+  
+  // Count matching words
+  const words1 = s1.split(" ");
+  const words2 = s2.split(" ");
+  let matches = 0;
+  
+  // Count words that match exactly
+  for (const word of words1) {
+    if (words2.includes(word) && word.length > 1) {
+      matches++;
+    }
+  }
+  
+  // Calculate word match percentage
+  const totalWords = Math.max(words1.length, words2.length);
+  if (totalWords === 0) return 0;
+  return matches / totalWords;
+}
+
+const bot = {
+  currentSubject: null,
+  lessons: {},
+  currentLesson: null,
+  stepIndex: 0,
+  hintsUsed: 0,
+  stepsSkipped: 0,
+  totalCorrect: 0,
+  
+  init(subjectData) {
+    this.lessons = subjectData;
+    this.renderDashboard();
+    this.addMessage("Hi! I'm your study buddy. I'm here to help you learn and practice concepts. What subject would you like to study?", "bot");
+    this.listSubjects();
+  },
+
+  renderDashboard() {
+    const data = JSON.parse(localStorage.getItem("studyBotProgress")) || {};
+    
+    if (!data.currentSubject || !data.lessonTitle) {
+      dashboard.innerHTML = '<strong>📋 Dashboard:</strong> No saved progress';
+      return;
+    }
+    
+    const stats = `<div style="margin-top:5px">
+      <span title="Questions answered correctly">✅ ${data.totalCorrect || 0}</span> |
+      <span title="Hints used">💡 ${data.hintsUsed || 0}</span> |
+      <span title="Questions skipped">⏭️ ${data.stepsSkipped || 0}</span>
+    </div>`;
+    
+    dashboard.innerHTML = `<strong>📋 Dashboard:</strong> Last worked on <em>${data.currentSubject}</em> - "${data.lessonTitle}" (Step ${data.stepIndex + 1})${stats}`;
+  },
+
+  listSubjects() {
+    const subjects = Object.keys(this.lessons);
+    let message = "Available subjects:";
+    subjects.forEach(subj => message += `\n- ${subj}`);
+    this.addMessage(message, "bot");
+  },
+
+  chooseSubject(subjectName) {
+    // Fuzzy matching for subject names
+    const subjects = Object.keys(this.lessons);
+    let bestMatch = null;
+    let bestScore = 0;
+    
+    for (const subject of subjects) {
+      const score = similarity(subject, subjectName);
+      if (score > bestScore && score > 0.5) {
+        bestScore = score;
+        bestMatch = subject;
+      }
+    }
+    
+    if (bestMatch) {
+      this.currentSubject = bestMatch;
+      this.addMessage(`Great! Let's dive into ${bestMatch}. Pick a lesson by number:`, "bot");
+      this.listLessons();
+    } else {
+      this.addMessage(`Sorry, I don't recognize "${subjectName}". Please try again with one of these subjects:`, "bot");
+      this.listSubjects();
+    }
+  },
+
+  listLessons() {
+    const lessonList = this.lessons[this.currentSubject];
+    let message = "Available lessons:";
+    lessonList.forEach((lesson, i) => message += `\n${i + 1}. ${lesson.title}`);
+    this.addMessage(message, "bot");
+  },
+
+  startLesson(index) {
+    const lessonIndex = parseInt(index) - 1;
+    const lessons = this.lessons[this.currentSubject];
+    
+    if (lessonIndex >= 0 && lessonIndex < lessons.length) {
+      const lesson = lessons[lessonIndex];
+      this.addMessage(`Starting lesson: ${lesson.title}`, "bot");
+      this.currentLesson = lesson;
+      this.stepIndex = 0;
+      this.hintsUsed = 0;
+      this.stepsSkipped = 0;
+      this.totalCorrect = 0;
+      this.nextStep();
+    } else {
+      this.addMessage(`Invalid lesson number. Please choose a number between 1 and ${lessons.length}.`, "bot");
+    }
+  },
+
+  nextStep() {
+    if (!this.currentLesson || this.stepIndex >= this.currentLesson.steps.length) {
+      const totalSteps = this.currentLesson ? this.currentLesson.steps.length : 0;
+      const correctPercent = Math.round((this.totalCorrect / totalSteps) * 100);
+      
+      this.addMessage(`Lesson complete! 🎉\n\nSummary:\n✅ Correct: ${this.totalCorrect}/${totalSteps} (${correctPercent}%)\n💡 Hints used: ${this.hintsUsed}\n⏭️ Questions skipped: ${this.stepsSkipped}`, "bot");
+      
+      progressBar.style.width = "100%";
+      
+      // Reset for next lesson
+      this.currentLesson = null;
+      this.addMessage("Would you like to try another lesson or switch subjects?", "bot");
+      return;
+    }
+    
+    const step = this.currentLesson.steps[this.stepIndex];
+    const percent = Math.floor((this.stepIndex / this.currentLesson.steps.length) * 100);
+    progressBar.style.width = `${percent}%`;
+    
+    this.addMessage(`Question ${this.stepIndex + 1}: ${step.q}`, "bot");
+  },
+
+  provideHint() {
+    if (!this.currentLesson || this.stepIndex >= this.currentLesson.steps.length) {
+      this.addMessage("No active question to give a hint for.", "bot");
+      return;
+    }
+    
+    const step = this.currentLesson.steps[this.stepIndex];
+    
+    if (step.hint) {
+      // Use provided hint if available
+      this.addMessage(`💡 Hint: ${step.hint}`, "bot");
+    } else {
+      // Generate a generic hint based on the answer
+      const answer = step.a;
+      
+      if (typeof answer === 'string') {
+        if (answer.length <= 5) {
+          this.addMessage(`💡 Hint: The answer is ${answer.length} character(s) long.`, "bot");
+        } else if (answer.includes(" ")) {
+          this.addMessage(`💡 Hint: The answer contains ${answer.split(" ").length} words.`, "bot");
+        } else {
+          this.addMessage(`💡 Hint: The answer starts with "${answer[0]}" and ends with "${answer[answer.length-1]}".`, "bot");
+        }
+      } else {
+        this.addMessage("💡 Hint: Try reviewing the previous steps or related concepts.", "bot");
+      }
+    }
+    
+    this.hintsUsed++;
+  },
+  
+  skipCurrentStep() {
+    if (!this.currentLesson || this.stepIndex >= this.currentLesson.steps.length) {
+      this.addMessage("No active question to skip.", "bot");
+      return;
+    }
+    
+    const step = this.currentLesson.steps[this.stepIndex];
+    this.addMessage(`Skipping this question. The correct answer was: ${step.a}`, "bot");
+    this.stepsSkipped++;
+    this.stepIndex++;
+    this.nextStep();
+  },
+
+  handleUserInput(input) {
+    if (!input.trim()) return;
+    
+    if (!this.currentSubject) {
+      this.chooseSubject(input);
+    } else if (!this.currentLesson) {
+      // Check if input is a number for lesson selection
+      const lessonNum = parseInt(input);
+      if (!isNaN(lessonNum)) {
+        this.startLesson(lessonNum);
+      } else {
+        // Check if user wants to change subject
+        if (input.toLowerCase().includes("subject") || 
+            input.toLowerCase().includes("change") || 
+            input.toLowerCase().includes("switch") ||
+            input.toLowerCase().includes("different")) {
+          this.currentSubject = null;
+          this.addMessage("Let's choose a different subject:", "bot");
+          this.listSubjects();
+        } else {
+          this.addMessage("Please enter a valid lesson number, or say 'change subject' to pick a different subject.", "bot");
+        }
+      }
+    } else {
+      if (this.stepIndex >= this.currentLesson.steps.length) {
+        // Lesson finished but user still typing
+        if (input.toLowerCase().includes("yes") || 
+            input.toLowerCase().includes("another") || 
+            input.toLowerCase().includes("more")) {
+          this.addMessage("Great! Pick a lesson by number:", "bot");
+          this.listLessons();
+        } else if (input.toLowerCase().includes("no") || 
+                  input.toLowerCase().includes("subject") || 
+                  input.toLowerCase().includes("change") || 
+                  input.toLowerCase().includes("switch")) {
+          this.currentSubject = null;
+          this.addMessage("Let's choose a different subject:", "bot");
+          this.listSubjects();
+        } else {
+          this.addMessage("Would you like to try another lesson or switch subjects?", "bot");
+        }
+        return;
+      }
+      
+      // Handle answers to questions
+      const correctAnswer = this.currentLesson.steps[this.stepIndex].a;
+      const matchScore = similarity(input, correctAnswer.toString());
+      
+      if (matchScore >= 0.8) {
+        // Correct answer
+        this.addMessage("✅ That's correct! Well done!", "bot");
+        this.totalCorrect++;
+        this.stepIndex++;
+        this.nextStep();
+      } else if (matchScore >= 0.5) {
+        // Close answer
+        this.addMessage("Almost right! Your answer is close. Try again or ask for a hint.", "bot");
+      } else {
+        // Wrong answer
+        if (this.currentLesson.steps[this.stepIndex].feedback) {
+          // Custom feedback if available
+          this.addMessage(this.currentLesson.steps[this.stepIndex].feedback, "bot");
+        } else {
+          this.addMessage("❌ Not quite right. Try again or use the hint button for help.", "bot");
+        }
+      }
+    }
+  },
+
+  addMessage(message, type) {
+    const p = document.createElement("div");
+    p.className = `message ${type}-message`;
+    
+    // Replace newlines with <br> tags
+    const formattedMessage = message.replace(/\n/g, "<br>");
+    
+    if (type === "bot") {
+      p.innerHTML = `🤖 ${formattedMessage}`;
+    } else if (type === "user") {
+      p.innerHTML = `👤 ${formattedMessage}`;
+    } else if (type === "voice") {
+      p.innerHTML = `🎙️ ${formattedMessage}`;
+    }
+    
+    chat.appendChild(p);
+    chat.scrollTop = chat.scrollHeight;
+  },
+
+  saveProgress() {
+    const data = {
+      currentSubject: this.currentSubject,
+      lessonTitle: this.currentLesson?.title || null,
+      stepIndex: this.stepIndex,
+      hintsUsed: this.hintsUsed,
+      stepsSkipped: this.stepsSkipped,
+      totalCorrect: this.totalCorrect
+    };
+    localStorage.setItem("studyBotProgress", JSON.stringify(data));
+    this.addMessage("Progress saved! 💾", "bot");
+    this.renderDashboard();
+  },
+
+  loadProgress() {
+    const data = JSON.parse(localStorage.getItem("studyBotProgress"));
+    if (!data) {
+      this.addMessage("No saved progress found.", "bot");
+      return;
+    }
+    
+    const subject = data.currentSubject;
+    const lessonTitle = data.lessonTitle;
+    const step = data.stepIndex;
+    
+    if (this.lessons[subject]) {
+      this.currentSubject = subject;
+      const lessonIndex = this.lessons[subject].findIndex(l => l.title === lessonTitle);
+      
+      if (lessonIndex !== -1) {
+        this.currentLesson = this.lessons[subject][lessonIndex];
+        this.stepIndex = step;
+        this.hintsUsed = data.hintsUsed || 0;
+        this.stepsSkipped = data.stepsSkipped || 0;
+        this.totalCorrect = data.totalCorrect || 0;
+        
+        this.addMessage(`Resuming lesson: ${this.currentLesson.title}`, "bot");
+        
+        const percent = Math.floor((this.stepIndex / this.currentLesson.steps.length) * 100);
+        progressBar.style.width = `${percent}%`;
+        
+        if (this.stepIndex < this.currentLesson.steps.length) {
+          const stepObj = this.currentLesson.steps[this.stepIndex];
+          this.addMessage(`Question ${this.stepIndex + 1}: ${stepObj.q}`, "bot");
+        } else {
+          this.nextStep(); // This will show the completion message
+        }
+      } else {
+        this.addMessage("Saved lesson not found. Let's pick a new lesson:", "bot");
+        this.listLessons();
+      }
+    } else {
+      this.addMessage("Saved subject not found. Let's pick a subject:", "bot");
+      this.listSubjects();
+    }
+  }
+};
+
+// Enhanced subject data with hints and feedback
+const subjects = {
+  "Algebra": [
+    {
+      title: "Solving Linear Equations",
+      steps: [
+        { 
+          q: "What is the first step to solve 2x + 3 = 7?", 
+          a: "Subtract 3 from both sides",
+          hint: "To isolate the variable term, we need to get rid of the constant on the left side.",
+          feedback: "❌ Not quite. Think about how to isolate the term with the variable (2x)."
+        },
+        { 
+          q: "What do you get after subtracting 3 from both sides?", 
+          a: "2x = 4",
+          hint: "3 is being added to 2x on the left side, so we subtract 3 from both sides."
+        },
+        { 
+          q: "Now what's the next step to solve 2x = 4?", 
+          a: "Divide both sides by 2",
+          hint: "We want to isolate x, so we need to eliminate the coefficient 2."
+        },
+        { 
+          q: "What's the final answer to 2x + 3 = 7?", 
+          a: "x = 2",
+          hint: "After dividing both sides of 2x = 4 by 2, what do you get?"
+        }
+      ]
+    },
+    {
+      title: "Quadratic Equations",
+      steps: [
+        { 
+          q: "What's the quadratic formula?", 
+          a: "x = (-b ± √(b² - 4ac)) / 2a",
+          hint: "It involves the coefficients a, b, and c from the standard form ax² + bx + c = 0."
+        },
+        { 
+          q: "For the equation x² + 5x + 6 = 0, what are the values of a, b, and c?", 
+          a: "a = 1, b = 5, c = 6",
+          hint: "In the standard form ax² + bx + c = 0, identify the coefficients."
+        },
+        { 
+          q: "Calculate the discriminant (b² - 4ac) for x² + 5x + 6 = 0.", 
+          a: "1",
+          hint: "Substitute a=1, b=5, c=6 into the formula b² - 4ac."
+        },
+        { 
+          q: "What are the solutions to x² + 5x + 6 = 0?", 
+          a: "x = -2, x = -3",
+          hint: "Try factoring the expression: x² + 5x + 6 = (x + ?)(x + ?)"
+        }
+      ]
+    }
+  ],
+  "Geometry": [
+    {
+      title: "Finding the Area of a Triangle",
+      steps: [
+        { 
+          q: "What's the formula for the area of a triangle?", 
+          a: "Area = 1/2 × base × height",
+          hint: "It's half of the product of the base and height."
+        },
+        { 
+          q: "If base = 6 and height = 4, what's the area of the triangle?", 
+          a: "12",
+          hint: "Substitute the values into the formula: Area = 1/2 × 6 × 4"
+        },
+        { 
+          q: "What's Heron's formula used for?", 
+          a: "Finding the area of a triangle using its side lengths",
+          hint: "It's a way to calculate the area when you only know the lengths of all three sides."
+        }
+      ]
+    },
+    {
+      title: "Pythagoras Theorem",
+      steps: [
+        { 
+          q: "What is the Pythagorean theorem?", 
+          a: "a² + b² = c²",
+          hint: "It relates the sides of a right triangle, where c is the hypotenuse."
+        },
+        { 
+          q: "In a right triangle, if a = 3 and b = 4, what is c?", 
+          a: "5",
+          hint: "Use the formula a² + b² = c² and solve for c."
+        },
+        { 
+          q: "What type of triangle has sides of length 5, 12, and 13?", 
+          a: "Right triangle",
+          hint: "Check if these sides satisfy the Pythagorean theorem."
+        }
+      ]
+    }
+  ],
+  "Physics": [
+    {
+      title: "Newton's Laws of Motion",
+      steps: [
+        { 
+          q: "What is Newton's First Law of Motion?", 
+          a: "An object at rest stays at rest and an object in motion stays in motion unless acted upon by an external force",
+          hint: "It's also known as the Law of Inertia."
+        },
+        { 
+          q: "What is Newton's Second Law of Motion as a formula?", 
+          a: "F = ma",
+          hint: "It relates force, mass, and acceleration."
+        },
+        { 
+          q: "What is Newton's Third Law of Motion?", 
+          a: "For every action, there is an equal and opposite reaction",
+          hint: "It describes the relationship between forces."
+        }
+      ]
+    }
+  ]
+};
+
+bot.init(subjects);
+
+// Event Listeners
+userInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const input = userInput.value.trim();
+    if (input) {
+      bot.addMessage(input, "user");
+      bot.handleUserInput(input);
+      userInput.value = "";
+    }
+  }
+});
+
+// Voice recognition
+if ('webkitSpeechRecognition' in window) {
+  const recognition = new webkitSpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US';
+
+  voiceBtn.onclick = () => {
+    voiceBtn.textContent = "🔴";
+    recognition.start();
+  };
+
+  recognition.onresult = event => {
+    const transcript = event.results[0][0].transcript;
+    bot.addMessage(transcript, "voice");
+    bot.handleUserInput(transcript);
+    voiceBtn.textContent = "🎤";
+  };
+
+  recognition.onerror = event => {
+    bot.addMessage("Sorry, I didn't catch that. Please try again.", "bot");
+    voiceBtn.textContent = "🎤";
+  };
+  
+  recognition.onend = () => {
+    voiceBtn.textContent = "🎤";
+  };
+} else {
+  voiceBtn.disabled = true;
+  voiceBtn.title = "Voice recognition not supported on this browser.";
+}
+
+// Button event listeners
+hintBtn.onclick = () => bot.provideHint();
+skipBtn.onclick = () => bot.skipCurrentStep();
+saveBtn.onclick = () => bot.saveProgress();
+loadBtn.onclick = () => bot.loadProgress();
+
+// Focus input on page load
+userInput.focus();
+</script>
+</body>
+</html>

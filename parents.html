@@ -1,0 +1,383 @@
+<!--
+FILE: parents.html
+DESCRIPTION: This HTML file serves as a resource hub for parents, providing information, tools, and support for their child's learning journey. 
+It includes sections for resources, tools, homeschool laws, feedback, and contact information.
+
+SECTIONS:
+1. Meta Information:
+    - Includes meta tags for character encoding, viewport settings, SEO, and favicon.
+    - Links to external stylesheets (Bootstrap, Font Awesome, Google Fonts) and JavaScript files.
+
+2. Resources for Parents:
+    - A list of links to guides, tips, FAQs, and other educational resources for parents.
+
+3. Helpful Tools:
+    - A list of tools such as grade trackers, dashboards, and schedule templates.
+
+4. Homeschool Laws by State:
+    - A searchable list of links to homeschool laws and forms for each U.S. state.
+    - Includes a client-side search filter for easy navigation.
+
+5. Feedback Form:
+    - A form for users to submit feedback, with client-side validation to ensure input is provided.
+
+6. Contact Information:
+    - Provides email and phone contact details for support.
+
+7. Scripts:
+    - Includes JavaScript for search functionality in the homeschool laws section.
+    - Placeholder multilingual system for future language switch functionality.
+
+NOTES:
+- The file uses Bootstrap for styling and layout.
+- External resources are linked via CDNs for Bootstrap, Font Awesome, and Google Fonts.
+- Feedback form uses FormSubmit for handling submissions.
+- Homeschool laws section links are sourced from HSLDA (Home School Legal Defense Association).
+-->
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <!-- Meta tags for character encoding, viewport settings, and SEO -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Hesten's Learning - Empowering students with learning disabilities through
+        personalized learning experiences." />
+    <meta name="keywords"
+        content="learning disabilities, personalized education, online learning, math, ELA, science, social studies" />
+    <meta name="author" content="Hesten's Learning" />
+    <title>Parents - Hesten's Learning</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
+    <!--Track-->
+    <script src="/JS/site_wide_track.js"></script>
+    <!--Nav JS-->
+    <script src="/JS/nav.js"></script>
+    <!--Style.js-->
+    <script src="/JS/style.js"></script>
+    <!--FireBase API-->
+    <script src="/JS/firebase.js"></script>
+  
+    <style>
+        /* Disable text selection */
+        body {
+            user-select: none;
+        }
+
+        /* Button hover effect */
+        .btn-blue:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        /* Search input styling */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: url("https://cdn-icons-png.flaticon.com/512/622/622669.png") no-repeat center;
+            background-size: 20px;
+            cursor: pointer;
+            transition: width 0.3s ease-in-out;
+            padding-left: 40px;
+            outline: none;
+        }
+
+        /* Expand search input on focus */
+        .search-input:focus {
+            width: 200px;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+        }
+    </style  >
+</head>
+
+<body class="bg-light">
+    <!-- Announcement section with carousel -->
+    <div
+        class="bg-gradient-to-r from-primary to-purple text-gray-800 p-3 text-center border-bottom border-gray-300 shadow-md">
+        <div id="announcement_placeholder" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- First announcement -->
+                <div class="carousel-item active">
+                    <p class="text-sm">
+                        We are actively working to enhance your experience! We are
+                        implementing Bootstrap for a more modern look and improved usability.
+                        Aria labels have been added for better screen reader compatibility,
+                        and we are developing a dedicated accessibility page. If you have any
+                        questions, please feel free to contact us at
+                        <a href="mailto:admin@hestena62.com" class="text-blue-600 hover:underline"
+                            target="_blank">admin@hestena62.com</a>.
+                    </p>
+                </div>
+                <!-- Second announcement -->
+                <div class="carousel-item">
+                    <p class="text-sm">
+                        New features are coming soon! Stay tuned for updates on our curriculum
+                        and additional resources to support your learning journey.
+                    </p>
+                </div>
+                <!-- Third announcement -->
+                <div class="carousel-item">
+                    <p class="text-sm">
+                        Don't forget to check out our Help Center for FAQs and support
+                        articles. We're here to assist you every step of the way!
+                    </p>
+                </div>
+            </div>
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#announcement_placeholder"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#announcement_placeholder"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+  <!-- Navigation bar -->
+<header class="bg-dark shadow">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo and brand name -->
+                <a class="navbar-brand" href="/index.html">
+                    <img src="Images/large.ico" alt="Company Logo" class="rounded"
+                        style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-logo.png';" />
+                    <span class="ms-2">Hesten's Learning</span>
+                </a>
+                <!-- Navbar toggler for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navigation links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html" aria-label="Go to Home">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/learning.html" aria-label="Go to Learning">
+                                <i class="fas fa-book"></i> Learning
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/assessment.html" aria-label="Go to Assessment">
+                                <i class="fas fa-tasks"></i> Assessment
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Search form -->
+                    <form action="/search.php" method="GET" class="d-flex me-3">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search courses..."
+                                aria-label="Search" />
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Profile dropdown -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                                class="rounded-circle" style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-profile.png';" />
+                            <span id="profile-name" class="ms-2 text-white" style="display: inline-block;">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/profile.html"><i class="fas fa-user fa-fw"></i>
+                                    Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/settings.html"><i class="fas fa-cog fa-fw"></i>
+                                    Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/help.html"><i
+                                        class="fas fa-question-circle fa-fw"></i> Help</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <button id="sign-out" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <div class="container my-5 p-4 bg-white rounded shadow">
+        <p class="text-secondary">This is your hub for understanding your child's learning journey and accessing essential support tools.</p>
+
+        <div class="resources mt-4">
+            <h2 class="text-primary">Resources for Parents</h2>
+            <ul class="list-unstyled">
+                <li class="my-2"><a href="https://example.com/parent-guide.pdf" target="_blank" class="text-decoration-none text-info">Parent Guide (PDF)</a></li>
+                <li class="my-2"><a href="https://example.com/learning-tips" target="_blank" class="text-decoration-none text-info">Learning Tips for Kids</a></li>
+                <li class="my-2"><a href="https://example.com/faq" target="_blank" class="text-decoration-none text-info">Frequently Asked Questions</a></li>
+                <li class="my-2"><a href="https://example.com/online-safety" target="_blank" class="text-decoration-none text-info">Online Safety Tips</a></li>
+                <li class="my-2"><a href="https://example.com/digital-literacy" target="_blank" class="text-decoration-none text-info">Digital Literacy for Parents</a></li>
+                <li class="my-2"><a href="https://example.com/mental-health" target="_blank" class="text-decoration-none text-info">Supporting Mental Health</a></li>
+                <li class="my-2"><a href="https://example.com/family-activities" target="_blank" class="text-decoration-none text-info">Educational Family Activities</a></li>
+                <li class="my-2"><a href="https://example.com/parent-webinars" target="_blank" class="text-decoration-none text-info">Upcoming Webinars & Events</a></li>
+            </ul>
+        </div>
+
+        <div class="tools mt-4">
+            <h2 class="text-primary">Helpful Tools</h2>
+            <ul class="list-unstyled">
+                <li class="my-2"><a href="https://example.com/grade-tracker" target="_blank" class="text-decoration-none text-info">Grade & Progress Tracker</a></li>
+                <li class="my-2"><a href="https://example.com/parent-dashboard" target="_blank" class="text-decoration-none text-info">Parent Dashboard Login</a></li>
+                <li class="my-2"><a href="https://example.com/schedule-template" target="_blank" class="text-decoration-none text-info">Daily Schedule Template</a></li>
+            </ul>
+        </div>
+
+        <div class="homeschool-laws mt-4">
+            <h2 class="text-primary">Homeschool Laws by State</h2>
+            <input class="form-control mb-3" type="text" id="stateSearch" placeholder="Search for your state...">
+            <ul id="stateList" class="list-unstyled">
+                <li class="my-2"><a href="https://hslda.org/legal/alabama" target="_blank" class="text-decoration-none text-info">Alabama Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/alaska" target="_blank" class="text-decoration-none text-info">Alaska Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/arizona" target="_blank" class="text-decoration-none text-info">Arizona Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/arkansas" target="_blank" class="text-decoration-none text-info">Arkansas Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/california" target="_blank" class="text-decoration-none text-info">California Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/colorado" target="_blank" class="text-decoration-none text-info">Colorado Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/connecticut" target="_blank" class="text-decoration-none text-info">Connecticut Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/delaware" target="_blank" class="text-decoration-none text-info">Delaware Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/florida" target="_blank" class="text-decoration-none text-info">Florida Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/georgia" target="_blank" class="text-decoration-none text-info">Georgia Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/hawaii" target="_blank" class="text-decoration-none text-info">Hawaii Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/idaho" target="_blank" class="text-decoration-none text-info">Idaho Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/illinois" target="_blank" class="text-decoration-none text-info">Illinois Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/indiana" target="_blank" class="text-decoration-none text-info">Indiana Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/iowa" target="_blank" class="text-decoration-none text-info">Iowa Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/kansas" target="_blank" class="text-decoration-none text-info">Kansas Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/kentucky" target="_blank" class="text-decoration-none text-info">Kentucky Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/louisiana" target="_blank" class="text-decoration-none text-info">Louisiana Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/maine" target="_blank" class="text-decoration-none text-info">Maine Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/maryland" target="_blank" class="text-decoration-none text-info">Maryland Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/massachusetts" target="_blank" class="text-decoration-none text-info">Massachusetts Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/michigan" target="_blank" class="text-decoration-none text-info">Michigan Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/minnesota" target="_blank" class="text-decoration-none text-info">Minnesota Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/mississippi" target="_blank" class="text-decoration-none text-info">Mississippi Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/missouri" target="_blank" class="text-decoration-none text-info">Missouri Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/montana" target="_blank" class="text-decoration-none text-info">Montana Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/nebraska" target="_blank" class="text-decoration-none text-info">Nebraska Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/nevada" target="_blank" class="text-decoration-none text-info">Nevada Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/new-hampshire" target="_blank" class="text-decoration-none text-info">New Hampshire Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/new-jersey" target="_blank" class="text-decoration-none text-info">New Jersey Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/new-mexico" target="_blank" class="text-decoration-none text-info">New Mexico Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/new-york" target="_blank" class="text-decoration-none text-info">New York Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/north-carolina" target="_blank" class="text-decoration-none text-info">North Carolina Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/north-dakota" target="_blank" class="text-decoration-none text-info">North Dakota Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/ohio" target="_blank" class="text-decoration-none text-info">Ohio Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/oklahoma" target="_blank" class="text-decoration-none text-info">Oklahoma Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/oregon" target="_blank" class="text-decoration-none text-info">Oregon Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/pennsylvania" target="_blank" class="text-decoration-none text-info">Pennsylvania Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/rhode-island" target="_blank" class="text-decoration-none text-info">Rhode Island Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/south-carolina" target="_blank" class="text-decoration-none text-info">South Carolina Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/south-dakota" target="_blank" class="text-decoration-none text-info">South Dakota Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/tennessee" target="_blank" class="text-decoration-none text-info">Tennessee Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/texas" target="_blank" class="text-decoration-none text-info">Texas Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/utah" target="_blank" class="text-decoration-none text-info">Utah Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/vermont" target="_blank" class="text-decoration-none text-info">Vermont Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/virginia" target="_blank" class="text-decoration-none text-info">Virginia Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/washington" target="_blank" class="text-decoration-none text-info">Washington Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/west-virginia" target="_blank" class="text-decoration-none text-info">West Virginia Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/wisconsin" target="_blank" class="text-decoration-none text-info">Wisconsin Homeschool Laws & Forms</a></li>
+                <li class="my-2"><a href="https://hslda.org/legal/wyoming" target="_blank" class="text-decoration-none text-info">Wyoming Homeschool Laws & Forms</a></li>
+            </ul>
+            <p class="text-muted small">Links provided by HSLDA (Home School Legal Defense Association)</p>
+        </div>
+
+        <div class="feedback mt-4">
+            <h2 class="text-primary">Give Us Your Feedback</h2>
+            <form id="feedbackForm" action="https://formsubmit.co/84436699b129e7e146c26f5459f15a56" method="POST" target="_blank">
+            <input type="hidden" name="_next" value="https://hestena62.com/thanks.html">
+            <input type="hidden" name="_subject" value="New Feedback Submission">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_blacklist" value="spammy pattern, banned term, phrase">
+            <input type="text" name="honey_check" style="display:none">
+            <div class="mb-3">
+                <label for="email" class="form-label">Your Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            <div class="mb-3">
+                <label for="feedbackText" class="form-label">Comments or Suggestions</label>
+                <textarea class="form-control" id="feedbackText" name="feedback" rows="3" placeholder="We value your input..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-info text-white">Submit Feedback</button>
+            </form>
+        </div>
+
+        <script>
+            // Optional: Add client-side validation for feedback form
+            document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+            const feedback = document.getElementById('feedbackText').value.trim();
+            if (!feedback) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please enter your feedback before submitting.');
+            }
+            });
+        </script>
+
+        <div class="contact mt-4">
+            <h2 class="text-primary">Contact Us</h2>
+            <p class="mb-1 text-secondary">Email: <a href="mailto:support@elearningplatform.com">support@elearningplatform.com</a></p>
+            <p class="text-secondary">Phone: +1 (555) 123-4567</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Homeschool state search filter
+        const searchInput = document.getElementById('stateSearch');
+        const listItems = document.querySelectorAll('#stateList li');
+        searchInput.addEventListener('input', function () {
+            const value = this.value.toLowerCase();
+            listItems.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(value) ? '' : 'none';
+            });
+        });
+
+        // Placeholder multilingual system (you can expand this with your custom translation logic)
+        document.getElementById('languageSelect').addEventListener('change', function () {
+            alert('Language switch functionality coming soon.');
+        });
+    </script>
+</body>
+</html>

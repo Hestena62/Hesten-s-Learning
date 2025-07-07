@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
+    <link rel="icon" href="/Images/large.ico">
+    <title>Interactive Quiz</title>
+    <style>
+        /* Navigation Bar */
+        .nav-bar {
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .nav-links,
+        .sub-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .sub-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #849baa;
+        }
+
+        .nav-links a,
+        .sub-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .sub-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Containers and Sections */
+        body {
+            user-select: none;
+            font-family: 'OpenDyslexic', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            background-color: #c1ffdd;
+        }
+
+        .container-RLA {
+            color: #000000;
+      
+              background-color: #849baa;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            text-align: center;
+            margin: 20px auto; /* Add this to center horizontally */
+            
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #0056b3;
+        }
+
+        .option:active {
+            opacity: 0.6;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .download-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #2c3e50;
+            color: whitesmoke;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav-bar">
+        <nav class="nav-links">
+            <a href="/index.html" aria-label="Go to Home">Home</a>
+            <a href="#" aria-label="Go to Learning">Learning</a>
+            <a href="/Assessment.html" aria-label="Go to Assessment">Assessment</a>
+        </nav>
+    </header>
+    <header class="sub-bar">
+        <nav class="sub-nav">
+            <a href="#integers">Math</a>
+            <a href="#operations">Language Arts</a>
+            <a href="#geometry">Social Studies</a>
+            <a href="#algebra">Science</a>
+        </nav>
+    </header>
+    <main>
+    <div class="container-RLA">
+        <div class="question" id="question">Loading question...</div>
+        <div class="options" id="options"></div>
+        <div class="feedback" id="feedback"></div>
+        <button class="download-button" id="downloadAnswers">Download Answers as PDF</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        const questions = [
+            { question: "What is the capital of France?", options: ["Paris", "Rome", "Berlin", "Madrid"], correct: "Paris" },
+            { question: "What is 5 + 3?", options: ["5", "8", "10", "15"], correct: "8" },
+            { question: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Earth", "Jupiter"], correct: "Mars" },
+            { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"], correct: "Blue Whale" },
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function loadQuestion() {
+            const questionContainer = document.getElementById("question");
+            const optionsContainer = document.getElementById("options");
+            const feedbackContainer = document.getElementById("feedback");
+
+            feedbackContainer.textContent = "";
+            optionsContainer.innerHTML = "";
+
+            const questionData = questions[currentQuestionIndex];
+            questionContainer.textContent = questionData.question;
+
+            questionData.options.forEach(option => {
+                const optionButton = document.createElement("div");
+                optionButton.textContent = option;
+                optionButton.classList.add("option");
+                optionButton.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(optionButton);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const feedbackContainer = document.getElementById("feedback");
+            const questionData = questions[currentQuestionIndex];
+            const question = questionData.question;
+
+            userAnswers.push({ question, selectedOption });
+
+            if (selectedOption === questionData.correct) {
+                feedbackContainer.textContent = "Correct!";
+                feedbackContainer.style.color = "green";
+
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        loadQuestion();
+                    } else {
+                        feedbackContainer.textContent = "You've completed all the questions!";
+                        document.getElementById("options").innerHTML = "";
+                        document.getElementById("downloadAnswers").style.display = "block";
+                    }
+                }, 1000);
+            } else {
+                feedbackContainer.textContent = "Try again!";
+                feedbackContainer.style.color = "red";
+            }
+        }
+
+        document.getElementById("downloadAnswers").onclick = function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            let text = "User Answers:\n\n";
+            userAnswers.forEach(answer => {
+                text += `${answer.question}\nYour answer: ${answer.selectedOption}\n\n`;
+            });
+
+            doc.text(10, 10, text);
+            doc.save("answers.pdf");
+        };
+
+        loadQuestion();
+    </script>
+    <footer>
+        <p>&copy; <span id="year"></span> Hesten Learning. <br> All rights reserved. Credit due where needed inline.</p>
+        <p>
+            <a href="privacy-policy.html">Privacy Policy</a> |
+            <a href="terms-of-service.html">Terms of Service</a> |
+            <a href="/contact-us.html">Contact Us</a> |
+            <a href="/ccss.html">Standards</a> |
+            <a href="/login.html">Login</a>
+        </p>
+        <script>
+            const currentYear = new Date().getFullYear();
+            document.querySelector("#year").textContent = currentYear;
+        </script>
+    </footer>
+    </main>
+</body>
+
+</html>

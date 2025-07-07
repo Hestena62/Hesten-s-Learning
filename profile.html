@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
+    <!--Track-->
+    <script src="/JS/site_wide_track.js"></script>
+    <!--Nav JS-->
+    <script src="/JS/nav.js"></script>
+
+    <style>
+        .profile-option {
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transition: transform 0.2s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+        .profile-option:hover {
+            transform: scale(1.1);
+        }
+        .profile-option.selected {
+            border-color: #0d6efd;
+            box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
+        }
+        @media (max-width: 576px) {
+            .form-label, .form-control, .form-select {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+ <!-- Navigation bar -->
+ <header class="bg-dark shadow">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo and brand name -->
+                <a class="navbar-brand" href="/index.html">
+                    <img src="Images/large.ico" alt="Company Logo" class="rounded"
+                        style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-logo.png';" />
+                    <span class="ms-2">Hesten's Learning</span>
+                </a>
+                <!-- Navbar toggler for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navigation links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html" aria-label="Go to Home">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/learning.html" aria-label="Go to Learning">
+                                <i class="fas fa-book"></i> Learning
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/assessment.html" aria-label="Go to Assessment">
+                                <i class="fas fa-tasks"></i> Assessment
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Search form -->
+                    <form action="/search.php" method="GET" class="d-flex me-3">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search courses..."
+                                aria-label="Search" />
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Profile dropdown -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                                class="rounded-circle" style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-profile.png';" />
+                            <span id="profile-name" class="ms-2 text-white" style="display: inline-block;">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/profile.html"><i class="fas fa-user fa-fw"></i>
+                                    Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/settings.html"><i class="fas fa-cog fa-fw"></i>
+                                    Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/help.html"><i
+                                        class="fas fa-question-circle fa-fw"></i> Help</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <button id="sign-out" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <!-- Toast for feedback -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050">
+        <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Profile saved successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing content stays unchanged except input updates below -->
+    <div class="container mt-5">
+        <h2 class="text-center">User Profile</h2>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter your name" aria-label="User name" aria-required="true">
+            </div>
+            <div class="mb-3">
+                <label for="parent-email" class="form-label">Parent Email:</label>
+                <input type="email" id="parent-email" class="form-control" placeholder="Parent email" aria-label="Parent email" aria-required="true">
+            </div>
+            <div class="mb-3">
+                <label for="user-grade" class="form-label">Grade Level:</label>
+                <select id="user-grade" class="form-select" aria-label="Grade Level" aria-required="true">
+                    <option value="">Select grade</option>
+                    <option value="First Grade">Grade 1</option>
+                    <option value="Second Grade">Grade 2</option>
+                    <option value="Third Grade">Grade 3</option>
+                    <option value="Fourth Grade">Grade 4</option>
+                    <option value="Fifth Grade">Grade 5</option>
+                    <option value="Sixth Grade">Grade 6</option>
+                    <option value="Seventh Grade">Grade 7</option>
+                    <option value="Eighth Grade">Grade 8</option>
+                    <option value="Ninth Grade">Grade 9</option>
+                    <option value="Tenth Grade">Grade 10</option>
+                    <option value="Eleventh Grade">Grade 11</option>
+                    <option value="Twelfth Grade">Grade 12</option>
+                </select>
+            </div>
+            <div class="mb-3 skills">
+                <label class="form-label">Skills to Work On:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Math" id="skill-math">
+                    <label class="form-check-label" for="skill-math">Math</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Science" id="skill-science">
+                    <label class="form-check-label" for="skill-science">Science</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="English" id="skill-english">
+                    <label class="form-check-label" for="skill-english">English</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="History" id="skill-history">
+                    <label class="form-check-label" for="skill-history">History</label>
+                </div>
+            </div>
+            <div class="mb-3 text-center">
+                <label class="form-label">Profile Picture:</label>
+                <div class="d-flex justify-content-center gap-3">
+                    <img src="/Images/profile1.png" alt="Profile 1" class="profile-option" onclick="selectProfilePic(this)" width="50">
+                    <img src="/Images/profile2.png" alt="Profile 2" class="profile-option" onclick="selectProfilePic(this)" width="50">
+                    <img src="/Images/profile3.png" alt="Profile 3" class="profile-option" onclick="selectProfilePic(this)" width="50">
+                    <img src="/Images/profile4.png" alt="Profile 4" class="profile-option" onclick="selectProfilePic(this)" width="50">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="button" id="save-btn" class="btn btn-primary">Save Profile</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+     <!-- Footer -->
+ <footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- About section -->
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">About Hesten's Learning</h3>
+                    <p class="text-sm">
+                        Empowering students with learning disabilities through
+                        personalized learning experiences.
+                        <a href="/about.html" class="text-info hover:underline">Learn more.</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Links section -->
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/curriculum" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-book"></i>&nbsp;Curriculum</a>
+                        </li>
+                        <li>
+                            <a href="/assessment.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-tasks"></i>&nbsp;Assessment</a>
+                        </li>
+                        <li>
+                            <a href="/standard" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-chart-line"></i>&nbsp;Standards</a>
+                        </li>
+                        <li>
+                            <a href="/help" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-question-circle"></i>&nbsp;Help Center</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Support section -->
+            <div class="col-md-3">
+                <div class="footer-section">
+                    <h3 class="h5 fw-bold mb-4">Support</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/contact.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-envelope"></i>&nbsp;Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="/students.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-home"></i>&nbsp;For Students</a>
+                        </li>
+                        <li>
+                            <a href="/parents.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-users"></i>&nbsp;For Parents</a>
+                        </li>
+                        <li>
+                            <a href="/teachers.html" class="text-sm text-info hover:underline"><i
+                                    class="fas fa-chalkboard-teacher"></i>&nbsp;For Teachers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Legal & Settings section -->
+            <div class="col-md-3">
+                <div class="footer-section"></div>
+                <h3 class="h5 fw-bold mb-4">Legal & Settings</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="/privacy.html" class="text-sm text-info hover:underline"><i
+                                class="fas fa-shield-alt"></i>&nbsp;Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/terms.html" class="text-sm text-info hover:underline"><i
+                                class="fas fa-file-contract"></i>&nbsp;Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="/accessibility.html" class="text-sm text-info hover:underline"><i
+                                class="fas fa-universal-access"></i>&nbsp;Accessibility</a>
+                    </li>
+                    <li>
+                        <a href="/about-us.html" class="text-sm text-info hover:underline"><i
+                                class="fas fa-info-circle"></i>&nbsp;About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer bottom section -->
+    <div class="footer-bottom mt-5 text-center text-sm border-top border-gray-700 pt-4">
+        <p class="mb-2">
+            &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+        </p>
+        <p class="mb-2">
+            Made with <i class="fas fa-heart text-danger"></i> for education
+        </p>
+        <p>
+            <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                class="text-info hover:underline">Hesten's Learning</a>
+            by
+            <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                href="http://hestena62.com/about-me.html" class="text-info hover:underline">Hesten Allison</a>
+            is licensed under
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                rel="license noopener noreferrer" class="text-info hover:underline">
+                CC BY-NC-SA 4.0
+            </a>
+        </p>
+        
+        <div class="gtranslate_wrapper"></div>
+        <script>
+            window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper","flag_style":"3d","alt_flags":{"en":"usa"}}
+        </script>
+        <a href="#" id="back-to-top" class="btn btn-outline-secondary mt-3"
+        ><i class="fas fa-arrow-up"></i> Back to Top</a
+      >
+        <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+    </div>
+    </div>
+</footer>
+
+<!-- Script to dynamically set the current year -->
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const backToTopButton = document.getElementById("back-to-top");
+
+        backToTopButton.addEventListener("click", function (event) {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+</script>
+</body>
+
+</html>

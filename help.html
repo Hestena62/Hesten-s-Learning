@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesten's Learning</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/Images/large.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/JS/nav.js"></script>
+    <script src="/JS/accessability.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Main Navigation Bar -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <div class="flex items-center">
+                <a href="/index.html" class="flex items-center">
+                    <img src="/Images/large.ico" alt="Company Logo" class="h-8 w-8">
+                    <span class="ml-2 text-lg font-bold">Hesten's Learning</span>
+                </a>
+            </div>
+            <nav class="flex space-x-4">
+                <a href="/index.html" class="text-blue-500 font-medium" aria-label="Go to Home">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#" class="text-gray-600 hover:text-blue-500" aria-label="Go to Learning">
+                    <i class="fas fa-book"></i> Learning
+                </a>
+                <a href="/assessment.html" class="text-gray-600 hover:text-blue-500" aria-label="Go to Assessment">
+                    <i class="fas fa-tasks"></i> Assessment
+                </a>
+            </nav>
+            <div class="relative">
+                <form action="/search.html" method="GET" class="flex items-center">
+                    <input type="text" name="q" placeholder="Search courses..." class="border rounded-l px-4 py-2" aria-label="Search">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="relative">
+                <div class="flex items-center cursor-pointer" id="profile-header">
+                    <img id="profile-pic" src="/Images/large.ico" alt="Profile Picture" class="h-8 w-8 rounded-full">
+                    <span id="profile-name" class="ml-2">User</span>
+                    <i class="fas fa-chevron-down ml-2"></i>
+                </div>
+                <div class="absolute right-0 mt-2 bg-white shadow-lg rounded hidden" id="dropdown-menu">
+                    <a href="/profile.html" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-user"></i> Profile</a>
+                    <a href="/settings.html" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="/help.html" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-question-circle"></i> Help</a>
+                    <hr class="my-2">
+                    <button id="sign-out" class="block w-full text-left px-4 py-2 hover:bg-gray-100"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto mt-10">
+        <div class="bg-white p-6 rounded shadow">
+            <h2 class="text-2xl font-bold mb-4">Getting Started</h2>
+            <ul class="list-disc pl-6">
+                <li>Basic features overview</li>
+                <ul class="list-disc pl-6">
+                    <li>Google Translate integration</li>
+                    <li>Local storage for user profile data</li>
+                    <li>Interactive dropdown menus</li>
+                    <li>Search functionality</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white mt-10">
+        <div class="container mx-auto py-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold">About Hesten's Learning</h3>
+                    <p class="mt-2 text-sm">Empowering students with learning disabilities through personalized learning experiences. <a href="/about.html" class="text-blue-400">Learn more.</a></p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold">Quick Links</h3>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="/curriculum.html" class="hover:underline"><i class="fas fa-book"></i> Curriculum</a></li>
+                        <li><a href="/assessment.html" class="hover:underline"><i class="fas fa-tasks"></i> Assessment</a></li>
+                        <li><a href="/standards.html" class="hover:underline"><i class="fas fa-chart-line"></i> Standards</a></li>
+                        <li><a href="/help.html" class="hover:underline"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold">Support</h3>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="/contact.html" class="hover:underline"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="/students.html" class="hover:underline"><i class="fas fa-home"></i> For Students</a></li>
+                        <li><a href="/parents.html" class="hover:underline"><i class="fas fa-users"></i> For Parents</a></li>
+                        <li><a href="/teachers.html" class="hover:underline"><i class="fas fa-chalkboard-teacher"></i> For Teachers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold">Legal & Settings</h3>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="/privacy.html" class="hover:underline"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:underline"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
+                        <li><a href="/accessibility.html" class="hover:underline"><i class="fas fa-universal-access"></i> Accessibility</a></li>
+                        <li><a href="/about-us.html" class="hover:underline"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 text-center text-sm">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved. Made with <i class="fas fa-heart text-red-500"></i> for education.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
