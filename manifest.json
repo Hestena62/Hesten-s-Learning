@@ -1,0 +1,40 @@
+{
+"screenshots": [
+  {
+    "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
+    "sizes": "2880x1800",
+    "type": "image/png",
+    "description": "PWABuilder Home Screen"
+  },
+  {
+    "src": "https://www.pwabuilder.com/assets/screenshots/screen2.png",
+    "sizes": "2880/1800",
+    "type": "image/png",
+    "description": "PWABuilder Report Card"
+  },
+  {
+    "src": "https://www.pwabuilder.com/assets/screenshots/screen3.png",
+    "sizes": "2880x1800",
+    "type": "image/png",
+    "description": "Manifest information on the Report Card"
+  }
+], 
+  "background_color": "#ffffff",
+  "description": "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "hestena62",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "hestena62",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png"
+    }
+  ],
+  "categories": [
+    "education"
+  ]
+}

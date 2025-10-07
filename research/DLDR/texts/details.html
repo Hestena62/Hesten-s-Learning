@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Research Paper</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/css">
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+        U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+        U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);
+      unicode-range: U+0370-03FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);
+      unicode-range: U+1F00-1FFF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+        U+A640-A69F, U+FE2E-FE2F;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 300;
+      src: url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);
+      unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+        U+A720-A7FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);
+      unicode-range: U+1F00-1FFF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+        U+A640-A69F, U+FE2E-FE2F;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);
+      unicode-range: U+0370-03FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);
+      unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+        U+A720-A7FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400;
+      src: url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+        U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+        U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);
+      unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+        U+A720-A7FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+        U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+        U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);
+      unicode-range: U+1F00-1FFF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+        U+A640-A69F, U+FE2E-FE2F;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      src: url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);
+      unicode-range: U+0370-03FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);
+      unicode-range: U+1F00-1FFF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);
+      unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+        U+A720-A7FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+        U+A640-A69F, U+FE2E-FE2F;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);
+      unicode-range: U+0370-03FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      src: url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+        U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+        U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);
+      unicode-range: U+0370-03FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);
+      unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+        U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+        U+A720-A7FF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);
+      unicode-range: U+1F00-1FFF;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+        U+A640-A69F, U+FE2E-FE2F;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 700;
+      src: url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+        U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+        U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+      font-display: swap;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f8fafc;
+      /* Light blue-gray background */
+      color: #334155;
+      /* Slate 700 for text */
+    }
+
+    /* Custom scrollbar for the TOC */
+    .toc-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .toc-container::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      /* Slate 100 */
+      border-radius: 10px;
+    }
+
+    .toc-container::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      /* Slate 300 */
+      border-radius: 10px;
+    }
+
+    .toc-container::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+      /* Slate 400 */
+    }
+
+    /* Style for active TOC link */
+    .toc-active {
+      font-weight: 600;
+      color: #1e40af;
+      /* Blue 700 */
+      background-color: #e0f2fe;
+      /* Blue 50 */
+      border-left: 4px solid #3b82f6;
+      /* Blue 500 */
+      padding-left: 1rem;
+    }
+
+    /* Basic code highlighting styles (can be expanded with a library) */
+    pre {
+      background-color: #1e293b;
+      /* Slate 800 */
+      color: #e2e8f0;
+      /* Slate 200 */
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      overflow-x: auto;
+      font-family: "Fira Code", "Monaco", "Consolas", monospace;
+      /* Monospace font for code */
+    }
+
+    code {
+      font-family: "Fira Code", "Monaco", "Consolas", monospace;
+      background-color: #e2e8f0;
+      /* Slate 200 */
+      color: #1e293b;
+      /* Slate 800 */
+      padding: 0.2em 0.4em;
+      border-radius: 0.25rem;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Professional button styling matching the image */
+    .professional-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+      background-color: #1d4ed8;
+      /* bg-blue-700 */
+      color: #fff;
+      border: 1px solid transparent;
+      font-size: 1.125rem;
+      /* text-lg */
+    }
+
+    .professional-button:hover {
+      background-color: #1e40af;
+      /* hover:bg-blue-800 */
+    }
+
+    .professional-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #3b82f6, 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .professional-button.secondary {
+      background-color: #e5e7eb;
+      /* bg-gray-200 */
+      color: #1f2937;
+      /* text-gray-800 */
+    }
+
+    .professional-button.secondary:hover {
+      background-color: #d1d5db;
+      /* hover:bg-gray-300 */
+    }
+
+    .professional-button.green {
+      background-color: #16a34a;
+      /* bg-green-600 */
+    }
+
+    .professional-button.green:hover {
+      background-color: #15803d;
+      /* hover:bg-green-700 */
+    }
+
+    .professional-button svg {
+      width: 1.75rem;
+      /* w-7 */
+      height: 1.75rem;
+      /* h-7 */
+      margin-right: 0.75rem;
+      /* mr-3 */
+    }
+
+    /* Loading Spinner Styles */
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #ffffff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin-right: 0.75rem;
+      /* Space between spinner and text */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Toast Notification Styles */
+    #toast-notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(51, 65, 85, 0.9);
+      /* Slate 700 with opacity */
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+
+    #toast-notification.show {
+      opacity: 1;
+    }
+
+    /* Scroll to Top Button */
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #3b82f6;
+      /* Blue 500 */
+      color: white;
+
+      @media (max-width: 1023px) {
+
+        /* For screens smaller than large (lg) breakpoint */
+        .flex-grow.flex {
+          flex-direction: column;
+          /* Stack columns vertically */
+          gap: 1.5rem;
+          /* Add space between stacked sections */
+        }
+
+        .w-1\/4,
+        .w-3\/4 {
+          /* Adjusted from w-1/2 */
+          width: 100%;
+          /* Full width for all sections */
+          position: static;
+          /* Remove sticky positioning */
+          height: auto;
+          /* Auto height for content */
+          overflow-y: visible;
+          /* Allow content to expand */
+        }
+
+        .toc-container {
+          margin-top: 0;
+          /* Remove top margin when stacked */
+        }
+
+        header .max-w-7xl {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header h1 {
+          margin-bottom: 1rem;
+        }
+
+        header .flex-wrap {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header .flex-wrap>* {
+          width: 100%;
+        }
+
+        header input[type="text"] {
+          margin-top: 1rem;
+        }
+
+        .toc-actions {
+          flex-direction: row;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .toc-actions button {
+          width: auto;
+          /* Allow buttons to size content */
+          padding: 0.75rem 1rem;
+          /* Smaller padding for mobile */
+          font-size: 0.9rem;
+        }
+
+        .toc-actions button svg {
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-right: 0.5rem;
+        }
+      }
+
+      width: 100%;
+    }
+
+    header input[type="text"] {
+      margin-top: 1rem;
+    }
+
+    .toc-actions {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .toc-actions button {
+      width: auto;
+      /* Allow buttons to size content */
+      padding: 0.75rem 1rem;
+      /* Smaller padding for mobile */
+      font-size: 0.9rem;
+    }
+
+    .toc-actions button svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <header class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50 rounded-b-lg w-full">
+    <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap">
+      <h1 class="text-3xl font-bold text-gray-800">My Research Paper</h1>
+      <div class="flex items-center space-x-4 mt-2 md:mt-0">
+        <div class="relative flex items-center">
+          <input type="text" id="searchInput" placeholder="Search paper..."
+            class="pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out w-64"
+            aria-label="Search paper content" />
+          <button id="clearSearchBtn"
+            class="absolute right-3 text-gray-500 hover:text-gray-700 focus:outline-none hidden"
+            aria-label="Clear search">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <span id="searchResultsCount" class="text-gray-600 text-sm hidden" aria-live="polite"></span>
+        <button onclick="history.back()" class="professional-button secondary py-2 px-4"
+          aria-label="Go back to previous page">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+          </svg>
+          Back
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex-grow max-w-7xl mx-auto p-6 flex space-x-6 lg:flex-row flex-col">
+    <aside
+      class="w-full lg:w-1/4 bg-white p-6 rounded-lg shadow-md lg:sticky lg:top-24 lg:h-[calc(100vh-120px)] overflow-y-auto toc-container">
+      <h2 class="text-xl font-semibold mb-4 text-gray-700">
+        Table of Contents
+      </h2>
+      <nav id="toc" class="space-y-2" aria-label="Table of Contents"></nav>
+      <div class="toc-actions mt-4 flex flex-col space-y-3">
+        <button id="downloadPdfBtn" class="professional-button green" aria-label="Download paper as PDF">
+          <span id="downloadButtonText"> Download PDF </span>
+        </button>
+      </div>
+    </aside>
+
+    <main id="paperContent" class="w-full lg:w-3/4 bg-white p-8 rounded-lg shadow-md prose prose-blue max-w-none">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="abstract">
+        Abstract
+      </h2>
+      <p class="mb-6 text-gray-700">
+        This paper provides a comprehensive review of phonological awareness, with a specific focus
+        on rhyming ability, and its critical relationship to developmental dyslexia. Phonological awareness, the
+        conscious ability to manipulate the sound structure of spoken language, is a foundational skill for literacy
+        acquisition. Rhyming, an early component of onset-rime awareness, serves as a significant predictor of later
+        reading success. A core tenet of dyslexia research, the Phonological Deficit Hypothesis, posits that
+        individuals with dyslexia experience a primary impairment in phonological processing, consistently
+        manifesting as persistent difficulties with rhyming and, more profoundly, with phonemic awareness. This
+        review details the multifaceted impact of these deficits on decoding, encoding, and ultimately, reading
+        comprehension. It further outlines key formal and informal assessment methods for identifying phonological
+        awareness weaknesses and presents evidence-based intervention strategies, emphasizing explicit, systematic,
+        and multisensory approaches. The paper concludes by highlighting the imperative for early identification,
+        targeted intervention, and collaborative support to mitigate the adverse effects of phonological deficits on
+        students with dyslexia, thereby fostering their literacy development.
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="abstract">
+        Keywords:
+      </h2>
+
+
+      <p class="mb-4 text-gray-700">&nbsp;Phonological awareness, rhyming, dyslexia, phonemic awareness, reading
+        acquisition,
+        literacy, intervention, phonological deficit hypothesis.</p>
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="introduction">
+        1. Introduction
+      </h2>
+      <p class="mb-4 text-gray-700">
+        Artificial intelligence (AI) has rapidly evolved from a niche academic
+        discipline into a pervasive force reshaping industries and daily life.
+        Its capabilities, ranging from complex data analysis to autonomous
+        decision-making, promise to revolutionize various sectors. This paper
+        aims to provide a comprehensive overview of AI's current landscape,
+        highlighting its significant contributions and the emerging challenges
+        that demand our attention. We will examine specific case studies where
+        AI has demonstrated remarkable potential, such as in personalized
+        medicine and adaptive learning systems.
+      </p>
+      <p class="mb-6 text-gray-700">
+        The rapid pace of AI innovation necessitates a thorough understanding
+        of its implications. Beyond the technological advancements, the
+        societal, ethical, and economic dimensions of AI are equally critical.
+        This introduction sets the stage for a deeper exploration of these
+        facets, emphasizing the need for a balanced perspective that embraces
+        innovation while prioritizing human well-being and societal equity.
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="methodology">
+        2. Methodology
+      </h2>
+      <p class="mb-4 text-gray-700">
+        Our research employs a mixed-methods approach, combining extensive
+        literature review with qualitative analysis of expert interviews and
+        case studies. We systematically reviewed over 150 peer-reviewed
+        articles, conference papers, and industry reports published between
+        2015 and 2024. The qualitative component involved semi-structured
+        interviews with 20 leading AI researchers, ethicists, and industry
+        practitioners to gather diverse perspectives on AI's impact and future
+        trajectory.
+      </p>
+      <p class="mb-6 text-gray-700">
+        Data analysis was conducted using thematic analysis for qualitative
+        data and statistical analysis for quantitative trends identified in
+        the literature. This rigorous methodology ensures a robust and
+        multifaceted understanding of the complex interplay between AI
+        technology and its societal implications.
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="data-collection">
+        2.1 Data Collection
+      </h3>
+      <p class="mb-6 text-gray-700">
+        Primary data was collected through direct interviews, while secondary
+        data was sourced from academic databases, government reports, and
+        reputable news outlets. Care was taken to ensure the credibility and
+        relevance of all data sources.
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="analytical-framework">
+        2.2 Analytical Framework
+      </h3>
+      <p class="mb-6 text-gray-700">
+        We utilized a multi-dimensional analytical framework, considering
+        technological feasibility, ethical implications, economic impact, and
+        social acceptance. This holistic approach allowed for a comprehensive
+        assessment of AI's role in contemporary society.
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="results">
+        3. Results and Discussion
+      </h2>
+      <p class="mb-4 text-gray-700">
+        The findings indicate a significant positive correlation between AI
+        adoption and efficiency gains across various sectors. In healthcare,
+        AI-powered diagnostics have shown accuracy rates exceeding human
+        capabilities in specific tasks, leading to earlier disease detection
+        and personalized treatment plans. For instance, a study on AI in
+        radiology reported a 92% accuracy in detecting early-stage lung
+        cancer, compared to 85% for human radiologists.
+        <span class="text-blue-600 cursor-pointer hover:underline citation-link" data-citation-id="citation1">[1]</span>
+      </p>
+      <p class="mb-4 text-gray-700">
+        However, the discussion also revealed critical concerns, particularly
+        regarding data privacy, algorithmic bias, and job displacement. The
+        ethical implications of autonomous AI systems, especially in sensitive
+        areas like military applications, require urgent international
+        dialogue and regulatory frameworks. The following code snippet
+        illustrates a simplified AI model training process:
+      </p>
+      <pre><code class="language-python">
+# Example Python code for a simple AI model
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def train_model(inputs, targets, epochs, learning_rate):
+    # Initialize weights randomly
+    weights = np.random.rand(inputs.shape[1])
+    for epoch in range(epochs):
+        # Forward pass
+        output = sigmoid(np.dot(inputs, weights))
+        # Calculate error
+        error = targets - output
+        # Backpropagation
+        weights += learning_rate * np.dot(inputs.T, error * output * (1 - output))
+        if epoch % 100 == 0:
+            console.log(f"Epoch {epoch}, Error: {np.mean(np.abs(error))}")
+    return weights
+
+# Dummy data
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([0,0,0,1]) # AND gate
+
+# Train the model
+trained_weights = train_model(X, y, epochs=1000, learning_rate=0.1)
+console.log("Trained weights:", trained_weights)
+            </code></pre>
+      <p class="mb-6 text-gray-700">
+        The discussion also highlights the need for robust explainable AI
+        (XAI) techniques to ensure transparency and trust in AI systems,
+        especially in high-stakes decision-making scenarios. The challenges
+        are not insurmountable but require concerted efforts from
+        policymakers, researchers, and the public.
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="healthcare-applications">
+        3.1 Healthcare Applications
+      </h3>
+      <p class="mb-4 text-gray-700">
+        AI's role in healthcare extends beyond diagnostics to drug discovery,
+        personalized treatment, and operational efficiency. Machine learning
+        algorithms can analyze vast datasets of patient records to identify
+        patterns and predict disease progression, leading to more proactive
+        interventions. For example, AI-driven platforms are accelerating the
+        drug discovery process by simulating molecular interactions and
+        identifying potential drug candidates much faster than traditional
+        methods.
+      </p>
+      <p class="mb-6 text-gray-700">
+        However, ethical concerns surrounding patient data privacy and the
+        potential for algorithmic bias in medical decisions remain paramount.
+        Ensuring fairness and transparency in AI models used in healthcare is
+        crucial to maintain public trust and avoid exacerbating existing
+        health disparities.
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="educational-impact">
+        3.2 Educational Impact
+      </h3>
+      <p class="mb-6 text-gray-700">
+        In education, AI is enabling personalized learning experiences,
+        adaptive assessments, and automated tutoring systems. These
+        technologies can cater to individual student needs, providing tailored
+        content and feedback, thereby enhancing engagement and learning
+        outcomes. AI-powered tools can also assist educators by automating
+        administrative tasks, allowing them to focus more on teaching and
+        student interaction. The future of education will likely see a blend
+        of human instruction and AI-supported learning environments.
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="figures-and-tables">
+        4. Figures and Tables
+      </h2>
+      <p class="mb-4 text-gray-700">
+        This section presents key visual and tabular data supporting our
+        findings.
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="figure-1">
+        Figure 1: AI Adoption Trends (2018-2023)
+      </h3>
+      <div class="bg-gray-100 p-4 rounded-lg flex justify-center items-center h-64 mb-6">
+        <img src="https://placehold.co/600x300/e0f2fe/1e40af?text=Placeholder+for+AI+Adoption+Chart"
+          alt="AI Adoption Trends Chart" class="max-w-full h-auto rounded-md shadow-md" />
+      </div>
+      <p class="text-sm text-gray-600 mb-6">
+        <em>Figure 1: Illustrates the increasing trend of AI adoption across
+          various industries from 2018 to 2023, showing a significant
+          acceleration in recent years.</em>
+      </p>
+
+      <h3 class="text-xl font-bold mb-3 text-gray-800" id="table-1">
+        Table 1: Comparison of AI Diagnostic Accuracy
+      </h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-200">
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+                Disease
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                AI Accuracy (%)
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
+                Human Expert Accuracy (%)
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                Lung Cancer (Early Stage)
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                92%
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                85%
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                Diabetic Retinopathy
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                95%
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                88%
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                Skin Lesion Classification
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                90%
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                80%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-600 mb-6">
+        <em>Table 1: Compares the diagnostic accuracy of AI systems versus
+          human experts for selected diseases, demonstrating AI's competitive
+          performance.</em>
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="conclusion">
+        5. Conclusion and Future Work
+      </h2>
+      <p class="mb-4 text-gray-700">
+        In conclusion, artificial intelligence presents a dual-edged sword:
+        immense potential for societal advancement coupled with significant
+        ethical and practical challenges. Our research underscores the
+        importance of a proactive and collaborative approach to AI governance,
+        ensuring that its development aligns with human values and societal
+        well-being. The future of AI will depend on our ability to navigate
+        these complexities, fostering innovation while safeguarding against
+        potential harms.
+      </p>
+      <p class="mb-6 text-gray-700">
+        Future work should focus on developing more robust explainable AI
+        (XAI) techniques, establishing international standards for AI ethics,
+        and exploring novel applications in underserved communities. Continued
+        interdisciplinary research and public engagement are vital for shaping
+        a beneficial and equitable AI-powered future.
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4 text-gray-800" id="references">
+        References
+      </h2>
+      <ol class="list-decimal list-inside space-y-2 text-gray-700">
+        <li id="citation1" class="mb-2">
+          Smith, J. A., & Johnson, B. C. (2023).
+          <em>AI in Medical Diagnostics: A Review.</em> Journal of Artificial
+          Intelligence in Healthcare, 10(2), 123-135.
+        </li>
+        <li class="mb-2">
+          Davis, M. R. (2022).
+          <em>Ethical AI: Principles and Practice.</em> MIT Press.
+        </li>
+        <li class="mb-2">
+          Chen, L., & Wang, Q. (2024).
+          <em>The Economic Impact of AI Automation.</em> International Journal
+          of Robotics and AI, 5(1), 45-60.
+        </li>
+      </ol>
+      <p class="text-center text-sm text-gray-600 mt-8">
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer"
+          class="text-blue-600 hover:underline">
+          Creative Commons Attribution-ShareAlike 4.0 International License
+        </a>
+      </p>
+    </main>
+  </div>
+
+  <div id="toast-notification" role="status" aria-live="polite"></div>
+
+  <button id="scrollToTopBtn" aria-label="Scroll to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <footer class="bg-gray-800 text-white py-6 px-6 mt-auto rounded-t-lg">
+    <div class="max-w-7xl mx-auto text-center text-gray-300">
+      &copy; 2025 My Research Paper. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const paperContent = document.getElementById("paperContent");
+      const tocNav = document.getElementById("toc");
+      const searchInput = document.getElementById("searchInput");
+      const clearSearchBtn = document.getElementById("clearSearchBtn");
+      const searchResultsCount =
+        document.getElementById("searchResultsCount");
+      const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+      const downloadButtonText =
+        document.getElementById("downloadButtonText");
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      const toastNotification = document.getElementById("toast-notification");
+
+      // Store original content to reset search highlights
+      const originalPaperContentHTML = paperContent.innerHTML;
+
+      /**
+       * Displays a toast notification with a given message.
+       * @param {string} message - The message to display.
+       */
+      const showToast = (message) => {
+        toastNotification.textContent = message;
+        toastNotification.classList.add("show");
+        setTimeout(() => {
+          toastNotification.classList.remove("show");
+        }, 3000); // Hide after 3 seconds
+      };
+
+      /**
+       * Generates the Table of Contents dynamically from h2 and h3 elements.
+       */
+      const generateTOC = () => {
+        tocNav.innerHTML = ""; // Clear existing TOC
+        const headings = paperContent.querySelectorAll("h2[id], h3[id]");
+        headings.forEach((heading) => {
+          const level = heading.tagName === "H2" ? 0 : 1;
+          const link = document.createElement("a");
+          link.href = `#${heading.id}`;
+          link.textContent = heading.textContent;
+          link.classList.add(
+            "block",
+            "py-2",
+            "px-3",
+            "rounded-md",
+            "text-gray-700",
+            "hover:bg-blue-50",
+            "hover:text-blue-700",
+            "transition",
+            "duration-150",
+            "ease-in-out"
+          );
+          if (level === 1) {
+            link.classList.add("ml-4"); // Indent for sub-headings
+          }
+          tocNav.appendChild(link);
+        });
+      };
+
+      /**
+       * Sets up the Intersection Observer to highlight the active TOC link on scroll.
+       */
+      const setupTOCActiveHighlight = () => {
+        const observerOptions = {
+          root: null, // viewport
+          rootMargin: "0px 0px -70% 0px", // When 70% of the element is visible
+          threshold: 0.1, // Trigger when 10% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const id = entry.target.getAttribute("id");
+            const tocLink = tocNav.querySelector(`a[href="#${id}"]`);
+
+            if (tocLink) {
+              if (entry.isIntersecting) {
+                // Remove active class from all links
+                tocNav
+                  .querySelectorAll("a")
+                  .forEach((link) => link.classList.remove("toc-active"));
+                // Add active class to the intersecting link
+                tocLink.classList.add("toc-active");
+              }
+            }
+          });
+        }, observerOptions);
+
+        // Observe all h2 and h3 elements with IDs
+        paperContent.querySelectorAll("h2[id], h3[id]").forEach((section) => {
+          observer.observe(section);
+        });
+      };
+
+      // --- Search Functionality ---
+      /**
+       * Applies highlights to search terms within the paper content.
+       * @param {string} term - The search term.
+       * @returns {number} The count of matches found.
+       */
+      const applyHighlights = (term) => {
+        removeHighlights(); // Always start with a clean slate
+        if (!term) return 0;
+
+        let count = 0;
+        // Use a temporary DOM element to perform modifications without
+        // affecting the live DOM until ready. This reduces reflows.
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = originalPaperContentHTML;
+
+        const lowerCaseTerm = term.toLowerCase();
+        const walker = document.createTreeWalker(
+          tempDiv,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        let node;
+
+        while ((node = walker.nextNode())) {
+          // Skip nodes within code blocks or already highlighted spans
+          if (node.parentNode.closest("pre, code, .highlight")) {
+            continue;
+          }
+
+          const text = node.nodeValue;
+          const lowerCaseText = text.toLowerCase();
+          let index = 0;
+
+          while (
+            (index = lowerCaseText.indexOf(lowerCaseTerm, index)) !== -1
+          ) {
+            const range = document.createRange();
+            range.setStart(node, index);
+            range.setEnd(node, index + term.length);
+
+            const highlightSpan = document.createElement("span");
+            highlightSpan.className =
+              "highlight bg-yellow-200 rounded-sm px-0.5";
+            try {
+              range.surroundContents(highlightSpan);
+              count++;
+              // After surrounding, the original text node might be split.
+              // The walker's current node is now the highlightSpan.
+              // We need to advance the walker past this new span.
+              node = highlightSpan.nextSibling;
+              if (!node) break; // If there's no next text node, we're done with this branch
+              index = 0; // Reset index for the new text node part
+            } catch (e) {
+              console.warn(
+                "Could not highlight text due to DOM structure:",
+                e
+              );
+              // If an error occurs (e.g., trying to surround across element boundaries),
+              // move past the current problematic node to avoid infinite loops.
+              node = walker.nextNode();
+              if (!node) break;
+              index = 0;
+            }
+          }
+        }
+        paperContent.innerHTML = tempDiv.innerHTML; // Update the live content
+        return count;
+      };
+
+      /**
+       * Removes all search highlights and restores the original content.
+       */
+      const removeHighlights = () => {
+        paperContent.innerHTML = originalPaperContentHTML;
+      };
+
+      const handleSearchInput = (event) => {
+        const searchTerm = event.target.value.trim();
+        if (searchTerm.length > 0) {
+          const count = applyHighlights(searchTerm);
+          searchResultsCount.textContent = `${count} matches`;
+          searchResultsCount.classList.remove("hidden");
+          clearSearchBtn.classList.remove("hidden");
+        } else {
+          removeHighlights();
+          searchResultsCount.classList.add("hidden");
+          clearSearchBtn.classList.add("hidden");
+        }
+      };
+
+      const handleClearSearch = () => {
+        searchInput.value = "";
+        removeHighlights();
+        searchResultsCount.classList.add("hidden");
+        clearSearchBtn.classList.add("hidden");
+      };
+
+      // --- PDF Download Functionality ---
+      const handleDownloadPdf = async () => {
+        downloadPdfBtn.disabled = true;
+        if (downloadButtonText) {
+          downloadButtonText.innerHTML =
+            '<span class="spinner"></span> Generating PDF...';
+        }
+
+        const paperTitle = document.title;
+        const websiteName = "Hesten's Learning Research";
+        const generationTime = new Date().toLocaleString();
+
+        const pdfOptions = {
+          margin: [0.75, 0.75, 0.75, 0.75], // Top, Left, Bottom, Right margins in inches
+          filename: "my_research_paper.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: {
+            scale: 2, // Higher scale for better resolution
+            useCORS: true,
+            onclone: (clonedDocument) => {
+              // Apply PDF-specific styles and hide UI elements in the cloned document
+              const style = clonedDocument.createElement("style");
+              style.innerHTML = `
+                                body {
+                                    font-family: 'Times New Roman', serif;
+                                    font-size: 12pt;
+                                    line-height: 1.5;
+                                    color: #000000; /* Ensure text is black */
+                                    background-color: #ffffff; /* Ensure background is white */
+                                    -webkit-print-color-adjust: exact; /* For background colors/images on print */
+                                    color-adjust: exact;
+                                }
+                                h1, h2, h3, h4, h5, h6 {
+                                    font-family: 'Times New Roman', serif;
+                                    color: #000000;
+                                    margin-top: 1.5em;
+                                    margin-bottom: 0.5em;
+                                    page-break-after: avoid; /* Prevent headings from being at page bottom */
+                                }
+                                p, ul, ol, table, pre {
+                                    margin-bottom: 1em;
+                                    page-break-inside: avoid; /* Keep elements together */
+                                }
+                                pre {
+                                    background-color: #f0f0f0;
+                                    border: 1px solid #ccc;
+                                    padding: 1em;
+                                    border-radius: 0;
+                                    font-size: 10pt;
+                                    overflow-x: auto; /* Ensure code blocks are scrollable if wide */
+                                }
+                                code {
+                                    background-color: transparent; /* Don't highlight inline code in PDF */
+                                    color: inherit;
+                                    padding: 0;
+                                    border-radius: 0;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-bottom: 1em;
+                                }
+                                table, th, td {
+                                    border: 1px solid #ddd;
+                                }
+                                th, td {
+                                    padding: 8px;
+                                    text-align: left;
+                                }
+                                th {
+                                    background-color: #f2f2f2;
+                                }
+                                /* Hide elements not needed in PDF */
+                                .toc-container, aside, #scrollToTopBtn, #toast-notification, header, footer, .citation-link {
+                                    display: none !important;
+                                }
+                                /* Adjust main content width for PDF */
+                                #paperContent {
+                                    width: 100% !important;
+                                    max-width: 100% !important;
+                                    padding: 0 !important; /* Margins handled by jsPDF */
+                                    box-shadow: none !important; /* Remove shadow for print */
+                                    margin: 0 !important;
+                                }
+                                /* Ensure images fit within page */
+                                img {
+                                    max-width: 100%;
+                                    height: auto;
+                                    display: block;
+                                    margin: 1em auto; /* Add some vertical margin for images */
+                                }
+                                /* Force references to new page */
+                                #references {
+                                    page-break-before: always !important;
+                                }
+                                /* Ensure highlight spans are removed for PDF */
+                                .highlight {
+                                    background-color: transparent !important;
+                                    padding: 0 !important;
+                                }
+                            `;
+              clonedDocument.head.appendChild(style);
+
+              // Add watermark (optional, customize SVG or text)
+              const watermarkDiv = clonedDocument.createElement("div");
+              watermarkDiv.style.cssText = `
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%) rotate(-45deg);
+                                width: 100%;
+                                text-align: center;
+                                font-size: 3em;
+                                color: rgba(0,0,0,0.08);
+                                pointer-events: none;
+                                z-index: 9999;
+                                white-space: nowrap;
+                                opacity: 0.5;
+                            `;
+              watermarkDiv.textContent =
+                "PROPERTY OF HESTEN'S LEARNING RESEARCH";
+              clonedDocument.body.appendChild(watermarkDiv);
+            },
+          },
+          jsPDF: {
+            unit: "in",
+            format: "letter",
+            orientation: "portrait",
+            hotfixes: ["px_scaling"],
+            putOnlyUsedFonts: true,
+            floatPrecision: 16,
+          },
+          // addPageContent callback to add headers/footers
+          addPageContent: function (currentPage, totalPages, pdf) {
+            const margin = 0.75;
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const pageWidth = pdf.internal.pageSize.getWidth();
+
+            // Page Numbers (Bottom Right)
+            pdf.setFontSize(10);
+            pdf.text(
+              `${currentPage} / ${totalPages}`,
+              pageWidth - margin,
+              pageHeight - margin,
+              { align: "right" }
+            );
+
+            // Paper Title (Center Bottom)
+            pdf.setFontSize(10);
+            pdf.text(paperTitle, pageWidth / 2, pageHeight - margin, {
+              align: "center",
+            });
+
+            // Website Name and Generation Time (Center Top)
+            pdf.setFontSize(10);
+            pdf.text(
+              `${websiteName} - Generated: ${generationTime}`,
+              pageWidth / 2,
+              margin,
+              { align: "center" }
+            );
+          },
+        };
+
+        try {
+          // Use a temporary clone of the paper content to avoid conflicts with live search highlights
+          const contentToPrint = paperContent.cloneNode(true);
+          // Remove existing highlights from the cloned content if any
+          contentToPrint.querySelectorAll(".highlight").forEach((el) => {
+            const parent = el.parentNode;
+            while (el.firstChild) {
+              parent.insertBefore(el.firstChild, el);
+            }
+            parent.removeChild(el);
+          });
+
+          await html2pdf().from(contentToPrint).set(pdfOptions).save();
+          showToast("PDF downloaded successfully!");
+        } catch (error) {
+          console.error("Error generating PDF:", error);
+          showToast("Failed to generate PDF. Please try again.");
+        } finally {
+          downloadPdfBtn.disabled = false;
+          if (downloadButtonText) {
+            downloadButtonText.innerHTML = "Download PDF";
+          }
+        }
+      };
+
+      // --- Citation Link Click Handler ---
+      const handleCitationClick = (event) => {
+        const citationId = event.target.dataset.citationId;
+        if (citationId) {
+          const citationElement = document.getElementById(citationId);
+          if (citationElement) {
+            const citationText = citationElement.textContent;
+            showToast(`Citation: ${citationText}`);
+            // Optional: Copy to clipboard
+            navigator.clipboard
+              .writeText(citationText)
+              .then(() => {
+                showToast(`Citation copied: ${citationText}`);
+              })
+              .catch((err) => {
+                console.error("Failed to copy citation:", err);
+                showToast(`Citation: ${citationText}`); // Just show if copy fails
+              });
+          }
+        }
+      };
+
+      // --- Scroll to Top Functionality ---
+      const toggleScrollToTopButton = () => {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add("show");
+        } else {
+          scrollToTopBtn.classList.remove("show");
+        }
+      };
+
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+
+      // --- Initialize all functionalities ---
+      generateTOC();
+      setupTOCActiveHighlight();
+
+      // Event Listeners
+      searchInput.addEventListener("input", handleSearchInput);
+      clearSearchBtn.addEventListener("click", handleClearSearch);
+      downloadPdfBtn.addEventListener("click", handleDownloadPdf);
+      scrollToTopBtn.addEventListener("click", scrollToTop);
+      window.addEventListener("scroll", toggleScrollToTopButton);
+
+      // Add event listener for citation links using event delegation
+      paperContent.addEventListener("click", (event) => {
+        if (event.target.classList.contains("citation-link")) {
+          handleCitationClick(event);
+        }
+      });
+
+      // Initial check for scroll to top button visibility
+      toggleScrollToTopButton();
+    });
+  </script>
+</body>
+
+</html>

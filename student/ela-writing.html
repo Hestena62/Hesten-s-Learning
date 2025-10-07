@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Prompts & Guides - Hesten's Learning</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts (Inter will be set by Tailwind config, Roboto is a fallback or for specific elements if needed) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"], // Using Inter font
+                    },
+                    colors: {
+                        primary: "#4F46E5", // A modern purple
+                        secondary: "#6366F1", // A slightly lighter purple
+                        accent: "#818CF8", // A very light purple
+                        dark: "#1F2937", // Dark gray for backgrounds
+                        light: "#F3F4F6", // Light gray for backgrounds
+                        grayish: "#6B7280", // A lighter gray for text
+                    },
+                },
+            },
+        };
+    </script>
+    <!-- Favicon -->
+    <link rel="icon" href="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" onerror="this.onerror=null; this.src='https://placehold.co/32x32/cccccc/ffffff?text=Fav';" />
+    <!--Track-->
+    <script src="/JS/site_wide_track.js"></script>
+</head>
+
+<body class="bg-light text-dark font-sans">
+    <!-- Navigation bar -->
+    <header class="bg-dark shadow-md">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between py-4">
+                <!-- Logo and brand name -->
+                <a class="flex items-center" href="/index.html">
+                    <img src="Images/large.ico" alt="Company Logo" class="rounded-md"
+                        style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-logo.png';" />
+                    <span class="ml-2 text-white text-lg font-semibold">Hesten's Learning</span>
+                </a>
+                <!-- Navbar toggler for mobile view -->
+                <button class="lg:hidden text-white focus:outline-none" type="button" aria-label="Toggle navigation"
+                    onclick="document.getElementById('navbarNav').classList.toggle('hidden')">
+                    <span class="fas fa-bars text-xl"></span>
+                </button>
+                <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="navbarNav">
+                    <!-- Navigation links -->
+                    <ul class="flex flex-col lg:flex-row lg:space-x-4 mt-4 lg:mt-0 lg:ml-auto">
+                        <li class="relative">
+                            <a class="block py-2 px-3 text-white hover:text-accent rounded-md" href="/index.html" aria-label="Go to Home">
+                                <i class="fas fa-home mr-2"></i> Home
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <a class="block py-2 px-3 text-white hover:text-accent rounded-md" href="/learning.html" aria-label="Go to Learning">
+                                <i class="fas fa-book mr-2"></i> Learning
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <a class="block py-2 px-3 text-white hover:text-accent rounded-md" href="/assessment.html" aria-label="Go to Assessment">
+                                <i class="fas fa-tasks mr-2"></i> Assessment
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Search form -->
+                    <form action="/search.php" method="GET" class="flex items-center lg:ml-4 mt-4 lg:mt-0">
+                        <div class="relative">
+                            <input type="text" name="q" class="w-full px-3 py-2 border border-gray-700 rounded-md bg-dark text-white focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search resources..."
+                                aria-label="Search" />
+                            <button type="submit" class="absolute right-0 top-0 h-full px-4 py-2 bg-secondary text-white rounded-r-md hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Profile dropdown -->
+                    <div class="relative group ml-4 mt-4 lg:mt-0">
+                        <a class="flex items-center text-white hover:text-accent cursor-pointer" id="profileDropdown" role="button"
+                            aria-expanded="false">
+                            <img id="profile-pic" src="Images/large.ico" alt="Profile Picture"
+                                class="rounded-full" style="height: 2rem; width: 2rem" onerror="this.onerror=null; this.src='Images/default-profile.png';" />
+                            <span id="profile-name" class="ml-2 text-white inline-block">User</span>
+                            <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                        </a>
+                        <ul class="absolute right-0 mt-2 w-48 bg-dark rounded-md shadow-lg py-1 hidden group-hover:block z-10" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="block px-4 py-2 text-sm text-white hover:bg-secondary rounded-md" href="/profile.html"><i class="fas fa-user mr-2"></i>
+                                    Profile</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 text-sm text-white hover:bg-secondary rounded-md" href="/settings.html"><i class="fas fa-cog mr-2"></i>
+                                    Settings</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 text-sm text-white hover:bg-secondary rounded-md" href="/help.html"><i
+                                        class="fas fa-question-circle mr-2"></i> Help</a>
+                            </li>
+                            <li>
+                                <hr class="border-t border-gray-700 my-1" />
+                            </li>
+                            <li>
+                                <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-secondary rounded-md">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-center text-4xl font-bold text-primary mb-4">Writing Prompts & Guides</h1>
+        <p class="text-center text-lg text-grayish mb-8">Unleash your creativity and refine your writing skills with our diverse prompts and helpful guides.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Creative Writing Prompts -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-lightbulb mr-2"></i>Creative Writing Prompts</h5>
+                    <p class="text-grayish mb-4">Spark your imagination with prompts for short stories, poetry, and reflective pieces.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Fantasy Prompts</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Sci-Fi Scenarios</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Poetry Starters</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Personal Narrative Ideas</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Get Creative Prompts</a>
+                </div>
+            </div>
+
+            <!-- Essay Writing Guide -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-file-alt mr-2"></i>Essay Writing Guide</h5>
+                    <p class="text-grayish mb-4">Learn the structure and techniques for writing compelling essays, from argumentative to expository.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Introduction & Thesis</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Body Paragraph Development</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Conclusion Strategies</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Citing Sources</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Master Essay Writing</a>
+                </div>
+            </div>
+
+            <!-- Research Paper Outline -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-clipboard-list mr-2"></i>Research Paper Outline</h5>
+                    <p class="text-grayish mb-4">Organize your research effectively with our detailed outlines and planning tools for academic papers.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Topic Selection</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Source Evaluation</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Outline Templates</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Drafting & Revision</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Plan Research Papers</a>
+                </div>
+            </div>
+
+            <!-- Grammar Checklists -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-check-square mr-2"></i>Grammar Checklists</h5>
+                    <p class="text-grayish mb-4">Ensure your writing is grammatically sound with easy-to-follow checklists for common errors.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Sentence Structure</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Verb Tenses</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Punctuation Usage</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Subject-Verb Agreement</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Check Your Grammar</a>
+                </div>
+            </div>
+
+            <!-- Argumentative Writing -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-gavel mr-2"></i>Argumentative Writing</h5>
+                    <p class="text-grayish mb-4">Learn to construct strong arguments, support claims with evidence, and refute counterarguments.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Developing Arguments</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Evidence & Support</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Counterarguments</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Persuasive Techniques</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Practice Argumentation</a>
+                </div>
+            </div>
+
+            <!-- Narrative Writing -->
+            <div class="col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h5 class="text-xl font-semibold text-primary mb-3"><i class="fas fa-scroll mr-2"></i>Narrative Writing</h5>
+                    <p class="text-grayish mb-4">Craft compelling stories with engaging plots, vivid characters, and descriptive settings.</p>
+                    <ul class="list-none space-y-2 flex-grow">
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Story Planning</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Character Development</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Setting the Scene</a></li>
+                        <li><a href="#" class="text-accent hover:underline"><i class="fas fa-angle-right mr-2"></i>Dialogue Writing</a></li>
+                    </ul>
+                    <a href="#" class="mt-auto px-4 py-2 bg-primary text-white rounded-md font-semibold hover:opacity-90 text-center">Write Narratives</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- About section -->
+                <div class="col-span-1">
+                    <div class="footer-section">
+                        <h3 class="text-lg font-bold mb-4">About Hesten's Learning</h3>
+                        <p class="text-sm text-gray-300">
+                            Empowering students with learning disabilities through
+                            personalized learning experiences.
+                            <a href="/about.html" class="text-accent hover:underline">Learn more.</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Links section -->
+                <div class="col-span-1">
+                    <div class="footer-section">
+                        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                        <ul class="list-none space-y-2">
+                            <li>
+                                <a href="/curriculum" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-book mr-2"></i>&nbsp;Curriculum</a>
+                            </li>
+                            <li>
+                                <a href="/assessment.html" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-tasks mr-2"></i>&nbsp;Assessment</a>
+                            </li>
+                            <li>
+                                <a href="/standard" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-chart-line mr-2"></i>&nbsp;Standards</a>
+                            </li>
+                            <li>
+                                <a href="/help" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-question-circle mr-2"></i>&nbsp;Help Center</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Support section -->
+                <div class="col-span-1">
+                    <div class="footer-section">
+                        <h3 class="text-lg font-bold mb-4">Support</h3>
+                        <ul class="list-none space-y-2">
+                            <li>
+                                <a href="/contact.html" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-envelope mr-2"></i>&nbsp;Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="/students.html" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-home mr-2"></i>&nbsp;For Students</a>
+                            </li>
+                            <li>
+                                <a href="/parents.html" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-users mr-2"></i>&nbsp;For Parents</a>
+                            </li>
+                            <li>
+                                <a href="/teachers.html" class="text-sm text-accent hover:underline"><i
+                                        class="fas fa-chalkboard-teacher mr-2"></i>&nbsp;For Teachers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Legal & Settings section -->
+                <div class="col-span-1">
+                    <div class="footer-section"></div>
+                    <h3 class="text-lg font-bold mb-4">Legal & Settings</h3>
+                    <ul class="list-none space-y-2">
+                        <li>
+                            <a href="/privacy.html" class="text-sm text-accent hover:underline"><i
+                                    class="fas fa-shield-alt mr-2"></i>&nbsp;Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="/terms.html" class="text-sm text-accent hover:underline"><i
+                                    class="fas fa-file-contract mr-2"></i>&nbsp;Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="/accessibility.html" class="text-sm text-accent hover:underline"><i
+                                    class="fas fa-universal-access mr-2"></i>&nbsp;Accessibility</a>
+                        </li>
+                        <li>
+                            <a href="/about-us.html" class="text-sm text-accent hover:underline"><i
+                                    class="fas fa-info-circle mr-2"></i>&nbsp;About Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer bottom section -->
+        <div class="mt-10 text-center text-sm border-t border-gray-700 pt-8">
+            <p class="mb-2">
+                &copy; <span id="year"></span> Hesten Learning. All rights reserved.
+            </p>
+            <p class="mb-2">
+                Made with <i class="fas fa-heart text-red-500"></i> for education
+            </p>
+            <p>
+                <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
+                    class="text-accent hover:underline">Hesten's Learning</a>
+                by
+                <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="/about-me.html" class="text-accent hover:underline">Hesten Allison</a>
+                is licensed under
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" class="text-accent hover:underline">
+                    CC BY-NC-SA 4.0
+                </a>
+            </p>
+
+            <div class="gtranslate_wrapper"></div>
+            <script>
+                window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper","flag_style":"3d","alt_flags":{"en":"usa"}}
+            </script>
+            <a href="#" id="back-to-top" class="inline-block px-4 py-2 mt-6 border border-gray-600 text-gray-300 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-accent"
+            ><i class="fas fa-arrow-up"></i> Back to Top</a
+            >
+            <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+        </div>
+    </footer>
+
+    <!-- Script to dynamically set the current year -->
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const backToTopButton = document.getElementById("back-to-top");
+
+            backToTopButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+    </script>
+</body>
+
+</html>

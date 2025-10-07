@@ -6,81 +6,83 @@
     <title>Hesten's Learning Letterhead & Signature</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align to top */
-            min-height: 100vh;
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-        .container {
-            width: 100%;
-            max-width: 8.5in; /* Standard letter width */
-            background-color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-radius: 0.75rem; /* rounded-xl */
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-        .letterhead-border {
-            border-bottom: 2px solid #e0e0e0;
-        }
-        .signature-line {
-            border-bottom: 1px solid #333;
-            width: 100%;
-            max-width: 250px;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-            .header-info {
-                flex-direction: column;
-                text-align: center;
-            }
-            .contact-info {
-                margin-top: 1rem;
-                text-align: center;
-            }
-        }
-    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Georgia", "serif"],
+              mono: ['"Lucida Console"', "monospace"],
+              custom1: ['"Open Sans"', "sans-serif"],
+              roboto: ["Roboto", "sans-serif"],
+              montserrat: ["Montserrat", "sans-serif"],
+            },
+            colors: {
+              primary: "var(--color-primary)",
+              secondary: "var(--color-secondary)",
+              accent: "var(--color-accent)",
+              dark: "var(--color-dark)",
+              light: "var(--color-light)",
+              "header-bg": "var(--color-header-bg)",
+              "footer-bg-from": "var(--color-footer-bg-from)",
+              "footer-bg-to": "var(--color-footer-bg-to)",
+              "link-color": "var(--color-link)",
+              "card-bg": "var(--color-card-bg)",
+            },
+            borderRadius: {
+              "base-rounded": "var(--border-radius-base)",
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png"
+      onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';"
+    />
+    <!-- Google Fonts for Inter, Open Sans, Roboto, Montserrat -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 </head>
-<body>
-    <div class="container">
+<body class="bg-light font-sans min-h-screen flex flex-col">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-base-rounded p-8 my-10 flex flex-col min-h-[80vh]">
         <!-- Letterhead Section -->
-        <header class="pb-6 mb-8 letterhead-border">
-            <div class="flex flex-col md:flex-row justify-between items-center header-info">
+        <header class="border-b-4 border-primary pb-6 mb-8 bg-header-bg rounded-t-base-rounded">
+            <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-3">
-                   
-                    <h1 class="text-4xl font-bold text-gray-800">Hesten's Learning</h1>
+                    <img src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Logo" class="w-14 h-14 object-contain rounded-md bg-light border border-gray-200" />
+                    <h1 class="text-4xl font-bold text-dark font-montserrat">Hesten's Learning</h1>
                 </div>
-                <div class="text-sm text-gray-600 mt-4 md:mt-0 contact-info md:text-right">
+                <div class="text-sm text-dark mt-4 md:mt-0 md:text-right font-open-sans">
                     <p>123 Learning Lane, Knowledge City, State 12345</p>
                     <p>Phone: (123) 456-7890</p>
-                    <p>Email: info@hestenslearning.com</p>
-                    <p>Website: www.hestenslearning.com</p>
+                    <p>Email: <a href="mailto:info@hestena62.com" class="text-link-color hover:underline">info@hestena62.com</a></p>
+                    <p>Website: <a href="https://www.hestena62.com" class="text-link-color hover:underline">www.hestena62.com</a></p>
                 </div>
             </div>
         </header>
 
         <!-- Document Content Area (Placeholder) -->
-        <main class="mb-12">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Subject: Important Document</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">
+        <main class="mb-12 flex-1">
+            <h2 class="text-2xl font-semibold text-primary mb-4 font-roboto">Subject: Important Document</h2>
+            <p class="text-dark leading-relaxed mb-4 font-open-sans">
                 Dear [Recipient Name],
             </p>
-            <p class="text-gray-700 leading-relaxed mb-4">
+            <p class="text-dark leading-relaxed mb-4 font-open-sans">
                 This is a sample document content. You can replace this text with your actual letter or document details.
                 The letterhead above provides a professional look for your communications.
             </p>
-            <p class="text-gray-700 leading-relaxed">
+            <p class="text-dark leading-relaxed font-open-sans">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -90,15 +92,14 @@
         </main>
 
         <!-- Signature Section -->
-        <footer class="mt-auto pt-8">
-            <p class="text-gray-700 mb-6">Sincerely,</p>
-            <div class="signature-line"></div>
-            <p class="text-gray-800 font-semibold text-lg mt-2">Your Name</p>
-            <p class="text-gray-600 text-sm">Founder / Educator</p>
+        <footer class="pt-8 border-t border-gray-200 bg-gradient-to-r from-footer-bg-from to-footer-bg-to rounded-b-base-rounded">
+            <p class="text-dark mb-6 font-open-sans">Sincerely,</p>
+            <div class="border-b-2 border-dark w-48 mb-2"></div>
+            <p class="text-dark font-semibold text-lg mt-2 font-montserrat">Hesten Allison</p>
+            <p class="text-gray-600 text-sm font-open-sans">Founder / Educator</p>
             <div class="flex items-center space-x-2 mt-4">
-                <!-- Smaller logo for signature -->
-                <img src="https://placehold.co/40x40/F0F8FF/0000FF?text=H" alt="Hesten's Logo Small" class="w-10 h-10 rounded-md object-contain">
-                <span class="text-gray-500 text-xs">Hesten's Learning</span>
+                <img src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Hesten's Logo Small" class="w-10 h-10 rounded-md object-contain bg-light border border-gray-200">
+                <span class="text-gray-500 text-xs font-open-sans">Hesten's Learning</span>
             </div>
         </footer>
     </div>

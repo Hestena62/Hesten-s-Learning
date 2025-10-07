@@ -1,24 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Notice</title>
+    <!-- Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans text-gray-800 p-5">
-    <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy Notice</h1>
-    <p class="text-gray-700 mb-6">Your privacy is important to us. This privacy notice explains how we handle your personal information.</p>
-  
-    <h2 class="text-2xl font-semibold text-gray-900 mb-3">No Site Tracking</h2>
-    <p class="text-gray-700 mb-6">We do not use any site tracking technologies such as cookies, web beacons, or analytics services to track your activity on our site. However, please note that our DNS resolver, Cloudflare, may log your IP address as part of their service.</p>
-  
-    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Data Security</h2>
-    <p class="text-gray-700 mb-6">We take data security seriously and implement appropriate measures to protect your personal information. However, please be aware that no method of transmission over the internet or method of electronic storage is 100% secure.</p>
-  
-    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Changes to This Privacy Notice</h2>
-    <p class="text-gray-700 mb-6">We may update this privacy notice from time to time. We will notify you of any changes by posting the new privacy notice on this page. You are advised to review this privacy notice periodically for any changes.</p>
-  
-    <p class="text-gray-700">If you have any questions or concerns about our privacy practices, please <a href="contact.html" class="text-blue-500 hover:underline">contact us</a>.</p>
-</body>
+    <!-- Removed @apply usage; font family is set via Tailwind class on body -->
+    <!-- Custom Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              primary: "#4F46E5",
+              secondary: "#6366F1",
+              accent: "#818CF8",
+              dark: "#1F2937",
+              light: "#F3F4F6",
+              grayish: "#6B7280",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-light text-dark flex items-center justify-center min-h-screen p-6"
+  >
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-2xl p-8 md:p-12">
+      <header class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-2">
+  <body
+    class="bg-light text-dark font-sans flex items-center justify-center min-h-screen p-6"
+  >
+      </header>
+
+      <main>
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">
+            No Site Tracking
+          </h2>
+          <p class="text-grayish leading-relaxed">
+            We do not use any site tracking technologies such as cookies, web
+            beacons, or analytics services to track your activity on our site.
+            Please note, however, that our DNS resolver, Cloudflare, may log
+            your IP address as part of their service to ensure our website is
+            accessible and secure.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">
+            Information We Collect
+          </h2>
+          <p class="text-grayish leading-relaxed">
+            We do not actively collect personal information on this site unless
+            you choose to provide it to us, such as through a contact form. In
+            that case, we would collect information like your name and email
+            address solely for the purpose of responding to your inquiry.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">Data Security</h2>
+          <p class="text-grayish leading-relaxed">
+            We take data security seriously and implement appropriate measures
+            to protect your personal information. These measures include using
+            secure protocols for data transmission and restricting access to
+            personal data to authorized personnel only. Despite our best
+            efforts, it's important to recognize that no method of transmission
+            over the internet or electronic storage is 100% secure.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">
+            Third-Party Services
+          </h2>
+          <p class="text-grayish leading-relaxed">
+            We utilize Cloudflare as our DNS resolver, which may log your IP
+            address. We encourage you to review their
+            <a
+              href="https://www.cloudflare.com/privacypolicy/"
+              target="_blank"
+              class="text-primary hover:underline font-semibold"
+              >Privacy Policy</a
+            >
+            for more information on how they handle data.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">Your Rights</h2>
+          <p class="text-grayish leading-relaxed">
+            Depending on your location, you may have the right to request access
+            to, correct, or delete any personal information we hold about you.
+            If you wish to exercise these rights, please contact us using the
+            details provided below.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">
+            Changes to This Privacy Notice
+          </h2>
+          <p class="text-grayish leading-relaxed">
+            We may update this privacy notice periodically. We will notify you
+            of any changes by posting the new notice on this page. We encourage
+            you to review this notice regularly to stay informed about how we
+            are protecting your information.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-secondary mb-4">Contact Us</h2>
+          <p class="text-grayish leading-relaxed">
+            If you have any questions or concerns about our privacy practices,
+            please feel free to
+            <a
+              href="contact.html"
+              class="text-primary hover:underline font-semibold"
+              >contact us</a
+            >.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>

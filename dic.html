@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Explorer</title>
+    <!-- Use Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Custom CSS for smooth transitions and icons -->
+    <style>
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      }
+      .dark .card {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+          0 4px 6px -4px rgba(0, 0, 0, 0.5);
+      }
+      .search-container {
+        position: relative;
+      }
+      .search-container .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 10;
+      }
+      .suggestion-list {
+        position: absolute;
+        z-index: 10;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      /* Custom scrollbar for better aesthetics */
+      .suggestion-list::-webkit-scrollbar {
+        width: 8px;
+      }
+      .suggestion-list::-webkit-scrollbar-thumb {
+        background-color: #d1d5db;
+        border-radius: 4px;
+      }
+      .dark .suggestion-list::-webkit-scrollbar-thumb {
+        background-color: #4b5563;
+      }
+      /* Style for the horizontal line in the word-type section */
+      .word-type-divider {
+        height: 1px;
+        background-color: #d1d5db;
+        flex-grow: 1;
+      }
+      .dark .word-type-divider {
+        background-color: #4b5563;
+      }
+      .animate-pop-in {
+        animation: pop-in 0.5s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes pop-in {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .tab-button {
+        border-bottom: 3px solid transparent;
+        transition: border-color 0.2s ease;
+      }
+      .tab-button.active {
+        border-bottom-color: #8b5cf6;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans p-4 sm:p-8 flex flex-col items-center min-h-screen"
+  >
+    <div class="container mx-auto max-w-2xl w-full">
+      <!-- Header with Dark Mode Toggle -->
+      <header
+        class="flex flex-col sm:flex-row justify-between items-center mb-6 w-full"
+      >
+        <h1
+          class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 mb-4 sm:mb-0"
+        >
+          Word Explorer
+        </h1>
+        <div class="flex items-center space-x-2">
+          <span
+            id="theme-icon"
+            class="text-2xl text-purple-500 dark:text-yellow-400"
+            >🌙</span
+          >
+          <label
+            for="darkModeToggle"
+            class="relative inline-flex items-center cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              value=""
+              id="darkModeToggle"
+              class="sr-only peer"
+            />
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"
+            ></div>
+          </label>
+        </div>
+      </header>
+
+      <!-- Tab Navigation -->
+      <nav
+        class="flex justify-center mb-6 border-b border-gray-300 dark:border-gray-700"
+      >
+        <button
+          id="dictionary-tab"
+          class="tab-button active flex-1 py-3 text-lg font-medium text-center text-purple-600 dark:text-purple-400 focus:outline-none"
+        >
+          Dictionary
+        </button>
+        <button
+          id="index-tab"
+          class="tab-button flex-1 py-3 text-lg font-medium text-center text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors focus:outline-none"
+        >
+          Word Index
+        </button>
+      </nav>
+
+      <!-- Search Section -->
+      <div class="relative mb-6">
+        <div class="relative w-full flex items-center">
+          <input
+            type="text"
+            id="search-input"
+            class="flex-1 py-3 pl-6 pr-12 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-lg dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            placeholder="Search for a word..."
+          />
+          <button
+            id="clear-search-button"
+            class="absolute right-16 top-1/2 -translate-y-1/2 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            id="search-button"
+            class="absolute right-0 top-0 h-full px-6 rounded-r-full text-white font-bold bg-purple-500 hover:bg-purple-600 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+        </div>
+        <!-- Suggestions List -->
+        <ul
+          id="suggestion-list"
+          class="suggestion-list hidden bg-white dark:bg-gray-800 w-full mt-2 rounded-b-xl border border-gray-200 dark:border-gray-700 shadow-md"
+        ></ul>
+      </div>
+
+      <!-- Main Content Area Wrapper -->
+      <div id="main-content-wrapper" class="w-full">
+        <!-- Word of the Day Section -->
+        <div
+          id="word-of-day-section"
+          class="card bg-white dark:bg-gray-800 rounded-3xl p-6 animate-pop-in"
+        >
+          <h2
+            class="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400"
+          >
+            Word of the Day
+          </h2>
+          <div
+            id="word-of-day-content"
+            class="text-gray-600 dark:text-gray-300"
+          >
+            <!-- Word of the day content will be loaded here -->
+          </div>
+        </div>
+
+        <!-- Dictionary Results Section -->
+        <div id="dictionary-results" class="hidden">
+          <div
+            class="card bg-white dark:bg-gray-800 rounded-3xl p-6 animate-pop-in"
+          >
+            <!-- Results will be dynamically inserted here -->
+          </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div
+          id="quiz-section"
+          class="card bg-white dark:bg-gray-800 rounded-3xl p-6 animate-pop-in"
+        >
+          <h2
+            class="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400"
+          >
+            Vocabulary Quiz
+          </h2>
+          <div id="quiz-content" class="text-gray-600 dark:text-gray-300">
+            <div id="quiz-intro">
+              <p class="mb-4 text-center">
+                Test your knowledge with a custom quiz!
+              </p>
+              <div class="mb-4 text-center">
+                <label
+                  for="question-count"
+                  class="block text-sm font-medium mb-1"
+                  >Number of Questions:</label
+                >
+                <input
+                  type="number"
+                  id="question-count"
+                  value="5"
+                  min="5"
+                  max="20"
+                  class="w-20 text-center py-2 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                />
+              </div>
+              <button
+                id="start-quiz-button"
+                class="w-full py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition-colors"
+              >
+                Start Quiz
+              </button>
+            </div>
+
+            <div id="quiz-question-container" class="hidden mt-4">
+              <p id="quiz-score" class="text-lg font-bold text-center mb-4"></p>
+              <p
+                id="quiz-question"
+                class="mb-4 text-lg font-medium text-center"
+              ></p>
+              <div id="quiz-options" class="space-y-2"></div>
+              <div class="flex justify-between items-center mt-4">
+                <div id="quiz-feedback" class="font-semibold"></div>
+                <button
+                  id="next-question-button"
+                  class="hidden bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-xl transition-colors hover:bg-gray-300 dark:hover:bg-gray-600"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            <div id="quiz-results" class="hidden text-center mt-4">
+              <p
+                id="final-score"
+                class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2"
+              ></p>
+              <p id="final-message" class="text-md"></p>
+              <button
+                id="restart-quiz-button"
+                class="mt-4 py-2 px-6 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition-colors"
+              >
+                Restart Quiz
+              </button>
+              <button
+                id="download-answers-button"
+                class="mt-4 ml-2 py-2 px-6 rounded-xl bg-gray-500 text-white font-bold hover:bg-gray-600 transition-colors"
+              >
+                Download Answers
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Word Index Section -->
+      <div id="word-index-section" class="hidden w-full">
+        <div class="card bg-white dark:bg-gray-800 rounded-3xl p-6 h-full">
+          <h2
+            class="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400"
+          >
+            Word Index
+          </h2>
+          <div class="flex justify-end space-x-2 mb-4">
+            <button
+              id="sort-az-button"
+              class="px-4 py-2 text-sm rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              Sort A-Z
+            </button>
+            <button
+              id="sort-za-button"
+              class="px-4 py-2 text-sm rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              Sort Z-A
+            </button>
+          </div>
+          <ul
+            id="word-list-container"
+            class="space-y-2 max-h-[500px] overflow-y-auto"
+          >
+            <!-- Word list will be dynamically inserted here -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- The message box for alerts and confirmations -->
+    <div
+      id="message-box"
+      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-sm"
+      >
+        <h3
+          id="message-box-title"
+          class="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100"
+        ></h3>
+        <p
+          id="message-box-text"
+          class="text-sm text-gray-600 dark:text-gray-300 mb-4"
+        ></p>
+        <div class="flex justify-end space-x-2">
+          <button
+            id="message-box-ok"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast message for copy to clipboard -->
+    <div
+      id="toast"
+      class="fixed bottom-5 left-1/2 transform -translate-x-1/2 hidden bg-gray-800 text-white px-6 py-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0"
+    >
+      Copied to clipboard!
+    </div>
+
+    <script src="/JS/words.js"></script>
+
+    <script>
+      // IIFE to encapsulate the entire application logic
+      (function () {
+        // --- DOM element references ---
+        const searchInput = document.getElementById("search-input");
+        const searchButton = document.getElementById("search-button");
+        const clearSearchButton = document.getElementById(
+          "clear-search-button"
+        );
+        const dictionaryResults = document.getElementById("dictionary-results");
+        const suggestionList = document.getElementById("suggestion-list");
+        const wordOfDayContent = document.getElementById("word-of-day-content");
+        const startQuizButton = document.getElementById("start-quiz-button");
+        const quizIntro = document.getElementById("quiz-intro");
+        const quizQuestionCountInput =
+          document.getElementById("question-count");
+        const quizQuestionContainer = document.getElementById(
+          "quiz-question-container"
+        );
+        const quizQuestionEl = document.getElementById("quiz-question");
+        const quizOptionsEl = document.getElementById("quiz-options");
+        const quizFeedbackEl = document.getElementById("quiz-feedback");
+        const nextQuestionButton = document.getElementById(
+          "next-question-button"
+        );
+        const quizResults = document.getElementById("quiz-results");
+        const finalScoreEl = document.getElementById("final-score");
+        const finalMessageEl = document.getElementById("final-message");
+        const restartQuizButton = document.getElementById(
+          "restart-quiz-button"
+        );
+        const quizScoreEl = document.getElementById("quiz-score");
+        const downloadAnswersButton = document.getElementById(
+          "download-answers-button"
+        );
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const messageBox = document.getElementById("message-box");
+        const messageBoxTitle = document.getElementById("message-box-title");
+        const messageBoxText = document.getElementById("message-box-text");
+        const messageBoxOkButton = document.getElementById("message-box-ok");
+        const toast = document.getElementById("toast");
+
+        // New tab elements
+        const dictionaryTab = document.getElementById("dictionary-tab");
+        const indexTab = document.getElementById("index-tab");
+        const mainContentWrapper = document.getElementById(
+          "main-content-wrapper"
+        );
+        const wordIndexSection = document.getElementById("word-index-section");
+        const wordListContainer = document.getElementById(
+          "word-list-container"
+        );
+        const sortAzButton = document.getElementById("sort-az-button");
+        const sortZaButton = document.getElementById("sort-za-button");
+
+        // --- State and Data ---
+        const wordCache = {};
+        let quizQuestions = [];
+        let quizAnswerHistory = []; // New array to store answers
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let currentSortOrder = "asc";
+
+
+        
+        // --- Helper Functions ---
+
+        // Function to show/hide sections based on the active tab
+        function showSection(sectionId) {
+          // Animate fade out of current content
+          const activeSection = document.querySelector(
+            "#main-content-wrapper:not(.hidden), #word-index-section:not(.hidden)"
+          );
+          if (activeSection) {
+            activeSection.classList.add(
+              "opacity-0",
+              "transition-opacity",
+              "duration-300"
+            );
+            setTimeout(() => {
+              mainContentWrapper.classList.add("hidden");
+              wordIndexSection.classList.add("hidden");
+              activeSection.classList.remove(
+                "opacity-0",
+                "transition-opacity",
+                "duration-300"
+              );
+
+              // Show new section and fade in
+              if (sectionId === "dictionary") {
+                mainContentWrapper.classList.remove("hidden");
+              } else if (sectionId === "index") {
+                wordIndexSection.classList.remove("hidden");
+              }
+              const newActiveSection = document.querySelector(
+                "#main-content-wrapper:not(.hidden), #word-index-section:not(.hidden)"
+              );
+              if (newActiveSection) {
+                newActiveSection.classList.add(
+                  "opacity-0",
+                  "transition-opacity",
+                  "duration-300"
+                );
+                setTimeout(
+                  () => newActiveSection.classList.remove("opacity-0"),
+                  10
+                );
+              }
+            }, 300);
+          } else {
+            mainContentWrapper.classList.add("hidden");
+            wordIndexSection.classList.add("hidden");
+            if (sectionId === "dictionary") {
+              mainContentWrapper.classList.remove("hidden");
+            } else if (sectionId === "index") {
+              wordIndexSection.classList.remove("hidden");
+            }
+          }
+
+          // Update tab styling
+          dictionaryTab.classList.remove(
+            "active",
+            "text-purple-600",
+            "dark:text-purple-400"
+          );
+          dictionaryTab.classList.add("text-gray-600", "dark:text-gray-400");
+          indexTab.classList.remove(
+            "active",
+            "text-purple-600",
+            "dark:text-purple-400"
+          );
+          indexTab.classList.add("text-gray-600", "dark:text-gray-400");
+
+          if (sectionId === "dictionary") {
+            dictionaryTab.classList.add(
+              "active",
+              "text-purple-600",
+              "dark:text-purple-400"
+            );
+          } else if (sectionId === "index") {
+            indexTab.classList.add(
+              "active",
+              "text-purple-600",
+              "dark:text-purple-400"
+            );
+          }
+        }
+
+        // Show a custom message box instead of using alert()
+        function showMessage(title, text) {
+          messageBoxTitle.textContent = title;
+          messageBoxText.textContent = text;
+          messageBox.classList.remove("hidden");
+        }
+
+        // Function to show a toast message
+        function showToast(message) {
+          toast.textContent = message;
+          toast.classList.remove("hidden");
+          setTimeout(() => {
+            toast.classList.add("opacity-100");
+          }, 10);
+          setTimeout(() => {
+            toast.classList.remove("opacity-100");
+            toast.classList.add("opacity-0");
+            setTimeout(() => toast.classList.add("hidden"), 300);
+          }, 2000);
+        }
+
+        // Function to play audio from a URL
+        function playWordAudio(audioUrl) {
+          if (!audioUrl) {
+            showMessage(
+              "Audio Not Available",
+              "No pronunciation audio was found for this word."
+            );
+            return;
+          }
+          const audio = new Audio(audioUrl);
+          audio.play();
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+          const tempInput = document.createElement("textarea");
+          tempInput.value = text;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+          showToast("Copied to clipboard!");
+        }
+
+        // Function to fetch word data from the API with a simple cache
+        async function fetchWordData(word) {
+          if (wordCache[word]) {
+            return wordCache[word];
+          }
+
+          const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              if (response.status === 404) {
+                return null;
+              }
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            wordCache[word] = data; // Cache the data
+            return data;
+          } catch (error) {
+            console.error("Error fetching data:", error);
+            return null;
+          }
+        }
+
+        // Function to render dictionary results
+        function renderResults(data, word) {
+          const resultsContainer = dictionaryResults.querySelector(".card");
+          resultsContainer.innerHTML = "";
+
+          if (!data || data.length === 0) {
+            resultsContainer.innerHTML = `
+                        <div class="text-center p-6">
+                            <p class="text-xl font-semibold text-red-500">Word not found.</p>
+                            <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Please check the spelling or try a different word.</p>
+                        </div>
+                    `;
+            dictionaryResults.classList.remove("hidden");
+            return;
+          }
+
+          const firstEntry = data[0];
+          const wordTitle = firstEntry.word;
+          const phonetic =
+            firstEntry.phonetic ||
+            (firstEntry.phonetics.length > 0
+              ? firstEntry.phonetics[0].text
+              : "");
+          const audioUrl = firstEntry.phonetics.find((p) => p.audio)?.audio;
+
+          let html = `
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <div>
+                                <h2 class="text-4xl font-bold mb-1">${wordTitle}</h2>
+                                ${
+                                  phonetic
+                                    ? `<p class="text-lg text-gray-500 dark:text-gray-400">${phonetic}</p>`
+                                    : ""
+                                }
+                            </div>
+                            ${
+                              audioUrl
+                                ? `
+                                <button id="audio-button" class="mt-2 text-purple-500 hover:text-purple-600 transition-colors p-2 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.47-9.536a9 9 0 010 12.072m2.47-14.536a13 13 0 010 17.072M12 21v-4m0-12V3" />
+                                    </svg>
+                                </button>`
+                                : ""
+                            }
+                            <button id="copy-button" class="text-gray-400 hover:text-purple-500 transition-colors p-2 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7v6a1 1 0 001 1h6a1 1 0 001-1V7a1 1 0 00-1-1H9a1 1 0 00-1 1z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11H9a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                `;
+
+          firstEntry.meanings.forEach((meaning) => {
+            const partOfSpeech = meaning.partOfSpeech;
+            html += `
+                        <div>
+                            <div class="flex items-center">
+                                <h3 class="text-lg font-semibold capitalize mr-4">${partOfSpeech}</h3>
+                                <div class="word-type-divider"></div>
+                            </div>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-4 mt-4">
+                    `;
+            meaning.definitions.forEach((def) => {
+              html += `
+                            <li>
+                                ${def.definition}
+                                ${
+                                  def.example
+                                    ? `<br><em class="text-gray-500 dark:text-gray-400 text-sm">"${def.example}"</em>`
+                                    : ""
+                                }
+                            </li>
+                        `;
+            });
+            html += `
+                            </ul>
+                        </div>
+                    `;
+            if (meaning.synonyms.length > 0) {
+              html += `
+                            <div class="mt-4">
+                                <span class="font-medium">Synonyms:</span>
+                                <span class="text-purple-600 dark:text-purple-400 font-medium">${meaning.synonyms.join(
+                                  ", "
+                                )}</span>
+                            </div>
+                        `;
+            }
+            if (meaning.antonyms.length > 0) {
+              html += `
+                            <div class="mt-2">
+                                <span class="font-medium">Antonyms:</span>
+                                <span class="text-purple-600 dark:text-purple-400 font-medium">${meaning.antonyms.join(
+                                  ", "
+                                )}</span>
+                            </div>
+                        `;
+            }
+          });
+          html += `
+                    </div>
+                `;
+          resultsContainer.innerHTML = html;
+          dictionaryResults.classList.remove("hidden");
+
+          // Add event listeners for new buttons
+          if (audioUrl) {
+            document
+              .getElementById("audio-button")
+              .addEventListener("click", () => playWordAudio(audioUrl));
+          }
+          const fullText = `${wordTitle}: ${firstEntry.meanings[0].definitions[0].definition}`;
+          document
+            .getElementById("copy-button")
+            .addEventListener("click", () => copyToClipboard(fullText));
+        }
+
+        // Function to handle the search logic
+        async function handleSearch() {
+          const query = searchInput.value.trim().toLowerCase();
+          if (query === "") {
+            dictionaryResults.classList.add("hidden");
+            return;
+          }
+
+          // Show a simple loading state
+          const resultsContainer = dictionaryResults.querySelector(".card");
+          resultsContainer.innerHTML =
+            '<div class="text-center p-6"><svg class="animate-spin h-8 w-8 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="mt-4 text-sm text-gray-500">Searching...</p></div>';
+          dictionaryResults.classList.remove("hidden");
+
+          const data = await fetchWordData(query);
+          renderResults(data, query);
+          suggestionList.classList.add("hidden");
+          clearSearchButton.classList.remove("hidden");
+        }
+
+        // Function to handle suggestions
+        function handleSuggestions() {
+          const query = searchInput.value.trim().toLowerCase();
+          if (query.length < 2) {
+            suggestionList.classList.add("hidden");
+            clearSearchButton.classList.add("hidden");
+            return;
+          }
+          clearSearchButton.classList.remove("hidden");
+          const possibleSuggestions = wordList.map((w) => w.word.toLowerCase());
+          const suggestions = possibleSuggestions.filter((word) =>
+            word.startsWith(query)
+          );
+
+          if (suggestions.length > 0) {
+            suggestionList.innerHTML = "";
+            suggestions.forEach((s) => {
+              const li = document.createElement("li");
+              li.textContent = s;
+              li.className =
+                "py-2 px-6 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg";
+              li.addEventListener("click", () => {
+                searchInput.value = s;
+                handleSearch();
+              });
+              suggestionList.appendChild(li);
+            });
+            suggestionList.classList.remove("hidden");
+          } else {
+            suggestionList.classList.add("hidden");
+          }
+        }
+
+        // Function to clear the search input
+        function clearSearch() {
+          searchInput.value = "";
+          dictionaryResults.classList.add("hidden");
+          suggestionList.classList.add("hidden");
+          clearSearchButton.classList.add("hidden");
+        }
+
+        // Function to fetch and display the Word of the Day
+        async function getWordOfTheDay() {
+          try {
+            const randomIndex = Math.floor(Math.random() * wordList.length);
+            const dailyWord = wordList[randomIndex];
+            wordOfDayContent.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-2">
+                                <h3 class="text-3xl font-bold text-purple-500">${
+                                  dailyWord.word
+                                }</h3>
+                                <button id="wotd-audio-button" class="text-purple-500 hover:text-purple-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.47-9.536a9 9 0 010 12.072m2.47-14.536a13 13 0 010 17.072M12 21v-4m0-12V3" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-xl text-gray-700 dark:text-gray-200">${
+                          dailyWord.definition
+                        }</p>
+                        <p class="text-sm mt-2 italic text-gray-500 dark:text-gray-400">Example: ${
+                          dailyWord.example
+                        }</p>
+                        <p class="text-sm mt-1 italic text-gray-500 dark:text-gray-400">Synonyms: ${dailyWord.synonyms.join(
+                          ", "
+                        )}</p>
+                    `;
+            const audioData = await fetchWordData(dailyWord.word);
+            const audioUrl = audioData?.[0]?.phonetics?.find(
+              (p) => p.audio
+            )?.audio;
+            if (audioUrl) {
+              document
+                .getElementById("wotd-audio-button")
+                .addEventListener("click", () => playWordAudio(audioUrl));
+            }
+          } catch (error) {
+            console.error("Failed to fetch word of the day:", error);
+            wordOfDayContent.innerHTML =
+              "<p class='text-red-500'>Failed to load Word of the Day. Please check your connection.</p>";
+          }
+        }
+
+        // Function to create quiz questions
+        function createQuizQuestions() {
+          const quizSize = parseInt(quizQuestionCountInput.value, 10);
+          if (isNaN(quizSize) || quizSize < 5 || quizSize > wordList.length) {
+            showMessage(
+              "Invalid Quiz Size",
+              `Please select a number between 5 and ${wordList.length}.`
+            );
+            return;
+          }
+
+          quizAnswerHistory = []; // Reset history at the start of a new quiz
+          const quizWords = [...wordList]
+            .sort(() => 0.5 - Math.random())
+            .slice(0, quizSize);
+          quizQuestions = quizWords.map((word) => {
+            const incorrectOptions = wordList
+              .filter((w) => w.word !== word.word)
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 3)
+              .map((w) => w.definition);
+            const allOptions = [word.definition, ...incorrectOptions];
+            allOptions.sort(() => 0.5 - Math.random());
+            return {
+              question: `What is the definition of "${word.word}"?`,
+              answer: word.definition,
+              options: allOptions,
+            };
+          });
+          currentQuestionIndex = 0;
+          score = 0;
+
+          quizIntro.classList.add("hidden");
+          quizQuestionContainer.classList.remove("hidden");
+          displayCurrentQuestion();
+        }
+
+        // Function to display the current quiz question
+        function displayCurrentQuestion() {
+          if (currentQuestionIndex >= quizQuestions.length) {
+            showQuizResults();
+            return;
+          }
+
+          const question = quizQuestions[currentQuestionIndex];
+          quizQuestionEl.textContent = question.question;
+          quizOptionsEl.innerHTML = "";
+          question.options.forEach((option) => {
+            const button = document.createElement("button");
+            button.textContent = option;
+            button.className =
+              "w-full text-left p-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors";
+            button.addEventListener("click", () =>
+              checkQuizAnswer(button, option)
+            );
+            quizOptionsEl.appendChild(button);
+          });
+          quizScoreEl.textContent = `Question ${currentQuestionIndex + 1} of ${
+            quizQuestions.length
+          }`;
+          quizFeedbackEl.textContent = "";
+          nextQuestionButton.classList.add("hidden");
+        }
+
+        // Function to check the quiz answer
+        function checkQuizAnswer(button, selectedOption) {
+          const question = quizQuestions[currentQuestionIndex];
+          const allButtons = Array.from(quizOptionsEl.children);
+
+          // Disable all buttons
+          allButtons.forEach((btn) => (btn.disabled = true));
+
+          let isCorrect = selectedOption === question.answer;
+          if (isCorrect) {
+            button.classList.add(
+              "bg-green-500",
+              "text-white",
+              "!border-green-500"
+            );
+            quizFeedbackEl.textContent = "Correct! Well done.";
+            quizFeedbackEl.classList.remove("text-red-500");
+            quizFeedbackEl.classList.add("text-green-500");
+            score++;
+          } else {
+            button.classList.add("bg-red-500", "text-white", "!border-red-500");
+            quizFeedbackEl.textContent =
+              "Incorrect. The correct answer is highlighted.";
+            quizFeedbackEl.classList.remove("text-green-500");
+            quizFeedbackEl.classList.add("text-red-500");
+            // Highlight the correct answer
+            const correctButton = allButtons.find(
+              (btn) => btn.textContent === question.answer
+            );
+            if (correctButton) {
+              correctButton.classList.add(
+                "bg-green-500",
+                "text-white",
+                "!border-green-500"
+              );
+            }
+          }
+          nextQuestionButton.classList.remove("hidden");
+
+          // Record the answer for download
+          quizAnswerHistory.push({
+            question: question.question,
+            userAnswer: selectedOption,
+            correctAnswer: question.answer,
+            isCorrect: isCorrect,
+          });
+        }
+
+        // Function to show final quiz results
+        function showQuizResults() {
+          quizQuestionContainer.classList.add("hidden");
+          quizResults.classList.remove("hidden");
+          finalScoreEl.textContent = `You scored ${score} out of ${quizQuestions.length}!`;
+          if (score === quizQuestions.length) {
+            finalMessageEl.textContent = "Amazing job! You're a word wizard!";
+          } else if (score >= quizQuestions.length / 2) {
+            finalMessageEl.textContent =
+              "Great work! You have a strong vocabulary.";
+          } else {
+            finalMessageEl.textContent =
+              "Keep practicing, and your vocabulary will grow!";
+          }
+        }
+
+        // Function to download the quiz results
+        function downloadQuizResults() {
+          let fileContent = "Vocabulary Quiz Results\n\n";
+          quizAnswerHistory.forEach((item, index) => {
+            fileContent += `Question ${index + 1}:\n`;
+            fileContent += `Question: ${item.question}\n`;
+            fileContent += `Your Answer: ${item.userAnswer}\n`;
+            fileContent += `Correct Answer: ${item.correctAnswer}\n`;
+            fileContent += `Result: ${
+              item.isCorrect ? "Correct" : "Incorrect"
+            }\n\n`;
+          });
+          fileContent += `Final Score: ${score} out of ${quizQuestions.length}`;
+
+          const blob = new Blob([fileContent], { type: "text/plain" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "quiz_results.txt";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+
+        // Function to render the word index
+        function renderWordIndex() {
+          wordListContainer.innerHTML = "";
+          let sortedWords = [...wordList];
+          if (currentSortOrder === "asc") {
+            sortedWords.sort((a, b) => a.word.localeCompare(b.word));
+          } else {
+            sortedWords.sort((a, b) => b.word.localeCompare(a.word));
+          }
+
+          sortedWords.forEach((wordObj) => {
+            const li = document.createElement("li");
+            li.className =
+              "py-2 px-4 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors";
+            li.textContent = wordObj.word;
+            li.addEventListener("click", () => {
+              searchInput.value = wordObj.word;
+              showSection("dictionary");
+              handleSearch();
+            });
+            wordListContainer.appendChild(li);
+          });
+        }
+
+        // --- Event Listeners and Initial Setup ---
+
+        // Tab navigation
+        dictionaryTab.addEventListener("click", () =>
+          showSection("dictionary")
+        );
+        indexTab.addEventListener("click", () => showSection("index"));
+
+        // Search functionality
+        searchButton.addEventListener("click", handleSearch);
+        searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        });
+        searchInput.addEventListener("input", handleSuggestions);
+        clearSearchButton.addEventListener("click", clearSearch);
+
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", (e) => {
+          if (
+            !searchInput.contains(e.target) &&
+            !suggestionList.contains(e.target)
+          ) {
+            suggestionList.classList.add("hidden");
+          }
+        });
+
+        // Dark mode toggle functionality
+        darkModeToggle.addEventListener("change", () => {
+          if (darkModeToggle.checked) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            themeIcon.textContent = "☀️";
+          } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+            themeIcon.textContent = "🌙";
+          }
+        });
+
+        // Close message box
+        messageBoxOkButton.addEventListener("click", () => {
+          messageBox.classList.add("hidden");
+        });
+
+        // Initial theme setup from localStorage
+        function loadTheme() {
+          if (
+            localStorage.theme === "dark" ||
+            (!("theme" in localStorage) &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            darkModeToggle.checked = true;
+            document.documentElement.classList.add("dark");
+            themeIcon.textContent = "☀️";
+          } else {
+            darkModeToggle.checked = false;
+            document.documentElement.classList.remove("dark");
+            themeIcon.textContent = "🌙";
+          }
+        }
+
+        // Quiz button event listeners
+        startQuizButton.addEventListener("click", createQuizQuestions);
+
+        nextQuestionButton.addEventListener("click", () => {
+          currentQuestionIndex++;
+          displayCurrentQuestion();
+        });
+
+        restartQuizButton.addEventListener("click", () => {
+          quizResults.classList.add("hidden");
+          quizQuestionContainer.classList.add("hidden");
+          quizIntro.classList.remove("hidden");
+        });
+
+        downloadAnswersButton.addEventListener("click", downloadQuizResults);
+
+        // Word Index sorting listeners
+        sortAzButton.addEventListener("click", () => {
+          currentSortOrder = "asc";
+          renderWordIndex();
+        });
+        sortZaButton.addEventListener("click", () => {
+          currentSortOrder = "za";
+          renderWordIndex();
+        });
+
+        // Initial load functions
+        document.addEventListener("DOMContentLoaded", () => {
+          loadTheme();
+          getWordOfTheDay();
+          renderWordIndex();
+        });
+      })();
+    </script>
+  </body>
+</html>

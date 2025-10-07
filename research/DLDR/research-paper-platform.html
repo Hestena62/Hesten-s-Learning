@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper Platform</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800">
+    <!-- Main container for the page content -->
+    <div class="max-w-5xl w-full bg-white shadow-xl rounded-xl p-6 sm:p-8 lg:p-10 transform transition-all duration-300 hover:scale-[1.005]">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-800 text-center mb-8 tracking-tight">
+            Research Paper Details
+        </h1>
+
+        <!-- Container for the paper content -->
+        <div id="paper-content" class="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 shadow-md min-h-[300px] flex items-center justify-center text-center flex-col">
+            <svg class="animate-spin h-10 w-10 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-gray-600 text-lg font-medium">Loading paper content...</p>
+        </div>
+
+        <!-- Action buttons (Back, Cite, Download) -->
+        <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#" onclick="window.history.back(); return false;" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-semibold rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Previous Page
+            </a>
+            <button id="citeButton" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-semibold rounded-full shadow-lg text-indigo-700 bg-indigo-200 hover:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                Cite
+            </button>
+            <button id="downloadButton" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-semibold rounded-full shadow-lg text-green-700 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download
+            </button>
+        </div>
+    </div>
+
+    <!-- Cite Modal -->
+    <div id="citeModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative">
+            <button onclick="closeModal('citeModal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Cite This Paper</h3>
+            <div class="space-y-4">
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">APA Style:</p>
+                    <div class="bg-gray-100 p-3 rounded-md border border-gray-200 flex justify-between items-center">
+                        <code id="apaCite" class="text-sm text-gray-800 select-all"></code>
+                        <button onclick="copyToClipboard('apaCite')" class="ml-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm">Copy</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">MLA Style:</p>
+                    <div class="bg-gray-100 p-3 rounded-md border border-gray-200 flex justify-between items-center">
+                        <code id="mlaCite" class="text-sm text-gray-800 select-all"></code>
+                        <button onclick="copyToClipboard('mlaCite')" class="ml-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm">Copy</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">Chicago Style:</p>
+                    <div class="bg-gray-100 p-3 rounded-md border border-gray-200 flex justify-between items-center">
+                        <code id="chicagoCite" class="text-sm text-gray-800 select-all"></code>
+                        <button onclick="copyToClipboard('chicagoCite')" class="ml-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm">Copy</button>
+                    </div>
+                </div>
+            </div>
+            <p id="copyMessage" class="text-green-600 text-sm mt-4 hidden">Copied to clipboard!</p>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative">
+            <button onclick="closeModal('downloadModal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Download Paper</h3>
+            <div class="space-y-4">
+                <a href="#" onclick="downloadPaper('pdf'); return false;" class="block w-full text-center bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-150 ease-in-out font-semibold">Download PDF</a>
+                <a href="#" onclick="downloadPaper('epub'); return false;" class="block w-full text-center bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition duration-150 ease-in-out font-semibold">Download EPUB</a>
+                <a href="#" onclick="downloadPaper('txt'); return false;" class="block w-full text-center bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition duration-150 ease-in-out font-semibold">Download Plain Text</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ensure the DOM is fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', function() {
+            /**
+             * Extracts a query parameter's value from the current URL.
+             * @param {string} name - The name of the query parameter to retrieve.
+             * @returns {string|null} The value of the parameter, or null if not found.
+             */
+            function getQueryParam(name) {
+                // Create a URLSearchParams object from the URL's query string
+                const urlParams = new URLSearchParams(window.location.search);
+                // Return the value associated with the given parameter name
+                return urlParams.get(name);
+            }
+
+            // Get the 'paperId' from the URL
+            const paperId = getQueryParam('paperId');
+            // Get the div element where the paper content will be displayed
+            const paperContentDiv = document.getElementById('paper-content');
+
+            // Define some mock research paper data
+            // In a real application, this data would typically come from an API call
+            // to a backend server or a database.
+            const mockPapers = {
+                'ehr-ai': {
+                    title: 'The Transformative Impact of AI on Electronic Health Records',
+                    author: 'Dr. Anya Sharma, Prof. David Lee',
+                    date: 'October 26, 2023',
+                    abstract: 'This comprehensive research paper delves into the profound effects of Artificial Intelligence integration within Electronic Health Record (EHR) systems. It explores how AI enhances data accuracy, streamlines clinical workflows, improves diagnostic capabilities, and ultimately contributes to better patient outcomes. We discuss the challenges of implementation, ethical considerations, and future prospects of AI-driven EHRs.',
+                    fullText: `
+                        <p class="mb-4 text-gray-700">Artificial intelligence (AI) is rapidly reshaping various sectors, and healthcare is no exception. The advent of AI in Electronic Health Records (EHRs) marks a significant paradigm shift, promising to revolutionize how patient data is managed, analyzed, and utilized. Traditional EHR systems, while digitizing patient information, often struggle with data overload, interoperability issues, and the time-consuming nature of manual data entry and retrieval.</p>
+                        <p class="mb-4 text-gray-700">AI algorithms, particularly those based on machine learning and natural language processing, offer solutions to these challenges. They can process vast amounts of unstructured data, such as clinical notes and imaging reports, to extract meaningful insights. This capability not only improves the accuracy of diagnoses but also helps in predicting disease progression and identifying patients at high risk for certain conditions.</p>
+                        <p class="mb-4 text-gray-700">Furthermore, AI can automate routine administrative tasks, freeing up healthcare professionals to focus more on patient care. Predictive analytics can optimize resource allocation, reduce wait times, and enhance the overall efficiency of healthcare delivery. However, the successful integration of AI into EHRs requires careful consideration of data privacy, algorithmic bias, and the need for robust validation frameworks.</p>
+                        <p class="text-gray-700">In conclusion, while the journey of AI in EHRs is still evolving, its potential to transform healthcare delivery, improve patient safety, and enhance clinical decision-making is immense. Continued research, ethical guidelines, and collaborative efforts between technologists and healthcare providers will be crucial in realizing the full benefits of this powerful technology.</p>
+                    `
+                },
+                'quantum-computing-advances': {
+                    title: 'Recent Advances in Quantum Computing Architectures',
+                    author: 'Dr. Emily Chen, Dr. Robert Jones',
+                    date: 'November 15, 2024',
+                    abstract: 'This paper provides an overview of the latest advancements in quantum computing architectures, including superconducting qubits, trapped ions, and topological qubits. We analyze their respective strengths, challenges, and potential for scaling. The discussion also covers recent experimental results and the roadmap towards fault-tolerant quantum computers.',
+                    fullText: `
+                        <p class="mb-4 text-gray-700">Quantum computing represents a revolutionary paradigm that leverages the principles of quantum mechanics to perform computations far beyond the capabilities of classical computers. Unlike classical bits that exist in binary states (0 or 1), quantum bits (qubits) can exist in superposition, allowing them to represent both 0 and 1 simultaneously, and can be entangled with other qubits, leading to exponential increases in computational power.</p>
+                        <p class="mb-4 text-gray-700">Recent years have seen remarkable progress in developing various quantum computing architectures. Superconducting qubits, for instance, have demonstrated high coherence times and gate fidelities, making them a leading candidate for building large-scale quantum processors. Trapped ion systems offer excellent qubit control and long coherence times, making them ideal for quantum networking and simulation.</p>
+                        <p class="mb-4 text-gray-700">Topological qubits, while still largely theoretical, promise inherent robustness against decoherence, a major hurdle in quantum computing. The development of these diverse architectures highlights the vibrant and competitive landscape of quantum research. As we move closer to fault-tolerant quantum computers, addressing challenges such as error correction, scalability, and environmental noise remains paramount.</p>
+                        <p class="text-gray-700">This paper concludes by emphasizing the interdisciplinary nature of quantum computing research, requiring expertise from physics, computer science, and engineering to unlock its full potential in fields ranging from drug discovery and materials science to cryptography and artificial intelligence.</p>
+                    `
+                },
+                'renewable-energy-storage': {
+                    title: 'Innovations in Renewable Energy Storage Solutions',
+                    author: 'Prof. Sarah Miller',
+                    date: 'September 10, 2023',
+                    abstract: 'This paper examines cutting-edge innovations in energy storage technologies crucial for the widespread adoption of renewable energy sources. It covers advancements in battery technologies (Li-ion, solid-state), pumped-hydro, compressed air energy storage, and thermal storage, assessing their efficiency, cost-effectiveness, and environmental impact.',
+                    fullText: `
+                        <p class="mb-4 text-gray-700">The transition to a sustainable energy future heavily relies on efficient and cost-effective energy storage solutions. Renewable energy sources like solar and wind are intermittent, meaning their availability fluctuates, necessitating robust storage systems to ensure a stable and reliable power supply. This paper explores the latest innovations addressing this critical need.</p>
+                        <p class="mb-4 text-gray-700">Battery technologies, particularly lithium-ion batteries, continue to dominate the short-to-medium duration storage market, with ongoing research focused on improving energy density, cycle life, and safety. Emerging technologies like solid-state batteries promise even greater performance and safety. Beyond batteries, large-scale storage solutions such as pumped-hydro storage and compressed air energy storage (CAES) are vital for grid stability and long-duration applications.</p>
+                        <p class="mb-4 text-gray-700">Thermal energy storage (TES) is also gaining traction, especially for concentrated solar power plants, by storing heat in molten salts or other media. The paper also touches upon the economic viability and environmental footprint of these technologies, emphasizing the need for sustainable sourcing of materials and responsible recycling practices.</p>
+                        <p class="text-gray-700">Ultimately, a diversified portfolio of energy storage solutions, tailored to specific grid needs and geographical conditions, will be essential to fully integrate renewable energy into the global power infrastructure and achieve ambitious climate goals.</p>
+                    `
+                },
+                // You can add more mock papers here
+                'phonological-awareness-dyslexia': {
+                    title: 'Phonological Awareness: Rhyming and Its Impact on Students with Dyslexia',
+                    author: 'AI Research Assistant',
+                    date: 'July 22, 2025',
+                    abstract: 'This paper provides a comprehensive review of phonological awareness, with a specific focus on rhyming ability, and its critical relationship to developmental dyslexia. Phonological awareness, the conscious ability to manipulate the sound structure of spoken language, is a foundational skill for literacy acquisition. Rhyming, an early component of onset-rime awareness, serves as a significant predictor of later reading success. A core tenet of dyslexia research, the Phonological Deficit Hypothesis, posits that individuals with dyslexia experience a primary impairment in phonological processing, consistently manifesting as persistent difficulties with rhyming and, more profoundly, with phonemic awareness. This review details the multifaceted impact of these deficits on decoding, encoding, and ultimately, reading comprehension. It further outlines key formal and informal assessment methods for identifying phonological awareness weaknesses and presents evidence-based intervention strategies, emphasizing explicit, systematic, and multisensory approaches. The paper concludes by highlighting the imperative for early identification, targeted intervention, and collaborative support to mitigate the adverse effects of phonological deficits on students with dyslexia, thereby fostering their literacy development.',
+                    fullText: `
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2">1.0 Introduction</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Developmental dyslexia, a specific learning disability of neurobiological origin, poses significant challenges for millions of individuals worldwide (International Dyslexia Association [IDA], n.d.). Characterized primarily by difficulties in accurate and fluent word recognition, poor spelling, and decoding abilities, dyslexia's impact extends far beyond the classroom, affecting academic achievement, self-esteem, and future opportunities (Shaywitz & Shaywitz, 2005).</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Central to this phonological deficit is impaired <strong>phonological awareness (PA)</strong>, the meta-cognitive ability to consciously recognize and manipulate the sound structure of spoken language (Anthony & Lonigan, 2004). Within the hierarchy of phonological skills, <strong>rhyming</strong> holds a particularly significant position. As an early-developing component of onset-rime awareness, rhyming ability serves as both a critical building block for more complex phonological skills and a robust early predictor of later reading success (Ehri et al., 2001).</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">This paper aims to provide a comprehensive and detailed exploration of phonological awareness, with a specific emphasis on the role of rhyming, and its profound impact on students with dyslexia. It will delve into the theoretical underpinnings of the phonological deficit hypothesis, examine the specific manifestations of phonological weaknesses in dyslexic learners, discuss the far-reaching consequences for reading comprehension, and outline evidence-based assessment and intervention strategies. By synthesizing current research, this review seeks to underscore the critical importance of early identification and targeted phonological instruction, particularly focusing on rhyming, as essential components of effective support for students with dyslexia.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">2.0 Understanding Phonological Awareness</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Phonological awareness (PA) is a foundational linguistic skill that refers to an individual's conscious awareness of the sound structure of a language, independent of its meaning (Ehri, 2004). It is a purely auditory skill, meaning it does not involve print. This distinction is crucial, as PA is a prerequisite for, rather than a consequence of, learning to read an alphabetic language where letters represent sounds (National Institute of Child Health and Human Development [NICHD], 2000).</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The generally accepted hierarchy of phonological awareness skills includes:</p>
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">2.1 Word Awareness</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The most rudimentary level of PA involves the understanding that spoken sentences are comprised of individual, discrete words. For instance, a child demonstrating word awareness can identify the number of words in a simple sentence such as "The dog barked loudly" by clapping or tapping for each word (Reading Rockets, n.d.).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">2.2 Syllable Awareness</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Progressing from word awareness, syllable awareness refers to the ability to hear and manipulate the syllables within words. Syllables are rhythmic units of pronunciation that contain a vowel sound. Key skills at this level include:</p>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Syllable Blending:</strong> Combining individual syllables to form a complete word (e.g., blending "rab-bit" to form "rabbit").</li>
+                            <li><strong>Syllable Segmentation:</strong> Breaking a multi-syllabic word into its constituent syllables (e.g., segmenting "elephant" into "el-e-phant") (Reading Rockets, n.d.).</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">2.3 Onset-Rime Awareness</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">This level involves dissecting a single-syllable word into two parts: the onset and the rime. The <strong>onset</strong> is defined as the initial consonant sound or consonant blend that precedes the vowel in a syllable (e.g., /k/ in "cat," /str/ in "street"). The <strong>rime</strong> encompasses the vowel sound and all subsequent consonant sounds within that same syllable (e.g., /at/ in "cat," /eet/ in "street") (Reading Rockets, n.d.). This specific skill is particularly salient for understanding rhyming patterns and word families.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">2.4 Phonemic Awareness (PAw)</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">As the most advanced and highly predictive level of phonological awareness for reading success, phonemic awareness is the conscious ability to identify, segment, blend, and manipulate individual speech sounds, or phonemes, within words (NICHD, 2000). English has approximately 44 distinct phonemes. Mastering phonemic awareness is critical because it directly underlies the alphabetic principle, the understanding that letters and letter combinations represent specific phonemes. Key phonemic awareness skills include:</p>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Phoneme Isolation:</strong> Identifying specific phonemes in a given position within a word (e.g., "What is the middle sound in 'mop'?" - /o/) (Heggerty, n.d.).</li>
+                            <li><strong>Phoneme Blending:</strong> Combining a sequence of isolated phonemes to form a word (e.g., /d/ /o/ /g/ -> "dog") (IDA, n.d.). This skill is directly applied during decoding.</li>
+                            <li><strong>Phoneme Segmentation:</strong> Breaking a word into its individual phonemes (e.g., "cat" -> /c/ /a/ /t/) (IDA, n.d.). This is fundamental for spelling (encoding).</li>
+                            <li><strong>Phoneme Manipulation:</strong> More complex tasks such as adding, deleting, or substituting phonemes within words (e.g., "Say 'bat' without the /b/." - "at"; "Change the /b/ in 'bat' to /c/." - "cat") (Reading Rockets, n.d.).</li>
+                        </ul>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The development of these skills is sequential, with mastery of simpler skills often facilitating the acquisition of more complex ones. Disruptions at any level of this hierarchy can have cascading negative effects on literacy development.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">3.0 The Pivotal Role of Rhyming in Phonological Awareness</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Rhyming, primarily an <strong>onset-rime awareness</strong> skill, holds a central and often early position in the development of phonological awareness. It involves the recognition and production of words that share the same rime but possess different onsets, such as "fun," "sun," and "run" (Reading Rockets, n.d.). While seemingly a simple linguistic game, rhyming's importance to literacy development is profound and multifaceted.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">3.1 Fostering Auditory Sensitivity and Discrimination</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Engaging in rhyming activities naturally draws a child's attention to the auditory patterns and shared sound structures within spoken words (Goswami, 2000). To identify or produce a rhyme, a child must actively listen for and discriminate between subtle phonetic similarities and differences. This sharpens their "ear" for language, a prerequisite for more subtle phonemic discriminations.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">3.2 Bridging to the Alphabetic Principle</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Rhyming serves as a critical bridge to understanding the alphabetic principle, the fundamental concept that printed letters and letter combinations represent specific speech sounds (Snowling, 1995; Wimmer et al., 1991). By repeatedly encountering words that share a common rime (e.g., the /ug/ sound in "bug," "rug," "mug"), children begin to unconsciously grasp the consistent relationship between sounds and the letters that represent those sounds.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">3.3 Early Predictor of Reading Success</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Perhaps the most compelling reason for the emphasis on rhyming is its robust predictive validity for future reading and spelling achievement. Numerous longitudinal studies have consistently demonstrated that a child's early ability to recognize and produce rhymes is a strong and reliable indicator of their readiness for reading and their likelihood of success in acquiring literacy skills (Anthony & Lonigan, 2004; Bowey, 2005; Ehri et al., 2001). Conversely, a persistent difficulty with rhyming in preschool or kindergarten is one of the earliest and most significant "red flags" for identifying children at risk for later reading difficulties, including developmental dyslexia (Catts et al., 2005; Reading Rockets, n.d.; Dyslexia Help at the University of Michigan, n.d.b). This predictive power makes rhyming a crucial skill to assess and foster in early childhood education.</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">In essence, rhyming is not merely a playful language activity but a foundational cognitive exercise that attunes the child's ear to the internal sound structure of words, preparing their minds for the systematic decoding and encoding processes inherent in reading and writing an alphabetic script.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">4.0 Dyslexia: The Phonological Deficit Hypothesis and Rhyming Difficulties</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Developmental dyslexia is a specific learning disability that affects an individual's ability to read, spell, and write, despite having average or above-average intelligence, adequate educational opportunities, and intact sensory abilities (IDA, n.d.). The most widely accepted and empirically supported theoretical explanation for dyslexia is the <strong>Phonological Deficit Hypothesis</strong>. This hypothesis posits that the primary underlying cause of dyslexia is an inherent impairment in the phonological component of language. This deficit manifests as difficulties in perceiving, storing, retrieving, and manipulating the basic speech sounds (phonemes) of one's language (Snowling, 2000; Shaywitz & Shaywitz, 2005; Ramus, 2003; Vellutino, 1979).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">4.1 Core Characteristics of Phonological Deficits in Dyslexia:</h4>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Persistent Rhyming Challenges:</strong> One of the earliest and most consistent clinical indicators of dyslexia risk is a notable and persistent difficulty with rhyming. Children who later develop dyslexia often struggle significantly with tasks requiring rhyme recognition, production, or completion (Catts et al., 2005; Reading Rockets, n.d.; Dyslexia UK, n.d.).</li>
+                            <li><strong>Profound Impairment in Phonemic Awareness:</strong> The most significant and consistently documented phonological deficit in dyslexia is impaired phonemic awareness (IDA, n.d.). Individuals with dyslexia typically struggle with all facets of phonemic awareness, including:
+                                <ul class="list-circle ml-6 mt-2">
+                                    <li><strong>Phoneme Blending:</strong> The inability to smoothly combine individual sounds to form a complete word. This directly impacts their ability to "sound out" words during reading (IDA, n.d.).</li>
+                                    <li><strong>Phoneme Segmentation:</strong> Significant difficulty breaking down spoken words into their discrete sound units. This directly impedes spelling (encoding) (Dyslexia UK, n.d.).</li>
+                                    <li><strong>Phoneme Manipulation:</strong> These advanced tasks, such as deleting a sound from a word, adding a sound, or substituting one sound for another, are particularly challenging and often indicative of a deep-seated phonological processing weakness (Bradley & Bryant, 1978; Catts et al., 2005).</li>
+                                </ul>
+                            </li>
+                            <li><strong>Naming Speed Deficits (Rapid Automatized Naming - RAN):</strong> Many individuals with dyslexia also exhibit deficits in rapid automatized naming (RAN), which involves quickly naming a series of familiar items (e.g., letters, numbers, colors, objects). This is thought to reflect a broader deficit in accessing and retrieving phonological information from long-term memory (Wolf & Bowers, 1999).</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">4.2 Neurological Underpinnings:</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The phonological deficit in dyslexia is not merely behavioral; it has a clear neurobiological basis. Functional neuroimaging studies (e.g., fMRI) consistently reveal atypical brain activation patterns in individuals with dyslexia, particularly in the left hemisphere's posterior reading system. During phonological tasks, individuals with dyslexia often show reduced activation in key brain regions associated with language processing and reading, including: the <strong>left inferior frontal gyrus</strong> (Broca's area), the <strong>left parietotemporal region</strong>, and the <strong>left occipitotemporal region</strong> (the "visual word form area" or VWFA) (Gabrieli et al., 2011; Ramus, 2003; CPD Online College, n.d.). These neurological findings provide strong empirical support for the phonological deficit hypothesis.</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The consistent presence of rhyming difficulties as an early marker, coupled with profound phonemic awareness deficits and distinct neurobiological profiles, firmly establishes the central role of phonological processing weaknesses in the etiology of developmental dyslexia.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">5.0 Impact on Reading Comprehension</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">While the direct effects of phonological awareness deficits in dyslexia are most evident at the word-level (decoding and spelling), these foundational challenges have significant and cascading negative consequences for overall reading comprehension. Reading comprehension is not merely about recognizing individual words; it requires efficient, automatic word recognition to free up cognitive resources for higher-level processes (National Reading Panel, 2000).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">5.1 Cognitive Load and Working Memory Overload</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">For students with dyslexia, every encounter with an unfamiliar word can become a laborious decoding exercise. This slow, effortful, and often inaccurate word recognition places an immense cognitive load on the reader. Precious working memory resources, which are essential for holding and manipulating information to construct meaning, are predominantly consumed by the basic act of decoding (Lexia Learning, 2024; Snowling, 1995).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">5.2 Reduced Reading Fluency</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The struggle with decoding directly leads to poor reading fluency, characterized by slow reading rate, numerous errors, and a lack of appropriate prosody. When fluency is impaired, comprehension suffers because the reader cannot process the text quickly or smoothly enough to build a coherent mental model of the content (Lexia Learning, 2024).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">5.3 Limited Exposure to Print and Vocabulary Development</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">A challenging and often frustrating reading experience frequently leads students with dyslexia to avoid reading. This reduced exposure to print, often termed the "Matthew Effect" (Stanovich, 1986), limits their incidental vocabulary acquisition, general knowledge development, and familiarity with diverse syntactic structures. All of these factors are crucial for robust reading comprehension (Lexia Learning, 2024).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">5.4 Disconnection Between Oral Language and Reading Comprehension</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">It is crucial to note that many individuals with dyslexia possess intact or even superior oral language comprehension abilities (Gough & Tunmer, 1986). However, their phonological decoding difficulties create a "bottleneck" that prevents them from accessing their strong oral language skills when confronted with written text. This disconnect is a defining feature of dyslexia (Lexia Learning, 2024).</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">In summary, while the phonological deficit initially manifests at the word level, its ripple effects permeate all aspects of literacy. By hindering efficient word recognition, it ultimately starves the higher-level comprehension processes, making reading a significantly more arduous and less meaningful experience for individuals with dyslexia.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">6.0 Assessment of Phonological Awareness</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Early and accurate assessment of phonological awareness is critical for identifying children at risk for dyslexia, informing diagnostic decisions, and guiding the development of effective, individualized interventions. Assessments should be conducted systematically and often involve both formal, standardized measures and informal, criterion-referenced tasks.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">6.1 Principles of Assessment:</h4>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Auditory Focus:</strong> Initial assessments should primarily focus on oral-auditory tasks, without the presence of print (Dyslexia Help at the University of Michigan, n.d.a; Heggerty, n.d.).</li>
+                            <li><strong>Developmental Progression:</strong> Assessments should cover a range of PA skills, progressing from simpler to more complex tasks.</li>
+                            <li><strong>Observation of Process:</strong> Beyond just correct/incorrect responses, clinicians and educators should observe the child's processing time, effort, and strategies used.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">6.2 Formal Assessments:</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Standardized assessments provide norm-referenced scores, allowing for comparison of an individual's performance to that of their age or grade-level peers. These are essential for diagnosis.</p>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Comprehensive Test of Phonological Processing, Second Edition (CTOPP-2):</strong> A widely used diagnostic tool for assessing phonological abilities in individuals from ages 4-0 through 24-11, measuring phonological awareness, phonological memory, and rapid naming (Robertson & Salter, 2007; Dyslexia Help at the University of Michigan, n.d.a).</li>
+                            <li><strong>Dynamic Indicators of Basic Early Literacy Skills (DIBELS 8th Edition):</strong> Useful for universal screening and progress monitoring, including measures like First Sound Fluency (FSF) and Phoneme Segmentation Fluency (PSF).</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">6.3 Informal Assessments (Focus on Rhyming and Early Skills):</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Informal assessments are valuable for quick screening and ongoing progress monitoring in the classroom (Reading Rockets, n.d.).</p>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Rhyme Recognition:</strong> "Do 'cat' and 'hat' rhyme?" (Yes/No response).</li>
+                            <li><strong>Rhyme Production/Generation:</strong> "Tell me words that rhyme with 'ball'."</li>
+                            <li><strong>Rhyme Completion:</strong> "The frog sat on a... [log]".</li>
+                            <li><strong>Odd-One-Out:</strong> "Which word doesn't rhyme: 'bear', 'chair', 'moon'?" (Reading Rockets, n.d.).</li>
+                            <li><strong>Nursery Rhyme Knowledge/Recitation:</strong> Assessing familiarity with and ability to recite common nursery rhymes (Dyslexia Help at the University of Michigan, n.d.b).</li>
+                            <li><strong>Picture Sorts:</strong> Provide a collection of pictures and ask the child to group those that rhyme.</li>
+                        </ul>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Consistent struggles across these informal rhyming tasks, particularly after age four or five, should trigger further formal assessment for potential phonological awareness deficits and risk for dyslexia.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">7.0 Intervention Strategies for Phonological Awareness</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Effective intervention for phonological awareness deficits in students with dyslexia is paramount for fostering literacy development. Research consistently supports the efficacy of explicit, systematic, and multisensory instructional approaches, ideally initiated as early as possible (NICHD, 2000; Reading Teacher, n.d.).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">7.1 General Principles of Effective PA Intervention:</h4>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Explicit and Direct Instruction:</strong> Skills must be taught directly and intentionally (IDA, n.d.).</li>
+                            <li><strong>Systematic and Sequential Progression:</strong> Instruction should follow a logical, research-based sequence, moving from simpler, larger units of sound to more complex, smaller units (Heggerty, n.d.; Dyslexia Help at the University of Michigan, n.d.a).</li>
+                            <li><strong>Oral-Auditory Focus (Initially):</strong> Avoid introducing letters or print until a solid understanding of the sound manipulation is established (Dyslexia Help at the University of Michigan, n.d.a; Heggerty, n.d.).</li>
+                            <li><strong>Multisensory Engagement:</strong> Engage multiple learning pathways (auditory, visual, kinesthetic, tactile) (Reading Teacher, n.d.; Dyslexia Help at the University of Michigan, n.d.a).</li>
+                            <li><strong>High Repetition and Practice:</strong> Students with dyslexia require significantly more practice and repetition (IDA, n.d.).</li>
+                            <li><strong>Bridge to Phonics:</strong> Once PA is established, explicitly connect phonemes to graphemes (Reading Teacher, n.d.; Heggerty, n.d.).</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">7.2 Specific Strategies for Rhyming Intervention:</h4>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Read Aloud Rhyming Literature:</strong> Exaggerate rhyming words, and ask children to identify or predict them (Reading Rockets, n.d.).</li>
+                            <li><strong>Sing Rhyming Songs and Chants:</strong> Incorporate songs that emphasize rhyming words (Reading Teacher, n.d.).</li>
+                            <li><strong>Interactive Rhyming Games:</strong> Including rhyme matching, production, "I'm Thinking Of" games, rhyme sorts, and movement-based rhyming.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">7.3 Progression to Advanced Phonemic Awareness Skills:</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">After rhyming and syllable awareness, intervention should systematically move towards phoneme-level tasks:</p>
+                        <ol class="list-decimal ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Phoneme Isolation:</strong> Progressing from initial sounds, to final sounds, then medial vowel sounds (Heggerty, n.d.).</li>
+                            <li><strong>Phoneme Blending with Manipulatives:</strong> Using "sound boxes" or "Elkonin boxes" to blend sounds.</li>
+                            <li><strong>Phoneme Segmentation:</strong> Breaking words into individual sounds, also aided by Elkonin boxes.</li>
+                            <li><strong>Phoneme Manipulation:</strong> Introduce more challenging tasks like deletion, addition, or substitution of sounds.</li>
+                        </ol>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Effective phonological awareness intervention is a cornerstone of literacy instruction for students with dyslexia.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">8.0 Collaboration and Ongoing Support</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Addressing the needs of students with dyslexia requires a multifaceted and collaborative approach involving various professionals and consistent, long-term support.</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">8.1 Role of Professionals:</h4>
+                        <ul class="list-disc ml-6 mb-4 text-gray-700 leading-relaxed">
+                            <li><strong>Speech-Language Pathologists (SLPs):</strong> Crucial for early identification, assessment, and intensive intervention for phonological awareness difficulties (ASHA, n.d.; GSA, n.d.).</li>
+                            <li><strong>Educators:</strong> Must have training in evidence-based literacy instruction, particularly Structured Literacy approaches (IDA, n.d.; Lexia Learning, 2024).</li>
+                            <li><strong>Psychologists/Neuropsychologists:</strong> Crucial for comprehensive diagnostic evaluations.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">8.2 Importance of Parental Involvement:</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Parents are invaluable partners in supporting a child's phonological development, reinforcing skills learned at school and creating a language-rich environment (Reading Rockets, n.d.).</p>
+
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 mt-6">8.3 Longitudinal Vigilance and Support:</h4>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Phonological deficits are typically persistent. Ongoing monitoring, accommodations, and continued direct instruction may be necessary throughout their academic careers (de Jong & van der Leij, 2003; Melby-Lervåg et al., 2012).</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Collaboration among professionals, consistent application of evidence-based practices, and sustained support across educational stages are vital to empowering students with dyslexia to overcome their phonological challenges and achieve literacy success.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">9.0 Conclusion</h3>
+                        <p class="mb-4 text-gray-700 leading-relaxed">The intricate relationship between phonological awareness, specifically rhyming, and developmental dyslexia is a well-established and critically important area in literacy research and practice. This paper has underscored that phonological awareness serves as a foundational skill for acquiring reading and spelling proficiency.</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">For individuals with dyslexia, a primary deficit in phonological processing is the widely accepted explanatory model, manifesting as significant difficulties with rhyming and phonemic awareness. These core phonological weaknesses directly impede decoding, encoding, and ultimately, reading comprehension.</p>
+                        <p class="mb-4 text-gray-700 leading-relaxed">Effective intervention is not only possible but imperative, advocating for explicit, systematic, and multisensory instruction in phonological awareness, initiated as early as possible. Investing in early and sustained phonological awareness instruction is not merely a pedagogical choice; it is a critical step towards ensuring literacy for all.</p>
+
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2 mt-8">References (APA 7th Edition)</h3>
+                        <ul class="references-list text-gray-700 text-sm">
+                            <li>American Speech-Language-Hearing Association (ASHA). (n.d.). <em>Phonological Awareness in Children with Dyslexia</em>. Retrieved July 22, 2025, from https://gsa.memberclicks.net/assets/documents/2016-Convention/Handouts/brodeposterhandout.pdf</li>
+                            <li>Anthony, J. L., & Lonigan, C. J. (2004). The relation between phonological sensitivity and later reading ability: A meta-analysis of the early literacy literature. <em>Reading Research Quarterly, 39</em>(1), 5-30.</li>
+                            <li>Bowey, J. A. (2005). The effects of phonological recoding instruction on children’s word reading skills: A meta-analysis. <em>Journal of Educational Psychology, 97</em>(2), 261–279.</li>
+                            <li>Bradley, L., & Bryant, P. E. (1978). Difficulties in auditory organisation as a possible cause of reading backwardness. <em>Nature, 271</em>(5647), 746-747.</li>
+                            <li>Catts, H. W., Adlof, S. M., Hogan, T. P., & Ellis Weismer, S. (2005). Are specific language impairment and dyslexia distinct disorders? <em>Journal of Speech, Language, and Hearing Research, 48</em>(6), 1378-1393.</li>
+                            <li>CPD Online College. (n.d.). <em>Dyslexia Demystified | Understanding the Neurological Basis</em>. Retrieved July 22, 2025, from https://cpdonline.co.uk/knowledge-base/mental-health/dyslexia-demystified-understanding-neurological-basis/</li>
+                            <li>de Jong, P. F., & van der Leij, A. (2003). Effects of phonological awareness and phonics instruction on low-achieving readers. <em>Journal of Learning Disabilities, 36</em>(4), 346-361.</li>
+                            <li>Dyslexia Help at the University of Michigan. (n.d.a). <em>Phonological Awareness</em>. Retrieved July 22, 2025, from https://dyslexiahelp.umich.edu/professionals/dyslexia-school/phonological-awareness</li>
+                            <li>Dyslexia Help at the University of Michigan. (n.d.b). <em>Teaching Phonological Awareness</em>. Retrieved July 22, 2025, from https://dyslexiahelp.umich.edu/professionals/dyslexia-school/phonological-awareness/teaching-phonological-awareness</li>
+                            <li>Dyslexia UK. (n.d.). <em>Dyslexia and Phonological Processing</em>. Retrieved July 22, 2025, from https://www.dyslexiauk.co.uk/dyslexia-and-phonological-processing/</li>
+                            <li>Ehri, L. C. (2004). Teaching phonemic awareness and phonics: An explanation of the National Reading Panel meta-analyses. In P. McCardle & V. Chhabra (Eds.), <em>The voice of evidence in reading research</em> (pp. 153-181). Brookes Publishing.</li>
+                            <li>Ehri, L. C., Nunes, S. R., Willows, D. M., Schuster, B. V., Yaghoub-Zadeh, Z., & Shanahan, T. (2001). Phonemic awareness instruction helps children learn to read: Evidence from the National Reading Panel's meta-analysis. <em>Reading Research Quarterly, 36</em>(3), 250-281.</li>
+                            <li>Gabrieli, J. D. E., Gabrieli, J. E. D., & Hoeft, F. (2011). The Brain Basis of the Phonological Deficit in Dyslexia Is Independent of IQ. <em>Psychological Science, 22</em>(11), 1443–1454. https://gablab.mit.edu/wp-content/uploads/2011-the-brain-basis-of-the-phonological-deficit-in-dyslexia-is-independent-of-iq.pdf</li>
+                            <li>Gough, P. B., & Tunmer, W. E. (1986). Decoding, reading, and reading disability. <em>Remedial and Special Education, 7</em>(1), 6-10.</li>
+                            <li>Heggerty. (n.d.). <em>Supporting Dyslexic Students: Classroom Tips (Part 2)</em>. Retrieved July 22, 2025, from https://heggerty.org/blog/how-to-support-dyslexic-students-classroom-tips-for-educators-pt-2/</li>
+                            <li>International Dyslexia Association (IDA). (n.d.). <em>Building Phoneme Awareness: Know What Matters</em>. Retrieved July 22, 2025, from https://dyslexiaida.org/building-phoneme-awareness-know-what-matters/</li>
+                            <li>Lexia Learning. (2024, December 3). <em>Reading With Dyslexia: How It Impacts Student Literacy</em>. Retrieved July 22, 2025, from https://www.lexialearning.com/blog/reading-with-dyslexia-how-it-impacts-student-literacy</li>
+                            <li>Melby-Lervåg, M., Lyster, S. A. H., & Hulme, C. (2012). Phonological skills and their relationship to reading ability in children with dyslexia: A meta-analysis. <em>Journal of Experimental Child Psychology, 112</em>(1), 1-17.</li>
+                            <li>National Institute of Child Health and Human Development (NICHD). (2000). <em>Report of the National Reading Panel. Teaching children to read: An evidence-based assessment of the scientific research literature on reading and its implications for reading instruction</em> (NIH Publication No. 00-4769). U.S. Government Printing Office.</li>
+                            <li>National Reading Panel. (2000). <em>Teaching children to read: An evidence-based assessment of the scientific research literature on reading and its implications for reading instruction</em>. National Institute of Child Health and Human Development.</li>
+                            <li>Ramus, F. (2003). Developmental dyslexia: Aetiological theories and anatomical findings. <em>Developmental Medicine & Child Neurology, 45</em>(8), 564-573.</li>
+                            <li>Reading Rockets. (n.d.). <em>Phonological Awareness Assessment</em>. Retrieved July 22, 2025, from https://www.readingrockets.org/topics/assessment-and-evaluation/articles/phonological-awareness-assessment</li>
+                            <li>Reading Teacher. (n.d.). <em>How to Teach Phonemic Awareness to Children with Dyslexia</em>. Retrieved July 22, 2025, from https://readingteacher.com/how-to-teach-phonemic-awareness-to-children-with-dyslexia/</li>
+                            <li>Robertson, C., & Salter, W. (2007). <em>Comprehensive Test of Phonological Processing (CTOPP)</em> (2nd ed.). PRO-ED.</li>
+                            <li>Shaywitz, S. E., & Shaywitz, B. A. (2005). Dyslexia (specific reading disability). <em>Biological Psychiatry, 57</em>(11), 1301-1309.</li>
+                            <li>Snowling, M. J. (1995). Phonological processing and developmental dyslexia. <em>Journal of Child Psychology and Psychiatry, 36</em>(6), 947-975.</li>
+                            <li>Snowling, M. J. (2000). <em>Dyslexia</em> (2nd ed.). Blackwell Publishing.</li>
+                            <li>Stanovich, K. E. (1986). Matthew effects in reading: Some consequences of individual differences in the acquisition of literacy. <em>Reading Research Quarterly, 21</em>(4), 360-407.</li>
+                            <li>Vellutino, F. R. (1979). <em>Dyslexia: Theory and research</em>. MIT Press.</li>
+                            <li>Wimmer, H., Landerl, K., Linortner, R., & Hummer, P. (1991). The relationship between phonemic awareness and reading acquisition: An Austrian contribution. <em>Reading Research Quarterly, 26</em>(4), 370-381.</li>
+                            <li>Wolf, M., & Bowers, P. G. (1999). The double-deficit hypothesis for the developmental dyslexias. <em>Journal of Educational Psychology, 91</em>(3), 415-438.</li>
+                        </ul>
+                    `
+                }
+            };
+
+            // Function to show a modal
+            function showModal(modalId) {
+                document.getElementById(modalId).classList.remove('hidden');
+            }
+
+            // Function to close a modal
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.add('hidden');
+            }
+
+            // Function to generate citation text (simplified for mock data)
+            function generateCitation(paper, format) {
+                const author = paper.author.split(', ').map(name => {
+                    const parts = name.split(' ');
+                    const lastName = parts[parts.length - 1];
+                    const firstNameInitial = parts[0].charAt(0);
+                    return `${lastName}, ${firstNameInitial}.`;
+                }).join(', ');
+
+                const year = new Date(paper.date).getFullYear();
+
+                switch (format) {
+                    case 'apa':
+                        return `${author} (${year}). ${paper.title}.`;
+                    case 'mla':
+                        return `${paper.author}. "${paper.title}." *Research Paper Platform*, ${new Date(paper.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.`;
+                    case 'chicago':
+                        return `${paper.author}. "${paper.title}." Research Paper Platform, ${new Date(paper.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.`;
+                    default:
+                        return 'Citation format not recognized.';
+                }
+            }
+
+            // Function to copy text to clipboard
+            function copyToClipboard(elementId) {
+                const textToCopy = document.getElementById(elementId).innerText;
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const copyMessage = document.getElementById('copyMessage');
+                    copyMessage.classList.remove('hidden');
+                    setTimeout(() => {
+                        copyMessage.classList.add('hidden');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+                document.body.removeChild(textArea);
+            }
+
+            // Function to simulate file download
+            function downloadPaper(format) {
+                const paperId = getQueryParam('paperId');
+                const selectedPaper = mockPapers[paperId];
+
+                if (!selectedPaper) {
+                    // Display a message box instead of alert
+                    paperContentDiv.innerHTML = `
+                        <div class="text-center text-red-600 p-8">
+                            <svg class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h2 class="text-3xl font-bold mb-3">No Paper Selected</h2>
+                            <p class="text-xl">Please select a paper to download.</p>
+                        </div>
+                    `;
+                    closeModal('downloadModal');
+                    return;
+                }
+
+                let content = '';
+                let filename = '';
+                let mimeType = '';
+
+                switch (format) {
+                    case 'pdf':
+                        content = `Simulated PDF content for: ${selectedPaper.title}\n\nAbstract:\n${selectedPaper.abstract}\n\nFull Text:\n${selectedPaper.fullText.replace(/<[^>]*>/g, '')}`;
+                        filename = `${paperId}.pdf`;
+                        mimeType = 'application/pdf';
+                        break;
+                    case 'epub':
+                        content = `Simulated EPUB content for: ${selectedPaper.title}\n\nAbstract:\n${selectedPaper.abstract}\n\nFull Text:\n${selectedPaper.fullText.replace(/<[^>]*>/g, '')}`;
+                        filename = `${paperId}.epub`;
+                        mimeType = 'application/epub+zip';
+                        break;
+                    case 'txt':
+                        content = `Title: ${selectedPaper.title}\nAuthor(s): ${selectedPaper.author}\nPublication Date: ${selectedPaper.date}\n\nAbstract:\n${selectedPaper.abstract}\n\nFull Text:\n${selectedPaper.fullText.replace(/<[^>]*>/g, '')}`;
+                        filename = `${paperId}.txt`;
+                        mimeType = 'text/plain';
+                        break;
+                    default:
+                        console.error('Unknown download format');
+                        return;
+                }
+
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                closeModal('downloadModal');
+            }
+
+            // Check if a paperId was provided in the URL
+            if (paperId) {
+                const selectedPaper = mockPapers[paperId];
+
+                if (selectedPaper) {
+                    // If the paper is found, display its details
+                    paperContentDiv.innerHTML = `
+                        <div class="w-full text-left">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-indigo-700 mb-4 leading-tight">${selectedPaper.title}</h2>
+                            <p class="text-gray-600 text-base sm:text-lg mb-2"><strong>Author(s):</strong> <span class="text-indigo-600">${selectedPaper.author}</span></p>
+                            <p class="text-gray-600 text-base sm:text-lg mb-6"><strong>Publication Date:</strong> <span class="text-indigo-600">${selectedPaper.date}</span></p>
+
+                            <div class="bg-blue-50 rounded-lg p-5 mb-8 shadow-inner">
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-indigo-200 pb-2">Abstract</h3>
+                                <p class="text-gray-700 leading-relaxed text-lg">${selectedPaper.abstract}</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-5 shadow-inner">
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b-2 border-gray-200 pb-2">Full Text</h3>
+                                <div class="text-gray-700 leading-relaxed text-justify text-lg">
+                                    ${selectedPaper.fullText}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // If paperId is provided but not found in mock data
+                    paperContentDiv.innerHTML = `
+                        <div class="text-center text-red-600 p-8">
+                            <svg class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h2 class="text-3xl font-bold mb-3">Paper Not Found</h2>
+                            <p class="text-xl">Sorry, a paper with the ID "<strong class="text-red-700">${paperId}</strong>" could not be found.</p>
+                            <p class="mt-6 text-gray-600 text-lg">Please check the URL or try a different paper ID.</p>
+                        </div>
+                    `;
+                }
+            } else {
+                // If no paperId is provided in the URL at all
+                paperContentDiv.innerHTML = `
+                    <div class="text-center text-gray-700 p-8">
+                        <svg class="h-16 w-16 text-indigo-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h4l2-2m-6-2h6m-5-5a2 2 0 110-4 2 2 0 010 4zm0 0l-1.5 5m5-5a2 2 0 110-4 2 2 0 010 4zm0 0l1.5 5M15 10l4.5-4.5M15 10l-4.5-4.5M15 10l4.5 4.5M15 10l-4.5 4.5"></path>
+                        </svg>
+                        <h2 class="text-3xl font-bold mb-3">No Paper Selected</h2>
+                        <p class="text-xl">To view a research paper, please provide a 'paperId' in the URL.</p>
+                        <p class="mt-6 text-gray-600 text-lg">Example: <code class="bg-gray-200 p-2 rounded-md font-mono text-sm">your-page.html?paperId=ehr-ai</code></p>
+                        <p class="mt-2 text-gray-500 text-base">Try <code class="bg-gray-200 p-1 rounded-md font-mono text-sm">ehr-ai</code>, <code class="bg-gray-200 p-1 rounded-md font-mono text-sm">quantum-computing-advances</code>, or <code class="bg-gray-200 p-1 rounded-md font-mono text-sm">renewable-energy-storage</code>.</p>
+                    </div>
+                `;
+            }
+
+            // Event listeners for Cite and Download buttons
+            document.getElementById('citeButton').addEventListener('click', function() {
+                const paperId = getQueryParam('paperId');
+                const selectedPaper = mockPapers[paperId];
+                if (selectedPaper) {
+                    document.getElementById('apaCite').innerText = generateCitation(selectedPaper, 'apa');
+                    document.getElementById('mlaCite').innerText = generateCitation(selectedPaper, 'mla');
+                    document.getElementById('chicagoCite').innerText = generateCitation(selectedPaper, 'chicago');
+                    showModal('citeModal');
+                } else {
+                    // Show a message box if no paper is selected
+                    paperContentDiv.innerHTML = `
+                        <div class="text-center text-red-600 p-8">
+                            <svg class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h2 class="text-3xl font-bold mb-3">No Paper Selected</h2>
+                            <p class="text-xl">Please select a paper to cite.</p>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('downloadButton').addEventListener('click', function() {
+                const paperId = getQueryParam('paperId');
+                if (paperId && mockPapers[paperId]) {
+                    showModal('downloadModal');
+                } else {
+                    // Show a message box if no paper is selected
+                    paperContentDiv.innerHTML = `
+                        <div class="text-center text-red-600 p-8">
+                            <svg class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h2 class="text-3xl font-bold mb-3">No Paper Selected</h2>
+                            <p class="text-xl">Please select a paper to download.</p>
+                        </div>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
