@@ -1,2258 +1,529 @@
-<!--
-    settings.html - Hesten's Learning Platform Enhanced Settings Page
-
-    Overview:
-    This HTML file provides an extensive settings page for Hesten's Learning, allowing users to deeply customize their experience. It maintains the styling conventions of the main index.html, utilizing Tailwind CSS for responsive design and a consistent look and feel.
-
-    Key Features:
-    - Responsive navigation bar (reused for consistency).
-    - Comprehensive main content area with numerous settings categories: General, Appearance, Content & Learning, Accessibility, Privacy & Data, Notifications.
-    - Interactive form elements: toggle switches, dropdowns, color inputs, range sliders, and buttons.
-    - Custom message box and confirmation modal for better user feedback (replacing browser defaults).
-    - Footer (reused for consistency).
-    - Dynamic year display and Google Translate widget.
-    - Uses Font Awesome for icons and Google Fonts for typography.
-    - Mobile-friendly with collapsible navigation and accessible ARIA labels.
-
-    Customization:
-    - Tailwind CSS configuration extends theme with custom colors defined via CSS variables, allowing dynamic runtime changes.
-    - JavaScript for navigation toggling, profile dropdown interaction, and dynamic settings functionality (font, colors, sizes, etc.).
-    - Settings are persisted using localStorage for a personalized experience across sessions.
-
-    Accessibility:
-    - ARIA labels on interactive elements.
-    - Keyboard and screen reader friendly navigation.
-    - High contrast and clear focus states.
-    - New accessibility options like line height, letter spacing, and reduced motion.
-
-    Licensing:
-    - Content is licensed under CC BY-NC-SA 4.0, with attribution in the footer.
--->
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
-      name="description"
-      content="Hesten's Learning - User Settings for personalized learning experience."
+        name="description"
+        content="Manage your account and accessibility preferences for Hesten's Learning."
     />
-    <meta
-      name="keywords"
-      content="settings, user customization, accessibility, privacy, notifications, online learning, theme, font, color"
-    />
-    <meta name="author" content="Hesten's Learning" />
-    <title>Settings - Hesten's Learning</title>
+    <title>Settings | Hesten's Learning</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- OpenDyslexic Font (Accessibility Feature) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    />
+
     <script>
-      // Define CSS variables for colors in the root, which Tailwind will then pick up
-      // This allows dynamic changes via JavaScript. Initial values are from index.html.
-      document.documentElement.style.setProperty("--color-primary", "#4F46E5");
-      document.documentElement.style.setProperty(
-        "--color-secondary",
-        "#6366F1"
-      );
-      document.documentElement.style.setProperty("--color-accent", "#818CF8");
-      document.documentElement.style.setProperty("--color-dark", "#1F2937");
-      document.documentElement.style.setProperty("--color-light", "#F3F4F6");
-      document.documentElement.style.setProperty(
-        "--color-header-bg",
-        "#1F2937"
-      ); /* Dark for header */
-      document.documentElement.style.setProperty(
-        "--color-footer-bg-from",
-        "#4F46E5"
-      ); /* Primary for footer gradient start */
-      document.documentElement.style.setProperty(
-        "--color-footer-bg-to",
-        "#6366F1"
-      ); /* Secondary for footer gradient end */
-      document.documentElement.style.setProperty(
-        "--color-link",
-        "#4F46E5"
-      ); /* Default link color */
-      document.documentElement.style.setProperty(
-        "--color-card-bg",
-        "#FFFFFF"
-      ); /* Default card background */
-      document.documentElement.style.setProperty(
-        "--border-radius-base",
-        "0.75rem"
-      ); /* Default rounded-xl */
+        // --- Tailwind Configuration with Dynamic CSS Variables ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
+                        dyslexic: ['"Open Dyslexic"', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#1D4ED8',
+                        'secondary': '#3B82F6',
+                        'accent': '#60A5FA',
+                        'base-bg': 'var(--color-base-bg, #F9FAFB)',
+                        'content-bg': 'var(--color-content-bg, #FFFFFF)',
+                        'text-default': 'var(--color-text-default, #1F2937)',
+                        'text-secondary': 'var(--color-text-secondary, #6B7280)',
+                    },
+                    transitionProperty: {
+                        'colors': 'background-color, border-color, color, fill, stroke',
+                    },
+                },
+            },
+        };
 
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              // Define custom fonts. 'Inter' and 'Open Sans' are already linked.
-              // Add more if needed, ensuring they are linked in <head>
-              sans: ["Inter", "sans-serif"],
-              serif: ["Georgia", "serif"],
-              mono: ['"Lucida Console"', "monospace"],
-              custom1: ['"Open Sans"', "sans-serif"],
-              // Add more fonts here if desired, e.g., 'Roboto', 'Montserrat'
-              roboto: ["Roboto", "sans-serif"],
-              montserrat: ["Montserrat", "sans-serif"],
-            },
-            colors: {
-              // Reference CSS variables for dynamic theming
-              primary: "var(--color-primary)",
-              secondary: "var(--color-secondary)",
-              accent: "var(--color-accent)",
-              dark: "var(--color-dark)",
-              light: "var(--color-light)",
-              // New dynamic colors
-              "header-bg": "var(--color-header-bg)",
-              "footer-bg-from": "var(--color-footer-bg-from)",
-              "footer-bg-to": "var(--color-footer-bg-to)",
-              "link-color": "var(--color-link)",
-              "card-bg": "var(--color-card-bg)",
-            },
-            borderRadius: {
-              "base-rounded": "var(--border-radius-base)",
-            },
-          },
-        },
-      };
+        // --- Global Accessibility/Theme State Management (DUPLICATED FOR STANDALONE FILE) ---
+        const defaultSettings = {
+            theme: 'light',
+            fontSize: 1.0,
+            lineHeight: 1.6,
+            dyslexiaFont: false,
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        };
+
+        const STORAGE_KEY = 'hl_accessibility_settings';
+
+        function loadSettings() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
+            } catch (e) {
+                console.error("Error loading settings from localStorage:", e);
+                return defaultSettings;
+            }
+        }
+
+        function saveSettings(settings) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+                applySettings(settings);
+            } catch (e) {
+                console.error("Error saving settings to localStorage:", e);
+            }
+        }
+
+        function applySettings(settings) {
+            const body = document.body;
+            body.className = '';
+            body.classList.add(settings.theme);
+            document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
+            document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
+            document.documentElement.style.setProperty(
+                '--site-font-family',
+                settings.dyslexiaFont ? '"Open Dyslexic", sans-serif' : 'Inter, sans-serif'
+            );
+            if (settings.reducedMotion) {
+                body.classList.add('reduced-motion');
+            } else {
+                body.classList.remove('reduced-motion');
+            }
+        }
+
+        // Initialize state globally
+        let currentSettings = loadSettings();
+        applySettings(currentSettings);
+
     </script>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      href="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png"
-      onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';"
-    />
-    <!-- Google Fonts for Inter, Open Sans, Roboto, Montserrat -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap"
-      title="Fonts: Inter, Open Sans, Roboto, Montserrat, Georgia, Lucida Console"
-      rel="stylesheet"
-    />
 
+    <!-- Custom Styles for Accessibility and Aesthetics -->
     <style>
-      /* Disable text selection */
-      body {
-        user-select: none;
-        /* Apply base font and colors using CSS variables */
-        font-family: var(--site-font, "Inter", sans-serif);
-        color: var(--color-dark);
-        background-color: var(--color-light);
-        transition: background-color 0.3s, color 0.3s, font-size 0.3s,
-          line-height 0.3s, letter-spacing 0.3s; /* Smooth transition for theme changes */
-        line-height: var(--site-line-height, 1.5); /* Default line height */
-        letter-spacing: var(
-          --site-letter-spacing,
-          0em
-        ); /* Default letter spacing */
-      }
-
-      /* Apply dynamic border radius to relevant elements */
-      .rounded-base-rounded {
-        border-radius: var(--border-radius-base);
-      }
-
-      /* Header and Footer backgrounds using CSS variables */
-      header {
-        background-color: var(--color-header-bg);
-      }
-      footer {
-        background: linear-gradient(
-          to right,
-          var(--color-footer-bg-from),
-          var(--color-footer-bg-to)
-        );
-      }
-      /* Link color */
-      a {
-        color: var(--color-link);
-      }
-      /* Card background */
-      .bg-card-bg {
-        background-color: var(--color-card-bg);
-      }
-
-      /* High contrast mode styles - will override if active */
-      body.high-contrast {
-        background-color: #000000 !important; /* Force pure black background */
-        color: #ffffff !important; /* Force pure white text */
-      }
-      body.high-contrast .bg-white,
-      body.high-contrast .bg-card-bg {
-        /* Apply to custom card background too */
-        background-color: #333333 !important; /* Darker cards in high contrast */
-        color: #ffffff !important;
-      }
-      body.high-contrast .text-gray-600,
-      body.high-contrast .text-gray-700,
-      body.high-contrast .text-gray-800,
-      body.high-contrast .text-gray-900 {
-        color: #ffffff !important; /* Ensure all text is white */
-      }
-      body.high-contrast .border-gray-200 {
-        border-color: #666666 !important; /* Adjust borders */
-      }
-      body.high-contrast .bg-gray-200 {
-        background-color: #666666 !important; /* Adjust toggle background */
-      }
-      body.high-contrast header,
-      body.high-contrast footer {
-        background-color: #111111 !important; /* Darker header/footer */
-        background-image: none !important; /* Remove gradient */
-      }
-      body.high-contrast a {
-        color: #ffff00 !important; /* High contrast links */
-      }
-
-      /* Dark mode styles */
-      body.dark-mode {
-        background-color: #1a202c; /* Tailwind gray-900 equivalent */
-        color: #e2e8f0; /* Tailwind gray-200 equivalent */
-      }
-      body.dark-mode .bg-white,
-      body.dark-mode .bg-card-bg {
-        background-color: #2d3748; /* Tailwind gray-800 equivalent */
-        color: #e2e8f0;
-      }
-      body.dark-mode .text-gray-600,
-      body.dark-mode .text-gray-700,
-      body.dark-mode .text-gray-800,
-      body.dark-mode .text-gray-900 {
-        color: #e2e8f0;
-      }
-      body.dark-mode .border-gray-200 {
-        border-color: #4a5568; /* Tailwind gray-600 equivalent */
-      }
-      body.dark-mode .bg-gray-200 {
-        background-color: #4a5568;
-      }
-      body.dark-mode header {
-        background-color: #2d3748; /* Darker header */
-      }
-      body.dark-mode footer {
-        background: linear-gradient(
-          to right,
-          #4c51bf,
-          #5a67d8
-        ); /* Darker gradient */
-      }
-      body.dark-mode a {
-        color: #9f7aea; /* Purple link for dark mode */
-      }
-
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--color-light);
-        border-radius: 5px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--color-primary);
-        border-radius: 5px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--color-secondary);
-      }
-      body.dark-mode ::-webkit-scrollbar-track {
-        background: #2d3748;
-      }
-      body.dark-mode ::-webkit-scrollbar-thumb {
-        background: #6366f1;
-      }
-      body.dark-mode ::-webkit-scrollbar-thumb:hover {
-        background: #818cf8;
-      }
-
-      /* Reduced motion style */
-      body.reduced-motion * {
-        transition-duration: 0s !important;
-        animation-duration: 0s !important;
-        scroll-behavior: auto !important;
-      }
+        /* Base styles from dynamic variables */
+        body {
+            background-color: var(--color-base-bg);
+            color: var(--color-text-default);
+            font-size: var(--site-font-size, 1rem);
+            line-height: var(--site-line-height, 1.6);
+            transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s;
+            min-height: 100vh;
+        }
+        /* --- THEMES --- */
+        .light {
+            --color-base-bg: #F9FAFB;
+            --color-content-bg: #FFFFFF;
+            --color-text-default: #1F2937;
+            --color-text-secondary: #374151;
+        }
+        .dark {
+            --color-base-bg: #111827;
+            --color-content-bg: #1F2937;
+            --color-text-default: #F9FAFB;
+            --color-text-secondary: #E5E7EB;
+        }
+        .dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.2); }
+        .high-contrast {
+            --color-base-bg: #000000;
+            --color-content-bg: #333333;
+            --color-text-default: #FFFF00;
+            --color-text-secondary: #FFFFFF;
+        }
+        .high-contrast a, .high-contrast .text-primary { color: #00FFFF !important; }
+        .high-contrast .bg-primary { background-color: #000000 !important; border: 2px solid #FFFF00 !important; color: #FFFF00 !important; }
+        .high-contrast .shadow-lg { box-shadow: 0 0 10px #FFFF00; }
+        /* --- ACCESSIBILITY UTILITIES --- */
+        .reduced-motion * {
+            transition-duration: 0s !important;
+            animation-duration: 0s !important;
+            scroll-behavior: auto !important;
+        }
+        #reading-mask {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); pointer-events: none; z-index: 50; transition: background-color 0s;
+        }
+        #reading-guide {
+            position: absolute; width: 100%; height: var(--guide-height, 2.5rem); background-color: rgba(255, 255, 255, 0.1); border-top: 2px solid var(--color-base-bg); border-bottom: 2px solid var(--color-base-bg); cursor: pointer; pointer-events: auto; transition: background-color 0.3s;
+        }
+        .dark #reading-guide, .high-contrast #reading-guide {
+            background-color: rgba(255, 255, 255, 0.05); border-top: 2px solid var(--color-text-default); border-bottom: 2px solid var(--color-text-default);
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--color-base-bg); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1D4ED8; }
+        .dark ::-webkit-scrollbar-track, .high-contrast ::-webkit-scrollbar-track { background: var(--color-content-bg); }
     </style>
-  </head>
-  <body class="bg-light text-dark flex flex-col min-h-screen">
-    <!-- Custom Message Box -->
-    <div
-      id="message-box"
-      class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm w-full"
-      >
-        <p
-          id="message-text"
-          class="text-lg font-semibold text-gray-800 mb-4"
-        ></p>
-        <button
-          id="message-ok-button"
-          class="bg-primary text-white hover:bg-secondary py-2 px-5 rounded-full font-medium transition duration-200"
-        >
-          OK
+</head>
+
+<body class="antialiased font-sans">
+    
+    <!-- ANNOUNCEMENT BAR (DUPLICATED) -->
+    <div id="announcement-bar" class="bg-primary text-white text-center py-2 flex items-center justify-center relative transition-colors duration-300">
+        <p class="text-sm font-medium" role="status">
+            ✨ New adaptive assessments for Grades 7-12 are now live!
+        </p>
+        <button id="close-announcement" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-accent p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-white" aria-label="Close announcement">
+            <i class="fas fa-times"></i>
         </button>
-      </div>
     </div>
 
-    <!-- Custom Confirmation Modal -->
-    <div
-      id="confirmation-modal"
-      class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm w-full"
-      >
-        <p
-          id="confirmation-text"
-          class="text-lg font-semibold text-gray-800 mb-4"
-        ></p>
-        <div class="flex justify-center space-x-4">
-          <button
-            id="confirm-yes-button"
-            class="bg-red-600 text-white hover:bg-red-700 py-2 px-5 rounded-full font-medium transition duration-200"
-          >
-            Yes
-          </button>
-          <button
-            id="confirm-no-button"
-            class="bg-gray-300 text-gray-800 hover:bg-gray-400 py-2 px-5 rounded-full font-medium transition duration-200"
-          >
-            No
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Bar (Reused from index.html) -->
-    <header class="bg-dark shadow-lg">
-      <div class="container mx-auto px-4 py-4">
-        <nav class="flex items-center justify-between flex-wrap">
-          <!-- Logo and brand name -->
-          <a
-            class="flex items-center flex-shrink-0 text-white mr-6"
-            href="/index.html"
-          >
-            <img
-              src="Images/large.ico"
-              alt="Company Logo"
-              class="rounded-full h-8 w-8 mr-2"
-              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';"
-            />
-            <span class="font-semibold text-xl tracking-tight"
-              >Hesten's Learning</span
-            >
-          </a>
-
-          <!-- Mobile menu button -->
-          <div class="block lg:hidden">
-            <button
-              id="nav-toggle"
-              class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white"
-            >
-              <svg
-                class="fill-current h-3 w-3"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
-              </svg>
+    <!-- NAVIGATION HEADER (DUPLICATED) -->
+    <header class="sticky top-0 z-40 bg-content-bg shadow-md transition-colors duration-300">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a class="flex items-center text-primary" href="index.html" aria-label="Hesten's Learning Home">
+                <i class="fas fa-brain text-2xl mr-2"></i>
+                <span class="font-extrabold text-xl tracking-wide">Hesten's Learning</span>
+            </a>
+            <button id="nav-toggle" class="lg:hidden p-2 text-text-default hover:text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary" aria-expanded="false" aria-controls="nav-content" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars text-xl"></i>
             </button>
-          </div>
-
-          <!-- Navigation links and search/profile -->
-          <div
-            class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden"
-            id="nav-content"
-          >
-            <div class="text-sm lg:flex-grow">
-              <a
-                href="/index.html"
-                class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md"
-              >
-                <i class="fas fa-home mr-1"></i> Home
-              </a>
-              <a
-                href="/learning.html"
-                class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md"
-              >
-                <i class="fas fa-book mr-1"></i> Learning
-              </a>
-              <a
-                href="/assessment.html"
-                class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white p-2 rounded-md"
-              >
-                <i class="fas fa-tasks mr-1"></i> Assessment
-              </a>
+            <div id="nav-content" class="absolute lg:static top-full left-0 w-full lg:w-auto bg-content-bg lg:bg-transparent shadow-lg lg:shadow-none z-30 hidden lg:flex flex-col lg:flex-row lg:items-center p-4 lg:p-0" aria-hidden="true">
+                <div class="text-base lg:flex-grow flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 mr-6">
+                    <a href="index.html" class="text-text-default hover:text-primary font-medium p-2 rounded-lg transition-colors duration-200"><i class="fas fa-home mr-1"></i> Home</a>
+                    <a href="/learning.html" class="text-text-default hover:text-primary font-medium p-2 rounded-lg transition-colors duration-200"><i class="fas fa-book-reader mr-1"></i> Subjects</a>
+                    <a href="/assessment.html" class="text-text-default hover:text-primary font-medium p-2 rounded-lg transition-colors duration-200"><i class="fas fa-tasks mr-1"></i> Assessments</a>
+                </div>
+                <div class="relative mt-4 lg:mt-0">
+                    <button id="profile-menu-button" type="button" aria-haspopup="true" aria-expanded="false" aria-label="User Profile and Settings menu" class="flex items-center text-text-default hover:text-primary focus:outline-none p-2 rounded-lg transition-colors duration-200">
+                        <i class="fas fa-user-circle text-2xl mr-2"></i>
+                        <span id="profile-name" class="font-medium">Guest</span>
+                        <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    </button>
+                    <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-content-bg rounded-xl shadow-2xl py-2 z-50 hidden border border-gray-200 dark:border-gray-700 transition-opacity">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-text-default hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fas fa-user mr-2"></i> Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-sm text-text-default hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fas fa-cog mr-2"></i> Account Settings</a>
+                        <div class="border-t border-gray-100 dark:border-gray-700 my-1"></div>
+                        <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/50"><i class="fas fa-sign-out-alt mr-2"></i> Sign Out</button>
+                    </div>
+                </div>
             </div>
-            <div class="relative">
-              <form id="search-form" action="/search.php" method="GET">
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search courses..."
-                  class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 transition-all duration-300 ease-in-out"
-                />
-                <i
-                  class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                ></i>
-              </form>
-            </div>
-            <div class="relative group ml-4">
-              <button
-                class="flex items-center text-gray-200 hover:text-white focus:outline-none p-2 rounded-md"
-                id="profile-menu-button"
-              >
-                <img
-                  id="profile-pic"
-                  src="Images/large.ico"
-                  alt="Profile Picture"
-                  class="rounded-full h-8 w-8 mr-2"
-                  onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';"
-                />
-                <span id="profile-name" class="hidden md:inline-block"
-                  >User</span
-                >
-                <i class="fas fa-chevron-down ml-2 text-xs"></i>
-              </button>
-              <div
-                id="profile-dropdown"
-                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block"
-              >
-                <a
-                  href="/profile.html"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  ><i class="fas fa-user mr-2"></i> Profile</a
-                >
-                <a
-                  href="/settings.html"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  ><i class="fas fa-cog mr-2"></i> Settings</a
-                >
-                <a
-                  href="/help.html"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  ><i class="fas fa-question-circle mr-2"></i> Help</a
-                >
-                <div class="border-t border-gray-100 my-1"></div>
-                <button
-                  id="sign-out"
-                  class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
+        </div>
     </header>
 
-    <!-- Main Content - Settings Page -->
-    <main class="flex-grow container mx-auto py-12 px-4">
-      <div class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">
-          <i class="fas fa-cog text-primary mr-3"></i> Settings
+    <!-- ACCESSIBILITY SETTINGS PANEL BUTTON (DUPLICATED) -->
+    <button id="a11y-toggle-button" class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-110" aria-label="Toggle Accessibility Settings Panel" aria-controls="a11y-settings-panel">
+        <i class="fas fa-universal-access text-2xl"></i>
+    </button>
+
+    <!-- ACCESSIBILITY SETTINGS PANEL (SIDEBAR - DUPLICATED) -->
+    <div id="a11y-settings-panel" class="fixed top-0 right-0 h-full w-72 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary" role="dialog" aria-modal="true" aria-label="Accessibility and Display Settings" aria-hidden="true">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
+            <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Close settings panel">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium mb-2 text-text-default">Display Mode</label>
+                <div class="flex space-x-2">
+                    <button id="theme-light" class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200" aria-label="Set theme to Light"><i class="fas fa-sun mr-1"></i> Light</button>
+                    <button id="theme-dark" class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200" aria-label="Set theme to Dark"><i class="fas fa-moon mr-1"></i> Dark</button>
+                    <button id="theme-contrast" class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200" aria-label="Set theme to High Contrast"><i class="fas fa-low-vision mr-1"></i> Contrast</button>
+                </div>
+            </div>
+            <div>
+                <label for="toggle-dyslexia" class="block text-sm font-medium mb-2 text-text-default">Dyslexia-Friendly Font</label>
+                <div class="flex items-center justify-between">
+                    <span class="text-text-secondary">Use OpenDyslexic</span>
+                    <input type="checkbox" id="toggle-dyslexia" class="toggle toggle-primary" role="switch" aria-checked="false">
+                </div>
+            </div>
+            <div>
+                <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span id="font-size-value">100</span>%)</label>
+                <input type="range" id="font-size-slider" min="0.8" max="1.4" step="0.1" value="1.0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
+                <div class="flex justify-between text-xs mt-1 text-text-secondary"><span>Small</span><span>Default</span><span>Large</span></div>
+            </div>
+            <div>
+                <label for="line-height-slider" class="block text-sm font-medium mb-2 text-text-default">Line Height / Spacing (<span id="line-height-value">1.6</span>)</label>
+                <input type="range" id="line-height-slider" min="1.3" max="2.0" step="0.1" value="1.6" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
+                <div class="flex justify-between text-xs mt-1 text-text-secondary"><span>Compact</span><span>Spacious</span></div>
+            </div>
+            <div>
+                <label for="toggle-reading-mask" class="block text-sm font-medium mb-2 text-text-default">Reading Guide/Mask</label>
+                <div class="flex items-center justify-between">
+                    <span class="text-text-secondary">Enable draggable guide</span>
+                    <input type="checkbox" id="toggle-reading-mask" class="toggle toggle-primary" role="switch" aria-checked="false">
+                </div>
+            </div>
+            <div>
+                <label for="toggle-reduced-motion" class="block text-sm font-medium mb-2 text-text-default">Reduce Animations</label>
+                <div class="flex items-center justify-between">
+                    <span class="text-text-secondary">Disable transitions and animations</span>
+                    <input type="checkbox" id="toggle-reduced-motion" class="toggle toggle-primary" role="switch" aria-checked="false">
+                </div>
+            </div>
+            <button id="reset-a11y-settings" class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                Reset All Settings
+            </button>
+        </div>
+    </div>
+    
+    <!-- READING MASK/GUIDE OVERLAY (DUPLICATED) -->
+    <div id="reading-mask" class="hidden"><div id="reading-guide" style="top: 30%"></div></div>
+    
+    <!-- MAIN CONTENT - SETTINGS -->
+    <main class="container mx-auto py-16 px-4">
+        <h1 class="text-4xl font-extrabold text-text-default mb-10 border-b pb-4">
+            <i class="fas fa-cog text-primary mr-3"></i> Account Settings
         </h1>
 
-        <!-- General Settings Section -->
-        <section class="mb-8 border-b pb-6 border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-sliders-h mr-2 text-secondary"></i> General
-            Settings
-          </h2>
-          <div class="space-y-6">
-            <!-- Default Landing Page -->
-            <div class="flex items-center justify-between">
-              <label for="landing-page-select" class="text-lg text-gray-600"
-                >Default Landing Page:</label
-              >
-              <select
-                id="landing-page-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="/index.html">Home</option>
-                <option value="/learning.html">Learning</option>
-                <option value="/assessment.html">Assessment</option>
-                <option value="/profile.html">Profile</option>
-              </select>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <!-- Left Navigation (Placeholder) -->
+            <nav class="lg:col-span-1 p-6 bg-content-bg rounded-xl shadow-lg h-min" aria-label="Settings Categories">
+                <ul class="space-y-2 font-medium">
+                    <li><a href="#account" class="block p-3 rounded-lg text-primary bg-primary/10 hover:bg-primary/20"><i class="fas fa-user-shield mr-2"></i> General Account</a></li>
+                    <li><a href="#accessibility-display" class="block p-3 rounded-lg text-text-default hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fas fa-palette mr-2"></i> Accessibility & Display</a></li>
+                    <li><a href="#security" class="block p-3 rounded-lg text-text-default hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fas fa-lock mr-2"></i> Security & Password</a></li>
+                    <li><a href="#billing" class="block p-3 rounded-lg text-text-default hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fas fa-credit-card mr-2"></i> Billing & Subscription</a></li>
+                </ul>
+            </nav>
 
-            <!-- Username Display -->
-            <div class="flex items-center justify-between">
-              <label for="username-display-input" class="text-lg text-gray-600"
-                >Username Display:</label
-              >
-              <input
-                type="text"
-                id="username-display-input"
-                placeholder="Your Display Name"
-                class="mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 p-2"
-              />
-            </div>
+            <!-- Settings Content -->
+            <div class="lg:col-span-2 space-y-12">
+                <!-- 1. General Account -->
+                <section id="account" class="p-8 bg-content-bg rounded-xl shadow-lg" aria-labelledby="account-title">
+                    <h2 id="account-title" class="text-2xl font-bold text-text-default mb-4 border-b pb-2">General Account Information</h2>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="full-name" class="block text-sm font-medium text-text-default">Full Name</label>
+                                <input type="text" id="full-name" value="Guest User" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-base-bg p-2 text-text-default">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-text-default">Email Address</label>
+                                <input type="email" id="email" value="guest@hestens.com" disabled class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-gray-200/50 dark:bg-gray-700/50 p-2 text-text-secondary" aria-describedby="email-help">
+                                <p id="email-help" class="mt-1 text-xs text-text-secondary">Email can only be changed by support.</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-primary text-white py-2 px-6 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">Save Changes</button>
+                    </form>
+                </section>
 
-            <!-- Language Selection -->
-            <div class="flex items-center justify-between">
-              <label for="language-select" class="text-lg text-gray-600"
-                >Language:</label
-              >
-              <select
-                id="language-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="en">English (US)</option>
-                <option value="es">Español (Spanish)</option>
-                <option value="fr">Français (French)</option>
-                <option value="de">Deutsch (German)</option>
-              </select>
-            </div>
+                <!-- 2. Accessibility & Display (Referencing the persistent sidebar) -->
+                <section id="accessibility-display" class="p-8 bg-content-bg rounded-xl shadow-lg" aria-labelledby="display-title">
+                    <h2 id="display-title" class="text-2xl font-bold text-text-default mb-4 border-b pb-2">Display Preferences</h2>
+                    <p class="text-text-secondary mb-4">All display and accessibility settings (Text Size, Dark Mode, Dyslexia Font, etc.) are controlled via the persistent <i class="fas fa-universal-access"></i> button at the bottom-right of every page.</p>
+                    <button id="open-a11y-settings" class="bg-accent text-white py-2 px-6 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
+                        Open Accessibility Panel
+                    </button>
+                </section>
 
-            <!-- Timezone Selection -->
-            <div class="flex items-center justify-between">
-              <label for="timezone-select" class="text-lg text-gray-600"
-                >Timezone:</label
-              >
-              <select
-                id="timezone-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="EST">Eastern Standard Time (EST)</option>
-                <option value="CST">Central Standard Time (CST)</option>
-                <option value="MST">Mountain Standard Time (MST)</option>
-                <option value="PST">Pacific Standard Time (PST)</option>
-                <option value="GMT">Greenwich Mean Time (GMT)</option>
-              </select>
+                <!-- 3. Security & Password (Placeholder) -->
+                <section id="security" class="p-8 bg-content-bg rounded-xl shadow-lg" aria-labelledby="security-title">
+                    <h2 id="security-title" class="text-2xl font-bold text-text-default mb-4 border-b pb-2">Security & Login</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="current-password" class="block text-sm font-medium text-text-default">Current Password</label>
+                            <input type="password" id="current-password" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-base-bg p-2 text-text-default">
+                        </div>
+                        <div>
+                            <label for="new-password" class="block text-sm font-medium text-text-default">New Password</label>
+                            <input type="password" id="new-password" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-base-bg p-2 text-text-default" aria-describedby="password-reqs">
+                            <p id="password-reqs" class="mt-1 text-xs text-text-secondary">Must be at least 8 characters long and include a symbol.</p>
+                        </div>
+                        <button type="submit" class="bg-primary text-white py-2 px-6 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">Change Password</button>
+                    </form>
+                </section>
             </div>
-
-            <!-- Profile Visibility Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Profile Visibility:</span>
-              <label
-                for="profile-visibility-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="profile-visibility-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900"
-                  >Public</span
-                >
-              </label>
-            </div>
-
-            <!-- Account Management Links -->
-            <div class="pt-4 space-y-3">
-              <a
-                href="/profile-picture.html"
-                class="block text-primary hover:underline"
-                ><i class="fas fa-image mr-2"></i> Change Profile Picture</a
-              >
-              <a
-                href="/change-password.html"
-                class="block text-primary hover:underline"
-                ><i class="fas fa-key mr-2"></i> Change Password</a
-              >
-              <a
-                href="/linked-accounts.html"
-                class="block text-primary hover:underline"
-                ><i class="fas fa-link mr-2"></i> Linked Accounts</a
-              >
-              <a
-                href="/activity-log.html"
-                class="block text-primary hover:underline"
-                ><i class="fas fa-history mr-2"></i> Account Activity Log</a
-              >
-            </div>
-          </div>
-        </section>
-
-        <!-- Appearance Settings Section -->
-        <section class="mb-8 border-b pb-6 border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-paint-brush mr-2 text-secondary"></i> Appearance
-          </h2>
-          <div class="space-y-6">
-            <!-- Dark Mode Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Dark Mode:</span>
-              <label
-                for="dark-mode-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="dark-mode-toggle"
-                  class="sr-only peer"
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">Off</span>
-              </label>
-            </div>
-
-            <!-- Font Family Selection -->
-            <div class="flex items-center justify-between">
-              <label for="font-family-select" class="text-lg text-gray-600"
-                >Font Family:</label
-              >
-              <select
-                id="font-family-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="Inter, sans-serif">Inter (Sans-serif)</option>
-                <option value="Georgia, serif">Georgia (Serif)</option>
-                <option value="'Lucida Console', monospace">
-                  Lucida Console (Monospace)
-                </option>
-                <option value="'Open Sans', sans-serif">
-                  Open Sans (Sans-serif)
-                </option>
-                <option value="Roboto, sans-serif">Roboto (Sans-serif)</option>
-                <option value="Montserrat, sans-serif">
-                  Montserrat (Sans-serif)
-                </option>
-              </select>
-            </div>
-
-            <!-- Accent Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="accent-color-picker" class="text-lg text-gray-600"
-                >Accent Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="accent-color-picker"
-                  value="#4F46E5"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span id="accent-color-value" class="ml-3 text-gray-700 text-sm"
-                  >#4F46E5</span
-                >
-              </div>
-            </div>
-
-            <!-- Text Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="text-color-picker" class="text-lg text-gray-600"
-                >Text Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="text-color-picker"
-                  value="#1F2937"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span id="text-color-value" class="ml-3 text-gray-700 text-sm"
-                  >#1F2937</span
-                >
-              </div>
-            </div>
-
-            <!-- Background Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="background-color-picker" class="text-lg text-gray-600"
-                >Background Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="background-color-picker"
-                  value="#F3F4F6"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span
-                  id="background-color-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >#F3F4F6</span
-                >
-              </div>
-            </div>
-
-            <!-- Header Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="header-color-picker" class="text-lg text-gray-600"
-                >Header Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="header-color-picker"
-                  value="#1F2937"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span id="header-color-value" class="ml-3 text-gray-700 text-sm"
-                  >#1F2937</span
-                >
-              </div>
-            </div>
-
-            <!-- Footer Color Selection (start of gradient) -->
-            <div class="flex items-center justify-between">
-              <label
-                for="footer-color-from-picker"
-                class="text-lg text-gray-600"
-                >Footer Start Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="footer-color-from-picker"
-                  value="#4F46E5"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span
-                  id="footer-color-from-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >#4F46E5</span
-                >
-              </div>
-            </div>
-
-            <!-- Footer Color Selection (end of gradient) -->
-            <div class="flex items-center justify-between">
-              <label for="footer-color-to-picker" class="text-lg text-gray-600"
-                >Footer End Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="footer-color-to-picker"
-                  value="#6366F1"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span
-                  id="footer-color-to-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >#6366F1</span
-                >
-              </div>
-            </div>
-
-            <!-- Link Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="link-color-picker" class="text-lg text-gray-600"
-                >Link Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="link-color-picker"
-                  value="#4F46E5"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span id="link-color-value" class="ml-3 text-gray-700 text-sm"
-                  >#4F46E5</span
-                >
-              </div>
-            </div>
-
-            <!-- Card Background Color Selection -->
-            <div class="flex items-center justify-between">
-              <label for="card-bg-color-picker" class="text-lg text-gray-600"
-                >Card Background Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="card-bg-color-picker"
-                  value="#FFFFFF"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span
-                  id="card-bg-color-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >#FFFFFF</span
-                >
-              </div>
-            </div>
-
-            <!-- Border Radius Slider -->
-            <div class="flex items-center justify-between">
-              <label for="border-radius-range" class="text-lg text-gray-600"
-                >Element Roundness:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="range"
-                  id="border-radius-range"
-                  min="0"
-                  max="20"
-                  value="12"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-primary"
-                />
-                <span
-                  id="border-radius-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >12px</span
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Content & Learning Preferences Section -->
-        <section class="mb-8 border-b pb-6 border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-book-reader mr-2 text-secondary"></i> Content &
-            Learning
-          </h2>
-          <div class="space-y-6">
-            <!-- Learning Pace Preference -->
-            <div class="flex items-center justify-between">
-              <label for="learning-pace-select" class="text-lg text-gray-600"
-                >Learning Pace:</label
-              >
-              <select
-                id="learning-pace-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="standard">Standard</option>
-                <option value="accelerated">Accelerated</option>
-                <option value="self-paced">Self-Paced</option>
-              </select>
-            </div>
-
-            <!-- Subject Interests -->
-            <div
-              class="flex flex-col md:flex-row md:items-center justify-between"
-            >
-              <span class="text-lg text-gray-600 mb-2 md:mb-0"
-                >Subject Interests:</span
-              >
-              <div class="flex flex-wrap gap-2 md:w-1/2 md:justify-end">
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="math"
-                    checked
-                  />
-                  <span class="ml-2 text-gray-700">Math</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="ela"
-                  />
-                  <span class="ml-2 text-gray-700">ELA</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="science"
-                  />
-                  <span class="ml-2 text-gray-700">Science</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="history"
-                  />
-                  <span class="ml-2 text-gray-700">History</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Content Difficulty -->
-            <div class="flex items-center justify-between">
-              <label
-                for="content-difficulty-select"
-                class="text-lg text-gray-600"
-                >Content Difficulty:</label
-              >
-              <select
-                id="content-difficulty-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </div>
-
-            <!-- Media Type Preference -->
-            <div
-              class="flex flex-col md:flex-row md:items-center justify-between"
-            >
-              <span class="text-lg text-gray-600 mb-2 md:mb-0"
-                >Preferred Media:</span
-              >
-              <div class="flex flex-wrap gap-2 md:w-1/2 md:justify-end">
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="videos"
-                    checked
-                  />
-                  <span class="ml-2 text-gray-700">Videos</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="text"
-                  />
-                  <span class="ml-2 text-gray-700">Text</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox rounded text-primary"
-                    value="interactive"
-                  />
-                  <span class="ml-2 text-gray-700">Interactive</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Lesson Completion Tracking Display -->
-            <div class="flex items-center justify-between">
-              <label
-                for="completion-display-select"
-                class="text-lg text-gray-600"
-                >Progress Display:</label
-              >
-              <select
-                id="completion-display-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="percentage">Percentage</option>
-                <option value="completed-modules">Completed Modules</option>
-                <option value="time-spent">Time Spent</option>
-              </select>
-            </div>
-
-            <!-- Quiz/Assessment Settings -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Show Quiz Timers:</span>
-              <label
-                for="quiz-timer-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="quiz-timer-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Instant Quiz Feedback:</span>
-              <label
-                for="instant-feedback-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="instant-feedback-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-
-            <!-- Recommended Content Settings Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Enable Recommendations:</span>
-              <label
-                for="recommendations-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="recommendations-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-          </div>
-        </section>
-
-        <!-- Accessibility Settings Section -->
-        <section class="mb-8 border-b pb-6 border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-universal-access mr-2 text-secondary"></i>
-            Accessibility
-          </h2>
-          <div class="space-y-6">
-            <!-- High Contrast Mode Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">High Contrast Mode:</span>
-              <label
-                for="contrast-mode-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="contrast-mode-toggle"
-                  class="sr-only peer"
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">Off</span>
-              </label>
-            </div>
-
-            <!-- Reduced Motion Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Reduced Motion:</span>
-              <label
-                for="reduced-motion-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="reduced-motion-toggle"
-                  class="sr-only peer"
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">Off</span>
-              </label>
-            </div>
-
-            <!-- Base Font Size Adjustment -->
-            <div class="flex items-center justify-between">
-              <label for="font-size-range" class="text-lg text-gray-600"
-                >Base Font Size:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="range"
-                  id="font-size-range"
-                  min="14"
-                  max="20"
-                  value="16"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-primary"
-                />
-                <span id="font-size-value" class="ml-3 text-gray-700 text-sm"
-                  >16px</span
-                >
-              </div>
-            </div>
-
-            <!-- Line Height Adjustment -->
-            <div class="flex items-center justify-between">
-              <label for="line-height-range" class="text-lg text-gray-600"
-                >Line Height:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="range"
-                  id="line-height-range"
-                  min="1.0"
-                  max="2.0"
-                  step="0.1"
-                  value="1.5"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-primary"
-                />
-                <span id="line-height-value" class="ml-3 text-gray-700 text-sm"
-                  >1.5</span
-                >
-              </div>
-            </div>
-
-            <!-- Letter Spacing Adjustment -->
-            <div class="flex items-center justify-between">
-              <label for="letter-spacing-range" class="text-lg text-gray-600"
-                >Letter Spacing:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="range"
-                  id="letter-spacing-range"
-                  min="0"
-                  max="0.1"
-                  step="0.01"
-                  value="0"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-primary"
-                />
-                <span
-                  id="letter-spacing-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >0em</span
-                >
-              </div>
-            </div>
-
-            <!-- Screen Reader Optimization Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600"
-                >Screen Reader Optimization:</span
-              >
-              <label
-                for="screen-reader-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="screen-reader-toggle"
-                  class="sr-only peer"
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">Off</span>
-              </label>
-            </div>
-
-            <!-- Keyboard Navigation Focus Indicators -->
-            <div class="flex items-center justify-between">
-              <label
-                for="focus-indicator-color-picker"
-                class="text-lg text-gray-600"
-                >Focus Indicator Color:</label
-              >
-              <div class="flex items-center w-1/2 md:w-1/3">
-                <input
-                  type="color"
-                  id="focus-indicator-color-picker"
-                  value="#4F46E5"
-                  class="w-12 h-8 rounded-md border border-gray-300 cursor-pointer p-0.5"
-                />
-                <span
-                  id="focus-indicator-color-value"
-                  class="ml-3 text-gray-700 text-sm"
-                  >#4F46E5</span
-                >
-              </div>
-            </div>
-
-            <!-- Animations Toggle (kept here for accessibility context) -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600"
-                >Enable Decorative Animations:</span
-              >
-              <label
-                for="animations-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="animations-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-          </div>
-        </section>
-
-        <!-- Privacy Settings Section -->
-        <section class="mb-8 border-b pb-6 border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-shield-alt mr-2 text-secondary"></i> Privacy & Data
-          </h2>
-          <div class="space-y-6">
-            <!-- Data Sharing Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Share Usage Data:</span>
-              <label
-                for="data-sharing-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="data-sharing-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900"
-                  >Enabled</span
-                >
-              </label>
-            </div>
-
-            <!-- Personalized Content Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Personalized Content:</span>
-              <label
-                for="personalized-content-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="personalized-content-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900"
-                  >Enabled</span
-                >
-              </label>
-            </div>
-
-            <!-- Third-Party Integrations Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600"
-                >Enable Third-Party Integrations:</span
-              >
-              <label
-                for="third-party-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="third-party-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-
-            <!-- Data Management Links -->
-            <div class="pt-4 space-y-3">
-              <a
-                href="/cookie-preferences.html"
-                class="block text-primary hover:underline"
-                ><i class="fas fa-cookie-bite mr-2"></i> Cookie Preferences</a
-              >
-              <button
-                id="download-data-button"
-                class="block text-primary hover:underline bg-transparent border-none p-0 cursor-pointer text-left"
-              >
-                <i class="fas fa-download mr-2"></i> Download My Data
-              </button>
-            </div>
-
-            <!-- Delete Account Button -->
-            <div class="pt-4">
-              <button
-                id="delete-account-button"
-                class="bg-red-600 text-white hover:bg-red-700 py-2 px-4 rounded-lg font-medium transition duration-200 shadow-md"
-              >
-                <i class="fas fa-trash-alt mr-2"></i> Delete Account
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Notifications Settings Section -->
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-700 mb-4 flex items-center">
-            <i class="fas fa-bell mr-2 text-secondary"></i> Notifications
-          </h2>
-          <div class="space-y-6">
-            <!-- Email Notifications Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Email Notifications:</span>
-              <label
-                for="email-notifications-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="email-notifications-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-
-            <!-- Push Notifications Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Push Notifications:</span>
-              <label
-                for="push-notifications-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="push-notifications-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-
-            <!-- Notification Sound Toggle -->
-            <div class="flex items-center justify-between">
-              <span class="text-lg text-gray-600">Notification Sounds:</span>
-              <label
-                for="notification-sound-toggle"
-                class="relative inline-flex items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  id="notification-sound-toggle"
-                  class="sr-only peer"
-                  checked
-                />
-                <div
-                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
-                ></div>
-                <span class="ml-3 text-sm font-medium text-gray-900">On</span>
-              </label>
-            </div>
-
-            <!-- In-App Notification Display -->
-            <div class="flex items-center justify-between">
-              <label for="in-app-display-select" class="text-lg text-gray-600"
-                >In-App Display:</label
-              >
-              <select
-                id="in-app-display-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="banner">Banner</option>
-                <option value="pop-up">Pop-up</option>
-                <option value="subtle-icon">Subtle Icon</option>
-              </select>
-            </div>
-
-            <!-- Notification Frequency -->
-            <div class="flex items-center justify-between">
-              <label
-                for="notification-frequency-select"
-                class="text-lg text-gray-600"
-                >Frequency:</label
-              >
-              <select
-                id="notification-frequency-select"
-                class="form-select mt-1 block w-1/2 md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              >
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-          </div>
-        </section>
-
-        <!-- Save Changes Button -->
-        <div class="text-center mt-8">
-          <button
-            id="save-settings-button"
-            class="bg-primary text-white hover:bg-secondary py-3 px-8 rounded-full font-bold shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-            aria-label="Save Settings"
-          >
-            <i class="fas fa-save mr-2"></i> Save Changes
-          </button>
         </div>
-      </div>
     </main>
 
-    <!-- Footer (Reused from index.html) -->
-    <footer
-      class="bg-gradient-to-r from-primary to-secondary text-white py-10 px-4 rounded-t-xl shadow-lg mt-auto"
-    >
-      <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- About -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center">
-            <i class="fas fa-graduation-cap mr-2"></i> About
-          </h3>
-          <p class="text-sm opacity-90">
-            Empowering students with learning disabilities through personalized
-            learning experiences.
-            <a
-              href="/about.html"
-              class="text-accent underline hover:text-white ml-1"
-              >Learn more</a
-            >
-          </p>
+    <!-- FOOTER (DUPLICATED) -->
+    <footer class="bg-primary text-white py-12 px-4 rounded-t-xl shadow-inner mt-16" role="contentinfo">
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-5 gap-8">
+            <div class="col-span-2 md:col-span-1"><h3 class="text-lg font-bold mb-4">Hesten's Learning</h3><p class="text-sm opacity-90">Tools and curriculum built to support diverse learning styles and empower students globally.</p></div>
+            <div><h4 class="text-base font-semibold mb-4">Quick Links</h4><ul class="space-y-3 text-sm"><li><a href="/curriculum" class="hover:text-accent transition"><i class="fas fa-book mr-2"></i>Curriculum Map</a></li><li><a href="/research" class="hover:text-accent transition"><i class="fas fa-flask mr-2"></i>Research</a></li><li><a href="/help" class="hover:text-accent transition"><i class="fas fa-question-circle mr-2"></i>Help Center</a></li></ul></div>
+            <div><h4 class="text-base font-semibold mb-4">Support</h4><ul class="space-y-3 text-sm"><li><a href="/contact.html" class="hover:text-accent transition"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li><li><a href="/parents.html" class="hover:text-accent transition"><i class="fas fa-users mr-2"></i>For Parents</a></li><li><a href="/teachers.html" class="hover:text-accent transition"><i class="fas fa-chalkboard-teacher mr-2"></i>For Teachers</a></li></ul></div>
+            <div><h4 class="text-base font-semibold mb-4">Legal</h4><ul class="space-y-3 text-sm"><li><a href="/privacy.html" class="hover:text-accent transition"><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</a></li><li><a href="/terms.html" class="hover:text-accent transition"><i class="fas fa-file-contract mr-2"></i>Terms of Use</a></li><li><a href="/accessibility.html" class="hover:text-accent transition"><i class="fas fa-universal-access mr-2"></i>Our A11y Statement</a></li></ul></div>
+            <div class="col-span-2 md:col-span-1"><h4 class="text-base font-semibold mb-4">Translate</h4><div class="gtranslate_wrapper text-black"></div><script>window.gtranslateSettings = {default_language: "en", native_language_names: true, detect_browser_language: true, wrapper_selector: ".gtranslate_wrapper", flag_style: "3d", alt_flags: { en: "usa" },};</script><script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script></div>
         </div>
-        <!-- Quick Links -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center">
-            <i class="fas fa-link mr-2"></i> Quick Links
-          </h3>
-          <ul class="space-y-2">
-            <li>
-              <a
-                href="/curriculum"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-book mr-2"></i>Curriculum</a
-              >
-            </li>
-            <li>
-              <a
-                href="/research/index.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-flask mr-2"></i>Research</a
-              >
-            </li>
-            <li>
-              <a
-                href="/standard"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-chart-line mr-2"></i>Standards</a
-              >
-            </li>
-            <li>
-              <a
-                href="/help"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-question-circle mr-2"></i>Help Center</a
-              >
-            </li>
-          </ul>
+        <div class="mt-10 border-t border-accent pt-6 text-center text-sm opacity-90">
+            <p>&copy; <span id="year"></span> Hesten's Learning. All rights reserved.<span class="mx-2">|</span>Made with <i class="fas fa-heart text-red-400"></i> for inclusive education.</p>
         </div>
-        <!-- Support -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center">
-            <i class="fas fa-hands-helping mr-2"></i> Support
-          </h3>
-          <ul class="space-y-2">
-            <li>
-              <a
-                href="/contact.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-envelope mr-2"></i>Contact Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="/students.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-home mr-2"></i>For Students</a
-              >
-            </li>
-            <li>
-              <a
-                href="/parents.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-users mr-2"></i>For Parents</a
-              >
-            </li>
-            <li>
-              <a
-                href="/teachers.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-chalkboard-teacher mr-2"></i>For Teachers</a
-              >
-            </li>
-          </ul>
-        </div>
-        <!-- Legal & Settings -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center">
-            <i class="fas fa-balance-scale mr-2"></i> Legal & Settings
-          </h3>
-          <ul class="space-y-2">
-            <li>
-              <a
-                href="/privacy.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</a
-              >
-            </li>
-            <li>
-              <a
-                href="/terms.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-file-contract mr-2"></i>Terms of Use</a
-              >
-            </li>
-            <li>
-              <a
-                href="/accessibility.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-universal-access mr-2"></i>Accessibility</a
-              >
-            </li>
-            <li>
-              <a
-                href="/about-us.html"
-                class="hover:underline hover:text-accent transition"
-                ><i class="fas fa-info-circle mr-2"></i>About Us</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div
-        class="mt-10 border-t border-accent pt-6 text-center text-sm opacity-90"
-      >
-        <p>
-          &copy; <span id="year"></span> Hesten's Learning. All rights reserved.
-          <span class="mx-2">|</span>
-          Made with <i class="fas fa-heart text-red-400"></i> for education
-        </p>
-        <p class="mt-2">
-          <a
-            property="dct:title"
-            rel="cc:attributionURL"
-            href="http://hestena62.com"
-            class="text-accent underline hover:text-white"
-            >Hesten's Learning</a
-          >
-          by
-          <a
-            rel="cc:attributionURL dct:creator"
-            property="cc:attributionName"
-            href="http://hestena62.com/about-me.html"
-            class="text-accent underline hover:text-white"
-            >Hesten Allison</a
-          >
-          is licensed under
-          <a
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
-            target="_blank"
-            rel="license noopener noreferrer"
-            class="text-accent underline hover:text-white"
-            >CC BY-NC-SA 4.0</a
-          >
-        </p>
-        <div class="gtranslate_wrapper mt-4"></div>
-        <script>
-          window.gtranslateSettings = {
-            default_language: "en",
-            native_language_names: true,
-            detect_browser_language: true,
-            wrapper_selector: ".gtranslate_wrapper",
-            flag_style: "3d",
-            alt_flags: { en: "usa" },
-          };
-        </script>
-        <script
-          src="https://cdn.gtranslate.net/widgets/latest/popup.js"
-          defer
-        ></script>
-        <div class="mt-4 flex justify-center">
-          <a
-            href="#"
-            onclick="window.open('https://www.sitelock.com/verify.php?site=hestena62.com','SiteLock','width=600,height=600,left=160,top=170');"
-            title="SiteLock"
-          >
-            <img
-              alt="SiteLock"
-              src="https://shield.sitelock.com/shield/hestena62.com"
-              class="h-8 w-auto rounded shadow"
-            />
-          </a>
-        </div>
-      </div>
     </footer>
 
-    <!-- Script to dynamically set the current year and handle settings interactions -->
+    <!-- --- GLOBAL MODAL STRUCTURES (DUPLICATED) --- -->
+    <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]" role="alertdialog" aria-modal="true" aria-labelledby="message-title">
+        <div class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
+            <h4 id="message-title" class="text-xl font-bold mb-4 text-primary">Notification</h4>
+            <p id="message-text" class="mb-6 text-text-default">This is a general message.</p>
+            <button id="message-ok-button" class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">OK</button>
+        </div>
+    </div>
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]" role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
+        <div class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
+            <h4 id="confirmation-title" class="text-xl font-bold mb-4 text-red-500">Confirm Action</h4>
+            <p id="confirmation-text" class="mb-6 text-text-default">Are you sure you want to proceed?</p>
+            <div class="flex justify-center space-x-4">
+                <button id="confirm-yes-button" class="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400">Yes</button>
+                <button id="confirm-no-button" class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- JAVASCRIPT LOGIC (DUPLICATED) --- -->
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // Toggle mobile navigation
-      const navToggle = document.getElementById("nav-toggle");
-      const navContent = document.getElementById("nav-content");
-
-      navToggle.addEventListener("click", function () {
-        navContent.classList.toggle("hidden");
-      });
-
-      // Profile dropdown functionality
-      const profileMenuButton = document.getElementById("profile-menu-button");
-      const profileDropdown = document.getElementById("profile-dropdown");
-
-      profileMenuButton.addEventListener("click", function (event) {
-        event.stopPropagation(); // Prevent document click from closing immediately
-        profileDropdown.classList.toggle("hidden");
-      });
-
-      // Close dropdown if clicked outside
-      document.addEventListener("click", function (event) {
-        if (
-          !profileMenuButton.contains(event.target) &&
-          !profileDropdown.contains(event.target)
-        ) {
-          profileDropdown.classList.add("hidden");
-        }
-      });
-
-      // --- Custom Message Box and Confirmation Modal Functions ---
-      const messageBox = document.getElementById("message-box");
-      const messageText = document.getElementById("message-text");
-      const messageOkButton = document.getElementById("message-ok-button");
-
-      const confirmationModal = document.getElementById("confirmation-modal");
-      const confirmationText = document.getElementById("confirmation-text");
-      const confirmYesButton = document.getElementById("confirm-yes-button");
-      const confirmNoButton = document.getElementById("confirm-no-button");
-
-      function showMessageBox(message) {
-        messageText.textContent = message;
-        messageBox.classList.remove("hidden");
-        messageOkButton.onclick = () => messageBox.classList.add("hidden");
-      }
-
-      function showConfirmationModal(message, onConfirm) {
-        confirmationText.textContent = message;
-        confirmationModal.classList.remove("hidden");
-
-        confirmYesButton.onclick = () => {
-          confirmationModal.classList.add("hidden");
-          onConfirm(true);
+        document.getElementById("year").textContent = new Date().getFullYear();
+        const messageBox = document.getElementById("message-box");
+        const messageText = document.getElementById("message-text");
+        const messageOkButton = document.getElementById("message-ok-button");
+        const confirmationModal = document.getElementById("confirmation-modal");
+        const confirmationText = document.getElementById("confirmation-text");
+        const confirmYesButton = document.getElementById("confirm-yes-button");
+        const confirmNoButton = document.getElementById("confirm-no-button");
+        let lastFocusedElement = null;
+        const trapFocus = (element) => {
+            const focusableEls = element.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+            if (focusableEls.length > 0) { focusableEls[0].focus(); }
         };
-        confirmNoButton.onclick = () => {
-          confirmationModal.classList.add("hidden");
-          onConfirm(false);
-        };
-      }
-
-      // --- Settings Page Specific JavaScript ---
-
-      const root = document.documentElement; // Get the root HTML element for CSS variables
-      const bodyElement = document.body;
-
-      // Helper function to set CSS variable and save to localStorage
-      function setCssVarAndSave(varName, value, localStorageKey) {
-        root.style.setProperty(varName, value);
-        localStorage.setItem(localStorageKey, value);
-      }
-
-      // Helper function to load CSS variable and set input value
-      function loadCssVarAndSetInput(
-        varName,
-        inputElement,
-        localStorageKey,
-        displayElement = null
-      ) {
-        const storedValue = localStorage.getItem(localStorageKey);
-        if (storedValue) {
-          setCssVarAndSave(varName, storedValue, localStorageKey); // Apply to root
-          inputElement.value = storedValue; // Set input value
-          if (displayElement) {
-            displayElement.textContent = storedValue.toUpperCase();
-          }
+        function showMessageBox(message) {
+            lastFocusedElement = document.activeElement;
+            messageText.textContent = message;
+            messageBox.classList.remove("hidden");
+            messageBox.style.display = 'flex';
+            trapFocus(messageBox);
+            messageOkButton.onclick = () => {
+                messageBox.classList.add("hidden");
+                messageBox.style.display = 'none';
+                if (lastFocusedElement) lastFocusedElement.focus();
+            };
         }
-      }
-
-      // --- General Settings ---
-      const landingPageSelect = document.getElementById("landing-page-select");
-      landingPageSelect.addEventListener("change", function () {
-        localStorage.setItem("defaultLandingPage", this.value);
-      });
-
-      const usernameDisplayInput = document.getElementById(
-        "username-display-input"
-      );
-      usernameDisplayInput.addEventListener("input", function () {
-        localStorage.setItem("usernameDisplay", this.value);
-        // You might want to update the profile name in the header here as well
-        document.getElementById("profile-name").textContent =
-          this.value || "User";
-      });
-
-      const languageSelect = document.getElementById("language-select");
-      languageSelect.addEventListener("change", function () {
-        localStorage.setItem("userLanguage", this.value);
-        // In a real app, you'd trigger a language change mechanism here
-      });
-
-      const timezoneSelect = document.getElementById("timezone-select");
-      timezoneSelect.addEventListener("change", function () {
-        localStorage.setItem("userTimezone", this.value);
-      });
-
-      const profileVisibilityToggle = document.getElementById(
-        "profile-visibility-toggle"
-      );
-      profileVisibilityToggle.addEventListener("change", function () {
-        localStorage.setItem("profileVisibility", this.checked);
-      });
-
-      // --- Appearance Settings ---
-      const darkModeToggle = document.getElementById("dark-mode-toggle");
-      darkModeToggle.addEventListener("change", function () {
-        if (this.checked) {
-          bodyElement.classList.add("dark-mode");
-          localStorage.setItem("darkMode", "true");
-        } else {
-          bodyElement.classList.remove("dark-mode");
-          localStorage.setItem("darkMode", "false");
+        function showConfirmationModal(message, onConfirm) {
+            lastFocusedElement = document.activeElement;
+            confirmationText.textContent = message;
+            confirmationModal.classList.remove("hidden");
+            confirmationModal.style.display = 'flex';
+            trapFocus(confirmationModal);
+            const handleConfirmation = (result) => {
+                confirmationModal.classList.add("hidden");
+                confirmationModal.style.display = 'none';
+                if (lastFocusedElement) lastFocusedElement.focus();
+                onConfirm(result);
+            };
+            confirmYesButton.onclick = () => handleConfirmation(true);
+            confirmNoButton.onclick = () => handleConfirmation(false);
         }
-        // Ensure high contrast mode is off if dark mode is toggled on, or vice-versa, to prevent conflicts
-        if (this.checked && contrastModeToggle.checked) {
-          contrastModeToggle.checked = false;
-          bodyElement.classList.remove("high-contrast");
-          localStorage.setItem("highContrastMode", "false");
-        }
-      });
-
-      const fontFamilySelect = document.getElementById("font-family-select");
-      fontFamilySelect.addEventListener("change", function () {
-        setCssVarAndSave("--site-font", this.value, "userFontFamily");
-      });
-
-      const accentColorPicker = document.getElementById("accent-color-picker");
-      const accentColorValue = document.getElementById("accent-color-value");
-      accentColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-primary", this.value, "userAccentColor");
-        accentColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const textColorPicker = document.getElementById("text-color-picker");
-      const textColorValue = document.getElementById("text-color-value");
-      textColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-dark", this.value, "userTextColor");
-        textColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const backgroundColorPicker = document.getElementById(
-        "background-color-picker"
-      );
-      const backgroundColorValue = document.getElementById(
-        "background-color-value"
-      );
-      backgroundColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-light", this.value, "userBackgroundColor");
-        backgroundColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const headerColorPicker = document.getElementById("header-color-picker");
-      const headerColorValue = document.getElementById("header-color-value");
-      headerColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-header-bg", this.value, "userHeaderColor");
-        headerColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const footerColorFromPicker = document.getElementById(
-        "footer-color-from-picker"
-      );
-      const footerColorFromValue = document.getElementById(
-        "footer-color-from-value"
-      );
-      footerColorFromPicker.addEventListener("input", function () {
-        setCssVarAndSave(
-          "--color-footer-bg-from",
-          this.value,
-          "userFooterColorFrom"
-        );
-        footerColorFromValue.textContent = this.value.toUpperCase();
-      });
-
-      const footerColorToPicker = document.getElementById(
-        "footer-color-to-picker"
-      );
-      const footerColorToValue = document.getElementById(
-        "footer-color-to-value"
-      );
-      footerColorToPicker.addEventListener("input", function () {
-        setCssVarAndSave(
-          "--color-footer-bg-to",
-          this.value,
-          "userFooterColorTo"
-        );
-        footerColorToValue.textContent = this.value.toUpperCase();
-      });
-
-      const linkColorPicker = document.getElementById("link-color-picker");
-      const linkColorValue = document.getElementById("link-color-value");
-      linkColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-link", this.value, "userLinkColor");
-        linkColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const cardBgColorPicker = document.getElementById("card-bg-color-picker");
-      const cardBgColorValue = document.getElementById("card-bg-color-value");
-      cardBgColorPicker.addEventListener("input", function () {
-        setCssVarAndSave("--color-card-bg", this.value, "userCardBgColor");
-        cardBgColorValue.textContent = this.value.toUpperCase();
-      });
-
-      const borderRadiusRange = document.getElementById("border-radius-range");
-      const borderRadiusValue = document.getElementById("border-radius-value");
-      borderRadiusRange.addEventListener("input", function () {
-        const radius = this.value + "px";
-        setCssVarAndSave("--border-radius-base", radius, "userBorderRadius");
-        borderRadiusValue.textContent = radius;
-      });
-
-      // --- Content & Learning Preferences ---
-      const learningPaceSelect = document.getElementById(
-        "learning-pace-select"
-      );
-      learningPaceSelect.addEventListener("change", function () {
-        localStorage.setItem("learningPace", this.value);
-      });
-
-      const subjectInterestsCheckboxes = document.querySelectorAll(
-        'input[type="checkbox"][value="math"], input[type="checkbox"][value="ela"], input[type="checkbox"][value="science"], input[type="checkbox"][value="history"]'
-      );
-      subjectInterestsCheckboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-          const selectedSubjects = Array.from(subjectInterestsCheckboxes)
-            .filter((cb) => cb.checked)
-            .map((cb) => cb.value);
-          localStorage.setItem(
-            "subjectInterests",
-            JSON.stringify(selectedSubjects)
-          );
+        const navToggle = document.getElementById("nav-toggle");
+        const navContent = document.getElementById("nav-content");
+        navToggle.addEventListener("click", function () {
+            const isHidden = navContent.classList.toggle("hidden");
+            this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+            navContent.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
         });
-      });
-
-      const contentDifficultySelect = document.getElementById(
-        "content-difficulty-select"
-      );
-      contentDifficultySelect.addEventListener("change", function () {
-        localStorage.setItem("contentDifficulty", this.value);
-      });
-
-      const mediaTypePreferenceCheckboxes = document.querySelectorAll(
-        'input[type="checkbox"][value="videos"], input[type="checkbox"][value="text"], input[type="checkbox"][value="interactive"]'
-      );
-      mediaTypePreferenceCheckboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-          const selectedMediaTypes = Array.from(mediaTypePreferenceCheckboxes)
-            .filter((cb) => cb.checked)
-            .map((cb) => cb.value);
-          localStorage.setItem(
-            "mediaTypePreference",
-            JSON.stringify(selectedMediaTypes)
-          );
+        const profileMenuButton = document.getElementById("profile-menu-button");
+        const profileDropdown = document.getElementById("profile-dropdown");
+        profileMenuButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const isHidden = profileDropdown.classList.toggle("hidden");
+            this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
         });
-      });
-
-      const completionDisplaySelect = document.getElementById(
-        "completion-display-select"
-      );
-      completionDisplaySelect.addEventListener("change", function () {
-        localStorage.setItem("completionDisplay", this.value);
-      });
-
-      const quizTimerToggle = document.getElementById("quiz-timer-toggle");
-      quizTimerToggle.addEventListener("change", function () {
-        localStorage.setItem("quizTimerEnabled", this.checked);
-      });
-
-      const instantFeedbackToggle = document.getElementById(
-        "instant-feedback-toggle"
-      );
-      instantFeedbackToggle.addEventListener("change", function () {
-        localStorage.setItem("instantFeedbackEnabled", this.checked);
-      });
-
-      const recommendationsToggle = document.getElementById(
-        "recommendations-toggle"
-      );
-      recommendationsToggle.addEventListener("change", function () {
-        localStorage.setItem("recommendationsEnabled", this.checked);
-      });
-
-      // --- Accessibility Settings ---
-      const contrastModeToggle = document.getElementById(
-        "contrast-mode-toggle"
-      );
-      contrastModeToggle.addEventListener("change", function () {
-        if (this.checked) {
-          bodyElement.classList.add("high-contrast");
-          localStorage.setItem("highContrastMode", "true");
-        } else {
-          bodyElement.classList.remove("high-contrast");
-          localStorage.setItem("highContrastMode", "false");
-        }
-        // Ensure dark mode is off if high contrast is toggled on
-        if (this.checked && darkModeToggle.checked) {
-          darkModeToggle.checked = false;
-          bodyElement.classList.remove("dark-mode");
-          localStorage.setItem("darkMode", "false");
-        }
-      });
-
-      const reducedMotionToggle = document.getElementById(
-        "reduced-motion-toggle"
-      );
-      reducedMotionToggle.addEventListener("change", function () {
-        if (this.checked) {
-          bodyElement.classList.add("reduced-motion");
-          localStorage.setItem("reducedMotion", "true");
-        } else {
-          bodyElement.classList.remove("reduced-motion");
-          localStorage.setItem("reducedMotion", "false");
-        }
-      });
-
-      const fontSizeRange = document.getElementById("font-size-range");
-      const fontSizeValue = document.getElementById("font-size-value");
-      fontSizeRange.addEventListener("input", function () {
-        const size = this.value + "px";
-        root.style.fontSize = size;
-        fontSizeValue.textContent = size;
-        localStorage.setItem("userFontSize", size);
-      });
-
-      const lineHeightRange = document.getElementById("line-height-range");
-      const lineHeightValue = document.getElementById("line-height-value");
-      lineHeightRange.addEventListener("input", function () {
-        const height = this.value;
-        setCssVarAndSave("--site-line-height", height, "userLineHeight");
-        lineHeightValue.textContent = height;
-      });
-
-      const letterSpacingRange = document.getElementById(
-        "letter-spacing-range"
-      );
-      const letterSpacingValue = document.getElementById(
-        "letter-spacing-value"
-      );
-      letterSpacingRange.addEventListener("input", function () {
-        const spacing = this.value + "em";
-        setCssVarAndSave("--site-letter-spacing", spacing, "userLetterSpacing");
-        letterSpacingValue.textContent = spacing;
-      });
-
-      const screenReaderToggle = document.getElementById(
-        "screen-reader-toggle"
-      );
-      screenReaderToggle.addEventListener("change", function () {
-        localStorage.setItem("screenReaderOptimization", this.checked);
-        // In a real app, this would trigger specific screen reader optimizations
-      });
-
-      const focusIndicatorColorPicker = document.getElementById(
-        "focus-indicator-color-picker"
-      );
-      const focusIndicatorColorValue = document.getElementById(
-        "focus-indicator-color-value"
-      );
-      focusIndicatorColorPicker.addEventListener("input", function () {
-        // This would typically involve injecting a style tag or updating a CSS rule for focus outlines
-        // For demonstration, we'll just store the color. Actual implementation is more complex.
-        localStorage.setItem("focusIndicatorColor", this.value);
-        focusIndicatorColorValue.textContent = this.value.toUpperCase();
-        // Example of how you *might* apply it (requires more sophisticated CSS management):
-        // const style = document.createElement('style');
-        // style.innerHTML = `:focus-visible { outline-color: ${this.value} !important; }`;
-        // document.head.appendChild(style);
-      });
-
-      const animationsToggle = document.getElementById("animations-toggle");
-      animationsToggle.addEventListener("change", function () {
-        localStorage.setItem("animationsEnabled", this.checked);
-        // In a real app, you'd control CSS animation classes based on this
-      });
-
-      // --- Privacy & Data Settings ---
-      const dataSharingToggle = document.getElementById("data-sharing-toggle");
-      dataSharingToggle.addEventListener("change", function () {
-        localStorage.setItem("dataSharingEnabled", this.checked);
-      });
-
-      const personalizedContentToggle = document.getElementById(
-        "personalized-content-toggle"
-      );
-      personalizedContentToggle.addEventListener("change", function () {
-        localStorage.setItem("personalizedContentEnabled", this.checked);
-      });
-
-      const thirdPartyToggle = document.getElementById("third-party-toggle");
-      thirdPartyToggle.addEventListener("change", function () {
-        localStorage.setItem("thirdPartyIntegrationsEnabled", this.checked);
-      });
-
-      document
-        .getElementById("download-data-button")
-        .addEventListener("click", function () {
-          showMessageBox(
-            "Your data download has been initiated. Please check your email for the link (placeholder)."
-          );
-          // In a real app, trigger backend process to generate and send data
-        });
-
-      // --- Notifications Settings ---
-      const emailNotificationsToggle = document.getElementById(
-        "email-notifications-toggle"
-      );
-      emailNotificationsToggle.addEventListener("change", function () {
-        localStorage.setItem("emailNotificationsEnabled", this.checked);
-      });
-
-      const pushNotificationsToggle = document.getElementById(
-        "push-notifications-toggle"
-      );
-      pushNotificationsToggle.addEventListener("change", function () {
-        localStorage.setItem("pushNotificationsEnabled", this.checked);
-        // In a real app, you'd manage push notification subscription here
-      });
-
-      const notificationSoundToggle = document.getElementById(
-        "notification-sound-toggle"
-      );
-      notificationSoundToggle.addEventListener("change", function () {
-        localStorage.setItem("notificationSoundEnabled", this.checked);
-        // In a real app, you'd control audio playback for notifications
-      });
-
-      const inAppDisplaySelect = document.getElementById(
-        "in-app-display-select"
-      );
-      inAppDisplaySelect.addEventListener("change", function () {
-        localStorage.setItem("inAppNotificationDisplay", this.value);
-      });
-
-      const notificationFrequencySelect = document.getElementById(
-        "notification-frequency-select"
-      );
-      notificationFrequencySelect.addEventListener("change", function () {
-        localStorage.setItem("notificationFrequency", this.value);
-      });
-
-      // --- Save and Delete Account Buttons ---
-      document
-        .getElementById("save-settings-button")
-        .addEventListener("click", function () {
-          console.log("Settings saved!");
-          showMessageBox("Settings saved successfully!");
-          // In a real application, you would send these settings to a backend server.
-        });
-
-      document
-        .getElementById("delete-account-button")
-        .addEventListener("click", function () {
-          showConfirmationModal(
-            "Are you sure you want to delete your account? This action cannot be undone.",
-            (confirmed) => {
-              if (confirmed) {
-                console.log("Account deletion initiated.");
-                showMessageBox(
-                  "Account deletion process started. This is a placeholder action."
-                );
-                // Here you would typically make an API call to delete the user's account
-              } else {
-                console.log("Account deletion cancelled.");
-                showMessageBox("Account deletion cancelled.");
-              }
+        document.addEventListener("click", function (event) {
+            if (!profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.add("hidden");
+                profileMenuButton.setAttribute('aria-expanded', 'false');
             }
-          );
         });
-
-      // --- Initialize all settings on page load ---
-      window.addEventListener("load", () => {
-        // General
-        landingPageSelect.value =
-          localStorage.getItem("defaultLandingPage") || "/index.html";
-        usernameDisplayInput.value =
-          localStorage.getItem("usernameDisplay") || "";
-        document.getElementById("profile-name").textContent =
-          usernameDisplayInput.value || "User"; // Update header display
-        languageSelect.value = localStorage.getItem("userLanguage") || "en";
-        timezoneSelect.value = localStorage.getItem("userTimezone") || "EST";
-        profileVisibilityToggle.checked =
-          localStorage.getItem("profileVisibility") === "true";
-
-        // Appearance
-        const isDarkMode = localStorage.getItem("darkMode") === "true";
-        darkModeToggle.checked = isDarkMode;
-        if (isDarkMode) bodyElement.classList.add("dark-mode");
-
-        loadCssVarAndSetInput(
-          "--site-font",
-          fontFamilySelect,
-          "userFontFamily"
-        );
-        loadCssVarAndSetInput(
-          "--color-primary",
-          accentColorPicker,
-          "userAccentColor",
-          accentColorValue
-        );
-        loadCssVarAndSetInput(
-          "--color-dark",
-          textColorPicker,
-          "userTextColor",
-          textColorValue
-        );
-        loadCssVarAndSetInput(
-          "--color-light",
-          backgroundColorPicker,
-          "userBackgroundColor",
-          backgroundColorValue
-        );
-        loadCssVarAndSetInput(
-          "--color-header-bg",
-          headerColorPicker,
-          "userHeaderColor",
-          headerColorValue
-        );
-        loadCssVarAndSetInput(
-          "--color-footer-bg-from",
-          footerColorFromPicker,
-          "userFooterColorFrom",
-          footerColorFromValue
-        );
-        loadCssVarAndSetInput(
-          "--color-footer-bg-to",
-          footerColorToPicker,
-          "userFooterColorTo",
-          footerColorToValue
-        );
-        loadCssVarAndSetInput(
-          "--color-link",
-          linkColorPicker,
-          "userLinkColor",
-          linkColorValue
-        );
-        loadCssVarAndSetInput(
-          "--color-card-bg",
-          cardBgColorPicker,
-          "userCardBgColor",
-          cardBgColorValue
-        );
-
-        const storedBorderRadius = localStorage.getItem("userBorderRadius");
-        if (storedBorderRadius) {
-          setCssVarAndSave(
-            "--border-radius-base",
-            storedBorderRadius,
-            "userBorderRadius"
-          );
-          borderRadiusRange.value = parseInt(storedBorderRadius);
-          borderRadiusValue.textContent = storedBorderRadius;
-        }
-
-        // Content & Learning
-        learningPaceSelect.value =
-          localStorage.getItem("learningPace") || "standard";
-        const storedSubjectInterests =
-          JSON.parse(localStorage.getItem("subjectInterests")) || [];
-        subjectInterestsCheckboxes.forEach((checkbox) => {
-          checkbox.checked = storedSubjectInterests.includes(checkbox.value);
+        document.getElementById("close-announcement").addEventListener("click", function () {
+            document.getElementById("announcement-bar").style.display = "none";
         });
-        contentDifficultySelect.value =
-          localStorage.getItem("contentDifficulty") || "beginner";
-        const storedMediaTypes =
-          JSON.parse(localStorage.getItem("mediaTypePreference")) || [];
-        mediaTypePreferenceCheckboxes.forEach((checkbox) => {
-          checkbox.checked = storedMediaTypes.includes(checkbox.value);
+        const a11yPanel = document.getElementById('a11y-settings-panel');
+        const a11yToggleButton = document.getElementById('a11y-toggle-button');
+        const a11yCloseButton = document.getElementById('a11y-close-button');
+        a11yToggleButton.addEventListener('click', () => {
+            a11yPanel.classList.remove('translate-x-full');
+            a11yPanel.setAttribute('aria-hidden', 'false');
+            trapFocus(a11yPanel);
         });
-        completionDisplaySelect.value =
-          localStorage.getItem("completionDisplay") || "percentage";
-        quizTimerToggle.checked =
-          localStorage.getItem("quizTimerEnabled") === "true";
-        instantFeedbackToggle.checked =
-          localStorage.getItem("instantFeedbackEnabled") === "true";
-        recommendationsToggle.checked =
-          localStorage.getItem("recommendationsEnabled") === "true";
-
-        // Accessibility
-        const isHighContrast =
-          localStorage.getItem("highContrastMode") === "true";
-        contrastModeToggle.checked = isHighContrast;
-        if (isHighContrast) bodyElement.classList.add("high-contrast");
-
-        const isReducedMotion =
-          localStorage.getItem("reducedMotion") === "true";
-        reducedMotionToggle.checked = isReducedMotion;
-        if (isReducedMotion) bodyElement.classList.add("reduced-motion");
-
-        const storedFontSize = localStorage.getItem("userFontSize");
-        if (storedFontSize) {
-          root.style.fontSize = storedFontSize;
-          fontSizeRange.value = parseInt(storedFontSize);
-          fontSizeValue.textContent = storedFontSize;
-        }
-        const storedLineHeight = localStorage.getItem("userLineHeight");
-        if (storedLineHeight) {
-          setCssVarAndSave(
-            "--site-line-height",
-            storedLineHeight,
-            "userLineHeight"
-          );
-          lineHeightRange.value = parseFloat(storedLineHeight);
-          lineHeightValue.textContent = storedLineHeight;
-        }
-        const storedLetterSpacing = localStorage.getItem("userLetterSpacing");
-        if (storedLetterSpacing) {
-          setCssVarAndSave(
-            "--site-letter-spacing",
-            storedLetterSpacing,
-            "userLetterSpacing"
-          );
-          letterSpacingRange.value = parseFloat(storedLetterSpacing);
-          letterSpacingValue.textContent = storedLetterSpacing;
-        }
-        screenReaderToggle.checked =
-          localStorage.getItem("screenReaderOptimization") === "true";
-        loadCssVarAndSetInput(
-          "--focus-indicator-color",
-          focusIndicatorColorPicker,
-          "focusIndicatorColor",
-          focusIndicatorColorValue
-        );
-        animationsToggle.checked =
-          localStorage.getItem("animationsEnabled") !== "false"; // Default to true if not set
-
-        // Privacy & Data
-        dataSharingToggle.checked =
-          localStorage.getItem("dataSharingEnabled") !== "false"; // Default to true
-        personalizedContentToggle.checked =
-          localStorage.getItem("personalizedContentEnabled") !== "false"; // Default to true
-        thirdPartyToggle.checked =
-          localStorage.getItem("thirdPartyIntegrationsEnabled") !== "false"; // Default to true
-
-        // Notifications
-        emailNotificationsToggle.checked =
-          localStorage.getItem("emailNotificationsEnabled") !== "false"; // Default to true
-        pushNotificationsToggle.checked =
-          localStorage.getItem("pushNotificationsEnabled") !== "false"; // Default to true
-        notificationSoundToggle.checked =
-          localStorage.getItem("notificationSoundEnabled") !== "false"; // Default to true
-        inAppDisplaySelect.value =
-          localStorage.getItem("inAppNotificationDisplay") || "banner";
-        notificationFrequencySelect.value =
-          localStorage.getItem("notificationFrequency") || "daily";
-
-        // Handle potential conflicts: If both dark mode and high contrast are enabled in localStorage, prioritize high contrast.
-        if (isHighContrast) {
-          bodyElement.classList.remove("dark-mode");
-          darkModeToggle.checked = false;
-        }
-      });
+        a11yCloseButton.addEventListener('click', () => {
+            a11yPanel.classList.add('translate-x-full');
+            a11yPanel.setAttribute('aria-hidden', 'true');
+            a11yToggleButton.focus();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
+                a11yPanel.classList.add('translate-x-full');
+                a11yPanel.setAttribute('aria-hidden', 'true');
+                a11yToggleButton.focus();
+            }
+        });
+        document.getElementById('theme-light').addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
+        document.getElementById('theme-dark').addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
+        document.getElementById('theme-contrast').addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
+        const dyslexiaToggle = document.getElementById('toggle-dyslexia');
+        dyslexiaToggle.checked = currentSettings.dyslexiaFont;
+        dyslexiaToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, dyslexiaFont: e.target.checked }));
+        const motionToggle = document.getElementById('toggle-reduced-motion');
+        motionToggle.checked = currentSettings.reducedMotion;
+        motionToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, reducedMotion: e.target.checked }));
+        const fontSizeSlider = document.getElementById('font-size-slider');
+        const fontSizeValue = document.getElementById('font-size-value');
+        fontSizeSlider.value = currentSettings.fontSize;
+        fontSizeValue.textContent = Math.round(currentSettings.fontSize * 100);
+        fontSizeSlider.addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            fontSizeValue.textContent = Math.round(value * 100);
+            saveSettings({ ...currentSettings, fontSize: value });
+        });
+        const lineHeightSlider = document.getElementById('line-height-slider');
+        const lineHeightValue = document.getElementById('line-height-value');
+        lineHeightSlider.value = currentSettings.lineHeight;
+        lineHeightValue.textContent = currentSettings.lineHeight.toFixed(1);
+        lineHeightSlider.addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            lineHeightValue.textContent = value.toFixed(1);
+            saveSettings({ ...currentSettings, lineHeight: value });
+        });
+        const readingMaskToggle = document.getElementById('toggle-reading-mask');
+        const readingMask = document.getElementById('reading-mask');
+        const readingGuide = document.getElementById('reading-guide');
+        let isDragging = false;
+        readingMaskToggle.checked = false;
+        readingMaskToggle.addEventListener('change', (e) => {
+            if (e.target.checked) { readingMask.classList.remove('hidden'); } else { readingMask.classList.add('hidden'); }
+        });
+        const startDrag = (e) => {
+            isDragging = true;
+            readingGuide.style.cursor = 'grabbing';
+            e.preventDefault();
+        };
+        const dragGuide = (clientY) => {
+            if (!isDragging) return;
+            let newTop = (clientY / window.innerHeight) * 100;
+            newTop = Math.max(10, Math.min(90, newTop));
+            readingGuide.style.top = `${newTop}%`;
+        };
+        const stopDrag = () => {
+            isDragging = false;
+            readingGuide.style.cursor = 'pointer';
+        };
+        readingGuide.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', (e) => dragGuide(e.clientY));
+        document.addEventListener('mouseup', stopDrag);
+        readingGuide.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
+        document.addEventListener('touchmove', (e) => dragGuide(e.touches[0].clientY));
+        document.addEventListener('touchend', stopDrag);
+        document.getElementById('reset-a11y-settings').addEventListener('click', () => {
+            localStorage.removeItem(STORAGE_KEY);
+            currentSettings = defaultSettings;
+            applySettings(currentSettings);
+            fontSizeSlider.value = defaultSettings.fontSize;
+            fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
+            lineHeightSlider.value = defaultSettings.lineHeight;
+            lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
+            dyslexiaToggle.checked = defaultSettings.dyslexiaFont;
+            motionToggle.checked = defaultSettings.reducedMotion;
+            readingMaskToggle.checked = false;
+            readingMask.classList.add('hidden');
+            showMessageBox("Settings have been reset to default values.");
+        });
+        document.getElementById('open-a11y-settings').addEventListener('click', () => {
+             a11yPanel.classList.remove('translate-x-full');
+             a11yPanel.setAttribute('aria-hidden', 'false');
+             trapFocus(a11yPanel);
+        });
     </script>
-  </body>
+</body>
 </html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Lesson: Distributions and Their Shapes</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js (for graphs) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Load Chart.js adapter for box plots -->
+    <script src="https://unpkg.com/chartjs-chart-box-and-violin-plot@^4.0.0/build/Chart.BoxPlot.min.js"></script>
+    <style>
+        /* Custom styles for a more engaging look */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar-fill {
+            transition: width 0.3s ease-in-out;
+        }
+        .reveal-content {
+            display: none;
+            transition: opacity 0.5s;
+        }
+        .reveal-content.show {
+            display: block;
+            opacity: 1;
+        }
+        /* Style for interactive definition cards */
+        .concept-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            cursor: pointer;
+        }
+        .concept-card .definition {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .concept-card.open .definition {
+            max-height: 500px; /* arbitrary large height */
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<!-- Changed background to a lighter gray-50 -->
+<body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+
+    <!-- Navigation Bar -->
+<header class="bg-dark shadow-lg">
+  <div class="container mx-auto px-4 py-4">
+    <nav class="flex items-center justify-between flex-wrap">
+      <!-- Logo and brand name -->
+      <a
+        class="flex items-center flex-shrink-0 text-white mr-6"
+        href="/index.html"
+      >
+        <img
+          src="Images/large.ico"
+          alt="Company Logo"
+          class="rounded-full h-8 w-8 mr-2"
+          onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';"
+        />
+        <span class="font-semibold text-xl tracking-tight"
+          >Hesten's Learning</span
+        >
+      </a>
+
+      <!-- Mobile menu button -->
+      <div class="block lg:hidden">
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white"
+        >
+          <svg
+            class="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation links and search/profile -->
+      <div
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden"
+        id="nav-content"
+      >
+        <div class="text-sm lg:flex-grow">
+          <a
+            href="/index.html"
+            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md"
+          >
+            <i class="fas fa-home mr-1"></i> Home
+          </a>
+          <a
+            href="/learning.html"
+            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md"
+          >
+            <i class="fas fa-book mr-1"></i> Learning
+          </a>
+          <a
+            href="/assessment.html"
+            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white p-2 rounded-md"
+          >
+            <i class="fas fa-tasks mr-1"></i> Assessment
+          </a>
+        </div>
+        <div class="relative">
+          <form id="search-form" action="/search.php" method="GET">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search courses..."
+              class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 transition-all duration-300 ease-in-out"
+            />
+            <i
+              class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            ></i>
+          </form>
+        </div>
+        <div class="relative ml-4">
+          <button
+            class="flex items-center text-gray-200 hover:text-white focus:outline-none p-2 rounded-md"
+            id="profile-menu-button"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <img
+              id="profile-pic"
+              src="Images/large.ico"
+              alt="Profile Picture"
+              class="rounded-full h-8 w-8 mr-2"
+              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';"
+            />
+            <span id="profile-name" class="hidden md:inline-block"
+              >User</span
+            >
+            <i class="fas fa-chevron-down ml-2 text-xs"></i>
+          </button>
+          <div
+            id="profile-dropdown"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden"
+          >
+            <a
+              href="/profile.html"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              ><i class="fas fa-user mr-2"></i> Profile</a
+            >
+            <a
+              href="/settings.html"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              ><i class="fas fa-cog mr-2"></i> Settings</a
+            >
+            <a
+              href="/help.html"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              ><i class="fas fa-question-circle mr-2"></i> Help</a
+            >
+            <div class="border-t border-gray-100 my-1"></div>
+            <button
+              id="sign-out"
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
+        <!-- Header: Changed gradient to purple/indigo -->
+        <header class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-md">
+            <h1 class="text-3xl font-bold text-center">Algebra I: Distributions and Their Shapes</h1>
+            <!-- Changed text color to match new header -->
+            <p class="text-center text-purple-100 text-lg mt-1">An Interactive Lesson</p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="px-6 pt-6">
+            <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                <!-- Changed progress bar color to yellow for contrast -->
+                <div id="progress-bar" class="progress-bar-fill h-4 bg-yellow-400 rounded-full" style="width: 0%;"></div>
+            </div>
+            <div id="step-label" class="text-center text-sm text-gray-600 mt-2 font-medium">Step 0 of 5</div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main id="lesson-content" class="p-6 md:p-8">
+            <!-- Steps will be injected here by JavaScript -->
+        </main>
+
+        <!-- Navigation Buttons -->
+        <footer class="bg-gray-50 border-t border-gray-200 p-4 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-300 text-gray-700 font-semibold py-2 px-6 rounded-lg shadow hover:bg-gray-400 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                Previous
+            </button>
+            <!-- Changed button color to purple -->
+            <button id="next-btn" class="bg-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow hover:bg-purple-700 transition duration-200">
+                Start Lesson
+            </button>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATASET DEFINITIONS (from PDFs) ---
+
+        // Note: Dot plot data is approximated from the images
+        const flightDelayData = [0, 5, 10, 10, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 20, 20, 20, 20, 25, 25, 25, 25, 30, 30, 30, 35, 35, 40, 40, 45, 50, 55, 60, 60, 65, 70, 75, 80, 120];
+        const viewerAgeData = [10, 12, 15, 18, 20, 22, 28, 40, 42, 42, 44, 45, 45, 46, 48, 48, 48, 49, 50, 50, 52, 53, 54, 55, 58, 59, 60, 60, 61, 62, 62, 63, 65, 65, 70, 70, 70, 71, 71, 71, 72, 72, 72, 72, 73, 73, 74, 75, 75, 78];
+
+        const kenyaAgeData = {
+            labels: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'],
+            data: [17, 15, 11.5, 10.1, 9.8, 8.8, 7.3, 5.1, 4.0, 3.2, 2.5, 1.9, 1.4, 1, 0.7, 0.4, 0.3]
+        };
+
+        const usAgeData = {
+            labels: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80-84', '85+'],
+            data: [6.5, 6.5, 6.6, 6.8, 7.0, 6.9, 6.7, 6.6, 6.8, 7.0, 6.9, 6.5, 5.8, 4.5, 3.5, 2.7, 2.0, 1.7]
+        };
+
+        const petsBoxData = [0, 1, 2, 5, 10, 12]; // [min, q1, median, q3, max, outlier]
+        const milesBoxData = [1, 4, 8.5, 9, 11]; // [min, q1, median, q3, max]
+
+        const problemSet1Data = [3, 3, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 16, 17, 22, 22, 25];
+        const problemSet2Data = [6, 13, 24, 27, 28, 32, 32, 34, 38, 42, 42, 43, 48, 49, 49, 49, 51, 52, 52, 53, 53, 53, 54, 55, 56, 57, 57, 60, 61, 61, 62, 66, 66, 66, 68, 70, 72, 78, 83, 97];
+
+        // --- EXERCISE CONTENT ---
+        // Array of all exercises, each with its own set of questions
+        const guidedExercises = [
+            {
+                title: 'Exercise 1: Flight Delays',
+                graphType: 'dot',
+                data: flightDelayData,
+                questions: [
+                    { q: "What do you think this graph is telling us about the flight delays for these sixty flights?", a: "Most flights are delayed for around 15 minutes, but some are delayed for a much longer time (over 60 minutes, with one at 120 minutes)." },
+                    { q: "Can you think of a reason why the data presented by this graph provide important information? Who might be interested in this data distribution?", a: "This is important for both the airline (BigAir) and for travelers. The airline might want to see if they have a problem with long delays. Travelers might use this data to decide if they want to fly with this airline, as many long delays are bad." },
+                    { q: "Based on your previous work with dot plots, would you describe this dot plot as representing a symmetric or a skewed data distribution? Explain your answer.", a: "This distribution is **skewed to the right**. Most of the data is clustered on the left side (shorter delays), and there is a long 'tail' of a few data points to the right (very long delays)." }
+                ]
+            },
+            {
+                title: 'Exercise 2: TV Viewer Age',
+                graphType: 'dot',
+                data: viewerAgeData,
+                questions: [
+                    { q: "What do you think this graph is telling us about the ages of the eighty viewers in this sample?", a: "The show seems to appeal to a wide range of ages, but the largest group of viewers is older, specifically between 60 and 75 years old. There are fewer younger viewers." },
+                    { q: "Can you think of a reason why the data presented by this graph provide important information? Who might be interested in this data distribution?", a: "The show's producers and advertisers would be very interested. Advertisers would want to know if the viewers match their target audience (e.g., if they are selling retirement plans, this audience is perfect). The producers might want to know if they are attracting the audience they intended." },
+                    { q: "Based on your previous work with dot plots, would you describe this dot plot as representing a symmetric or a skewed data distribution? Explain your answer.", a: "This distribution is **skewed to the left**. Most of the data is clustered on the right side (older viewers), and there is a long 'tail' of a few data points to the left (younger viewers)." }
+                ]
+            },
+            {
+                title: 'Exercise 3: Population of Kenya (2010)',
+                graphType: 'histogram',
+                data: kenyaAgeData,
+                questions: [
+                    { q: "What do you think this graph is telling us about the population of Kenya?", a: "It tells us that the population of Kenya is very young. A large percentage of the population is in the youngest age groups (0-10 years old). The bars get progressively shorter, meaning there are far fewer older people." },
+                    { q: "Why might we want to study the data represented by this graph?", a: "This data is important for the Kenyan government and other organizations. A large young population means a high demand for schools and, later, for jobs. It also means a smaller percentage of older people who might need healthcare for age-related illnesses." },
+                    { q: "Based on your previous work with histograms, would you describe this histogram as representing a symmetrical or a skewed distribution? Explain your answer.", a: "This is strongly **skewed to the right**. The data is heavily clustered on the left (young ages) and has a long tail extending to the right (older ages)." }
+                ]
+            },
+            {
+                title: 'Exercise 4: Population of the United States (2010)',
+                graphType: 'histogram',
+                data: usAgeData,
+                questions: [
+                    { q: "What do you think this graph is telling us about the population of the United States?", a: "The population is more evenly spread out across different age groups compared to Kenya. The number of people in each 5-year group is similar until about age 60, after which it starts to decline." },
+                    { q: "Why might we want to study the data represented by this graph?", a: "This data is crucial for planning. The 'bulge' in the 45-55 age range (the 'Baby Boomers') indicates a large group of people who will soon be retiring, which will have a big impact on healthcare and social security systems. It also helps plan for schools, housing, and jobs." }
+                ]
+            },
+            {
+                title: 'Exercise 5: Number of Pets',
+                graphType: 'boxplot',
+                data: petsBoxData,
+                questions: [
+                    { q: "What does the box plot tell us about the number of pets owned by the thirty students at River City High School?", a: "The 'box' shows that the middle 50% of students own between 1 (Q1) and 5 (Q3) pets. The median (the line in the box) is 2 pets. The 'whiskers' show the full range of 'typical' data is from 0 to 10 pets. The asterisk (*) at 12 shows an outlier—one student who has an unusually high number of pets." },
+                    { q: "Why might understanding the data behind this graph be important?", a: "This could be useful for a pet store, a veterinarian, or even a school club (like a pet-care club). It gives a quick summary of pet ownership. For example, a store would know most students have 0-5 pets, not 10-15." }
+                ]
+            },
+            {
+                title: 'Exercise 6: Miles Walked by Juniors',
+                graphType: 'boxplot',
+                data: milesBoxData,
+                questions: [
+                    { q: "What do you think the box plot tells us about the number of miles walked by the twenty-two juniors?", a: "The middle 50% of juniors (the box) walked between 4 (Q1) and 9 (Q3) miles. The median walk was 8.5 miles. The full range was from 1 mile (min) to 11 miles (max). 25% of students walked between 1 and 4 miles, and 25% walked between 9 and 11 miles." },
+                    { q: "Why might understanding the data behind this graph be important?", a: "The school band or event sponsors would be interested. It shows how much the juniors participated. They can see that most students walked a solid distance (4-9 miles), which is good for fundraising. They could set goals for next year, like trying to get the 'bottom' 25% to walk more than 4 miles." }
+                ]
+            }
+        ];
+
+        // --- GLOBAL STATE ---
+        let currentStep = 0;
+        let currentExerciseIndex = 0;
+        let currentExerciseQuestionIndex = 0;
+        let currentChart = null; // To destroy old charts
+        let problemSetChart = null; // For the problem set
+
+        const totalSteps = 5; // 0: Intro, 1: Concepts, 2: Exercises, 3: Problems, 4: Summary
+
+        // --- DOM ELEMENTS ---
+        const contentEl = document.getElementById('lesson-content');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const stepLabel = document.getElementById('step-label');
+
+        // --- CHARTING FUNCTIONS ---
+
+        // Destroys the old chart (if it exists)
+        function destroyChart(chartInstance) {
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+        }
+
+        // Creates a dot plot (using a scatter chart)
+        function createDotPlot(canvasId, data, title) {
+            destroyChart(currentChart);
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            // Process data for dot plot: {x: value, y: count}
+            const processedData = data.reduce((acc, val) => {
+                let existing = acc.find(d => d.x === val);
+                if (existing) {
+                    existing.y += 1;
+                } else {
+                    acc.push({ x: val, y: 1 });
+                }
+                return acc;
+            }, []);
+            
+            // Find max y-value to set the y-axis limit
+            const maxY = Math.max(...processedData.map(d => d.y));
+
+            currentChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Data Points',
+                        data: processedData,
+                        // Changed chart color to purple
+                        backgroundColor: 'rgba(124, 58, 237, 0.7)', // purple-600
+                        pointRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Value: ${context.parsed.x}`;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: title,
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            display: true,
+                            beginAtZero: true,
+                            max: maxY + 2, // Add padding
+                            title: {
+                                display: true,
+                                text: 'Frequency'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    if (value % 1 === 0 && value > 0) { return value; }
+                                }
+                            }
+                        },
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Creates a histogram (using a bar chart)
+        function createHistogram(canvasId, data, title, xLabel = 'Intervals', yLabel = 'Frequency') {
+            destroyChart(currentChart);
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: yLabel,
+                        data: data.data,
+                        // Changed chart color to purple
+                        backgroundColor: 'rgba(124, 58, 237, 0.7)',
+                        borderColor: 'rgba(124, 58, 237, 1)',
+                        borderWidth: 1,
+                        barPercentage: 1.0,
+                        categoryPercentage: 1.0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: title,
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: yLabel
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: xLabel
+                            },
+                            ticks: {
+                                autoSkip: true,
+                                maxRotation: 45,
+                                minRotation: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Creates a box plot
+        function createBoxPlot(canvasId, data, title) {
+            destroyChart(currentChart);
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: 'boxplot',
+                data: {
+                    labels: ['Data'],
+                    datasets: [{
+                        label: 'Distribution',
+                        data: [data],
+                        // Changed chart color to purple
+                        backgroundColor: 'rgba(124, 58, 237, 0.2)',
+                        borderColor: 'rgba(124, 58, 237, 1)',
+                        borderWidth: 2,
+                        padding: 10,
+                        itemRadius: 3,
+                        outlierColor: '#ef4444' // red-500
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: title,
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- RENDER FUNCTIONS FOR STEPS ---
+
+        function renderIntro() {
+            contentEl.innerHTML = `
+                <div class="step active prose lg:prose-lg max-w-none">
+                    <h2 class="text-2xl font-semibold mb-4">Welcome to the Lesson!</h2>
+                    <p>Statistics is all about data. Without data to talk about, analyze, or question, statistics would not exist. There is a story to be uncovered behind all data—a story that has characters, plots, and problems.</p>
+                    <p>This module is about stories that begin with data. We will review three common types of graphs and learn how to describe their 'shape' to understand the story they tell.</p>
+                    <p>Click "Start Lesson" to begin.</p>
+                </div>
+            `;
+        }
+
+        function renderConcepts() {
+            contentEl.innerHTML = `
+                <div class="step active">
+                    <h2 class="text-2xl font-semibold mb-4">Step 1: Key Concepts</h2>
+                    <p class="text-gray-600 mb-6">Click on each card to review the definition and see an example.</p>
+                    <div class="space-y-4">
+                        <!-- Card: Dot Plot -->
+                        <div id="card-dot" class="concept-card p-4 rounded-lg shadow transition-all duration-300">
+                            <h3 class="text-xl font-medium">1. Dot Plots</h3>
+                            <div class="definition">
+                                <p class="text-gray-700">A plot of each data value on a scale or number line. Dot plots are useful for seeing the frequency and spread of a small set of data.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Card: Histogram -->
+                        <div id="card-hist" class="concept-card p-4 rounded-lg shadow transition-all duration-300">
+                            <h3 class="text-xl font-medium">2. Histograms</h3>
+                            <div class="definition">
+                                <p class="text-gray-700">A graph that groups data into intervals (or 'bins') and represents the data in each interval with a bar. The height of the bar shows the frequency (count) or percentage of data in that interval. Histograms are great for large datasets.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Card: Box Plot -->
+                        <div id="card-box" class="concept-card p-4 rounded-lg shadow transition-all duration-300">
+                            <h3 class="text-xl font-medium">3. Box Plots (Box-and-Whisker)</h3>
+                            <div class="definition">
+                                <p class="text-gray-700">A graph that provides a picture of the data ordered and divided into four intervals (called quartiles), each containing approximately 25% of the data. It shows the <strong>5-number summary</strong>:</p>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li><strong>Minimum:</strong> The smallest data point.</li>
+                                    <li><strong>Q1 (First Quartile):</strong> The 25th percentile.</li>
+                                    <li><strong>Median (Q2):</strong> The middle value (50th percentile).</li>
+                                    <li><strong>Q3 (Third Quartile):</strong> The 75th percentile.</li>
+                                    <li><strong>Maximum:</strong> The largest data point.</li>
+                                </ul>
+                                <p class="text-gray-700 mt-2">Sometimes, "outliers" (unusually high or low values) are plotted as separate points.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card: Shape -->
+                        <div id="card-shape" class="concept-card p-4 rounded-lg shadow transition-all duration-300">
+                            <h3 class="text-xl font-medium">4. Describing Shape</h3>
+                            <div class="definition">
+                                <p class="text-gray-700 mb-2">The 'shape' of a distribution tells us about how the data is spread out.</p>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold">Symmetrical (Mound-Shaped)</h4>
+                                        <p class="text-sm">The left and right sides are mirror images. The mean and median are at the center.</p>
+                                        <canvas id="shape-sym" height="150"></canvas>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Skewed to the Right (Positively Skewed)</h4>
+                                        <p class="text-sm">Most data is on the left, with a long "tail" of high values to the right.</p>
+                                        <canvas id="shape-skew-right" height="150"></canvas>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Skewed to the Left (Negatively Skewed)</h4>
+                                        <p class="text-sm">Most data is on the right, with a long "tail" of low values to the left.</p>
+                                        <canvas id="shape-skew-left" height="150"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners to cards
+            document.querySelectorAll('.concept-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('open');
+                });
+            });
+
+            // Draw the example shape graphs
+            const symCtx = document.getElementById('shape-sym').getContext('2d');
+            new Chart(symCtx, {
+                // Changed color to emerald
+                type: 'bar', data: { labels: ['','','','',''], datasets: [{ data: [1, 3, 5, 3, 1], backgroundColor: 'rgba(16, 185, 129, 0.7)'}] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: {display: false}}, y: { ticks: {display: false}} }}
+            });
+            const skewRightCtx = document.getElementById('shape-skew-right').getContext('2d');
+            new Chart(skewRightCtx, {
+                // Changed color to yellow
+                type: 'bar', data: { labels: ['','','','',''], datasets: [{ data: [5, 3, 2, 1, 0.5], backgroundColor: 'rgba(234, 179, 8, 0.7)'}] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: {display: false}}, y: { ticks: {display: false}} }}
+            });
+            const skewLeftCtx = document.getElementById('shape-skew-left').getContext('2d');
+            new Chart(skewLeftCtx, {
+                // Changed color to yellow
+                type: 'bar', data: { labels: ['','','','',''], datasets: [{ data: [0.5, 1, 2, 3, 5], backgroundColor: 'rgba(234, 179, 8, 0.7)'}] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: {display: false}}, y: { ticks: {display: false}} }}
+            });
+        }
+
+        function renderExercises() {
+            const exercise = guidedExercises[currentExerciseIndex];
+            const question = exercise.questions[currentExerciseQuestionIndex];
+
+            contentEl.innerHTML = `
+                <div class="step active">
+                    <h2 class="text-2xl font-semibold mb-2">Step 2: Guided Exercises (${currentExerciseIndex + 1} of ${guidedExercises.length})</h2>
+                    <h3 class="text-xl font-medium text-gray-700 mb-4">${exercise.title}</h3>
+                    
+                    <!-- Graph -->
+                    <div class="w-full h-80 bg-gray-50 p-2 rounded-lg shadow-inner mb-6">
+                        <canvas id="chart-canvas"></canvas>
+                    </div>
+
+                    <!-- Question -->
+                    <div class="border border-gray-200 rounded-lg p-4 shadow-md">
+                        <label for="user-answer" class="block text-lg font-semibold mb-3">Question ${currentExerciseQuestionIndex + 1} of ${exercise.questions.length}:</label>
+                        <p class="text-gray-800 mb-3">${question.q}</p>
+                        
+                        <textarea id="user-answer" rows="3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer here..."></textarea>
+                        
+                        <!-- Changed reveal button to teal -->
+                        <button id="reveal-btn" class="mt-3 bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-teal-700 transition duration-200">Reveal Answer</button>
+                        
+                        <!-- Changed reveal content to teal -->
+                        <div id="answer-reveal" class="reveal-content mt-4 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                            <h4 class="font-semibold text-teal-800">Teacher's Note:</h4>
+                            <p class="text-teal-700">${question.a}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise Navigation -->
+                    <div class="flex justify-between items-center mt-6">
+                        <button id="prev-q-btn" class="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 disabled:opacity-50" ${currentExerciseQuestionIndex === 0 ? 'disabled' : ''}>Previous Question</button>
+                        <span class="text-sm text-gray-500">Graph ${currentExerciseIndex + 1} / ${guidedExercises.length}</span>
+                        <button id="next-q-btn" class="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 disabled:opacity-50" ${currentExerciseQuestionIndex === exercise.questions.length - 1 ? 'disabled' : ''}>Next Question</button>
+                    </div>
+                </div>
+            `;
+
+            // Draw the appropriate chart
+            switch (exercise.graphType) {
+                case 'dot':
+                    createDotPlot('chart-canvas', exercise.data, exercise.title);
+                    break;
+                case 'histogram':
+                    createHistogram('chart-canvas', exercise.data, exercise.title, 'Age Group', 'Percent of Population');
+                    break;
+                case 'boxplot':
+                    createBoxPlot('chart-canvas', exercise.data, exercise.title);
+                    break;
+            }
+
+            // Add event listeners for this step
+            document.getElementById('reveal-btn').addEventListener('click', () => {
+                document.getElementById('answer-reveal').classList.toggle('show');
+            });
+            document.getElementById('prev-q-btn').addEventListener('click', () => {
+                if (currentExerciseQuestionIndex > 0) {
+                    currentExerciseQuestionIndex--;
+                    renderExercises();
+                }
+            });
+            document.getElementById('next-q-btn').addEventListener('click', () => {
+                if (currentExerciseQuestionIndex < exercise.questions.length - 1) {
+                    currentExerciseQuestionIndex++;
+                    renderExercises();
+                }
+            });
+        }
+
+        function renderProblemSet() {
+            contentEl.innerHTML = `
+                <div class="step active">
+                    <h2 class="text-2xl font-semibold mb-4">Step 3: Practice Problems</h2>
+                    <p class="text-gray-600 mb-6">Now, try to build a histogram yourself from a set of data. This is based on the "Problem Set" from your lesson.</p>
+
+                    <!-- Problem 1 -->
+                    <div class="border border-gray-200 rounded-lg p-4 shadow-md mb-6">
+                        <h3 class="text-xl font-medium mb-2">Problem 1: Event 1</h3>
+                        <p class="text-sm text-gray-700 mb-3">25 people were at an event. Here are their ages:</p>
+                        <p class="text-base font-mono bg-gray-100 p-2 rounded">${problemSet1Data.join(', ')}</p>
+                        
+                        <div class="my-4">
+                            <label for="bin-size-1" class="block font-medium mb-1">Enter a bin size (interval):</label>
+                            <input type="number" id="bin-size-1" value="5" class="w-24 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                            <!-- Changed button color to purple -->
+                            <button id="generate-hist-1" class="ml-2 bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-purple-700 transition">Generate Histogram</button>
+                        </div>
+                        
+                        <div class="w-full h-80 bg-gray-50 p-2 rounded-lg shadow-inner mb-4">
+                            <canvas id="problem-chart-1"></canvas>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block font-semibold">a. Would you describe your graph as symmetrical or skewed? Explain.</label>
+                                <textarea rows="2" class="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold">b. What event do you think the 25 people were attending? Use your histogram to justify.</label>
+                                <textarea rows="2" class="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer..."></textarea>
+                            </div>
+                            <!-- Changed reveal button to teal -->
+                            <button id="reveal-problem-1" class="bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-teal-700 transition">Reveal Analysis</button>
+                            <!-- Changed reveal content to teal -->
+                            <div id="analysis-1" class="reveal-content mt-3 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                                <h4 class="font-semibold text-teal-800">Teacher's Analysis:</h4>
+                                <p class="text-teal-700"><strong>a.</strong> The graph is **skewed to the right**. Most of the data is on the left (young ages) with a tail of older ages to the right.<br><strong>b.</strong> The event was likely something for young children, like a library story time or a kid's birthday party. Most attendees are 3-7 years old, with a few older people (16-25) who are likely parents, older siblings, or staff.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Problem 2 could be added here in the same format -->
+                </div>
+            `;
+
+            // Event listener for histogram generator
+            document.getElementById('generate-hist-1').addEventListener('click', () => {
+                const binSize = parseInt(document.getElementById('bin-size-1').value) || 5;
+                const { labels, data } = processHistogramData(problemSet1Data, binSize);
+                
+                destroyChart(problemSetChart); // Use the dedicated chart instance
+                const ctx = document.getElementById('problem-chart-1').getContext('2d');
+                problemSetChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Frequency',
+                            data: data,
+                            // Changed chart color to purple
+                            backgroundColor: 'rgba(124, 58, 237, 0.7)',
+                            borderColor: 'rgba(124, 58, 237, 1)',
+                            borderWidth: 1,
+                            barPercentage: 1.0,
+                            categoryPercentage: 1.0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, title: { display: true, text: `Ages at Event 1 (Bins of ${binSize})`} },
+                        scales: {
+                            y: { beginAtZero: true, title: { display: true, text: 'Frequency' } },
+                            x: { title: { display: true, text: 'Age (years)' } }
+                        }
+                    }
+                });
+            });
+
+            // Event listener for reveal button
+            document.getElementById('reveal-problem-1').addEventListener('click', () => {
+                document.getElementById('analysis-1').classList.toggle('show');
+            });
+            
+            // Auto-generate the chart on load
+            document.getElementById('generate-hist-1').click();
+        }
+        
+        // Helper function to process raw data into histogram bins
+        function processHistogramData(data, binSize) {
+            if (binSize <= 0) binSize = 1;
+            const min = 0; // Start at 0 for age
+            const max = Math.max(...data);
+            const numBins = Math.ceil(max / binSize);
+            
+            let labels = [];
+            let bins = new Array(numBins).fill(0);
+            
+            for (let i = 0; i < numBins; i++) {
+                const binStart = i * binSize;
+                const binEnd = (i + 1) * binSize - 1;
+                labels.push(`${binStart}-${binEnd}`);
+            }
+            // Ensure the last label includes the max value
+            const lastBinStart = (numBins - 1) * binSize;
+            labels[labels.length - 1] = `${lastBinStart}+`;
+
+            data.forEach(val => {
+                const binIndex = Math.floor(val / binSize);
+                if (bins[binIndex] !== undefined) {
+                    bins[binIndex]++;
+                }
+            });
+            
+            return { labels, data: bins };
+        }
+
+        function renderSummary() {
+            contentEl.innerHTML = `
+                <div class="step active">
+                    <h2 class="text-2xl font-semibold mb-4">Step 4: Lesson Summary & Check</h2>
+                    
+                    <!-- Changed summary box to purple theme -->
+                    <div class="prose max-w-none bg-purple-50 border border-purple-200 p-4 rounded-lg mb-6">
+                        <h3 class="text-xl font-semibold text-purple-800">Lesson Summary</h3>
+                        <p>Statistics is about data. Graphs provide a representation of the data distribution and are used to understand the data and to answer questions about the distribution. Today we reviewed:</p>
+                        <ul>
+                            <li><strong>Dot Plots:</strong> Good for small datasets.</li>
+                            <li><strong>Histograms:</strong> Good for large datasets, shows frequency in intervals.</li>
+                            <li><strong>Box Plots:</strong> Shows the 5-number summary (Min, Q1, Median, Q3, Max) and spread.</li>
+                            <li><strong>Shape:</strong> Distributions can be <strong>symmetrical</strong> or <strong>skewed</strong> (left or right).</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Check Your Understanding</h3>
+                    <div class="space-y-4">
+                        <!-- Question 1 -->
+                        <div class="border border-gray-200 p-4 rounded-lg shadow-md">
+                            <p class="font-medium">1. Sam said that a typical flight delay for the sixty BigAir flights was approximately one hour (60 min). Do you agree? Why or why not?</p>
+                            <textarea rows="2" class="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer..."></textarea>
+                            <!-- Changed reveal button to teal -->
+                            <button class="reveal-btn mt-2 bg-teal-600 text-white text-sm font-semibold py-1 px-3 rounded-lg hover:bg-teal-700">Reveal Answer</button>
+                            <!-- Changed reveal content to teal -->
+                            <div class="reveal-content mt-3 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                                <p class="text-teal-700"><strong>Disagree.</strong> A "typical" delay would be where most of the data is. Looking at the dot plot, most delays are clustered between 0 and 30 minutes (especially around 15). 60 minutes is on the high end, not typical.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div class="border border-gray-200 p-4 rounded-lg shadow-md">
+                            <p class="font-medium">2. Sam said that 50% of the twenty-two juniors at River City High School walked at least ten miles. Do you agree? Why or why not?</p>
+                            <textarea rows="2" class="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer..."></textarea>
+                            <button class="reveal-btn mt-2 bg-teal-600 text-white text-sm font-semibold py-1 px-3 rounded-lg hover:bg-teal-700">Reveal Answer</button>
+                            <div class="reveal-content mt-3 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                                <p class="text-teal-700"><strong>Disagree.</strong> The box plot shows the "max" whisker ends at 11 miles and Q3 (the 75th percentile) is at 9 miles. This means only 25% of students walked 9 miles *or more*. 10 miles would be even less than 25%. 50% of students walked 8.5 miles (the median) or more.</p>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="border border-gray-200 p-4 rounded-lg shadow-md">
+                            <p class="font-medium">3. Sam said that young people from 0 to 10 years old make up nearly one-third (33%) of the Kenyan population. Do you agree? Why or why not?</p>
+                            <textarea rows="2" class="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Type your answer..."></textarea>
+                            <button class="reveal-btn mt-2 bg-teal-600 text-white text-sm font-semibold py-1 px-3 rounded-lg hover:bg-teal-700">Reveal Answer</button>
+                            <div class="reveal-content mt-3 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                                <p class="text-teal-700"><strong>Agree.</strong> Looking at the histogram for Kenya, the first bar (0-4 years) is at ~17% and the second bar (5-9 years) is at ~15%. Adding them together (17% + 15%) gives 32%, which is very close to one-third.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-center font-semibold text-xl text-green-700 mt-8">Congratulations, you've completed the lesson!</p>
+                </div>
+            `;
+            
+            // Add event listeners for reveal buttons
+            document.querySelectorAll('.reveal-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.nextElementSibling.classList.toggle('show');
+                });
+            });
+        }
+
+        // --- NAVIGATION AND RENDER LOGIC ---
+
+        function updateNavigation() {
+            // Update Progress Bar
+            const progress = (currentStep / (totalSteps - 1)) * 100;
+            progressBar.style.width = `${progress}%`;
+            stepLabel.textContent = `Step ${currentStep} of ${totalSteps - 1}`;
+            
+            // Handle Previous Button
+            if (currentStep === 0) {
+                prevBtn.disabled = true;
+            } else {
+                prevBtn.disabled = false;
+            }
+
+            // Handle Next Button
+            if (currentStep === 4) { // Last step (Summary)
+                nextBtn.textContent = 'Restart Lesson';
+            } else if (currentStep === 2) { // Exercise step
+                nextBtn.textContent = 'Next Graph';
+                
+                // Special logic for last graph
+                if (currentExerciseIndex === guidedExercises.length - 1) {
+                    nextBtn.textContent = 'Next: Practice Problems';
+                }
+            } else if (currentStep === 0) {
+                nextBtn.textContent = 'Start Lesson';
+            } else {
+                const nextStepName = ['Key Concepts', 'Guided Exercises', 'Practice Problems', 'Summary'][currentStep];
+                nextBtn.textContent = `Next: ${nextStepName}`;
+            }
+        }
+
+        function renderStep() {
+            // Clear any lingering charts
+            destroyChart(currentChart);
+            destroyChart(problemSetChart);
+            
+            switch (currentStep) {
+                case 0:
+                    renderIntro();
+                    break;
+                case 1:
+                    renderConcepts();
+                    break;
+                case 2:
+                    renderExercises();
+                    break;
+                case 3:
+                    renderProblemSet();
+                    break;
+                case 4:
+                    renderSummary();
+                    break;
+            }
+            updateNavigation();
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep === 4) { // Restart
+                currentStep = 0;
+                currentExerciseIndex = 0;
+                currentExerciseQuestionIndex = 0;
+            } else if (currentStep === 2) { // In exercises
+                // Check if we are on the last question of the last graph
+                if (currentExerciseIndex < guidedExercises.length - 1) {
+                    currentExerciseIndex++;
+                    currentExerciseQuestionIndex = 0; // Reset question index
+                } else {
+                    // Move to the next main step
+                    currentStep++;
+                }
+            } else {
+                currentStep++;
+            }
+            renderStep();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep === 0) return; // Should be disabled, but as a safeguard
+
+            if (currentStep === 2) { // In exercises
+                if (currentExerciseIndex > 0) {
+                    currentExerciseIndex--;
+                    currentExerciseQuestionIndex = 0; // Reset question index
+                } else {
+                    // Go back to previous main step
+                    currentStep--;
+                }
+            } else {
+                currentStep--;
+            }
+            renderStep();
+        });
+
+        // Initial render
+        renderStep();
+
+    </script>
+</body>
+</html>
