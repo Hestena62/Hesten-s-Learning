@@ -14,7 +14,6 @@
     />
     <meta name="author" content="Hesten's Learning" />
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -35,18 +34,15 @@
         },
       };
     </script>
-    <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <!-- Favicon -->
     <link
       rel="icon"
       href="/Images/large.ico"
       onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';"
     />
-    <!-- Google Fonts for Inter -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -143,13 +139,15 @@
         animation: fillProgress 1.5s ease-out forwards;
       }
 
-      /* Styles for option buttons */
+      /* Styles for option buttons from questionGenerator.js */
       .option-button {
         transition: background-color 0.2s ease, border-color 0.2s ease,
           color 0.2s ease;
         border: 2px solid transparent;
       }
-
+      
+      /* These styles are for the built-in question generator, but questionGenerator.js uses btn classes.
+         We'll keep these in case you revert, but the btn styles will take precedence. */
       .option-button:hover:not([disabled]) {
         border-color: #4f46e5; /* Primary color on hover */
       }
@@ -200,15 +198,41 @@
           transform: scale(1);
         }
       }
+      
+      /* Basic styles for buttons if Bootstrap isn't loaded */
+      .btn {
+          display: inline-block;
+          font-weight: 400;
+          text-align: center;
+          vertical-align: middle;
+          user-select: none;
+          background-color: transparent;
+          border: 1px solid transparent;
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          line-height: 1.5;
+          border-radius: .25rem;
+          transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      }
+      .btn-outline-primary {
+          color: #4F46E5;
+          border-color: #4F46E5;
+      }
+      .btn-outline-primary:hover {
+          color: #fff;
+          background-color: #4F46E5;
+          border-color: #4F46E5;
+      }
+      .m-2 {
+          margin: .5rem;
+      }
     </style>
   </head>
   <body class="bg-light text-dark">
-    <!-- Navigation Bar -->
     <header class="bg-dark shadow-lg sticky top-0 z-50">
       <div
         class="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap"
       >
-        <!-- Logo and brand name -->
         <a
           class="flex items-center flex-shrink-0 text-white mr-6"
           href="/index.html"
@@ -224,7 +248,6 @@
           >
         </a>
 
-        <!-- Mobile menu button -->
         <div class="block lg:hidden">
           <button
             id="nav-toggle"
@@ -241,7 +264,6 @@
           </button>
         </div>
 
-        <!-- Navigation links, search, and profile -->
         <div
           class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden"
           id="nav-content"
@@ -267,7 +289,6 @@
             </a>
           </div>
 
-          <!-- Search input for desktop and mobile -->
           <div class="relative lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
             <input
               type="text"
@@ -279,7 +300,6 @@
             ></i>
           </div>
 
-          <!-- Profile dropdown -->
           <div
             class="relative group ml-0 lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto"
           >
@@ -329,7 +349,6 @@
       </div>
     </header>
 
-    <!-- Hero section for Assessment Page -->
     <header
       class="bg-gradient-to-r from-primary to-secondary text-white py-16 px-4 text-center rounded-b-lg shadow-xl"
     >
@@ -343,7 +362,6 @@
 
     <section class="container mx-auto py-12 px-4">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Grade Selection Card -->
         <div
           class="lg:col-span-1 bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between"
         >
@@ -393,7 +411,6 @@
           </div>
         </div>
 
-        <!-- Progress Tracker & Recent Activity Section -->
         <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="bg-white rounded-xl shadow-lg p-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">
@@ -425,7 +442,6 @@
               id="recent-activity-list"
               class="list-disc list-inside text-gray-700 space-y-2"
             >
-              <!-- Example list items, populate with JS -->
               <li class="p-2 bg-gray-50 rounded-md">
                 Completed "Adding Single Digits"
               </li>
@@ -459,7 +475,6 @@
       </div>
     </section>
 
-    <!-- Subject/Skill Selection Section -->
     <section class="container mx-auto py-12 px-4">
       <div class="bg-white rounded-xl shadow-lg p-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -545,14 +560,11 @@
             </div>
           </div>
         </div>
-        <!-- Dynamic skills sections will be rendered here -->
         <div id="skills-container" class="mt-4">
-          <!-- Skills will be dynamically populated here by populateSkills() -->
-        </div>
+          </div>
       </div>
     </section>
 
-    <!-- Practice Questions Section -->
     <section class="container mx-auto py-12 px-4">
       <div class="bg-white rounded-xl shadow-lg p-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -563,7 +575,6 @@
         </p>
 
         <div class="space-y-6">
-          <!-- Question progress indicator -->
           <div
             id="question-progress"
             class="text-sm text-gray-500 text-right mb-2"
@@ -578,8 +589,7 @@
             class="options grid grid-cols-1 md:grid-cols-2 gap-4"
             id="options"
           >
-            <!-- Options will be dynamically loaded here -->
-          </div>
+            </div>
           <div
             class="feedback text-base font-medium flex items-center"
             id="feedback"
@@ -601,12 +611,6 @@
               Show Explanation
             </button>
             <button
-              class="bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-              id="nextQuestionButton"
-            >
-              Next Question
-            </button>
-            <button
               class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
               id="downloadAnswers"
             >
@@ -626,7 +630,6 @@
       </div>
     </section>
 
-    <!-- Custom Modal Structure -->
     <div id="customModal" class="modal-overlay hidden">
       <div class="modal-content">
         <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
@@ -644,14 +647,12 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <footer
       class="bg-gray-800 text-gray-300 py-12 px-4 rounded-t-lg shadow-inner"
     >
       <div
         class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
-        <!-- About section -->
         <div class="space-y-4">
           <h3
             class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block"
@@ -671,7 +672,6 @@
           </a>
         </div>
 
-        <!-- Quick Links section -->
         <div class="space-y-4">
           <h3
             class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block"
@@ -710,7 +710,6 @@
           </ul>
         </div>
 
-        <!-- Support section -->
         <div class="space-y-4">
           <h3
             class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block"
@@ -749,7 +748,6 @@
           </ul>
         </div>
 
-        <!-- Legal & Settings section -->
         <div class="space-y-4">
           <h3
             class="text-xl font-bold text-white mb-4 border-b-2 border-primary pb-2 inline-block"
@@ -789,7 +787,6 @@
         </div>
       </div>
 
-      <!-- Footer bottom section -->
       <div class="mt-12 text-center text-sm border-t border-gray-700 pt-8">
         <p class="mb-2 text-grayish">
           &copy; <span id="year"></span> Hesten Learning. All rights reserved.
@@ -842,7 +839,6 @@
       </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -888,7 +884,7 @@
         }
       });
 
-      // Grade update logic (replaced alert with custom modal)
+      // Grade update logic (MODIFIED)
       function updateGrade() {
         const grade = document.getElementById("user-grade").value;
         localStorage.setItem("user-grade", grade);
@@ -897,6 +893,16 @@
           `Your current grade level has been set to: ${grade}.`
         );
         populateSkills(); // Repopulate skills when grade changes
+        
+        // --- ADDED FROM questionGenerator.js ---
+        // Check if the function exists from the external file before calling it
+        if (typeof loadQuestions === 'function') {
+            loadQuestions(grade);
+            // These global variables are defined in questionGenerator.js
+            currentQuestionIndex = 0; 
+            userAnswers = []; 
+        }
+        // --- END OF ADDED CODE ---
       }
 
       // --- Custom Modal Functions ---
@@ -929,6 +935,7 @@
       });
 
       // --- Data Structures for Skills ---
+      // This massive object is kept from the original HTML
       const allSkills = {
         "Pre-K": {
           Math: [
@@ -1706,174 +1713,24 @@
         }
       }
 
-      // --- Data Structure for Questions (example) ---
-      const questions = [
-        {
-          question: "What is the sum of 5 + 3?",
-          options: ["7", "8", "9", "10"],
-          answer: "8",
-          hint: "Think about counting forward from 5, three times.",
-          explanation:
-            "To find the sum of 5 + 3, you add the two numbers together. Starting with 5, adding 3 more gives you 8.",
-        },
-        {
-          question: "Which of these is a primary color?",
-          options: ["Green", "Orange", "Blue", "Purple"],
-          answer: "Blue",
-          hint: "Primary colors cannot be made by mixing other colors.",
-          explanation:
-            "Primary colors are fundamental colors that can be mixed to create all other colors. The primary colors are red, yellow, and blue.",
-        },
-        {
-          question: "What is the capital of France?",
-          options: ["Berlin", "London", "Rome", "Paris"],
-          answer: "Paris",
-          hint: "It's known as the 'City of Love'.",
-          explanation:
-            "Paris is the capital and most populous city of France, famous for its art, fashion, gastronomy, and culture.",
-        },
-        {
-          question: "What is the past tense of 'run'?",
-          options: ["Runned", "Running", "Ran", "Runs"],
-          answer: "Ran",
-          hint: "It's an irregular verb.",
-          explanation:
-            "The verb 'run' is an irregular verb. Its past tense form is 'ran', and its past participle form is 'run'.",
-        },
-      ];
+      // --- Data Structure for Questions (REMOVED) ---
+      // This section is now handled by questionGenerator.js
 
-      let currentQuestionIndex = 0;
+      // --- Question Generator Functions (REMOVED) ---
+      // This section is now handled by questionGenerator.js
 
-      // --- Question Generator Functions ---
-      function updateQuestionProgress() {
-        const progressElement = document.getElementById("question-progress");
-        if (questions.length > 0) {
-          progressElement.textContent = `Question ${
-            currentQuestionIndex + 1
-          } of ${questions.length}`;
-        } else {
-          progressElement.textContent = "";
-        }
-      }
-
-      function loadQuestion() {
-        if (questions.length === 0) {
-          document.getElementById("question").textContent =
-            "No questions available.";
-          document.getElementById("options").innerHTML = "";
-          document.getElementById("feedback").innerHTML = ""; // Changed to innerHTML for potential icons
-          document.getElementById("hintText").classList.add("hidden");
-          document.getElementById("explanationText").classList.add("hidden");
-          updateQuestionProgress();
-          return;
-        }
-
-        const questionData = questions[currentQuestionIndex];
-        document.getElementById("question").textContent = questionData.question;
-
-        const optionsContainer = document.getElementById("options");
-        optionsContainer.innerHTML = ""; // Clear previous options
-        document.getElementById("feedback").innerHTML = ""; // Clear feedback
-        document.getElementById("feedback").className =
-          "feedback text-base font-medium flex items-center"; // Reset feedback class
-        document.getElementById("hintText").classList.add("hidden");
-        document.getElementById("explanationText").classList.add("hidden");
-        updateQuestionProgress();
-
-        questionData.options.forEach((option) => {
-          const button = document.createElement("button");
-          button.textContent = option;
-          button.className =
-            "option-button bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary w-full text-left";
-          button.onclick = () =>
-            checkAnswer(button, option, questionData.answer); // Pass the button element
-          optionsContainer.appendChild(button);
-        });
-      }
-
-      function checkAnswer(selectedButton, selectedOption, correctAnswer) {
-        const feedbackElement = document.getElementById("feedback");
-        const optionButtons = document.querySelectorAll(".option-button");
-
-        // Disable all option buttons after selection
-        optionButtons.forEach((button) => {
-          button.disabled = true;
-          if (button.textContent === correctAnswer) {
-            button.classList.add("correct"); // Highlight correct answer
-            button.classList.remove(
-              "bg-gray-200",
-              "hover:bg-gray-300",
-              "focus:ring-primary"
-            );
-          } else {
-            button.classList.remove(
-              "bg-gray-200",
-              "hover:bg-gray-300",
-              "focus:ring-primary"
-            );
-          }
-        });
-
-        if (selectedOption === correctAnswer) {
-          feedbackElement.innerHTML =
-            '<i class="fas fa-check-circle text-green-600 mr-2"></i> Correct! Well done.';
-          feedbackElement.classList.remove("text-red-600");
-          feedbackElement.classList.add("text-green-600");
-        } else {
-          selectedButton.classList.add("incorrect"); // Highlight incorrect selected answer
-          feedbackElement.innerHTML = `<i class="fas fa-times-circle text-red-600 mr-2"></i> Incorrect. The correct answer was: <span class="font-bold">${correctAnswer}</span>`;
-          feedbackElement.classList.remove("text-green-600");
-          feedbackElement.classList.add("text-red-600");
-        }
-      }
-
-      function showHint() {
-        const hintText = document.getElementById("hintText");
-        if (
-          questions[currentQuestionIndex] &&
-          questions[currentQuestionIndex].hint
-        ) {
-          hintText.textContent = questions[currentQuestionIndex].hint;
-          hintText.classList.remove("hidden");
-        } else {
-          showModal("No Hint Available", "There is no hint for this question.");
-        }
-      }
-
-      function showExplanation() {
-        const explanationText = document.getElementById("explanationText");
-        if (
-          questions[currentQuestionIndex] &&
-          questions[currentQuestionIndex].explanation
-        ) {
-          explanationText.textContent =
-            questions[currentQuestionIndex].explanation;
-          explanationText.classList.remove("hidden");
-        } else {
-          showModal(
-            "No Explanation Available",
-            "There is no explanation for this question."
-          );
-        }
-      }
-
-      function nextQuestion() {
-        currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop through questions
-        loadQuestion();
-      }
-
-      // --- Recent Activity Tracking ---
+      // --- Recent Activity Tracking & Initial Load ---
       document.addEventListener("DOMContentLoaded", () => {
         const skillsContainer = document.getElementById("skills-container");
         const recentActivityList = document.getElementById(
           "recent-activity-list"
         );
 
-        // Initialize skills and first question on page load
+        // Initialize skills on page load
         populateSkills();
-        loadQuestion();
+        // loadQuestion() call removed - questionGenerator.js handles this
 
-        // Event listener for skill clicks
+        // Event listener for skill clicks (Kept from original HTML)
         skillsContainer.addEventListener("click", (event) => {
           if (event.target.classList.contains("skill-item")) {
             // Ensure it's a clickable skill item
@@ -1901,65 +1758,15 @@
           }
         });
 
-        // Event listener for "Next Question" button
-        document
-          .getElementById("nextQuestionButton")
-          .addEventListener("click", nextQuestion);
-
-        // Event listener for "Download Answers" button
-        document
-          .getElementById("downloadAnswers")
-          .addEventListener("click", function () {
-            const allAnswers = questions
-              .map(
-                (q, index) =>
-                  `<p class="mb-2"><strong>${index + 1}. ${
-                    q.question
-                  }</strong></p>` +
-                  `<p class="ml-4">Answer: ${q.answer}</p>` +
-                  `<p class="ml-4 mb-4">Explanation: ${q.explanation}</p>`
-              )
-              .join("");
-
-            showModal(
-              "All Assessment Answers",
-              "Here are the answers and explanations for all practice questions:",
-              allAnswers
-            );
-
-            // Option to download as text file (same as before, but triggered from modal)
-            const textForDownload = questions
-              .map(
-                (q, index) =>
-                  `${index + 1}. ${q.question}\n   Answer: ${
-                    q.answer
-                  }\n   Explanation: ${q.explanation}`
-              )
-              .join("\n\n");
-            const blob = new Blob([textForDownload], { type: "text/plain" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "Hesten_Learning_Assessment_Answers.txt";
-
-            // Add a "Download" button to the modal, or trigger directly if desired
-            const downloadButtonInModal = document.createElement("button");
-            downloadButtonInModal.textContent = "Download as Text File";
-            downloadButtonInModal.className =
-              "bg-blue-500 text-white py-2 px-5 rounded-lg hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 mr-2";
-            downloadButtonInModal.onclick = () => {
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-              showModal(
-                "Download Complete",
-                "Your answers have been downloaded."
-              );
-            };
-            modalContentArea.appendChild(downloadButtonInModal);
-          });
+        // Event listener for "Next Question" button (REMOVED)
+        // Event listener for "Download Answers" button (REMOVED)
+        // Both are now handled by questionGenerator.js
       });
     </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script src="JS/questionGenerator.js"></script>
+    
   </body>
 </html>
