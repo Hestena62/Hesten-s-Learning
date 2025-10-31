@@ -10,7 +10,7 @@
   $welcomeParagraph = "Please select a subject and grade level to start your test.";
 
   // Include the header
-  include 'src/header.php'; 
+  include 'header.php'; 
 ?>
 
 <!-- Main content area -->
@@ -32,6 +32,62 @@
       // Define the grades
       $grades = range(3, 12);
 
+      // --- DEFINE YOUR TEST LINKS HERE ---
+      // Add the specific URL for each subject and grade.
+      // Use the 'subject-slug' (like 'math', 'english') and the grade number as keys.
+      // If a link is not specified, it will default to '#'
+      $test_links = [
+        "math" => [
+          3 => "/tests/math-g3.html",
+          4 => "/tests/math-g4.html",
+          5 => "/tests/math-g5.html",
+          6 => "/tests/math-g6.html",
+          7 => "/tests/math-g7.html",
+          8 => "/tests/math-g8.html",
+          9 => "/tests/math-g9.html",
+          10 => "/tests/math-g10.html",
+          11 => "/tests/math-g11.html",
+          12 => "/tests/math-g12.html"
+        ],
+        "english" => [
+          3 => "/tests/english-g3.html",
+          4 => "/tests/english-g4.html",
+          5 => "#", // Example of a missing link
+          6 => "#",
+          7 => "#",
+          8 => "#",
+          9 => "#",
+          10 => "#",
+          11 => "#",
+          12 => "#"
+        ],
+        "science" => [
+          3 => "#",
+          4 => "#",
+          5 => "#",
+          6 => "#",
+          7 => "#",
+          8 => "#",
+          9 => "#",
+          10 => "#",
+          11 => "#",
+          12 => "#"
+        ],
+        "social-studies" => [
+          3 => "#",
+          4 => "#",
+          5 => "#",
+          6 => "#",
+          7 => "#",
+          8 => "#",
+          9 => "#",
+          10 => "#",
+          11 => "#",
+          12 => "#"
+        ]
+      ];
+      // --- END OF TEST LINKS ---
+
       // Loop through each subject to create a card
       foreach ($subjects as $subject => $icon) {
         $subject_slug = strtolower(str_replace(' ', '-', $subject)); // e.g., "social-studies"
@@ -51,10 +107,14 @@
         <?php
           // Loop through grades to create buttons
           foreach ($grades as $grade) {
+            // Check if a specific link exists in our array, otherwise default to '#'
+            $link = $test_links[$subject_slug][$grade] ?? '#';
         ?>
-        <a href="test.php?subject=<?php echo urlencode($subject_slug); ?>&grade=<?php echo $grade; ?>" 
-           class="bg-primary text-white text-center font-semibold py-3 px-2 rounded-lg shadow-md hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-           aria-label="Grade <?php echo $grade; ?> <?php echo htmlspecialchars($subject); ?> Test">
+        <a href="<?php echo htmlspecialchars($link); ?>" 
+           class="bg-primary text-white text-center font-semibold py-3 px-2 rounded-lg shadow-md hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 <?php echo ($link === '#') ? 'opacity-50 cursor-not-allowed' : ''; ?>"
+           aria-label="Grade <?php echo $grade; ?> <?php echo htmlspecialchars($subject); ?> Test"
+           <?php if ($link === '#') { echo ' onclick="return false;"'; } // Prevent click if link is '#' ?>
+           >
           Grade <?php echo $grade; ?>
         </a>
         <?php
@@ -74,5 +134,6 @@
 
 <?php
   // Include the footer
-  include 'src/footer.php'; 
+  include 'footer.php'; 
 ?>
+
