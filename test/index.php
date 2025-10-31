@@ -44,7 +44,7 @@
           6 => "/tests/math-g6.html",
           7 => "/tests/math-g7.html",
           8 => "/tests/math-g8.html",
-          9 => "/tests/math-g9.html",
+          9 => "/tests/math-g9.php",
           10 => "/tests/math-g10.html",
           11 => "/tests/math-g11.html",
           12 => "/tests/math-g12.html"
