@@ -151,43 +151,77 @@ $questions = [
         'explanation' => "The system is: (1) \(x + y = 25\) and (2) \(2.25x + 1.50y = 45\). From (1), \(y = 25 - x\). Substitute this into (2): \(2.25x + 1.50(25 - x) = 45\). Distribute: \(2.25x + 37.5 - 1.50x = 45\). Combine like terms: \(0.75x + 37.5 = 45\). Subtract 37.5: \(0.75x = 7.5\). Divide by 0.75: \(x = 10\). Cameron sold 10 hot dogs."
     ],
 ];
+$totalQuestions = count($questions);
 
-// --- VARIABLES ---
+// --- PAGE STATE MANAGEMENT ---
+$isSetup = false;
+$isQuizActive = false;
+$isSubmitted = false;
+
+// --- QUIZ & GRADING VARIABLES ---
 $results = [];
 $userAnswers = [];
 $score = 0;
-$totalQuestions = count($questions);
-$isSubmitted = false;
 $percentage = 0;
+$studentName = '';
+$gradeLevel = '';
+$timerMode = 'none';
+$scramble = false;
+$quizDurationMinutes = 20; // 20 minutes for a timed test
 
-// --- GRADING LOGIC ---
+// --- DETERMINE PAGE STATE FROM POST DATA ---
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-    $isSubmitted = true;
+    
+    if (isset($_POST['grade_test'])) {
+        // --- STATE 3: RESULTS SCREEN ---
+        $isSubmitted = true;
+        
+        // Get settings passed from quiz form
+        $studentName = htmlspecialchars($_POST['studentName'] ?? 'Student');
+        $gradeLevel = htmlspecialchars($_POST['gradeLevel'] ?? 'N/A');
+        
+        // Helper function to normalize answers
+        function normalize($val) {
+            return str_replace([' ', '(', ')'], '', strtolower(trim($val)));
+        }
 
-    // Helper function to normalize answers for comparison
-    function normalize($val) {
-        return str_replace([' ', '(', ')'], '', strtolower(trim($val)));
-    }
+        // Grade the quiz
+        foreach ($questions as $question) {
+            $key = $question['id'];
+            $correctAnswer = $question['answer'];
+            $userAnswer = isset($_POST[$key]) ? $_POST[$key] : '';
+            $userAnswers[$key] = $userAnswer; // Store for PDF
 
-    foreach ($questions as $question) {
-        $key = $question['id'];
-        $correctAnswer = $question['answer'];
-        $userAnswer = isset($_POST[$key]) ? $_POST[$key] : '';
-        $userAnswers[$key] = $userAnswer; // Store for PDF
+            if (normalize($userAnswer) == normalize($correctAnswer)) {
+                $score++;
+                $results[$key] = 'correct';
+            } else {
+                $results[$key] = 'incorrect';
+            }
+        }
+        $percentage = ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0;
 
-        // Compare normalized answers
-        if (normalize($userAnswer) == normalize($correctAnswer)) {
-            $score++;
-            $results[$key] = 'correct';
-        } else {
-            $results[$key] = 'incorrect';
+    } elseif (isset($_POST['start_quiz'])) {
+        // --- STATE 2: QUIZ SCREEN ---
+        $isQuizActive = true;
+        
+        // Get settings from setup form
+        $studentName = htmlspecialchars($_POST['studentName'] ?? 'Student');
+        $gradeLevel = htmlspecialchars($_POST['gradeLevel'] ?? 'N/A');
+        $timerMode = $_POST['timerMode'] ?? 'none';
+        $scramble = isset($_POST['scramble']);
+
+        if ($scramble) {
+            shuffle($questions);
         }
     }
 
-    $percentage = ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0;
+} else {
+    // --- STATE 1: SETUP SCREEN (GET Request) ---
+    $isSetup = true;
 }
 
-// --- HELPER FUNCTIONS FOR HTML ---
+// --- HELPER FUNCTIONS FOR HTML (for results page) ---
 function get_result_class($key) {
     global $results, $isSubmitted;
     if (!$isSubmitted) return '';
@@ -210,12 +244,15 @@ function show_correct_answer($key) {
                 break;
             }
         }
+        // This function now echoes, so we'll keep it simple
         echo '<div class="incorrect-text font-semibold mt-2">Correct answer: ' . $correctAnswer . '</div>';
     }
 }
 
 function get_post_value($key) {
-    return htmlspecialchars($_POST[$key] ?? '');
+    // For the results page, get the value from the $userAnswers array
+    global $userAnswers;
+    return htmlspecialchars($userAnswers[$key] ?? '');
 }
 
 function show_feedback_icon($key) {
@@ -310,45 +347,102 @@ function show_feedback_icon($key) {
         pointer-events: none;
         cursor: default;
     }
+    
+    /* Timer styles */
+    #quiz-timer {
+        position: sticky;
+        top: 10px; /* Adjust as needed if you have a sticky header */
+        z-index: 10;
+        animation: fadeIn 0.5s;
+    }
 </style>
 
 <!-- Main Page Content -->
 <main class="container mx-auto py-10 px-4">
     <div class="max-w-3xl mx-auto bg-content-bg text-text-default p-6 md:p-10 rounded-lg shadow-xl">
 
+        <!-- Page Title -->
         <div class="flex items-center mb-2">
             <i class="fas fa-calculator text-3xl text-primary mr-3"></i>
             <h1 class="text-3xl font-bold text-text-default mb-0">Algebra 1 Test</h1>
         </div>
         <p class="text-text-secondary mb-6">Based on the NY Regents Algebra I Exam (August 2025)</p>
 
-        <!-- --- PROGRESS BAR / RESULTS BLOCK --- -->
-        <?php if ($isSubmitted): ?>
-            <!-- Show Results -->
-            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md mb-8 shadow-sm" role="alert">
-                <h2 class="text-2xl font-bold">Test Results</h2>
-                <p class="text-lg mt-2">You scored <strong class="font-bold"><?php echo $score; ?></strong> out of <strong class="font-bold"><?php echo $totalQuestions; ?></strong> questions correctly.</p>
+
+        <?php // --- STATE 1: SHOW SETUP SCREEN ---
+        if ($isSetup): ?>
+            
+            <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-6">Quiz Setup</h2>
+            <p class="text-text-secondary mb-6">Please enter your information and choose your quiz settings below.</p>
+            
+            <form action="algebra_test.php" method="POST" id="setupForm">
+                <input type="hidden" name="start_quiz" value="1">
+                <div class="space-y-6">
+                    <!-- Student Name -->
+                    <div>
+                        <label for="studentName" class="block text-sm font-medium text-text-default mb-1">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" class="w-full md:w-3/4 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary" placeholder="Enter your full name" required>
+                    </div>
+
+                    <!-- Grade Level -->
+                    <div>
+                        <label for="gradeLevel" class="block text-sm font-medium text-text-default mb-1">Current Grade Level</label>
+                        <select id="gradeLevel" name="gradeLevel" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary">
+                            <option value="8">8th Grade</option>
+                            <option value="9" selected>9th Grade</option>
+                            <option value="10">10th Grade</option>
+                            <option value="11">11th Grade</option>
+                            <option value="12">12th Grade</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Timer Options -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-default mb-2">Timer Options</label>
+                        <div class="space-y-2">
+                            <label class="radio-label block p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="timerMode" value="none" class="mr-2" checked> No Timer
+                            </label>
+                            <label class="radio-label block p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="timerMode" value="visible" class="mr-2"> Show elapsed time (count up)
+                            </label>
+                            <label class="radio-label block p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="timerMode" value="timed" class="mr-2"> Timed test (<?php echo $quizDurationMinutes; ?> min countdown)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Other Options -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-default mb-2">Other Options</label>
+                        <label class="radio-label flex items-center p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                            <input type="checkbox" name="scramble" value="true" class="mr-3 h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded">
+                            Scramble question order
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <div class="mt-10">
+                    <button type="submit" class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-secondary transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-accent">
+                        <i class="fas fa-play mr-2"></i> Start Quiz
+                    </button>
+                </div>
+            </form>
+
+        <?php // --- STATE 2: SHOW QUIZ SCREEN ---
+        elseif ($isQuizActive): ?>
+
+            <!-- Timer UI -->
+            <?php if ($timerMode != 'none'): ?>
+            <div id="quiz-timer" class="mb-6 p-3 bg-base-bg border border-gray-300 rounded-lg shadow-sm flex items-center justify-center sticky top-4 z-10">
+                <i class="fas fa-clock text-primary mr-3 text-xl"></i>
+                <span class="text-xl font-bold text-text-default" id="timer-display">00:00</span>
             </div>
+            <?php endif; ?>
+
             <!-- Progress Bar -->
-            <div class="mb-4">
-                <div class="flex justify-between mb-1">
-                    <span class="text-base font-medium text-primary">Final Score</span>
-                    <span class="text-sm font-medium text-primary"><?php echo number_format($percentage, 0); ?>%</span>
-                </div>
-                <div class="w-full progress-bar-bg rounded-full h-4">
-                    <div class="progress-bar-fg h-4 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
-                </div>
-            </div>
-            <!-- PDF Download Button -->
-            <div class="mb-8">
-                <label for="studentName" class="block text-sm font-medium text-text-secondary mb-1">Enter your name to include on the report:</label>
-                <input type="text" id="studentName" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary" placeholder="Your Name">
-                <button id="downloadPdfButton" class="w-full md:w-auto mt-2 bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-green-400">
-                    <i class="fas fa-file-pdf mr-2"></i> Download Results as PDF
-                </button>
-            </div>
-        <?php else: ?>
-            <!-- Show "In Progress" -->
             <div class="mb-8">
                 <div class="flex justify-between mb-1">
                     <span class="text-base font-medium text-text-secondary">Progress</span>
@@ -358,39 +452,23 @@ function show_feedback_icon($key) {
                     <div id="progress-bar" class="progress-bar-fg h-4 rounded-full" style="width: <?php echo (1/$totalQuestions)*100; ?>%"></div>
                 </div>
             </div>
-        <?php endif; ?>
 
-
-        <!-- --- TEST FORM --- -->
-        <!-- 
-            If NOT submitted: Render the quiz in "card" format.
-            If submitted: Render the quiz in "review" format.
-        -->
-        <form action="" method="POST" id="quizForm" class="<?php echo $isSubmitted ? 'review-mode' : ''; ?>">
-            
-            <?php if ($isSubmitted): ?>
-                <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-6">Review Your Answers</h2>
-            <?php endif; ?>
-
-            <?php foreach ($questions as $index => $q): ?>
-                <?php
+            <!-- Quiz Form -->
+            <form action="algebra_test.php" method="POST" id="quizForm">
+                <!-- Hidden fields to pass settings -->
+                <input type="hidden" name="grade_test" value="1">
+                <input type="hidden" name="studentName" value="<?php echo $studentName; ?>">
+                <input type="hidden" name="gradeLevel" value="<?php echo $gradeLevel; ?>">
+                
+                <?php foreach ($questions as $index => $q):
                     $key = $q['id'];
                     $isFirst = ($index == 0);
                     $isLast = ($index == $totalQuestions - 1);
                 ?>
-                
-                <!-- 
-                    Wrapper div: 
-                    - If NOT submitted: It's a 'quiz-card'.
-                    - If submitted: It's a standard 'div' for the review list.
-                -->
-                <div id="question-<?php echo $index; ?>" 
-                     class="mb-8 p-4 rounded-md <?php echo $isSubmitted ? get_result_class($key) : 'quiz-card ' . ($isFirst ? 'active' : ''); ?>">
-                    
+                <div id="question-<?php echo $index; ?>" class="quiz-card <?php echo $isFirst ? 'active' : ''; ?>">
                     <!-- Question Text -->
                     <p class="font-semibold text-lg mb-3 flex items-center">
                         <?php echo ($index + 1) . ". " . $q['text']; ?>
-                        <?php if ($isSubmitted) { show_feedback_icon($key); } ?>
                     </p>
                     
                     <!-- Answer Area -->
@@ -398,20 +476,17 @@ function show_feedback_icon($key) {
                         <?php if ($q['type'] == 'mc'): ?>
                             <?php foreach ($q['options'] as $value => $text): ?>
                                 <label class="radio-label block p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                    <input type="radio" name="<?php echo $key; ?>" value="<?php echo $value; ?>" class="mr-2" <?php if (get_post_value($key) == $value) echo 'checked'; ?>>
+                                    <input type="radio" name="<?php echo $key; ?>" value="<?php echo $value; ?>" class="mr-2">
                                     <?php echo $text; ?>
                                 </label>
                             <?php endforeach; ?>
                         <?php elseif ($q['type'] == 'text'): ?>
                             <label for="<?php echo $key; ?>" class="sr-only"><?php echo $q['text']; ?></label>
-                            <input type="text" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="<?php echo get_post_value($key); ?>" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary">
+                            <input type="text" id="<?php echo $key; ?>" name="<?php echo $key; ?>" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary">
                         <?php endif; ?>
                     </div>
 
-                    <!-- Correct Answer (for review mode) -->
-                    <?php if ($isSubmitted) { show_correct_answer($key); } ?>
-
-                    <!-- Hint & Explanation Buttons/Boxes -->
+                    <!-- Hint & Explanation Buttons -->
                     <div class="mt-4 space-x-2">
                         <button type="button" class="hint-button text-sm text-blue-500 hover:underline" data-target="hint-<?php echo $index; ?>">
                             <i class="fas fa-lightbulb mr-1"></i> Show Hint
@@ -428,51 +503,155 @@ function show_feedback_icon($key) {
                         <strong>Explanation:</strong> <?php echo $q['explanation']; ?>
                     </div>
 
-                    <!-- Navigation (for quiz mode) -->
-                    <?php if (!$isSubmitted): ?>
+                    <!-- Navigation -->
                     <div class="flex justify-between mt-6">
                         <button type="button" class="prev-button bg-gray-500 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 <?php echo $isFirst ? 'hidden' : ''; ?>" data-target="<?php echo $index - 1; ?>">
                             <i class="fas fa-arrow-left mr-2"></i> Previous
                         </button>
-                        <!-- Spacer to keep "Next" on the right -->
-                        <div class="<?php echo $isFirst ? 'hidden' : ''; ?>"></div>
+                        <div class="<?php echo $isFirst ? 'hidden' : ''; ?>"></div> <!-- Spacer -->
                         
                         <?php if (!$isLast): ?>
                             <button type="button" class="next-button bg-primary text-white font-bold py-2 px-5 rounded-lg shadow-md hover:bg-secondary transition duration-300 focus:outline-none focus:ring-2 focus:ring-accent" data-target="<?php echo $index + 1; ?>">
                                 Next <i class="fas fa-arrow-right ml-2"></i>
                             </button>
                         <?php else: ?>
-                            <!-- Last question shows the submit button -->
                             <button type="submit" class="w-full md:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-green-400">
                                 <i class="fas fa-check-double mr-2"></i> Grade My Test
                             </button>
                         <?php endif; ?>
                     </div>
-                    <?php endif; ?>
+                </div>
+                <?php endforeach; ?>
+            </form>
 
-                </div> <!-- End question wrapper -->
-            <?php endforeach; ?>
+        <?php // --- STATE 3: SHOW RESULTS SCREEN ---
+        elseif ($isSubmitted): ?>
 
-            <!-- --- SUBMIT/RETAKE BUTTON --- -->
-            <?php if ($isSubmitted): ?>
+            <!-- Results -->
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md mb-8 shadow-sm" role="alert">
+                <h2 class="text-2xl font-bold">Test Results for <?php echo $studentName; ?> (Grade <?php echo $gradeLevel; ?>)</h2>
+                <p class="text-lg mt-2">You scored <strong class="font-bold"><?php echo $score; ?></strong> out of <strong class="font-bold"><?php echo $totalQuestions; ?></strong> questions correctly.</p>
+            </div>
+            <!-- Progress Bar -->
+            <div class="mb-4">
+                <div class="flex justify-between mb-1">
+                    <span class="text-base font-medium text-primary">Final Score</span>
+                    <span class="text-sm font-medium text-primary"><?php echo number_format($percentage, 0); ?>%</span>
+                </div>
+                <div class="w-full progress-bar-bg rounded-full h-4">
+                    <div class="progress-bar-fg h-4 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
+                </div>
+            </div>
+            <!-- PDF Download Button -->
+            <div class="mb-8">
+                <button id="downloadPdfButton" class="w-full md:w-auto mt-2 bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <i class="fas fa-file-pdf mr-2"></i> Download Results as PDF
+                </button>
+            </div>
+            
+            <!-- Review Answers Form -->
+            <form id="quizForm" class="review-mode">
+                <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-6">Review Your Answers</h2>
+                
+                <?php foreach ($questions as $index => $q):
+                    $key = $q['id'];
+                ?>
+                <div class="mb-8 p-4 rounded-md <?php echo get_result_class($key); ?>">
+                    <!-- Question Text -->
+                    <p class="font-semibold text-lg mb-3 flex items-center">
+                        <?php echo ($index + 1) . ". " . $q['text']; ?>
+                        <?php show_feedback_icon($key); ?>
+                    </p>
+                    
+                    <!-- Answer Area -->
+                    <div class="space-y-2">
+                        <?php if ($q['type'] == 'mc'): ?>
+                            <?php foreach ($q['options'] as $value => $text): ?>
+                                <label class="radio-label block p-3 rounded-md border border-gray-300 dark:border-gray-600">
+                                    <input type="radio" name="<?php echo $key; ?>" value="<?php echo $value; ?>" class="mr-2" <?php if (get_post_value($key) == $value) echo 'checked'; ?>>
+                                    <?php echo $text; ?>
+                                </label>
+                            <?php endforeach; ?>
+                        <?php elseif ($q['type'] == 'text'): ?>
+                            <label for="<?php echo $key; ?>" class="sr-only"><?php echo $q['text']; ?></label>
+                            <input type="text" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="<?php echo get_post_value($key); ?>" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default">
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Correct Answer -->
+                    <?php show_correct_answer($key); ?>
+
+                    <!-- Hint & Explanation Buttons -->
+                    <div class="mt-4 space-x-2">
+                        <button type="button" class="hint-button text-sm text-blue-500 hover:underline" data-target="hint-<?php echo $index; ?>">
+                            <i class="fas fa-lightbulb mr-1"></i> Show Hint
+                        </button>
+                        <button type="button" class="explanation-button text-sm text-green-600 hover:underline" data-target="explanation-<?php echo $index; ?>">
+                            <i class="fas fa-book-open mr-1"></i> Show Explanation
+                        </button>
+                    </div>
+                    
+                    <div id="hint-<?php echo $index; ?>" class="hint-box text-text-secondary">
+                        <strong>Hint:</strong> <?php echo $q['hint']; ?>
+                    </div>
+                    <div id="explanation-<?php echo $index; ?>" class="explanation-box text-text-default">
+                        <strong>Explanation:</strong> <?php echo $q['explanation']; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+
+                <!-- Retake Button -->
                 <div class="mt-10">
-                    <a href="" class="block w-full text-center bg-gray-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-gray-400">
+                    <a href="algebra_test.php" class="block w-full text-center bg-gray-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-gray-400">
                         <i class="fas fa-redo mr-2"></i> Take Again
                     </a>
                 </div>
-            <?php endif; ?>
+            </form>
 
-        </form>
+        <?php endif; ?>
+
     </div>
 </main>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const quizForm = document.getElementById('quizForm');
-    const isSubmitted = quizForm.classList.contains('review-mode');
-    
-    // --- Quiz Navigation (Card) Logic ---
-    if (!isSubmitted) {
+    const isQuizActive = <?php echo json_encode($isQuizActive); ?>;
+    const isSubmitted = <?php echo json_encode($isSubmitted); ?>;
+    let timerInterval = null;
+
+    // --- TIMER LOGIC ---
+    function startTimer(mode, durationSeconds = 0) {
+        const timerDisplay = document.getElementById('timer-display');
+        if (!timerDisplay) return;
+
+        let secondsRemaining = durationSeconds;
+        let secondsElapsed = 0;
+
+        timerInterval = setInterval(() => {
+            if (mode === 'timed') {
+                secondsRemaining--;
+                if (secondsRemaining < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = 'Time\'s Up!';
+                    timerDisplay.classList.add('text-red-500');
+                    quizForm.submit();
+                    return;
+                }
+                const minutes = Math.floor(secondsRemaining / 60);
+                const seconds = secondsRemaining % 60;
+                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            } else if (mode === 'visible') {
+                secondsElapsed++;
+                const minutes = Math.floor(secondsElapsed / 60);
+                const seconds = secondsElapsed % 60;
+                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }, 1000);
+    }
+
+    // --- QUIZ NAVIGATION (Card) LOGIC ---
+    if (isQuizActive) {
         let currentQuestionIndex = 0;
         const questionCards = document.querySelectorAll('.quiz-card');
         const totalQuestions = questionCards.length;
@@ -487,7 +666,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentQuestionIndex = index;
             progressText.textContent = (index + 1);
             progressBar.style.width = ((index + 1) / totalQuestions) * 100 + '%';
-            // Ensure MathJax re-renders the new card if needed
+            // Ensure MathJax re-renders the new card
             if (window.MathJax) {
                 window.MathJax.typesetPromise();
             }
@@ -504,12 +683,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Show the first question initially
-        showQuestion(0);
+        showQuestion(0); // Show first question
+        
+        // Start the timer based on PHP settings
+        const timerMode = '<?php echo $timerMode; ?>';
+        if (timerMode === 'timed') {
+            startTimer('timed', <?php echo $quizDurationMinutes * 60; ?>);
+        } else if (timerMode === 'visible') {
+            startTimer('visible');
+        }
     }
 
-    // --- Hint & Explanation Toggle Logic ---
-    quizForm.addEventListener('click', function(e) {
+    // --- HINT & EXPLANATION TOGGLE LOGIC ---
+    // This event listener is placed on the main container to work on all 3 screens
+    document.querySelector('.max-w-3xl').addEventListener('click', function(e) {
         let targetButton = null;
         if (e.target.classList.contains('hint-button')) {
             targetButton = e.target;
@@ -527,7 +714,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetBox) {
                 const isHidden = targetBox.style.display === 'none' || targetBox.style.display === '';
                 targetBox.style.display = isHidden ? 'block' : 'none';
-                // Re-render MathJax for the new content
                 if (isHidden && window.MathJax) {
                     window.MathJax.typesetPromise([targetBox]);
                 }
@@ -535,12 +721,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- PDF Download Logic ---
+    // --- PDF DOWNLOAD LOGIC ---
     if (isSubmitted) {
         const downloadButton = document.getElementById('downloadPdfButton');
-        const studentNameInput = document.getElementById('studentName');
         
         // Pass PHP data to JavaScript
+        const studentName = <?php echo json_encode($studentName); ?>;
+        const gradeLevel = <?php echo json_encode($gradeLevel); ?>;
         const questionsData = <?php echo json_encode($questions); ?>;
         const userAnswersData = <?php echo json_encode($userAnswers); ?>;
         const resultsData = <?php echo json_encode($results); ?>;
@@ -551,8 +738,8 @@ document.addEventListener('DOMContentLoaded', function() {
         downloadButton.addEventListener('click', function() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const studentName = studentNameInput.value || 'Student';
             let yPos = 20;
+            const formatText = (text) => text.replace(/\\\(|\\\)/g, ''); // Strips MathJax delimiters
 
             // --- PDF STYLING ---
             doc.setFont('helvetica', 'bold');
@@ -562,6 +749,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             doc.setFontSize(14);
             doc.text(`Student: ${studentName}`, 105, yPos, { align: 'center' });
+            yPos += 7;
+            doc.text(`Grade Level: ${gradeLevel}`, 105, yPos, { align: 'center' });
             yPos += 10;
 
             doc.setFont('helvetica', 'normal');
@@ -571,31 +760,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // --- PDF CONTENT LOOP ---
             questionsData.forEach((q, index) => {
-                if (yPos > 270) { // Add new page if content overflows
+                if (yPos > 270) { // Add new page
                     doc.addPage();
                     yPos = 20;
                 }
                 
                 const key = q.id;
-                const userAnswer = userAnswersData[key] || 'No Answer';
+                const userAnswerRaw = userAnswersData[key] || 'No Answer';
                 const isCorrect = resultsData[key] === 'correct';
                 let correctAnswer = q.answer;
+                let userAnswer = userAnswerRaw;
+
                 if(q.type === 'mc') {
-                    correctAnswer = q.options[q.answer].replace(/\\\(|\\\)/g, ''); // Get text and strip MathJax
+                    correctAnswer = formatText(q.options[q.answer] || '');
+                    userAnswer = formatText(q.options[userAnswerRaw] || userAnswerRaw); // Get option text
                 }
 
                 // Question Text
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(12);
-                const qText = doc.splitTextToSize(`${index + 1}. ${q.text.replace(/\\\(|\\\)/g, '')}`, 180); // Strip MathJax
+                const qText = doc.splitTextToSize(`${index + 1}. ${formatText(q.text)}`, 180);
                 doc.text(qText, 15, yPos);
-                yPos += (qText.length * 5) + 5; // Dynamic height for question
+                yPos += (qText.length * 5) + 5; 
 
                 // User Answer
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
                 doc.setTextColor(isCorrect ? '#22c55e' : '#ef4444');
-                doc.text(`Your Answer: ${userAnswer.replace(/\\\(|\\\)/g, '')} ${isCorrect ? '(Correct)' : '(Incorrect)'}`, 20, yPos);
+                doc.text(`Your Answer: ${userAnswer} ${isCorrect ? '(Correct)' : '(Incorrect)'}`, 20, yPos);
                 yPos += 5;
 
                 // Correct Answer (if incorrect)
@@ -604,7 +796,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     doc.text(`Correct Answer: ${correctAnswer}`, 20, yPos);
                     yPos += 5;
                 }
-                yPos += 10; // Extra padding
+                
+                // Explanation
+                doc.setTextColor('#6B7280'); // text-gray-500
+                const exText = doc.splitTextToSize(`Explanation: ${formatText(q.explanation)}`, 175);
+                
+                // Check if explanation fits on the page
+                if (yPos + (exText.length * 5) > 280) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                
+                doc.text(exText, 20, yPos);
+                yPos += (exText.length * 5) + 5;
+                yPos += 5; // Extra padding
             });
 
             doc.save(`${studentName.replace(/ /g, '_')}_Algebra_1_Results.pdf`);
