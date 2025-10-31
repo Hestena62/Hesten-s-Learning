@@ -430,6 +430,11 @@ function show_feedback_icon($key) {
                     </button>
                 </div>
             </form>
+            
+            <!-- Clear any old quiz progress when on the setup screen -->
+            <script>
+                localStorage.removeItem('algebraQuizProgress');
+            </script>
 
         <?php // --- STATE 2: SHOW QUIZ SCREEN ---
         elseif ($isQuizActive): ?>
@@ -619,14 +624,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const isQuizActive = <?php echo json_encode($isQuizActive); ?>;
     const isSubmitted = <?php echo json_encode($isSubmitted); ?>;
     let timerInterval = null;
+    const QUIZ_STORAGE_KEY = 'algebraQuizProgress';
 
     // --- TIMER LOGIC ---
-    function startTimer(mode, durationSeconds = 0) {
+    function startTimer(mode, durationSeconds = 0, initialElapsed = 0) {
         const timerDisplay = document.getElementById('timer-display');
         if (!timerDisplay) return;
 
-        let secondsRemaining = durationSeconds;
-        let secondsElapsed = 0;
+        secondsElapsed = initialElapsed; // Use the outer scope's secondsElapsed
+        let secondsRemaining = durationSeconds - initialElapsed;
 
         timerInterval = setInterval(() => {
             if (mode === 'timed') {
@@ -635,6 +641,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     clearInterval(timerInterval);
                     timerDisplay.textContent = 'Time\'s Up!';
                     timerDisplay.classList.add('text-red-500');
+                    // Ensure save before submitting
+                    saveProgress(); 
                     quizForm.submit();
                     return;
                 }
@@ -653,10 +661,89 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- QUIZ NAVIGATION (Card) LOGIC ---
     if (isQuizActive) {
         let currentQuestionIndex = 0;
+        let secondsElapsed = 0; // Will be updated by timer
         const questionCards = document.querySelectorAll('.quiz-card');
         const totalQuestions = questionCards.length;
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
+        
+        // --- LOCALSTORAGE SAVE ---
+        function saveProgress() {
+            const formData = new FormData(quizForm);
+            const answers = {};
+            formData.forEach((value, key) => {
+                if (!['grade_test', 'studentName', 'gradeLevel'].includes(key)) {
+                    answers[key] = value;
+                }
+            });
+            
+            const progress = {
+                studentName: <?php echo json_encode($studentName); ?>,
+                gradeLevel: <?php echo json_encode($gradeLevel); ?>,
+                timerMode: <?php echo json_encode($timerMode); ?>,
+                scramble: <?php echo json_encode($scramble); ?>,
+                questions: <?php echo json_encode($questions); ?>, // Store the exact (potentially scrambled) question order
+                currentQuestionIndex: currentQuestionIndex,
+                answers: answers,
+                timerElapsed: secondsElapsed
+            };
+            localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(progress));
+        }
+
+        // --- LOCALSTORAGE LOAD ---
+        function loadProgress() {
+            const defaultState = { currentQuestionIndex: 0, timerElapsed: 0 };
+            const savedProgress = localStorage.getItem(QUIZ_STORAGE_KEY);
+            if (!savedProgress) return defaultState;
+
+            try {
+                const progress = JSON.parse(savedProgress);
+                
+                // Validate if this is the same quiz session
+                const currentSettings = {
+                    studentName: <?php echo json_encode($studentName); ?>,
+                    gradeLevel: <?php echo json_encode($gradeLevel); ?>,
+                    timerMode: <?php echo json_encode($timerMode); ?>,
+                    scramble: <?php echo json_encode($scramble); ?>,
+                    questions: <?php echo json_encode($questions); ?>
+                };
+
+                if (progress.studentName !== currentSettings.studentName ||
+                    progress.gradeLevel !== currentSettings.gradeLevel ||
+                    progress.timerMode !== currentSettings.timerMode ||
+                    progress.scramble !== currentSettings.scramble ||
+                    JSON.stringify(progress.questions) !== JSON.stringify(currentSettings.questions)) {
+                    
+                    // Not the same quiz settings, clear invalid data
+                    localStorage.removeItem(QUIZ_STORAGE_KEY);
+                    return defaultState;
+                }
+
+                // Restore answers
+                for (const [key, value] of Object.entries(progress.answers)) {
+                    const radioInput = quizForm.querySelector(`[name="${key}"][value="${value}"]`);
+                    if (radioInput) {
+                        radioInput.checked = true;
+                    } else {
+                        const textInput = quizForm.querySelector(`[name="${key}"]`);
+                        if (textInput) {
+                            textInput.value = value;
+                        }
+                    }
+                }
+                
+                // Return loaded state
+                return { 
+                    currentQuestionIndex: progress.currentQuestionIndex, 
+                    timerElapsed: progress.timerElapsed 
+                };
+
+            } catch (e) {
+                console.error("Error loading quiz progress:", e);
+                localStorage.removeItem(QUIZ_STORAGE_KEY);
+                return defaultState;
+            }
+        }
 
         function showQuestion(index) {
             questionCards.forEach((card, i) => {
@@ -666,6 +753,10 @@ document.addEventListener('DOMContentLoaded', function() {
             currentQuestionIndex = index;
             progressText.textContent = (index + 1);
             progressBar.style.width = ((index + 1) / totalQuestions) * 100 + '%';
+            
+            // Save progress when changing questions
+            saveProgress();
+            
             // Ensure MathJax re-renders the new card
             if (window.MathJax) {
                 window.MathJax.typesetPromise();
@@ -683,14 +774,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        showQuestion(0); // Show first question
+        // --- INITIATE QUIZ ---
+        const loadedState = loadProgress();
+        currentQuestionIndex = loadedState.currentQuestionIndex;
+        secondsElapsed = loadedState.timerElapsed;
         
-        // Start the timer based on PHP settings
+        showQuestion(currentQuestionIndex); // Show last viewed question
+        
+        // Save progress on any form input change
+        quizForm.addEventListener('input', saveProgress);
+        
+        // Start the timer based on PHP settings and loaded time
         const timerMode = '<?php echo $timerMode; ?>';
         if (timerMode === 'timed') {
-            startTimer('timed', <?php echo $quizDurationMinutes * 60; ?>);
+            startTimer('timed', <?php echo $quizDurationMinutes * 60; ?>, secondsElapsed);
         } else if (timerMode === 'visible') {
-            startTimer('visible');
+            startTimer('visible', 0, secondsElapsed);
         }
     }
 
@@ -723,6 +822,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- PDF DOWNLOAD LOGIC ---
     if (isSubmitted) {
+        // Clear progress from local storage once test is submitted
+        localStorage.removeItem(QUIZ_STORAGE_KEY);
+    
         const downloadButton = document.getElementById('downloadPdfButton');
         
         // Pass PHP data to JavaScript
@@ -823,4 +925,3 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Include the site footer ---
 include 'src/footer.php';
 ?>
-
