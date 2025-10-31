@@ -459,7 +459,7 @@ function show_feedback_icon($key) {
             </div>
 
             <!-- Quiz Form -->
-            <form action="algebra_test.php" method="POST" id="quizForm">
+            <form action="tests\math-g9.php" method="POST" id="quizForm">
                 <!-- Hidden fields to pass settings -->
                 <input type="hidden" name="grade_test" value="1">
                 <input type="hidden" name="studentName" value="<?php echo $studentName; ?>">
