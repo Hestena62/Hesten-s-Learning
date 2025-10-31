@@ -148,14 +148,8 @@
       </script>
       <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
       <div class="mt-4 flex justify-center items-center gap-4">
-        <a href="#"
-          onclick="window.open('https://www.sitelock.com/verify.php?site=hestena62.com','SiteLock','width=600,height=600,left=160,top=170');"
-          title="SiteLock" class="focus:outline-none focus:ring-2 focus:ring-white rounded">
-          <img alt="SiteLock" src="https://shield.sitelock.com/shield/hestena62.com"
-            class="h-8 w-auto rounded shadow" />
-        </a>
 
-        <a href="https://www.buymeacoffee.com/hestena62"
+        <a href="https://www.buymeacoffee.com/hestena62l"
           class="focus:outline-none focus:ring-2 focus:ring-white rounded">
           <img
             src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hestena62&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
