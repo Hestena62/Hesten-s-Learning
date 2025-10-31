@@ -99,7 +99,7 @@
       'id' => 'test-section',
       'title' => 'Test/Extra',
       'description' => 'Practice with quizzes, review extra materials, and challenge yourself to master new topics across all subjects.',
-      'link' => '/tests/'
+      'link' => '/test'
     ],
   ];
 
