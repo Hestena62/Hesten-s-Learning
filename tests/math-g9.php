@@ -8,7 +8,7 @@ $welcomeMessage = "Welcome to the Algebra 1 Test";
 $welcomeParagraph = "Test your knowledge with these questions based on the NY Regents curriculum. Good luck!";
 
 // --- Include the site header ---
-include 'src\header.php';
+include 'src/header.php';
 
 // --- QUESTION DATA (Expanded with Hints & Explanations) ---
 $questions = [
