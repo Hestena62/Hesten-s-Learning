@@ -10,148 +10,9 @@ $welcomeParagraph = "Test your knowledge with these questions based on the NY Re
 // --- Include the site header ---
 include 'src/header.php';
 
-// --- QUESTION DATA (Expanded with Hints & Explanations) ---
-$questions = [
-    [
-        'id' => 'q1',
-        'type' => 'mc',
-        'text' => 'Which expression is equivalent to \(100x^2 - 16\)?',
-        'options' => [
-            '1' => '\( (50x - 8)(50x + 8) \)',
-            '2' => '\( (50x - 8)(50x - 8) \)',
-            '3' => '\( (10x - 4)(10x + 4) \)',
-            '4' => '\( (10x - 4)(10x - 4) \)',
-        ],
-        'answer' => '3',
-        'hint' => "This looks like a standard algebraic form. Do you recognize the 'difference of...' pattern?",
-        'explanation' => "This is a difference of two squares, \(a^2 - b^2 = (a-b)(a+b)\). Here, \(a^2 = 100x^2\), so \(a = 10x\), and \(b^2 = 16\), so \(b = 4\). This gives \((10x - 4)(10x + 4)\)."
-    ],
-    [
-        'id' => 'q2',
-        'type' => 'mc',
-        'text' => 'Josie has $2.30 in dimes and quarters. She has two more dimes than quarters. Which equation can be used to determine \(x\), the number of quarters she has?',
-        'options' => [
-            '1' => '\( 0.35(2x + 2) = 2.30 \)',
-            '2' => '\( 0.25(x + 2) + 0.10x = 2.30 \)',
-            '3' => '\( 0.25x + 0.10(x + 2) = 2.30 \)',
-            '4' => '\( 0.25x + 0.10(x - 2) = 2.30 \)',
-        ],
-        'answer' => '3',
-        'hint' => "Let \(x\) be the number of quarters. How would you write the number of dimes? The total *value* is $2.30.",
-        'explanation' => "Quarters = \(x\). Dimes = \(x + 2\). The value of quarters is \(0.25x\). The value of dimes is \(0.10(x + 2)\). The total value is their sum: \(0.25x + 0.10(x + 2) = 2.30\)."
-    ],
-    [
-        'id' => 'q3',
-        'type' => 'mc',
-        'text' => 'If \(g(x) = -2x^2 + 16\), then \(g(-3)\) equals:',
-        'options' => [
-            '1' => '-20',
-            '2' => '-2',
-            '3' => '34',
-            '4' => '52',
-        ],
-        'answer' => '2',
-        'hint' => "You need to substitute -3 everywhere you see an \(x\) in the function \(g(x) = -2x^2 + 16\).",
-        'explanation' => "Substitute \(x = -3\): \(g(-3) = -2(-3)^2 + 16\). First, calculate the exponent: \((-3)^2 = 9\). Then multiply: \(-2(9) = -18\). Finally, add: \(-18 + 16 = -2\)."
-    ],
-    [
-        'id' => 'q4',
-        'type' => 'mc',
-        'text' => 'What are the zeros of \(f(x) = x^2 - 8x - 20\)?',
-        'options' => [
-            '1' => '10 and 2',
-            '2' => '10 and -2',
-            '3' => '-10 and 2',
-            '4' => '-10 and -2',
-        ],
-        'answer' => '2',
-        'hint' => "The 'zeros' are the values of \(x\) that make \(f(x) = 0\). You can find them by factoring the quadratic \(x^2 - 8x - 20 = 0\).",
-        'explanation' => "To factor \(x^2 - 8x - 20\), find two numbers that multiply to -20 and add to -8. These numbers are -10 and 2. So, \((x - 10)(x + 2) = 0\). The zeros are the values that make each factor zero: \(x - 10 = 0 \implies x = 10\) and \(x + 2 = 0 \implies x = -2\)."
-    ],
-    [
-        'id' => 'q9',
-        'type' => 'mc',
-        'text' => 'Which table (f(x), g(x), h(x), j(x)) represents a linear function?',
-        'options' => [
-            '1' => 'f(x)',
-            '2' => 'g(x)',
-            '3' => 'h(x)',
-            '4' => 'j(x)',
-        ],
-        'answer' => '4',
-        'hint' => "A linear function has a constant rate of change (slope). Check the change in y for every 1-unit change in x in each table.",
-        'explanation' => "In table j(x), for every 1-unit increase in x (from -3 to -2, -2 to -1, etc.), the y-value increases by a constant amount of 4. This constant rate of change means it is a linear function."
-    ],
-    [
-        'id' => 'q17',
-        'type' => 'mc',
-        'text' => 'The formula for the area of a trapezoid is \(A = \frac{1}{2}h(b_1 + b_2)\). The height, \(h\), may be expressed as:',
-        'options' => [
-            '1' => '\( \frac{2A}{b_1 + b_2} \)',
-            '2' => '\( \frac{1}{2}A(b_1 + b_2) \)',
-            '3' => '\( \frac{b_1 + b_2}{2A} \)',
-            '4' => '\( \frac{1}{2}A - (b_1 + b_2) \)',
-        ],
-        'answer' => '1',
-        'hint' => "You need to isolate \(h\) in the equation \(A = \frac{1}{2}h(b_1 + b_2)\). Start by getting rid of the \(\frac{1}{2}\).",
-        'explanation' => "Start with \(A = \frac{1}{2}h(b_1 + b_2)\). Multiply both sides by 2: \(2A = h(b_1 + b_2)\). Then, divide both sides by the term in parentheses: \(\frac{2A}{b_1 + b_2} = h\)."
-    ],
-    [
-        'id' => 'q21',
-        'type' => 'mc',
-        'text' => 'When \(6x^3 - 2x + 8\) is subtracted from \(5x^3 + 3x - 4\), the result is:',
-        'options' => [
-            '1' => '\( x^3 - 5x + 12 \)',
-            '2' => '\( x^3 + x + 4 \)',
-            '3' => '\( -x^3 + 5x - 12 \)',
-            '4' => '\( -x^3 + x + 4 \)',
-        ],
-        'answer' => '3',
-        'hint' => "Be careful! You are subtracting the *entire* first polynomial from the second. Remember to distribute the negative sign.",
-        'explanation' => "We are calculating \((5x^3 + 3x - 4) - (6x^3 - 2x + 8)\). Distribute the negative: \(5x^3 + 3x - 4 - 6x^3 + 2x - 8\). Combine like terms: \((5x^3 - 6x^3) + (3x + 2x) + (-4 - 8) = -x^3 + 5x - 12\)."
-    ],
-    [
-        'id' => 'q25',
-        'type' => 'text',
-        'text' => 'Solve the equation \(\frac{1}{6}(4x + 12) = 9\) algebraically.',
-        'answer' => '10.5',
-        'hint' => "Start by isolating the parentheses. Multiply both sides by 6.",
-        'explanation' => "Given \(\frac{1}{6}(4x + 12) = 9\). Multiply by 6: \(4x + 12 = 54\). Subtract 12: \(4x = 42\). Divide by 4: \(x = \frac{42}{4} = \frac{21}{2} = 10.5\)."
-    ],
-    [
-        'id' => 'q29',
-        'type' => 'text',
-        'text' => 'Determine the 8th term of a geometric sequence whose first term is 5 and whose common ratio is 3.',
-        'answer' => '10935',
-        'hint' => "The formula for the nth term of a geometric sequence is \(a_n = a_1 \cdot r^{n-1}\). You are looking for the 8th term (\(n=8\)).",
-        'explanation' => "Using the formula \(a_n = a_1 \cdot r^{n-1}\) with \(a_1 = 5\), \(r = 3\), and \(n = 8\): \(a_8 = 5 \cdot (3)^{8-1} = 5 \cdot (3)^7 = 5 \cdot 2187 = 10935\)."
-    ],
-    [
-        'id' => 'q31_vertex',
-        'type' => 'text',
-        'text' => 'State the vertex of the function \(f(x) = -\frac{1}{3}x^2 + 4\). (e.g., (x,y))',
-        'answer' => '(0,4)',
-        'hint' => "The function is in vertex form, \(f(x) = a(x-h)^2 + k\), where the vertex is \((h, k)\). You can rewrite the function as \(f(x) = -\frac{1}{3}(x - 0)^2 + 4\).",
-        'explanation' => "The vertex form is \(f(x) = a(x-h)^2 + k\). Our function is \(f(x) = -\frac{1}{3}x^2 + 4\), which is the same as \(f(x) = -\frac{1}{3}(x - 0)^2 + 4\). Comparing the two, \(h = 0\) and \(k = 4\). So the vertex is \((0, 4)\)."
-    ],
-    [
-        'id' => 'q32_hours',
-        'type' => 'text',
-        'text' => 'A canoe rental charges $18 for the first hour and $7.50 for each additional hour. If Vince has $78 to spend, what is the <strong>maximum total number of hours</strong> he can rent the canoe?',
-        'answer' => '9',
-        'hint' => "The total cost is $18 for the *first* hour, plus $7.50 for the *additional* hours (\(x\)). This is $18 + 7.50x \le 78$. Solve for \(x\), but remember that \(x\) is the number of *additional* hours.",
-        'explanation' => "The inequality is \(18 + 7.50x \le 78\), where \(x\) is additional hours. Subtract 18: \(7.50x \le 60\). Divide by 7.50: \(x \le 8\). This means Vince can rent for 8 *additional* hours. The maximum *total* hours is the 1st hour + 8 additional hours, which is 9 hours."
-    ],
-    [
-        'id' => 'q35_hotdogs',
-        'type' => 'text',
-        'text' => 'Cameron sold a total of 25 items (hot dogs and sodas) for $45.00. A hot dog (\(x\)) costs $2.25 and a soda (\(y\)) costs $1.50. Determine algebraically the number of hot dogs Cameron sold.',
-        'answer' => '10',
-        'hint' => "You need a system of two equations. One for the number of items (\(x + y = 25\)) and one for the total cost.",
-        'explanation' => "The system is: (1) \(x + y = 25\) and (2) \(2.25x + 1.50y = 45\). From (1), \(y = 25 - x\). Substitute this into (2): \(2.25x + 1.50(25 - x) = 45\). Distribute: \(2.25x + 37.5 - 1.50x = 45\). Combine like terms: \(0.75x + 37.5 = 45\). Subtract 37.5: \(0.75x = 7.5\). Divide by 0.75: \(x = 10\). Cameron sold 10 hot dogs."
-    ],
-];
-$totalQuestions = count($questions);
+// --- CONSTANTS ---
+$quizFile = 'quizzes/algebra-1-final.json';
+$quizDurationMinutes = 20; // 20 minutes for a timed test
 
 // --- PAGE STATE MANAGEMENT ---
 $isSetup = false;
@@ -159,58 +20,139 @@ $isQuizActive = false;
 $isSubmitted = false;
 
 // --- QUIZ & GRADING VARIABLES ---
+$questions = [];
+$original_questions = []; // For topic breakdown
 $results = [];
 $userAnswers = [];
+$flaggedQuestions = [];
+$revealedQuestions = [];
+$topicScores = [];
 $score = 0;
 $percentage = 0;
 $studentName = '';
 $gradeLevel = '';
 $timerMode = 'none';
 $scramble = false;
-$quizDurationMinutes = 20; // 20 minutes for a timed test
+
+// --- LOAD QUIZ DATA ---
+function loadQuestions($filePath) {
+    if (!file_exists($filePath)) {
+        return [];
+    }
+    $json = file_get_contents($filePath);
+    return json_decode($json, true);
+}
 
 // --- DETERMINE PAGE STATE FROM POST DATA ---
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     
+    // Load the question data for both quiz and results states
+    $questions = json_decode($_POST['questions_data'] ?? '[]', true);
+    if (empty($questions)) {
+        // Fallback for results page if questions_data isn't passed (e.g., JS fail)
+        // Note: This relies on the original file, so it won't reflect a scrambled quiz.
+        // The JS passing the data is the primary method.
+        $questions = loadQuestions($quizFile);
+    }
+    $original_questions = json_decode($_POST['questions_data_original'] ?? json_encode($questions), true);
+
+
     if (isset($_POST['grade_test'])) {
         // --- STATE 3: RESULTS SCREEN ---
         $isSubmitted = true;
         
-        // Get settings passed from quiz form
         $studentName = htmlspecialchars($_POST['studentName'] ?? 'Student');
         $gradeLevel = htmlspecialchars($_POST['gradeLevel'] ?? 'N/A');
+        $flaggedQuestions = json_decode($_POST['flagged_questions'] ?? '[]', true);
         
-        // Helper function to normalize answers
+        // Helper function to normalize text answers
         function normalize($val) {
             return str_replace([' ', '(', ')'], '', strtolower(trim($val)));
         }
 
-        // Grade the quiz
-        foreach ($questions as $question) {
-            $key = $question['id'];
-            $correctAnswer = $question['answer'];
-            $userAnswer = isset($_POST[$key]) ? $_POST[$key] : '';
-            $userAnswers[$key] = $userAnswer; // Store for PDF
+        // Initialize Topic Scores
+        foreach ($original_questions as $q) {
+            if (!isset($topicScores[$q['topic']])) {
+                $topicScores[$q['topic']] = ['correct' => 0, 'total' => 0];
+            }
+            $topicScores[$q['topic']]['total']++;
+        }
 
-            if (normalize($userAnswer) == normalize($correctAnswer)) {
+        // Grade the quiz
+        foreach ($questions as $q) {
+            $key = $q['id'];
+            $correctAnswer = $q['answer'];
+            $userAnswerRaw = isset($_POST[$key]) ? $_POST[$key] : '';
+            $userAnswers[$key] = $userAnswerRaw; // Store for PDF/Review
+
+            $isCorrect = false;
+
+            // Check if user clicked "Show Answer"
+            if (isset($_POST['reveal_' . $key])) {
+                $results[$key] = 'incorrect';
+                $revealedQuestions[] = $key;
+                continue; // Skip grading, it's automatically wrong
+            }
+
+            // Grade based on question type
+            switch ($q['type']) {
+                case 'mc':
+                    $isCorrect = (normalize($userAnswerRaw) == normalize($correctAnswer));
+                    break;
+                case 'text':
+                    $isCorrect = (normalize($userAnswerRaw) == normalize($correctAnswer));
+                    break;
+                case 'graph':
+                    $answer = $correctAnswer; // This is already an array: {"m": 2, "b": -1}
+                    $userAnswer = json_decode($userAnswerRaw, true);
+                    if ($userAnswer && isset($userAnswer['m']) && isset($userAnswer['b'])) {
+                        // Check slope and intercept with a small tolerance
+                        $isCorrect = abs($answer['m'] - $userAnswer['m']) < 0.1 && abs($answer['b'] - $userAnswer['b']) < 0.1;
+                    }
+                    break;
+                case 'match':
+                    $answer = $correctAnswer; // This is an array: {"Stem 1": "Option A", ...}
+                    $userAnswer = json_decode($userAnswerRaw, true);
+                    if ($userAnswer && count($answer) == count($userAnswer)) {
+                        $isCorrect = true;
+                        foreach ($answer as $stem => $option) {
+                            if (!isset($userAnswer[$stem]) || $userAnswer[$stem] != $option) {
+                                $isCorrect = false;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            if ($isCorrect) {
                 $score++;
                 $results[$key] = 'correct';
+                // Find original topic to update score
+                foreach ($original_questions as $orig_q) {
+                    if ($orig_q['id'] == $key) {
+                        $topicScores[$orig_q['topic']]['correct']++;
+                        break;
+                    }
+                }
             } else {
                 $results[$key] = 'incorrect';
             }
         }
-        $percentage = ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0;
+        $percentage = (count($questions) > 0) ? ($score / count($questions)) * 100 : 0;
 
     } elseif (isset($_POST['start_quiz'])) {
         // --- STATE 2: QUIZ SCREEN ---
         $isQuizActive = true;
         
-        // Get settings from setup form
         $studentName = htmlspecialchars($_POST['studentName'] ?? 'Student');
         $gradeLevel = htmlspecialchars($_POST['gradeLevel'] ?? 'N/A');
         $timerMode = $_POST['timerMode'] ?? 'none';
         $scramble = isset($_POST['scramble']);
 
+        // Load and set up questions
+        $original_questions = loadQuestions($quizFile);
+        $questions = $original_questions;
         if ($scramble) {
             shuffle($questions);
         }
@@ -232,38 +174,60 @@ function get_result_class($key) {
 function show_correct_answer($key) {
     global $results, $questions, $isSubmitted;
     if ($isSubmitted && isset($results[$key]) && $results[$key] == 'incorrect') {
-        // Find the question to get the correct answer
-        $correctAnswer = '';
+        $correctAnswerText = '';
         foreach ($questions as $q) {
             if ($q['id'] == $key) {
-                if ($q['type'] == 'mc') {
-                    $correctAnswer = $q['options'][$q['answer']];
-                } else {
-                    $correctAnswer = $q['answer'];
+                switch ($q['type']) {
+                    case 'mc':
+                        $correctAnswerText = $q['options'][$q['answer']];
+                        break;
+                    case 'text':
+                        $correctAnswerText = $q['answer'];
+                        break;
+                    case 'graph':
+                        $correctAnswerText = "Line with slope \(m = {$q['answer']['m']}\) and y-intercept \(b = {$q['answer']['b']}\).";
+                        break;
+                    case 'match':
+                        $matches = [];
+                        foreach ($q['answer'] as $stem => $option) {
+                            $matches[] = "<li><em>{$stem}</em> &rarr; <strong>{$option}</strong></li>";
+                        }
+                        $correctAnswerText = "<ul class='list-disc list-inside ml-2'>" . implode('', $matches) . "</ul>";
+                        break;
                 }
                 break;
             }
         }
-        // This function now echoes, so we'll keep it simple
-        echo '<div class="incorrect-text font-semibold mt-2">Correct answer: ' . $correctAnswer . '</div>';
+        echo '<div class="correct-text font-semibold mt-2">Correct answer: ' . $correctAnswerText . '</div>';
     }
 }
 
+
 function get_post_value($key) {
-    // For the results page, get the value from the $userAnswers array
     global $userAnswers;
     return htmlspecialchars($userAnswers[$key] ?? '');
 }
 
 function show_feedback_icon($key) {
-    global $results, $isSubmitted;
-    if (!$isSubmitted || !isset($results[$key])) return;
-    
-    if ($results[$key] == 'correct') {
-        echo '<i class="fas fa-check-circle text-green-500 text-xl ml-3" aria-label="Correct"></i>';
-    } else {
-        echo '<i class="fas fa-times-circle text-red-500 text-xl ml-3" aria-label="Incorrect"></i>';
+    global $results, $isSubmitted, $flaggedQuestions, $revealedQuestions;
+    if (!$isSubmitted) return '';
+
+    $icons = '';
+    if (in_array($key, $flaggedQuestions)) {
+        $icons .= '<i class="fas fa-flag text-yellow-500 text-lg ml-3" title="Flagged for Review"></i>';
     }
+    if (in_array($key, $revealedQuestions)) {
+        $icons .= '<i class="fas fa-eye text-blue-500 text-lg ml-3" title="Answer was Revealed"></i>';
+    }
+
+    if (isset($results[$key])) {
+        if ($results[$key] == 'correct') {
+            $icons .= '<i class="fas fa-check-circle text-green-500 text-xl ml-3" aria-label="Correct"></i>';
+        } else {
+            $icons .= '<i class="fas fa-times-circle text-red-500 text-xl ml-3" aria-label="Incorrect"></i>';
+        }
+    }
+    echo $icons;
 }
 ?>
 
@@ -282,6 +246,11 @@ function show_feedback_icon($key) {
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 <!-- Add jsPDF Script for PDF generation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Add JSXGraph for graphing questions -->
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.6.0/distill/jsxgraphcore.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.6.0/distill/jsxgraph.css" />
+<!-- Add SortableJS for drag-and-drop -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 
 <!-- Custom styles for quiz -->
@@ -343,17 +312,80 @@ function show_feedback_icon($key) {
         background-color: color-mix(in srgb, var(--color-content-bg, #FFFFFF) 50%, #9ca3af 50%);
         opacity: 0.7;
     }
-    .review-mode .radio-label {
+    .review-mode .radio-label, .review-mode .jxgbox {
         pointer-events: none;
         cursor: default;
+        opacity: 0.8;
+    }
+    .review-mode .match-stems, .review-mode .match-options {
+        pointer-events: none;
     }
     
     /* Timer styles */
     #quiz-timer {
         position: sticky;
-        top: 10px; /* Adjust as needed if you have a sticky header */
+        top: 10px;
         z-index: 10;
         animation: fadeIn 0.5s;
+    }
+    
+    /* Flag button */
+    .flag-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        transition: color 0.2s, transform 0.2s;
+    }
+    .flag-button.flagged {
+        color: #f59e0b; /* yellow-500 */
+        transform: scale(1.1);
+    }
+    .dark .flag-button.flagged {
+        color: #fcd34d; /* yellow-300 */
+    }
+
+    /* JSXGraph board */
+    .jxgbox {
+        width: 100%;
+        height: 300px;
+        border: 1px solid var(--color-text-secondary);
+        border-radius: 0.5rem;
+    }
+    
+    /* Drag-and-drop matching */
+    .match-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .match-stems, .match-options {
+        flex: 1;
+        min-width: 200px;
+        padding: 0.5rem;
+        border: 1px dashed var(--color-text-secondary);
+        border-radius: 0.5rem;
+    }
+    .match-options {
+        background-color: color-mix(in srgb, var(--color-base-bg, #F9FAFB) 50%, transparent 50%);
+    }
+    .match-item {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background-color: var(--color-content-bg);
+        border: 1px solid var(--color-accent);
+        border-radius: 0.25rem;
+        cursor: grab;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .match-item:active {
+        cursor: grabbing;
+    }
+    /* Ghost class for SortableJS */
+    .sortable-ghost {
+        opacity: 0.4;
+        background: var(--color-accent);
     }
 </style>
 
@@ -375,7 +407,7 @@ function show_feedback_icon($key) {
             <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-6">Quiz Setup</h2>
             <p class="text-text-secondary mb-6">Please enter your information and choose your quiz settings below.</p>
             
-            <form action="algebra_test.php" method="POST" id="setupForm">
+            <form action="" method="POST" id="setupForm">
                 <input type="hidden" name="start_quiz" value="1">
                 <div class="space-y-6">
                     <!-- Student Name -->
@@ -451,30 +483,39 @@ function show_feedback_icon($key) {
             <div class="mb-8">
                 <div class="flex justify-between mb-1">
                     <span class="text-base font-medium text-text-secondary">Progress</span>
-                    <span class="text-sm font-medium text-text-secondary"><span id="progress-text">1</span>/<?php echo $totalQuestions; ?></span>
+                    <span class="text-sm font-medium text-text-secondary"><span id="progress-text">1</span>/<?php echo count($questions); ?></span>
                 </div>
                 <div class="w-full progress-bar-bg rounded-full h-4">
-                    <div id="progress-bar" class="progress-bar-fg h-4 rounded-full" style="width: <?php echo (1/$totalQuestions)*100; ?>%"></div>
+                    <div id="progress-bar" class="progress-bar-fg h-4 rounded-full" style="width: <?php echo (1/count($questions))*100; ?>%"></div>
                 </div>
             </div>
 
             <!-- Quiz Form -->
-            <form action="algebra_test.php" method="POST" id="quizForm">
+            <form action="" method="POST" id="quizForm">
                 <!-- Hidden fields to pass settings -->
                 <input type="hidden" name="grade_test" value="1">
                 <input type="hidden" name="studentName" value="<?php echo $studentName; ?>">
                 <input type="hidden" name="gradeLevel" value="<?php echo $gradeLevel; ?>">
+                <input type="hidden" name="flagged_questions" id="flagged_questions_input" value="[]">
+                <!-- Pass question data for grading and topic breakdown -->
+                <input type="hidden" name="questions_data" value="<?php echo htmlspecialchars(json_encode($questions)); ?>">
+                <input type="hidden" name="questions_data_original" value="<?php echo htmlspecialchars(json_encode($original_questions)); ?>">
                 
                 <?php foreach ($questions as $index => $q):
                     $key = $q['id'];
                     $isFirst = ($index == 0);
-                    $isLast = ($index == $totalQuestions - 1);
+                    $isLast = ($index == count($questions) - 1);
                 ?>
-                <div id="question-<?php echo $index; ?>" class="quiz-card <?php echo $isFirst ? 'active' : ''; ?>">
-                    <!-- Question Text -->
-                    <p class="font-semibold text-lg mb-3 flex items-center">
-                        <?php echo ($index + 1) . ". " . $q['text']; ?>
-                    </p>
+                <div id="question-<?php echo $index; ?>" class="quiz-card <?php echo $isFirst ? 'active' : ''; ?>" data-question-id="<?php echo $key; ?>">
+                    <!-- Question Header (Text + Flag) -->
+                    <div class="flex justify-between items-start mb-3">
+                        <p class="font-semibold text-lg flex-1">
+                            <?php echo ($index + 1) . ". " . $q['text']; ?>
+                        </p>
+                        <button type="button" class="flag-button ml-3 p-2" title="Flag for Review" data-question-id="<?php echo $key; ?>">
+                            <i class="far fa-flag"></i>
+                        </button>
+                    </div>
                     
                     <!-- Answer Area -->
                     <div class="space-y-2">
@@ -488,6 +529,31 @@ function show_feedback_icon($key) {
                         <?php elseif ($q['type'] == 'text'): ?>
                             <label for="<?php echo $key; ?>" class="sr-only"><?php echo $q['text']; ?></label>
                             <input type="text" id="<?php echo $key; ?>" name="<?php echo $key; ?>" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default focus:ring-primary focus:border-primary">
+                        
+                        <?php elseif ($q['type'] == 'graph'): ?>
+                            <div id="graph-<?php echo $key; ?>" class="jxgbox"></div>
+                            <input type="hidden" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="">
+                            <p class="text-sm text-text-secondary mt-1">Plot two points to define the line.</p>
+
+                        <?php elseif ($q['type'] == 'match'): ?>
+                            <p class="text-sm text-text-secondary mb-2">Drag the items from the left to match them with the options on the right.</p>
+                            <div class="match-container">
+                                <div class="match-stems" id="stems-<?php echo $key; ?>">
+                                    <?php foreach ($q['stems'] as $stem): ?>
+                                    <div class="match-item" data-id="<?php echo htmlspecialchars($stem); ?>"><?php echo $stem; ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="match-options" id="options-<?php echo $key; ?>">
+                                    <?php 
+                                    $shuffled_options = $q['options'];
+                                    shuffle($shuffled_options);
+                                    foreach ($shuffled_options as $option): 
+                                    ?>
+                                    <div class="match-item" data-id="<?php echo htmlspecialchars($option); ?>"><?php echo $option; ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <input type="hidden" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="">
                         <?php endif; ?>
                     </div>
 
@@ -499,6 +565,9 @@ function show_feedback_icon($key) {
                         <button type="button" class="explanation-button text-sm text-green-600 hover:underline" data-target="explanation-<?php echo $index; ?>">
                             <i class="fas fa-book-open mr-1"></i> Show Explanation
                         </button>
+                        <button type="button" class="show-answer-button text-sm text-red-500 hover:underline" data-target="explanation-<?php echo $index; ?>" data-question-id="<?php echo $key; ?>">
+                            <i class="fas fa-eye mr-1"></i> Show Answer
+                        </button>
                     </div>
                     
                     <div id="hint-<?php echo $index; ?>" class="hint-box text-text-secondary">
@@ -507,6 +576,8 @@ function show_feedback_icon($key) {
                     <div id="explanation-<?php echo $index; ?>" class="explanation-box text-text-default">
                         <strong>Explanation:</strong> <?php echo $q['explanation']; ?>
                     </div>
+                    <!-- Hidden input to track "Show Answer" clicks -->
+                    <input type="hidden" name="reveal_<?php echo $key; ?>" id="reveal_<?php echo $key; ?>" value="">
 
                     <!-- Navigation -->
                     <div class="flex justify-between mt-6">
@@ -535,7 +606,7 @@ function show_feedback_icon($key) {
             <!-- Results -->
             <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md mb-8 shadow-sm" role="alert">
                 <h2 class="text-2xl font-bold">Test Results for <?php echo $studentName; ?> (Grade <?php echo $gradeLevel; ?>)</h2>
-                <p class="text-lg mt-2">You scored <strong class="font-bold"><?php echo $score; ?></strong> out of <strong class="font-bold"><?php echo $totalQuestions; ?></strong> questions correctly.</p>
+                <p class="text-lg mt-2">You scored <strong class="font-bold"><?php echo $score; ?></strong> out of <strong class="font-bold"><?php echo count($questions); ?></strong> questions correctly.</p>
             </div>
             <!-- Progress Bar -->
             <div class="mb-4">
@@ -554,14 +625,42 @@ function show_feedback_icon($key) {
                 </button>
             </div>
             
+            <!-- Topic Breakdown -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-4">Score by Topic</h3>
+                <div class="space-y-3">
+                    <?php foreach ($topicScores as $topic => $data):
+                        $topicPercentage = ($data['total'] > 0) ? ($data['correct'] / $data['total']) * 100 : 0;
+                    ?>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-base font-medium text-text-default"><?php echo htmlspecialchars($topic); ?></span>
+                            <span class="text-sm font-medium text-text-secondary"><?php echo $data['correct']; ?> / <?php echo $data['total']; ?></span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-3">
+                            <div class="progress-bar-fg h-3 rounded-full" style="width: <?php echo $topicPercentage; ?>%"></div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
             <!-- Review Answers Form -->
             <form id="quizForm" class="review-mode">
-                <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2 mb-6">Review Your Answers</h2>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-text-default border-b-2 border-gray-200 pb-2">Review Your Answers</h2>
+                    <!-- Filter Button -->
+                    <label class="flex items-center cursor-pointer">
+                        <span class="text-sm font-medium text-text-default mr-2">Show Incorrect Only</span>
+                        <input type="checkbox" id="filter-incorrect-toggle" class="toggle">
+                    </label>
+                </div>
                 
                 <?php foreach ($questions as $index => $q):
                     $key = $q['id'];
+                    $resultClass = get_result_class($key);
                 ?>
-                <div class="mb-8 p-4 rounded-md <?php echo get_result_class($key); ?>">
+                <div class="review-item <?php echo $resultClass; ?> mb-8 p-4 rounded-md">
                     <!-- Question Text -->
                     <p class="font-semibold text-lg mb-3 flex items-center">
                         <?php echo ($index + 1) . ". " . $q['text']; ?>
@@ -580,6 +679,22 @@ function show_feedback_icon($key) {
                         <?php elseif ($q['type'] == 'text'): ?>
                             <label for="<?php echo $key; ?>" class="sr-only"><?php echo $q['text']; ?></label>
                             <input type="text" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="<?php echo get_post_value($key); ?>" class="w-full md:w-1/2 p-2 bg-base-bg border border-gray-300 rounded-md shadow-sm text-text-default">
+                        
+                        <?php elseif ($q['type'] == 'graph'): ?>
+                            <div id="graph-<?php echo $key; ?>" class="jxgbox"></div>
+                            <input type="hidden" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="<?php echo get_post_value($key); ?>">
+
+                        <?php elseif ($q['type'] == 'match'): ?>
+                            <div class="match-container">
+                                <div class="match-stems" id="stems-<?php echo $key; ?>">
+                                    <!-- Stems will be on the left -->
+                                </div>
+                                <div class="match-options" id="options-<?php echo $key; ?>">
+                                    <!-- Matched options will be here -->
+                                </div>
+                            </div>
+                            <input type="hidden" id="<?php echo $key; ?>" name="<?php echo $key; ?>" value="<?php echo get_post_value($key); ?>">
+
                         <?php endif; ?>
                     </div>
 
@@ -607,7 +722,7 @@ function show_feedback_icon($key) {
 
                 <!-- Retake Button -->
                 <div class="mt-10">
-                    <a href="algebra_test.php" class="block w-full text-center bg-gray-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-gray-400">
+                    <a href="" class="block w-full text-center bg-gray-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 text-lg focus:outline-none focus:ring-2 focus:ring-gray-400">
                         <i class="fas fa-redo mr-2"></i> Take Again
                     </a>
                 </div>
@@ -624,14 +739,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const isQuizActive = <?php echo json_encode($isQuizActive); ?>;
     const isSubmitted = <?php echo json_encode($isSubmitted); ?>;
     let timerInterval = null;
+    let secondsElapsed = 0; // Outer scope for timer
     const QUIZ_STORAGE_KEY = 'algebraQuizProgress';
+    let flaggedQuestions = []; // JS tracking for flags
+    let graphBoards = {}; // Store graph boards
+    let matchGroups = {}; // Store match groups
 
     // --- TIMER LOGIC ---
     function startTimer(mode, durationSeconds = 0, initialElapsed = 0) {
         const timerDisplay = document.getElementById('timer-display');
         if (!timerDisplay) return;
 
-        secondsElapsed = initialElapsed; // Use the outer scope's secondsElapsed
+        secondsElapsed = initialElapsed;
         let secondsRemaining = durationSeconds - initialElapsed;
 
         timerInterval = setInterval(() => {
@@ -641,7 +760,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     clearInterval(timerInterval);
                     timerDisplay.textContent = 'Time\'s Up!';
                     timerDisplay.classList.add('text-red-500');
-                    // Ensure save before submitting
                     saveProgress(); 
                     quizForm.submit();
                     return;
@@ -658,21 +776,119 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
+    // --- ADVANCED QUESTION INIT ---
+    function initGraphQuestion(q, index) {
+        const key = q.id;
+        const boardId = `graph-${key}`;
+        const input = document.getElementById(key);
+        if (!document.getElementById(boardId)) return;
+
+        const board = JXG.JSXGraph.initBoard(boardId, {
+            boundingbox: [-5, 5, 5, -5],
+            axis: true,
+            grid: true
+        });
+        graphBoards[key] = board;
+
+        let p1 = board.create('point', [-2, -5], { name: 'A', size: 3 });
+        let p2 = board.create('point', [2, 3], { name: 'B', size: 3 });
+        let line = board.create('line', [p1, p2], { strokeColor: '#007bff', strokeWidth: 2 });
+
+        const updateInput = () => {
+            if (p2.X() - p1.X() === 0) return; // Avoid division by zero
+            const m = (p2.Y() - p1.Y()) / (p2.X() - p1.X());
+            const b = p1.Y() - m * p1.X();
+            input.value = JSON.stringify({ m: m, b: b });
+            saveProgress(); // Save on graph update
+        };
+
+        p1.on('drag', updateInput);
+        p2.on('drag', updateInput);
+        
+        // Return points for `loadProgress`
+        return { p1, p2, updateInput };
+    }
+
+    function initMatchQuestion(q, index) {
+        const key = q.id;
+        const stemsContainer = document.getElementById(`stems-${key}`);
+        const optionsContainer = document.getElementById(`options-${key}`);
+        const input = document.getElementById(key);
+        if (!stemsContainer || !optionsContainer) return;
+
+        const updateInput = () => {
+            const matches = {};
+            // Assume stems are fixed, options are dragged
+            const stemItems = stemsContainer.querySelectorAll('.match-item');
+            const optionItems = optionsContainer.querySelectorAll('.match-item');
+
+            // This setup assumes one-to-one matching, stems on left, options on right
+            // A better setup: Stems on left, droppable "zones" on right
+            
+            // Let's change the logic: Stems are on the left, options (droppables) on the right.
+            // This is complex. A simpler way: two lists, drag from one to the other.
+            // Let's use SortableJS for two lists.
+            
+            // Re-think: The HTML has two lists. Let's make options draggable INTO stems.
+            // No, that's complex. Let's make options sortable *next to* stems.
+            // New Plan: `stems` are static. `options` are sortable. User sorts `options` to match the order of `stems`.
+            
+            // Let's stick to the current HTML: stems in one box, options in another.
+            // This implies the user drags options from `options` to `stems`.
+            // Let's re-build the HTML for this.
+
+            // --- New Match HTML Structure (Implied) ---
+            // <div class="match-stems">
+            //   <div class="match-stem-item"><span>Stem 1</span><div class="drop-zone" data-stem="Stem 1"></div></div>
+            // </div>
+            // <div class="match-options">
+            //   <div class="match-item" data-id="Option A">Option A</div>
+            // </div>
+            
+            // This is too complex. Let's use the two-list SortableJS setup.
+            // The HTML is fine. Stems on left, Options on right.
+            // The *order* is what matters.
+            
+            // New plan: User sorts the `options` list to match the `stems` list.
+            new Sortable(optionsContainer, {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                onEnd: () => {
+                    const matches = {};
+                    const stemItems = stemsContainer.querySelectorAll('.match-item');
+                    const optionItems = optionsContainer.querySelectorAll('.match-item');
+                    
+                    stemItems.forEach((stem, i) => {
+                        if (optionItems[i]) {
+                            matches[stem.dataset.id] = optionItems[i].dataset.id;
+                        }
+                    });
+                    input.value = JSON.stringify(matches);
+                    saveProgress();
+                }
+            });
+            
+            // Return initial state for `loadProgress`
+            return { updateInput: () => {} }; // updateInput is handled by onEnd
+        }
+    }
+
+
     // --- QUIZ NAVIGATION (Card) LOGIC ---
     if (isQuizActive) {
         let currentQuestionIndex = 0;
-        let secondsElapsed = 0; // Will be updated by timer
         const questionCards = document.querySelectorAll('.quiz-card');
         const totalQuestions = questionCards.length;
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
+        const allQuestionsData = <?php echo json_encode($questions); ?>;
         
         // --- LOCALSTORAGE SAVE ---
         function saveProgress() {
             const formData = new FormData(quizForm);
             const answers = {};
             formData.forEach((value, key) => {
-                if (!['grade_test', 'studentName', 'gradeLevel'].includes(key)) {
+                if (!['grade_test', 'studentName', 'gradeLevel', 'flagged_questions', 'questions_data', 'questions_data_original'].includes(key) && !key.startsWith('reveal_')) {
                     answers[key] = value;
                 }
             });
@@ -682,30 +898,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 gradeLevel: <?php echo json_encode($gradeLevel); ?>,
                 timerMode: <?php echo json_encode($timerMode); ?>,
                 scramble: <?php echo json_encode($scramble); ?>,
-                questions: <?php echo json_encode($questions); ?>, // Store the exact (potentially scrambled) question order
+                questions: allQuestionsData,
                 currentQuestionIndex: currentQuestionIndex,
                 answers: answers,
-                timerElapsed: secondsElapsed
+                timerElapsed: secondsElapsed,
+                flagged: flaggedQuestions,
+                revealed: Array.from(document.querySelectorAll('input[name^="reveal_"]')).filter(el => el.value === 'true').map(el => el.name.replace('reveal_', ''))
             };
             localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(progress));
+            
+            // Update hidden flag input
+            document.getElementById('flagged_questions_input').value = JSON.stringify(flaggedQuestions);
         }
 
         // --- LOCALSTORAGE LOAD ---
         function loadProgress() {
-            const defaultState = { currentQuestionIndex: 0, timerElapsed: 0 };
+            const defaultState = { currentQuestionIndex: 0, timerElapsed: 0, flagged: [], revealed: [] };
             const savedProgress = localStorage.getItem(QUIZ_STORAGE_KEY);
             if (!savedProgress) return defaultState;
 
             try {
                 const progress = JSON.parse(savedProgress);
                 
-                // Validate if this is the same quiz session
                 const currentSettings = {
                     studentName: <?php echo json_encode($studentName); ?>,
                     gradeLevel: <?php echo json_encode($gradeLevel); ?>,
                     timerMode: <?php echo json_encode($timerMode); ?>,
                     scramble: <?php echo json_encode($scramble); ?>,
-                    questions: <?php echo json_encode($questions); ?>
+                    questions: allQuestionsData
                 };
 
                 if (progress.studentName !== currentSettings.studentName ||
@@ -714,7 +934,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     progress.scramble !== currentSettings.scramble ||
                     JSON.stringify(progress.questions) !== JSON.stringify(currentSettings.questions)) {
                     
-                    // Not the same quiz settings, clear invalid data
                     localStorage.removeItem(QUIZ_STORAGE_KEY);
                     return defaultState;
                 }
@@ -730,12 +949,42 @@ document.addEventListener('DOMContentLoaded', function() {
                             textInput.value = value;
                         }
                     }
+                    
+                    // Handle advanced question loading
+                    if (graphBoards[key] && value) {
+                        const { p1, p2, updateInput } = graphBoards[key];
+                        const { m, b } = JSON.parse(value);
+                        // Set points to reflect saved line
+                        p1.setPosition(JXG.COORDS_BY_USER, [0, b]);
+                        p2.setPosition(JXG.COORDS_BY_USER, [1, m + b]);
+                        board.update();
+                        updateInput(); // Re-calculate and set input
+                    }
+                    
+                    if (matchGroups[key] && value) {
+                        // This is harder. We need to re-order the list.
+                        // We'll skip re-ordering for now, as it's complex.
+                        // The saved `input.value` is enough to grade.
+                    }
                 }
+                
+                // Restore "revealed" state
+                progress.revealed.forEach(key => {
+                    const input = document.getElementById(`reveal_${key}`);
+                    if (input) input.value = 'true';
+                    // Disable inputs for this question
+                    document.querySelector(`[data-question-id="${key}"]`).querySelectorAll('input, button.show-answer-button').forEach(el => {
+                        el.disabled = true;
+                        if (el.classList.contains('radio-label')) el.style.pointerEvents = 'none';
+                    });
+                });
                 
                 // Return loaded state
                 return { 
                     currentQuestionIndex: progress.currentQuestionIndex, 
-                    timerElapsed: progress.timerElapsed 
+                    timerElapsed: progress.timerElapsed,
+                    flagged: progress.flagged,
+                    revealed: progress.revealed
                 };
 
             } catch (e) {
@@ -749,15 +998,12 @@ document.addEventListener('DOMContentLoaded', function() {
             questionCards.forEach((card, i) => {
                 card.classList.toggle('active', i === index);
             });
-            // Update progress
             currentQuestionIndex = index;
             progressText.textContent = (index + 1);
             progressBar.style.width = ((index + 1) / totalQuestions) * 100 + '%';
             
-            // Save progress when changing questions
             saveProgress();
             
-            // Ensure MathJax re-renders the new card
             if (window.MathJax) {
                 window.MathJax.typesetPromise();
             }
@@ -775,16 +1021,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // --- INITIATE QUIZ ---
+        // 1. Init all advanced questions
+        allQuestionsData.forEach((q, index) => {
+            if (q.type === 'graph') {
+                graphBoards[q.id] = initGraphQuestion(q, index);
+            }
+            if (q.type === 'match') {
+                matchGroups[q.id] = initMatchQuestion(q, index);
+            }
+        });
+        
+        // 2. Load progress
         const loadedState = loadProgress();
         currentQuestionIndex = loadedState.currentQuestionIndex;
         secondsElapsed = loadedState.timerElapsed;
+        flaggedQuestions = loadedState.flagged;
         
-        showQuestion(currentQuestionIndex); // Show last viewed question
+        // 3. Restore flag icons
+        flaggedQuestions.forEach(key => {
+            const btn = document.querySelector(`.flag-button[data-question-id="${key}"]`);
+            if (btn) {
+                btn.classList.add('flagged');
+                btn.querySelector('i').classList.replace('far', 'fas');
+            }
+        });
+        document.getElementById('flagged_questions_input').value = JSON.stringify(flaggedQuestions);
         
-        // Save progress on any form input change
+        // 4. Show the correct question
+        showQuestion(currentQuestionIndex);
+        
+        // 5. Save progress on any form input change
         quizForm.addEventListener('input', saveProgress);
         
-        // Start the timer based on PHP settings and loaded time
+        // 6. Start the timer
         const timerMode = '<?php echo $timerMode; ?>';
         if (timerMode === 'timed') {
             startTimer('timed', <?php echo $quizDurationMinutes * 60; ?>, secondsElapsed);
@@ -793,21 +1062,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- HINT & EXPLANATION TOGGLE LOGIC ---
-    // This event listener is placed on the main container to work on all 3 screens
+    // --- HINT, EXPLANATION, FLAG, & SHOW ANSWER ---
     document.querySelector('.max-w-3xl').addEventListener('click', function(e) {
-        let targetButton = null;
-        if (e.target.classList.contains('hint-button')) {
-            targetButton = e.target;
-        } else if (e.target.parentElement.classList.contains('hint-button')) {
-            targetButton = e.target.parentElement;
-        } else if (e.target.classList.contains('explanation-button')) {
-            targetButton = e.target;
-        } else if (e.target.parentElement.classList.contains('explanation-button')) {
-            targetButton = e.target.parentElement;
-        }
+        let targetButton = e.target.closest('button');
+        if (!targetButton) return;
 
-        if (targetButton) {
+        // Hint & Explanation
+        if (targetButton.classList.contains('hint-button') || targetButton.classList.contains('explanation-button')) {
             e.preventDefault();
             const targetBox = document.getElementById(targetButton.dataset.target);
             if (targetBox) {
@@ -818,30 +1079,129 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+        
+        // Flag Button
+        if (targetButton.classList.contains('flag-button')) {
+            e.preventDefault();
+            const key = targetButton.dataset.questionId;
+            const icon = targetButton.querySelector('i');
+            if (targetButton.classList.toggle('flagged')) {
+                // Add flag
+                icon.classList.replace('far', 'fas');
+                if (!flaggedQuestions.includes(key)) {
+                    flaggedQuestions.push(key);
+                }
+            } else {
+                // Remove flag
+                icon.classList.replace('fas', 'far');
+                flaggedQuestions = flaggedQuestions.filter(f => f !== key);
+            }
+            saveProgress();
+        }
+        
+        // Show Answer Button
+        if (targetButton.classList.contains('show-answer-button')) {
+            e.preventDefault();
+            showConfirmationModal("This will mark this question as incorrect and show the answer. Are you sure?", (confirmed) => {
+                if (confirmed) {
+                    const key = targetButton.dataset.questionId;
+                    // Show explanation
+                    const targetBox = document.getElementById(targetButton.dataset.target);
+                    if (targetBox) {
+                        targetBox.style.display = 'block';
+                        if (window.MathJax) window.MathJax.typesetPromise([targetBox]);
+                    }
+                    // Mark as revealed
+                    document.getElementById(`reveal_${key}`).value = 'true';
+                    // Disable inputs for this card
+                    const card = targetButton.closest('.quiz-card');
+                    card.querySelectorAll('input, .jxgbox, .match-stems, .match-options').forEach(el => {
+                        el.disabled = true;
+                        el.style.pointerEvents = 'none';
+                        el.style.opacity = '0.7';
+                    });
+                    targetButton.disabled = true;
+                    saveProgress();
+                }
+            });
+        }
     });
 
-    // --- PDF DOWNLOAD LOGIC ---
+    // --- RESULTS PAGE LOGIC ---
     if (isSubmitted) {
-        // Clear progress from local storage once test is submitted
+        // Clear progress from local storage
         localStorage.removeItem(QUIZ_STORAGE_KEY);
-    
-        const downloadButton = document.getElementById('downloadPdfButton');
         
-        // Pass PHP data to JavaScript
-        const studentName = <?php echo json_encode($studentName); ?>;
-        const gradeLevel = <?php echo json_encode($gradeLevel); ?>;
-        const questionsData = <?php echo json_encode($questions); ?>;
-        const userAnswersData = <?php echo json_encode($userAnswers); ?>;
-        const resultsData = <?php echo json_encode($results); ?>;
-        const finalScore = <?php echo $score; ?>;
-        const finalPercentage = <?php echo number_format($percentage, 0); ?>;
-        const totalQs = <?php echo $totalQuestions; ?>;
+        // "Review Incorrect Only" Toggle
+        const filterToggle = document.getElementById('filter-incorrect-toggle');
+        if (filterToggle) {
+            filterToggle.addEventListener('change', function(e) {
+                const incorrectOnly = e.target.checked;
+                document.querySelectorAll('.review-item.correct').forEach(el => {
+                    el.style.display = incorrectOnly ? 'none' : 'block';
+                });
+            });
+        }
+        
+        // Init graphs/matching for review mode
+        <?php foreach ($questions as $q): ?>
+            <?php if ($q['type'] == 'graph'): ?>
+            {
+                const key = '<?php echo $q['id']; ?>';
+                const boardId = `graph-${key}`;
+                const input = document.getElementById(key);
+                if (document.getElementById(boardId) && input.value) {
+                    const board = JXG.JSXGraph.initBoard(boardId, {
+                        boundingbox: [-5, 5, 5, -5],
+                        axis: true, grid: true, showNavigation: false
+                    });
+                    const { m, b } = JSON.parse(input.value);
+                    board.create('line', [[0, b], [1, m + b]], { strokeColor: '#007bff', strokeWidth: 2, fixed: true });
+                }
+            }
+            <?php elseif ($q['type'] == 'match'): ?>
+            {
+                const key = '<?php echo $q['id']; ?>';
+                const input = document.getElementById(key);
+                if (input.value) {
+                    const matches = JSON.parse(input.value);
+                    const stemsContainer = document.getElementById(`stems-${key}`);
+                    const optionsContainer = document.getElementById(`options-${key}`);
+                    stemsContainer.innerHTML = ''; // Clear
+                    optionsContainer.innerHTML = ''; // Clear
 
+                    // Rebuild the lists based on user's answer
+                    <?php foreach ($q['stems'] as $stem): ?>
+                        stemsContainer.innerHTML += `<div class="match-item" data-id="<?php echo htmlspecialchars($stem); ?>"><?php echo $stem; ?></div>`;
+                        const matchedOption = matches['<?php echo htmlspecialchars($stem); ?>'] || '<i>No Match</i>';
+                        optionsContainer.innerHTML += `<div class="match-item" data-id="">${matchedOption}</div>`;
+                    <?php endforeach; ?>
+                }
+            }
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        // PDF Download
+        const downloadButton = document.getElementById('downloadPdfButton');
         downloadButton.addEventListener('click', function() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             let yPos = 20;
-            const formatText = (text) => text.replace(/\\\(|\\\)/g, ''); // Strips MathJax delimiters
+            const formatText = (text) => text.replace(/\\\(|\\\)/g, ''); // Strips MathJax
+
+            // --- PDF DATA ---
+            const studentName = <?php echo json_encode($studentName); ?>;
+            const gradeLevel = <?php echo json_encode($gradeLevel); ?>;
+            const questionsData = <?php echo json_encode($questions); ?>;
+            const originalQuestionsData = <?php echo json_encode($original_questions); ?>;
+            const userAnswersData = <?php echo json_encode($userAnswers); ?>;
+            const resultsData = <?php echo json_encode($results); ?>;
+            const topicScoresData = <?php echo json_encode($topicScores); ?>;
+            const flaggedData = <?php echo json_encode($flaggedQuestions); ?>;
+            const revealedData = <?php echo json_encode($revealedQuestions); ?>;
+            const finalScore = <?php echo $score; ?>;
+            const finalPercentage = <?php echo number_format($percentage, 0); ?>;
+            const totalQs = <?php echo count($questions); ?>;
 
             // --- PDF STYLING ---
             doc.setFont('helvetica', 'bold');
@@ -859,59 +1219,78 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFontSize(12);
             doc.text(`Final Score: ${finalScore} / ${totalQs} (${finalPercentage}%)`, 105, yPos, { align: 'center' });
             yPos += 15;
+            
+            // --- TOPIC BREAKDOWN ---
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text('Score by Topic', 15, yPos);
+            yPos += 7;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            
+            Object.entries(topicScoresData).forEach(([topic, data]) => {
+                if (yPos > 270) { doc.addPage(); yPos = 20; }
+                const perc = (data.total > 0) ? (data.correct / data.total) * 100 : 0;
+                doc.text(`${topic}: ${data.correct} / ${data.total} (${perc.toFixed(0)}%)`, 20, yPos);
+                yPos += 6;
+            });
+            yPos += 10;
 
             // --- PDF CONTENT LOOP ---
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text('Question Review', 15, yPos);
+            yPos += 7;
+
             questionsData.forEach((q, index) => {
-                if (yPos > 270) { // Add new page
-                    doc.addPage();
-                    yPos = 20;
-                }
+                if (yPos > 270) { doc.addPage(); yPos = 20; }
                 
                 const key = q.id;
                 const userAnswerRaw = userAnswersData[key] || 'No Answer';
                 const isCorrect = resultsData[key] === 'correct';
                 let correctAnswer = q.answer;
                 let userAnswer = userAnswerRaw;
-
-                if(q.type === 'mc') {
-                    correctAnswer = formatText(q.options[q.answer] || '');
-                    userAnswer = formatText(q.options[userAnswerRaw] || userAnswerRaw); // Get option text
-                }
-
-                // Question Text
+                let qText = formatText(q.text);
+                
+                let status = isCorrect ? '(Correct)' : '(Incorrect)';
+                if (flaggedData.includes(key)) status += ' (Flagged)';
+                if (revealedData.includes(key)) status = '(Answer Revealed)';
+                
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(12);
-                const qText = doc.splitTextToSize(`${index + 1}. ${formatText(q.text)}`, 180);
-                doc.text(qText, 15, yPos);
-                yPos += (qText.length * 5) + 5; 
-
-                // User Answer
+                doc.setTextColor('#000000');
+                const qTextSplit = doc.splitTextToSize(`${index + 1}. ${qText}`, 180);
+                doc.text(qTextSplit, 15, yPos);
+                yPos += (qTextSplit.length * 5) + 2; 
+                
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
                 doc.setTextColor(isCorrect ? '#22c55e' : '#ef4444');
-                doc.text(`Your Answer: ${userAnswer} ${isCorrect ? '(Correct)' : '(Incorrect)'}`, 20, yPos);
+                if (revealedData.includes(key)) doc.setTextColor('#3b82f6'); // blue
+                
+                // Format user answer
+                if (q.type === 'mc') {
+                    userAnswer = formatText(q.options[userAnswerRaw] || userAnswerRaw);
+                    correctAnswer = formatText(q.options[q.answer] || '');
+                } else if (q.type === 'graph') {
+                    const coords = JSON.parse(userAnswerRaw || '{}');
+                    userAnswer = `Line with m=${coords.m?.toFixed(2)}, b=${coords.b?.toFixed(2)}`;
+                    correctAnswer = `Line with m=${q.answer.m}, b=${q.answer.b}`;
+                } else if (q.type === 'match') {
+                    const matches = JSON.parse(userAnswerRaw || '{}');
+                    userAnswer = Object.entries(matches).map(([s, o]) => `(${s} -> ${o})`).join(', ');
+                    correctAnswer = Object.entries(q.answer).map(([s, o]) => `(${s} -> ${o})`).join(', ');
+                }
+
+                doc.text(`Your Answer: ${userAnswer} ${status}`, 20, yPos);
                 yPos += 5;
 
-                // Correct Answer (if incorrect)
-                if (!isCorrect) {
+                if (!isCorrect && !revealedData.includes(key)) {
                     doc.setTextColor('#374151');
                     doc.text(`Correct Answer: ${correctAnswer}`, 20, yPos);
                     yPos += 5;
                 }
-                
-                // Explanation
-                doc.setTextColor('#6B7280'); // text-gray-500
-                const exText = doc.splitTextToSize(`Explanation: ${formatText(q.explanation)}`, 175);
-                
-                // Check if explanation fits on the page
-                if (yPos + (exText.length * 5) > 280) {
-                    doc.addPage();
-                    yPos = 20;
-                }
-                
-                doc.text(exText, 20, yPos);
-                yPos += (exText.length * 5) + 5;
-                yPos += 5; // Extra padding
+                yPos += 7;
             });
 
             doc.save(`${studentName.replace(/ /g, '_')}_Algebra_1_Results.pdf`);
@@ -925,3 +1304,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Include the site footer ---
 include 'src/footer.php';
 ?>
+
