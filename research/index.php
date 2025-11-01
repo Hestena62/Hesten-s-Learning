@@ -95,7 +95,7 @@
       id: "dyslexia-Research",
       title: "Dyslexia & Learning Disabilities Research",
       cover: "https://placehold.co/300x400/a78bfa/ffffff?text=Dyslexia+Research",
-      description: "A peer-reviewed journal focusing on the latest research in dyslexia and other learning disabilities, exploring innovative teaching methods and interventions.",
+      description: "A research journal focusing on the latest research in dyslexia, exploring innovative teaching methods and interventions.",
       link: "DLDR/", // Updated link
     }, {
       id: "Dysgraphia-Research",
