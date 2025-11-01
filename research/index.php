@@ -96,25 +96,25 @@
       title: "Dyslexia & Learning Disabilities Research",
       cover: "https://placehold.co/300x400/a78bfa/ffffff?text=Dyslexia+Research",
       description: "A research journal focusing on the latest research in dyslexia, exploring innovative teaching methods and interventions.",
-      link: "DLDR/", // Updated link
+      link: "research/DLDR/", // Updated link
     }, {
-      id: "Dysgraphia-Research",
-      title: "Dysgraphia & Writing Skills Research",
-      cover: "https://placehold.co/300x400/67e8f9/1f2937?text=Dysgraphia+Research",
-      description: "A peer-reviewed journal dedicated to dysgraphia research, focusing on the latest findings in writing skills development and interventions for students with dysgraphia.",
-      link: "journal_detail.html?journalId=edu-tech",
+      // id: "Dysgraphia-Research",
+      // title: "Dysgraphia & Writing Skills Research",
+      // cover: "https://placehold.co/300x400/67e8f9/1f2937?text=Dysgraphia+Research",
+      // description: "A peer-reviewed journal dedicated to dysgraphia research, focusing on the latest findings in writing skills development and interventions for students with dysgraphia.",
+      // link: "journal_detail.html?journalId=edu-tech",
     }, {
-      id: "env-sustain",
-      title: "Environmental Sustainability Review",
-      cover: "https://placehold.co/300x400/4ade80/1f2937?text=Env+Sustain+Review",
-      description: "A peer-reviewed journal focusing on sustainable practices, climate change, and ecological research.",
-      link: "journal_detail.html?journalId=env-sustain",
+      // id: "env-sustain",
+      // title: "Environmental Sustainability Review",
+      // cover: "https://placehold.co/300x400/4ade80/1f2937?text=Env+Sustain+Review",
+      // description: "A peer-reviewed journal focusing on sustainable practices, climate change, and ecological research.",
+      // link: "journal_detail.html?journalId=env-sustain",
     }, {
-      id: "data-science",
-      title: "Advanced Data Science Quarterly",
-      cover: "https://placehold.co/300x400/fcd34d/1f2937?text=Data+Science+Quarterly",
-      description: "Covers cutting-edge research in big data analytics, machine learning algorithms, and data visualization.",
-      link: "journal_detail.html?journalId=data-science",
+      // id: "data-science",
+      // title: "Advanced Data Science Quarterly",
+      // cover: "https://placehold.co/300x400/fcd34d/1f2937?text=Data+Science+Quarterly",
+      // description: "Covers cutting-edge research in big data analytics, machine learning algorithms, and data visualization.",
+      // link: "journal_detail.html?journalId=data-science",
     }, ];
 
     const journalsGrid = document.getElementById("journalsGrid");
