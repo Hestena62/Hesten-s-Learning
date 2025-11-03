@@ -382,24 +382,48 @@
 
     // --- ACCESSIBILITY SETTINGS CONTROLS ---
 
-    // Note: currentSettings is already loaded and applied by this point.
-    // We just need to initialize the controls to match.
+    // Function to apply active style to the selected font button
+    function updateFontButtonUI(selectedFont) {
+        const fontSelectors = document.querySelectorAll('.font-selector');
+        fontSelectors.forEach(btn => {
+            // Use the font family string from settings, which might contain quotes
+            const selectedFontName = selectedFont.replace(/"/g, ''); 
+            if (btn.dataset.font.replace(/"/g, '') === selectedFontName) {
+                btn.classList.add('bg-primary', 'text-white', 'border-primary');
+                btn.classList.remove('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600');
+            } else {
+                btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+                btn.classList.add('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600');
+            }
+        });
+    }
 
     // Theme Buttons
     document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
     document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
     document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
 
-    // Dyslexia Font Toggle
-    const dyslexiaToggle = document.getElementById('toggle-dyslexia');
-    if (dyslexiaToggle) {
-      dyslexiaToggle.checked = currentSettings.dyslexiaFont;
-      dyslexiaToggle.setAttribute('aria-checked', currentSettings.dyslexiaFont);
-      dyslexiaToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({ ...currentSettings, dyslexiaFont: e.target.checked });
-      });
+    // Font Selection Logic
+    const fontButtonsContainer = document.getElementById('font-selection-buttons');
+    if (fontButtonsContainer) {
+        // Initialize UI on load
+        // currentSettings.fontFamily will be either 'Inter', 'Open Dyslexic', or 'Roboto Mono'
+        // If currentSettings.fontFamily is not present (e.g., old settings), default to 'Inter'
+        updateFontButtonUI(currentSettings.fontFamily || 'Inter');
+
+        fontButtonsContainer.querySelectorAll('.font-selector').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const newFont = e.target.dataset.font;
+                // Save font family. Note: we save the clean string, the header applies quotes if necessary.
+                saveSettings({ ...currentSettings, fontFamily: newFont });
+                // Update buttons visually
+                updateFontButtonUI(newFont);
+            });
+        });
     }
+
+    // --- REMOVED: Dyslexia Font Toggle logic ---
+    // The previous dyslexiaToggle element and its listener are removed.
 
     // Reduced Motion Toggle
     const motionToggle = document.getElementById('toggle-reduced-motion');
@@ -506,7 +530,10 @@
     if (resetA11yBtn) {
       resetA11yBtn.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_KEY);
-        // [FIX] Use the defaultSettings object, not a new literal
+        
+        // NOTE: We MUST reload the settings after clearing, as 'currentSettings' is now stale
+        // Assuming defaultSettings in header.php now uses 'fontFamily: "Inter"'
+        currentSettings = defaultSettings; // Reset the live state
         saveSettings({ ...defaultSettings }); // Save and apply defaults
 
         // Update UI elements to reflect reset
@@ -514,10 +541,10 @@
         if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
         if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
         if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
-        if (dyslexiaToggle) {
-          dyslexiaToggle.checked = defaultSettings.dyslexiaFont;
-          dyslexiaToggle.setAttribute('aria-checked', defaultSettings.dyslexiaFont);
-        }
+        
+        // Update font selection UI
+        updateFontButtonUI(defaultSettings.fontFamily || 'Inter');
+        
         if (motionToggle) {
           motionToggle.checked = defaultSettings.reducedMotion;
           motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);

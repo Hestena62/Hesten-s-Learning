@@ -19,6 +19,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
+  <!-- ADDED: Roboto Mono for a third font option -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <!-- Google Fonts for Inter (Original Font) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -28,9 +30,10 @@
       theme: {
         extend: {
           fontFamily: {
-            // Inter is the default sans-serif, OpenDyslexic is an option
+            // Updated to handle multiple font options
             sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
             dyslexic: ['"Open Dyslexic"', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
           },
           colors: {
             // Dynamic colors for easy theme switching
@@ -67,7 +70,7 @@
       theme: 'light', // light, dark, high-contrast
       fontSize: 1.0, // rem
       lineHeight: 1.6, // unitless
-      dyslexiaFont: false,
+      fontFamily: 'Inter', // UPDATED: Replaces dyslexiaFont with a string value
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     };
 
@@ -76,7 +79,16 @@
     function loadSettings() {
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
-        return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
+        // FIX for migration: if old settings exist but new fontFamily is missing, initialize it.
+        const loadedSettings = stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
+        
+        // Remove old 'dyslexiaFont' if it exists and wasn't explicitly cleared by a reset.
+        if (loadedSettings.dyslexiaFont !== undefined) {
+             loadedSettings.fontFamily = loadedSettings.dyslexiaFont ? 'Open Dyslexic' : 'Inter';
+             delete loadedSettings.dyslexiaFont;
+        }
+
+        return loadedSettings;
       } catch (e) {
         console.error("Error loading settings from localStorage:", e);
         return defaultSettings;
@@ -93,18 +105,23 @@
       }
     }
 
-    // [FIX] New function to apply settings that are safe to run in <head>
+    // [FIX] Updated function to apply settings that are safe to run in <head>
     function applyHeadSettings(settings) {
       // Set CSS variables for dynamic sizing and spacing
       document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
       document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
 
-      // 2. Dyslexia Font
-      // [FIX] Set only the font name. The 'sans-serif' fallback
-      // is handled by the Tailwind config ('font-sans').
+      // 2. Font Selection
+      let fontName = settings.fontFamily || 'Inter';
+      
+      // Wrap in quotes if needed for CSS/Tailwind lookup
+      if (fontName.includes(' ') || fontName === 'Open Dyslexic') {
+          fontName = `"${fontName}"`;
+      }
+
       document.documentElement.style.setProperty(
         '--site-font-family',
-        settings.dyslexiaFont ? '"Open Dyslexic"' : 'Inter'
+        fontName
       );
     }
 
@@ -147,8 +164,6 @@
   <style>
     /* Base styles from dynamic variables */
     body {
-      /* [FIX] Removed user-select: none; to allow text selection. */
-
       /* Styles from new accessibility features */
       background-color: var(--color-base-bg);
       color: var(--color-text-default);
@@ -156,7 +171,7 @@
       line-height: var(--site-line-height, 1.6);
       transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s;
       min-height: 100vh;
-      /* Apply original font from index.html as the base */
+      /* Apply font from the variable set in applyHeadSettings */
       font-family: var(--site-font-family, "Inter", sans-serif);
     }
 
@@ -473,13 +488,16 @@
         </div>
       </div>
 
-      <!-- Dyslexia Font Toggle -->
+      <!-- NEW: Font Selection (replaces Dyslexia Font Toggle) -->
       <div>
-        <label for="toggle-dyslexia" class="block text-sm font-medium mb-2 text-text-default">Dyslexia-Friendly
-          Font</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Use OpenDyslexic</span>
-          <input type="checkbox" id="toggle-dyslexia" class="toggle" role="switch" aria-checked="false">
+        <label class="block text-sm font-medium mb-2 text-text-default">Reading Font</label>
+        <div id="font-selection-buttons" class="grid grid-cols-3 gap-2 text-xs font-semibold">
+            <!-- Inter (Default) -->
+            <button data-font="Inter" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Default</button>
+            <!-- Open Dyslexic -->
+            <button data-font="Open Dyslexic" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Dyslexic</button>
+            <!-- Roboto Mono -->
+            <button data-font="Roboto Mono" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Monospace</button>
         </div>
       </div>
 
