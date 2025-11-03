@@ -1,9 +1,3 @@
-<!--
-  Reusable Header File (header.php)
-  Contains: DOCTYPE, <head>, and navigation <header>
-  - This file expects PHP variables like $pageTitle, $pageDescription, etc.
-    to be defined *before* it is included.
--->
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -11,11 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="<?php echo $pageDescription; ?>" />
+    content="<?php echo isset($pageDescription) ? $pageDescription : ''; ?>" />
   <meta name="keywords"
-    content="<?php echo $pageKeywords; ?>" />
-  <meta name="author" content="<?php echo $pageAuthor; ?>" />
-  <title><?php echo $pageTitle; ?></title>
+    content="<?php echo isset($pageKeywords) ? $pageKeywords : ''; ?>" />
+  <meta name="author" content="<?php echo isset($pageAuthor) ? $pageAuthor : ''; ?>" />
+  <title><?php echo isset($pageTitle) ? $pageTitle : ''; ?></title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -147,8 +141,7 @@
   </script>
 
   <!-- Favicon -->
-  <link rel="icon" href="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png"
-    onerror="this.onerror=null; this.href='https://placehold.co/16x16/000000/FFFFFF?text=HL';" />
+  <link rel="icon" href="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
 
   <!-- Custom Styles -->
   <style>
@@ -602,7 +595,7 @@
   <div id="announcement-bar"
     class="bg-primary text-white text-center py-2 flex items-center justify-center relative transition-colors duration-300"
     role="region" aria-label="Site Announcement">
-    <p class="text-sm">Dark Mode is working on the settings page</p>
+    <p class="text-sm">I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com">admin@hestena62.com</a></p>
     <button id="close-announcement"
       class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
       aria-label="Close announcement">
@@ -617,10 +610,10 @@
     <div class="container mx-auto px-4 py-4">
       <nav class="flex items-center justify-between flex-wrap" aria-label="Main navigation">
         <!-- Logo and brand name -->
-        <a class="flex items-center flex-shrink-0 text-white mr-6" href="/index.html">
-          <img src="Images/large.ico" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
+        <a class="flex items-center flex-shrink-0 text-white mr-6" href="/">
+          <img src="Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
             onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
-          <span class="font-semibold text-xl tracking-tight"><?php echo $pageTitle; ?></span>
+          <span class="font-semibold text-xl tracking-tight"><?php echo isset($pageTitle) && $pageTitle !== '' ? $pageTitle : 'Hesten\'s Learning'; ?></span>
         </a>
 
         <!-- Mobile menu button -->
@@ -639,11 +632,11 @@
         <!-- Navigation links and search/profile -->
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
           <div class="text-sm lg:flex-grow">
-            <a href="/index.html"
+            <a href="/"
               class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white">
               <i class="fas fa-home mr-1" aria-hidden="true"></i> Home
             </a>
-            <a href="/learning.html"
+            <a href="#"
               class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white">
               <i class="fas fa-book mr-1" aria-hidden="true"></i> Learning
             </a>
@@ -660,32 +653,6 @@
               <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                 aria-hidden="true"></i>
             </form>
-          </div>
-          <div class="relative ml-4">
-            <button
-              class="flex items-center text-gray-200 hover:text-white focus:outline-none p-2 rounded-md focus:ring-2 focus:ring-white"
-              id="profile-menu-button" type="button" aria-haspopup="true" aria-expanded="false"
-              aria-controls="profile-dropdown">
-              <img id="profile-pic" src="Images/large.ico" alt="Profile Picture" class="rounded-full h-8 w-8 mr-2"
-                onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';" />
-              <span id="profile-name" class="hidden md:inline-block">User</span>
-              <i class="fas fa-chevron-down ml-2 text-xs" aria-hidden="true"></i>
-              <span class="sr-only">Toggle user menu</span>
-            </button>
-            <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden"
-              role="menu" aria-orientation="vertical" aria-labelledby="profile-menu-button">
-              <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"><i
-                  class="fas fa-user mr-2" aria-hidden="true"></i> Profile</a>
-              <a href="/settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                role="menuitem"><i class="fas fa-cog mr-2" aria-hidden="true"></i> Settings</a>
-              <a href="/help.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"><i
-                  class="fas fa-question-circle mr-2" aria-hidden="true"></i> Help</a>
-              <div class="border-t border-gray-100 my-1" role="separator"></div>
-              <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                role="menuitem">
-                <i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Sign Out
-              </button>
-            </div>
           </div>
         </div>
       </nav>
