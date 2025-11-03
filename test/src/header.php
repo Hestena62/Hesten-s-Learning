@@ -602,7 +602,7 @@
   <div id="announcement-bar"
     class="bg-primary text-white text-center py-2 flex items-center justify-center relative transition-colors duration-300"
     role="region" aria-label="Site Announcement">
-    <p class="text-sm">Dark Mode is working on the settings page</p>
+    <p class="text-sm">All the test content on this page is from the <a href="https://www.nysedregents.org/">NYSED Regents</a></p>
     <button id="close-announcement"
       class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
       aria-label="Close announcement">

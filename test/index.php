@@ -26,7 +26,8 @@
         "Math" => "fas fa-calculator",
         "English" => "fas fa-book-open",
         "Science" => "fas fa-flask",
-        "Social Studies" => "fas fa-globe-americas"
+        "Social Studies" => "fas fa-globe-americas",
+        "Extra Tests" => "fas fa-star" // New extra tests card
       ];
 
       // Define the grades
@@ -38,20 +39,20 @@
       // If a link is not specified, it will default to '#'
       $test_links = [
         "math" => [
-          3 => "/tests/math-g3.html",
-          4 => "/tests/math-g4.html",
-          5 => "/tests/math-g5.html",
-          6 => "/tests/math-g6.html",
-          7 => "/tests/math-g7.html",
-          8 => "/tests/math-g8.html",
+          3 => "#",
+          4 => "#",
+          5 => "#",
+          6 => "#",
+          7 => "#",
+          8 => "#",
           9 => "/test/math-g9.php",
-          10 => "/tests/math-g10.html",
-          11 => "/tests/math-g11.html",
-          12 => "/tests/math-g12.html"
+          10 => "/test/math-g10.php",
+          11 => "/test/math-g11.php",
+          12 => "#"
         ],
         "english" => [
-          3 => "/tests/english-g3.html",
-          4 => "/tests/english-g4.html",
+          3 => "#",
+          4 => "#",
           5 => "#", // Example of a missing link
           6 => "#",
           7 => "#",
@@ -84,6 +85,20 @@
           10 => "#",
           11 => "#",
           12 => "#"
+        ],
+        // Links for the new Extra Tests card.
+        // You can change these to specific extra test pages per grade if needed.
+        "extra-tests" => [
+          3 => "/test/extra.php",
+          4 => "/test/extra.php",
+          5 => "/test/extra.php",
+          6 => "/test/extra.php",
+          7 => "/test/extra.php",
+          8 => "/test/extra.php",
+          9 => "/test/extra.php",
+          10 => "/test/extra.php",
+          11 => "/test/extra.php",
+          12 => "/test/extra.php"
         ]
       ];
       // --- END OF TEST LINKS ---
@@ -136,4 +151,3 @@
   // Include the footer
   include 'src/footer.php'; 
 ?>
-
