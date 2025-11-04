@@ -43,6 +43,16 @@ $categories = [
             "epub-link" => "#"
         ],
         [
+            "title" => "Project Hail Mary",
+            "author" => "Andy Weir",
+            "isbn" => "978-0593135204",
+            "date" => "2021-05-04",
+            "img" => "https://placehold.co/300x450/f39c12/black?text=Project+Hail+Mary",
+            "description" => "A lone astronaut. An impossible mission. An ally he never expected. Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
             "title" => "Placeholder Book 1",
             "author" => "Author 1",
             "isbn" => "123-456",
@@ -59,6 +69,26 @@ $categories = [
             "date" => "2023-02-01",
             "img" => "https://placehold.co/300x450/e74c3c/white?text=Book+Two",
             "description" => "Description for placeholder book 2.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Placeholder Book 3",
+            "author" => "Author 3",
+            "isbn" => "123-458",
+            "date" => "2023-03-01",
+            "img" => "https://placehold.co/300x450/9b59b6/white?text=Book+Three",
+            "description" => "Description for placeholder book 3.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Placeholder Book 4",
+            "author" => "Author 4",
+            "isbn" => "123-459",
+            "date" => "2023-04-01",
+            "img" => "https://placehold.co/300x450/1abc9c/black?text=Book+Four",
+            "description" => "Description for placeholder book 4.",
             "pdf-link" => "#",
             "epub-link" => "#"
         ],
@@ -86,12 +116,166 @@ $categories = [
             "epub-link" => "#"
         ],
         [
+            "title" => "The Great Gatsby",
+            "author" => "F. Scott Fitzgerald",
+            "isbn" => "978-0743273565",
+            "date" => "1925-04-10",
+            "img" => "https://placehold.co/300x450/2ecc71/black?text=The+Great\nGatsby",
+            "description" => "The story of the mysteriously wealthy Jay Gatsby and his obsessive love for Daisy Buchanan, set in the Roaring Twenties on Long Island.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Moby Dick",
+            "author" => "Herman Melville",
+            "isbn" => "978-1503280786",
+            "date" => "1851-10-18",
+            "img" => "https://placehold.co/300x450/34495e/white?text=Moby+Dick",
+            "description" => "The saga of Captain Ahab and his relentless pursuit of Moby Dick, the great white whale that bit off his leg at the knee.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Jane Eyre",
+            "author" => "Charlotte Brontë",
+            "isbn" => "978-0141441146",
+            "date" => "1847-10-19",
+            "img" => "https://placehold.co/300x450/95a5a6/black?text=Jane+Eyre",
+            "description" => "The novel follows the story of Jane, a seemingly plain and simple girl as she battles through life's struggles. Jane has many obstacles in her life - her cruel Aunt Reed, the grim conditions at Lowood school, and her love for Mr. Rochester.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
             "title" => "Placeholder Book 5",
             "author" => "Author 5",
             "isbn" => "123-460",
             "date" => "2023-05-01",
             "img" => "https://placehold.co/300x450/f1c40f/black?text=Book+Five",
             "description" => "Description for placeholder book 5.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+    ],
+    "Science Fiction & Fantasy" => [
+        [
+            "title" => "The Hobbit",
+            "author" => "J.R.R. Tolkien",
+            "isbn" => "978-0618260300",
+            "date" => "1937-09-21",
+            "img" => "https://placehold.co/300x450/27ae60/white?text=The+Hobbit",
+            "description" => "Bilbo Baggins, a hobbit enjoying his comfortable, unambitious life, finds it turned upside down when the wizard Gandalf and a company of thirteen dwarves arrive on his doorstep one day to whisk him away on an unexpected journey 'there and back again.'",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Ender's Game",
+            "author" => "Orson Scott Card",
+            "isbn" => "978-0812550702",
+            "date" => "1985-01-15",
+            "img" => "https://placehold.co/300x450/3498db/white?text=Ender's+Game",
+            "description" => "In order to develop a secure defense against a hostile alien race's next attack, government agencies breed child geniuses and train them as soldiers. A brilliant young boy, Andrew 'Ender' Wiggin, lives with his parents and his kind but distant sister, Valentine, and his sadistic brother, Peter.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "The Name of the Wind",
+            "author" => "Patrick Rothfuss",
+            "isbn" => "978-0756404741",
+            "date" => "2007-03-27",
+            "img" => "https://placehold.co/300x450/16a085/white?text=The+Name+of+the+Wind",
+            "description" => "The story of Kvothe, a magically gifted young man who grows up to be the most notorious wizard his world has ever seen. The book is the first in a series, The Kingkiller Chronicle.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "A Game of Thrones",
+            "author" => "George R.R. Martin",
+            "isbn" => "978-0553593716",
+            "date" => "1996-08-01",
+            "img" => "https://placehold.co/300x450/bdc3c7/black?text=A+Game+of+Thrones",
+            "description" => "The first book in A Song of Ice and Fire, a series of fantasy novels. It tells the story of the violent dynastic struggles among the realm's noble families for control of the Iron Throne.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "The Way of Kings",
+            "author" => "Brandon Sanderson",
+            "isbn" => "978-0765326355",
+            "date" => "2010-08-31",
+            "img" => "https://placehold.co/300x450/8e44ad/white?text=The+Way+of+Kings",
+            "description" => "The first book in The Stormlight Archive series. It is set in the world of Roshar, a land of stone and storms, which is inhabited by men and the parshmen, and swept by devastating tempests.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+    ],
+    "Public Domain Classics" => [
+        [
+            "title" => "Pride and Prejudice",
+            "author" => "Jane Austen",
+            "isbn" => "978-1503290563",
+            "date" => "1813-01-28",
+            "img" => "https://placehold.co/300x450/d35400/white?text=Pride+and\nPrejudice",
+            "description" => "Follows the turbulent relationship between Elizabeth Bennet, the daughter of a country gentleman, and Fitzwilliam Darcy, a rich aristocratic landowner.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Frankenstein",
+            "author" => "Mary Shelley",
+            "isbn" => "978-0486282114",
+            "date" => "1818-01-01",
+            "img" => "https://placehold.co/300x450/8e44ad/white?text=Frankenstein",
+            "description" => "The story of Victor Frankenstein, a young scientist who creates a sapient creature in an unorthodox scientific experiment.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Dracula",
+            "author" => "Bram Stoker",
+            "isbn" => "978-0486411095",
+            "date" => "1897-05-26",
+            "img" => "https://placehold.co/300x450/c0392b/white?text=Dracula",
+            "description" => "An epistolary novel, it follows the story of Count Dracula's attempt to move from Transylvania to England so that he may find new blood and spread the undead curse.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "Alice's Adventures in Wonderland",
+            "author" => "Lewis Carroll",
+            "isbn" => "978-0486275437",
+            "date" => "1865-11-26",
+            "img" => "https://placehold.co/300x450/2980b9/white?text=Alice+in\nWonderland",
+            "description" => "A young girl named Alice falls through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "The Adventures of Sherlock Holmes",
+            "author" => "Arthur Conan Doyle",
+            "isbn" => "978-0140437713",
+            "date" => "1892-10-14",
+            "img" => "https://placehold.co/300x450/7f8c8d/white?text=Sherlock+Holmes",
+            "description" => "A collection of twelve short stories featuring the famous detective Sherlock Holmes and his loyal friend Dr. Watson.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "A Tale of Two Cities",
+            "author" => "Charles Dickens",
+            "isbn" => "978-0486406510",
+            "date" => "1859-04-30",
+            "img" => "https://placehold.co/300x450/d35400/white?text=A+Tale+of+Two+Cities",
+            "description" => "Set in London and Paris before and during the French Revolution, the novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris, and his release to live in London with his daughter Lucie.",
+            "pdf-link" => "#",
+            "epub-link" => "#"
+        ],
+        [
+            "title" => "The War of the Worlds",
+            "author" => "H.G. Wells",
+            "isbn" => "978-1514630906",
+            "date" => "1898-01-01",
+            "img" => "https://placehold.co/300x450/c0392b/white?text=The+War+of+the+Worlds",
+            "description" => "One of the earliest stories that detail a conflict between mankind and an extraterrestrial race. The novel is the first-person narrative of an unnamed protagonist in Surrey and his younger brother in London as southern England is invaded by Martians.",
             "pdf-link" => "#",
             "epub-link" => "#"
         ],
@@ -204,7 +388,7 @@ require_once '../src/header.php';
                         <img src="<?php echo htmlspecialchars($book['img']); ?>" 
                              alt="<?php echo htmlspecialchars($book['title']); ?>"
                              class="book-cover w-40 h-60 md:w-48 md:h-72 object-cover rounded-lg"
-                             onerror="this.onerror=null; this.src='https://placehold.co/300x450/6b7280/white?text=Image+Not+Found';">
+                             onerror="this.onerror=null; this.src='<?php echo isset($book['fallback-img']) ? htmlspecialchars($book['fallback-img']) : 'https://placehold.co/300x450/6b7280/white?text=Image+Not+Found'; ?>';">
                     </div>
 
                 <?php endforeach; // End book loop ?>
