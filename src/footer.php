@@ -37,7 +37,7 @@
                   class="fas fa-book mr-2" aria-hidden="true"></i>Curriculum</a>
             </li>
             <li>
-              <a href="/research/index.html"
+              <a href="/research/"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
             </li>
@@ -67,17 +67,17 @@
                   class="fas fa-envelope mr-2" aria-hidden="true"></i>Contact Us</a>
             </li>
             <li>
-              <a href="/students.html"
+              <a href="/students.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
             </li>
             <li>
-              <a href="/parents.html"
+              <a href="/parents.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
             </li>
             <li>
-              <a href="/teachers.html"
+              <a href="/teachers.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
             </li>
@@ -92,22 +92,22 @@
         <nav aria-labelledby="legal-heading">
           <ul class="space-y-2">
             <li>
-              <a href="/privacy.html"
+              <a href="/privacy.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
             </li>
             <li>
-              <a href="/terms.html"
+              <a href="/terms.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
             </li>
             <li>
-              <a href="/accessibility.html"
+              <a href="/accessibility.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
             </li>
             <li>
-              <a href="/about-us.html"
+              <a href="/about-us.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
             </li>
