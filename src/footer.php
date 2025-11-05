@@ -42,10 +42,10 @@
                   class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
             </li>
             <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-chart-line mr-2" aria-hidden="true"></i>Standards</a>
-            </li>
+  <a href="/library"
+     class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
+       class="fas fa-book mr-2" aria-hidden="true"></i>Library</a>
+</li>
             <li>
               <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i

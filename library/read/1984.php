@@ -43,7 +43,7 @@
           [TEMPLATE] REPLACE THIS
           This is where your book's title goes.
         -->
-        Placeholder Book Title
+        1984
       </h1>
       <p class="text-lg text-text-secondary">
         by
@@ -51,7 +51,7 @@
           [TEMPLATE] REPLACE THIS
           This is where your book's author goes.
         -->
-        A.N. Author
+        George Orwell
       </p>
     </header>
 
