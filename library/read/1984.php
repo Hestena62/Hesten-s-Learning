@@ -20,7 +20,7 @@
 
   // --- INCLUDE THE HEADER ---
   // This line brings in the <head>, <body>, navigation, and all A11y styles/scripts.
-  include '..\src\header.php';
+  include 'src/header.php';
 ?>
 
 <!-- 
