@@ -32,22 +32,22 @@
         <nav aria-labelledby="quick-links-heading">
           <ul class="space-y-2">
             <li>
-              <a href="/curriculum"
+              <a href="/curriculum.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-book mr-2" aria-hidden="true"></i>Curriculum</a>
             </li>
             <li>
-              <a href="/research/"
+              <a href="/research"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
             </li>
             <li>
-              <a href="/standard"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-chart-line mr-2" aria-hidden="true"></i>Standards</a>
             </li>
             <li>
-              <a href="/help"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
             </li>
@@ -72,12 +72,12 @@
                   class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
             </li>
             <li>
-              <a href="/parents.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
             </li>
             <li>
-              <a href="/teachers.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
             </li>
@@ -92,22 +92,22 @@
         <nav aria-labelledby="legal-heading">
           <ul class="space-y-2">
             <li>
-              <a href="/privacy.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
             </li>
             <li>
-              <a href="/terms.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
             </li>
             <li>
-              <a href="/accessibility.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
             </li>
             <li>
-              <a href="/about-us.php"
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
             </li>
