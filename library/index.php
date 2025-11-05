@@ -459,5 +459,5 @@ document.addEventListener("DOMContentLoaded", function () {
 <?php
 // --- Include Footer ---
 // This file contains the footer, global modals, and closing </body>/</html> tags
-require_once '..\src\footer.php';
+require_once 'src/footer.php';
 ?>
