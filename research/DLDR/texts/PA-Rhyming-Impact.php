@@ -13,7 +13,7 @@ $welcomeParagraph = "You are viewing 'Phonological Awareness: Rhyming & Impact o
 
 // --- Include Header ---
 // This file includes the DOCTYPE, <head>, and main site navigation <header>
-include '..\..\..\src\header.php';
+include '../src/header.php';
 ?>
 
 <!-- 
@@ -1633,5 +1633,5 @@ include '..\..\..\src\header.php';
 // --- Include Footer ---
 // This file includes the main site <footer>, modals, global JS,
 // and closes the </body> and </html> tags.
-include '..\..\..\src\footer.php';
+include '../src/footer.php';
 ?>

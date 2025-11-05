@@ -165,5 +165,5 @@
   // --- 5. INCLUDE FOOTER ---
   // This file contains the <footer>, all global modals,
   // global JavaScript, and closes the </body> and </html> tags.
-  include '..\src\footer.php';
+  include 'src/footer.php';
 ?>
