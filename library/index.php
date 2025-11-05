@@ -145,7 +145,7 @@ $categories = [
 
 // --- Include Header ---
 // This file contains the <head>, <body> tag, and navigation
-require_once '..\src\header.php';
+require_once 'src/header.php';
 ?>
 
 <!-- 
