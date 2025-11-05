@@ -595,7 +595,7 @@
             <svg
               class="fill-current h-5 w-5"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/svg"
             >
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
@@ -713,9 +713,13 @@
       </div>
     </header>
 
-    <!-- Sub Navigation Bar (Tabs) - Now uses dynamic theme colors -->
+    <!-- 
+      IMPROVEMENT 1: Removed 'sticky' and 'top-[64px]' from the sub-nav.
+      This prevents the "double-sticky" header, giving more screen space to the content,
+      especially on mobile. The tab bar will now scroll away with the page.
+    -->
     <div
-      class="sub-nav bg-content-bg flex justify-center items-center py-3 px-4 flex-wrap gap-4 w-full shadow-lg sticky top-[64px] z-40"
+      class="sub-nav bg-content-bg flex justify-center items-center py-3 px-4 flex-wrap gap-4 w-full shadow-lg z-40"
     >
       <button
         class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary active"
@@ -790,30 +794,40 @@
             <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default">
                 Module 1: Counting to 5
             </h2>
-            <div class="space-y-6">
+            <!-- 
+              IMPROVEMENT 2: Replaced 'space-y-6' with a responsive grid.
+              On large screens (lg:), topics will now appear in two columns,
+              making the page less tall and easier to scan. On mobile, it
+              remains a single column.
+            -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Topic A (Card style adapted from bg-base-bg) -->
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-a"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
                     >
                       Topic A: Matching Objects
                     </h3>
+                    <!-- 
+                      IMPROVEMENT 3: Added min-w-[120px], justify-center, and text-center to buttons
+                      for a more uniform look.
+                    -->
                     <div class="flex flex-wrap gap-2 mb-3">
                         <button
-                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
                           data-topic="Matching Objects"
                         >
                           Explain Concept
                         </button>
                         <button
-                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary"
+                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
                           data-topic="Matching Objects"
                         >
                           Activity Idea
                         </button>
                         <button
-                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark"
+                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
                           data-topic="Matching Objects"
                         >
                           Generate a Story
@@ -828,7 +842,8 @@
                     <div
                       class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"
                     ></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <!-- Added 'mt-auto' to push list to bottom if card heights are uneven in grid -->
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lesson 1: Identify identical objects.</li>
                       <li>Lessons 2–3: Match 2 objects that are the same, but….</li>
                       <li>Lesson 4: Match 2 objects that are used together.</li>
@@ -836,7 +851,7 @@
                   </section>
 
                 <!-- Topic B -->
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-b"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -845,19 +860,19 @@
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
                         <button
-                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
                           data-topic="Sorting"
                         >
                           Explain Concept
                         </button>
                         <button
-                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary"
+                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
                           data-topic="Sorting"
                         >
                           Activity Idea
                         </button>
                         <button
-                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark"
+                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
                           data-topic="Sorting"
                         >
                           Generate a Story
@@ -872,7 +887,7 @@
                     <div
                       class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"
                     ></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lesson 5: Make one group with a given attribute.</li>
                       <li>Lesson 6: Sort into two groups.</li>
                       <li>
@@ -882,7 +897,7 @@
                 </section>
 
                 <!-- Topic C -->
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-c"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -891,19 +906,19 @@
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
                         <button
-                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
                           data-topic="How Many Questions with 1, 2, or 3 Objects"
                         >
                           Explain Concept
                         </button>
                         <button
-                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary"
+                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
                           data-topic="How Many Questions with 1, 2, or 3 Objects"
                         >
                           Activity Idea
                         </button>
                         <button
-                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark"
+                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
                           data-topic="How Many Questions with 1, 2, or 3 Objects"
                         >
                           Generate a Story
@@ -918,7 +933,7 @@
                     <div
                       class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"
                     ></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lesson 8: Count up to 3 objects.</li>
                       <li>
                         Lessons 9–10: Arrange and count up to 3 objects in scattered and
@@ -931,7 +946,7 @@
                 </section>
 
                 <!-- Topic D -->
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-d"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -940,19 +955,19 @@
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
                         <button
-                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                          class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
                           data-topic="Matching 1 Numeral with up to 3 Objects"
                         >
                           Explain Concept
                         </button>
                         <button
-                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary"
+                          class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
                           data-topic="Matching 1 Numeral with up to 3 Objects"
                         >
                           Activity Idea
                         </button>
                         <button
-                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark"
+                          class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
                           data-topic="Matching 1 Numeral with up to 3 Objects"
                         >
                           Generate a Story
@@ -967,7 +982,7 @@
                     <div
                       class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"
                     ></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lesson 12: Match the numerals 1, 2, and 3 to quantities.</li>
                       <li>
                         Lesson 13: Make a group of up to 3 objects and match the numeral
@@ -984,7 +999,7 @@
                 </section>
                 
                 <!-- Topic E & F... -->
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-e"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -992,14 +1007,14 @@
                       Topic E: How Many Questions with 4 or 5 Objects
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
-                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="How Many Questions with 4 or 5 Objects">Explain Concept</button>
-                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="How Many Questions with 4 or 5 Objects">Activity Idea</button>
-                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="How Many Questions with 4 or 5 Objects">Generate a Story</button>
+                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="How Many Questions with 4 or 5 Objects">Explain Concept</button>
+                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="How Many Questions with 4 or 5 Objects">Activity Idea</button>
+                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="How Many Questions with 4 or 5 Objects">Generate a Story</button>
                     </div>
                     <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                     <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                     <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lessons 15–16: Arrange and count up to 5 objects in scattered and linear configurations.</li>
                       <li>Lesson 17: Count fingers on the left hand from 1 to 5.</li>
                       <li>Lesson 18: Arrange and count 4 objects in an array configuration.</li>
@@ -1008,7 +1023,7 @@
                     </ul>
                 </section>
                 
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module1-topic-f"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -1016,14 +1031,14 @@
                       Topic F: Matching 1 Numeral with up to 5 Objects
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
-                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Matching 1 Numeral with up to 5 Objects">Explain Concept</button>
-                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Matching 1 Numeral with up to 5 Objects">Activity Idea</button>
-                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Matching 1 Numeral with up to 5 Objects">Generate a Story</button>
+                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Matching 1 Numeral with up to 5 Objects">Explain Concept</button>
+                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Matching 1 Numeral with up to 5 Objects">Activity Idea</button>
+                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Matching 1 Numeral with up to 5 Objects">Generate a Story</button>
                     </div>
                     <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                     <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                     <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Lesson 21: Count up to 4 objects and match the numerals.</li>
                       <li>Lesson 22: Count up to 5 objects and match the numerals.</li>
                       <li>Lesson 23: Make a group of up to 5 objects and match the numeral (concrete to abstract).</li>
@@ -1039,8 +1054,8 @@
             <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default" id="module2">
                 Module 2: Shapes
             </h2>
-            <div class="space-y-6">
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module2-topic-a"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -1048,14 +1063,14 @@
                       Topic A: Two-Dimensional Shapes
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
-                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Two-Dimensional Shapes">Explain Concept</button>
-                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Two-Dimensional Shapes">Activity Idea</button>
-                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Two-Dimensional Shapes">Generate a Story</button>
+                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Two-Dimensional Shapes">Explain Concept</button>
+                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Two-Dimensional Shapes">Activity Idea</button>
+                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Two-Dimensional Shapes">Generate a Story</button>
                     </div>
                     <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                     <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                     <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>
                         Identify and describe flat shapes (circles, squares, triangles,
                         rectangles).
@@ -1065,7 +1080,7 @@
                     </ul>
                 </section>
                 
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module2-topic-b"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -1073,21 +1088,21 @@
                       Topic B: Constructing Two-Dimensional Shapes
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
-                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Constructing Two-Dimensional Shapes">Explain Concept</button>
-                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Constructing Two-Dimensional Shapes">Activity Idea</button>
-                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Constructing Two-Dimensional Shapes">Generate a Story</button>
+                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Constructing Two-Dimensional Shapes">Explain Concept</button>
+                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Constructing Two-Dimensional Shapes">Activity Idea</button>
+                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Constructing Two-Dimensional Shapes">Generate a Story</button>
                     </div>
                     <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                     <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                     <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>Use materials (e.g., sticks, play-doh) to create shapes.</li>
                       <li>Draw two-dimensional shapes.</li>
                       <li>Combine simple shapes to form larger shapes.</li>
                     </ul>
                 </section>
 
-                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                     <h3
                       id="module2-topic-c"
                       class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between"
@@ -1095,14 +1110,14 @@
                       Topic C: Three-Dimensional Shapes
                     </h3>
                     <div class="flex flex-wrap gap-2 mb-3">
-                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Three-Dimensional Shapes">Explain Concept</button>
-                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Three-Dimensional Shapes">Activity Idea</button>
-                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Three-Dimensional Shapes">Generate a Story</button>
+                        <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Three-Dimensional Shapes">Explain Concept</button>
+                        <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Three-Dimensional Shapes">Activity Idea</button>
+                        <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Three-Dimensional Shapes">Generate a Story</button>
                     </div>
                     <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                     <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                     <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                    <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                       <li>
                         Identify and describe solid shapes (cubes, cones, cylinders,
                         spheres).
@@ -1118,64 +1133,64 @@
         <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default" id="module3">
             Module 3: Counting to 10
         </h2>
-        <div class="space-y-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module3-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: How Many Questions with up to 8 Objects</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="How Many Questions with up to 8 Objects">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="How Many Questions with up to 8 Objects">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="How Many Questions with up to 8 Objects">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 8 Objects">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 8 Objects">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 8 Objects">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Count up to 8 objects in various configurations (linear, scattered, array).</li>
                     <li>Answer "how many" questions for groups of up to 8 objects.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module3-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Matching One Numeral with up to 8 Objects</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Matching One Numeral with up to 8 Objects">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Matching One Numeral with up to 8 Objects">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Matching One Numeral with up to 8 Objects">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 8 Objects">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 8 Objects">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 8 Objects">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Match numerals 1-8 to quantities of objects.</li>
                     <li>Count out a group of objects to match a given numeral.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module3-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: How Many Questions with up to 10 Objects</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="How Many Questions with up to 10 Objects">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="How Many Questions with up to 10 Objects">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="How Many Questions with up to 10 Objects">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 10 Objects">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 10 Objects">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="How Many Questions with up to 10 Objects">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Count up to 10 objects in various configurations.</li>
                     <li>Answer "how many" questions for groups of up to 10 objects.</li>
                     <li>Understand that the last number counted tells the total.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module3-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Matching One Numeral with up to 10 Objects</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Matching One Numeral with up to 10 Objects">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Matching One Numeral with up to 10 Objects">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Matching One Numeral with up to 10 Objects">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 10 Objects">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 10 Objects">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Matching One Numeral with up to 10 Objects">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Match numerals 0-10 to quantities of objects.</li>
                     <li>Count out a group of objects to match a given numeral.</li>
                     <li>Write numerals 0-10.</li>
@@ -1186,63 +1201,63 @@
         <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default" id="module4">
             Module 4: Comparison of Length, Weight, Capacity, and Numbers to 5
         </h2>
-        <div class="space-y-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module4-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Comparison of Length</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Comparison of Length">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Comparison of Length">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Comparison of Length">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Comparison of Length">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Comparison of Length">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Comparison of Length">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Compare two objects by length using "longer than," "shorter than," "as long as."</li>
                     <li>Order objects by length.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module4-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Comparison of Weight</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Comparison of Weight">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Comparison of Weight">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Comparison of Weight">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Comparison of Weight">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Comparison of Weight">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Comparison of Weight">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Compare two objects by weight using "heavier than," "lighter than," "as heavy as."</li>
                     <li>Use a balance scale to compare weights.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module4-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: Comparison of Capacity</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Comparison of Capacity">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Comparison of Capacity">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Comparison of Capacity">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Comparison of Capacity">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Comparison of Capacity">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Comparison of Capacity">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Compare two containers by capacity using "more than," "less than," "as much as."</li>
                     <li>Fill and empty containers to compare capacity.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module4-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Comparison of Numbers to 5</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Comparison of Numbers to 5">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Comparison of Numbers to 5">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Comparison of Numbers to 5">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Comparison of Numbers to 5">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Comparison of Numbers to 5">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Comparison of Numbers to 5">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Compare two groups of objects (up to 5) using "more than," "less than," "the same as."</li>
                     <li>Match quantities to compare.</li>
                 </ul>
@@ -1253,78 +1268,78 @@
         <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default" id="module5">
             Module 5: Addition and Subtraction Stories and Counting to 20
         </h2>
-        <div class="space-y-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module5-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Writing Numerals 0-5</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Writing Numerals 0-5">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Writing Numerals 0-5">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Writing Numerals 0-5">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Writing Numerals 0-5">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Writing Numerals 0-5">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Writing Numerals 0-5">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Practice writing numerals 0, 1, 2, 3, 4, and 5.</li>
                     <li>Form numerals using various materials.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module5-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Addition Stories (Numbers 1-5)</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Addition Stories (Numbers 1-5)">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Addition Stories (Numbers 1-5)">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Addition Stories (Numbers 1-5)">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Addition Stories (Numbers 1-5)">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Addition Stories (Numbers 1-5)">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Addition Stories (Numbers 1-5)">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Act out and model addition stories with objects and drawings (sums up to 5).</li>
                     <li>Solve "add to with result unknown" and "put together with total unknown" problems.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module5-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: Subtraction Stories (Numbers 1-5)</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Subtraction Stories (Numbers 1-5)">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Subtraction Stories (Numbers 1-5)">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Subtraction Stories (Numbers 1-5)">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Subtraction Stories (Numbers 1-5)">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Subtraction Stories (Numbers 1-5)">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Subtraction Stories (Numbers 1-5)">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Act out and model subtraction stories with objects and drawings (minuends up to 5).</li>
                     <li>Solve "take from with result unknown" problems.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module5-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Decontextualizing Subtraction Stories</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Decontextualizing Subtraction Stories">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Decontextualizing Subtraction Stories">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Decontextualizing Subtraction Stories">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Decontextualizing Subtraction Stories">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Decontextualizing Subtraction Stories">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Decontextualizing Subtraction Stories">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Represent subtraction stories using fingers, cubes, or drawings.</li>
                     <li>Connect concrete actions to abstract representations of subtraction.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module5-topic-e" class="text-xl font-semibold text-text-default mb-3">Topic E: Duplicating and Extending Patterns</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Duplicating and Extending Patterns">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Duplicating and Extending Patterns">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Duplicating and Extending Patterns">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Duplicating and Extending Patterns">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Duplicating and Extending Patterns">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Duplicating and Extending Patterns">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Duplicate simple AB, AAB, ABB patterns.</li>
                     <li>Extend simple patterns.</li>
                 </ul>
@@ -1335,34 +1350,34 @@
         <h2 class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default" id="module6">
             Module 6: Analyzing, Comparing, and Composing Shapes
         </h2>
-        <div class="space-y-6">
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module6-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Building and Drawing Flat and Solid Shapes</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Building and Drawing Flat and Solid Shapes">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Building and Drawing Flat and Solid Shapes">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Building and Drawing Flat and Solid Shapes">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Building and Drawing Flat and Solid Shapes">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Building and Drawing Flat and Solid Shapes">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Building and Drawing Flat and Solid Shapes">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Describe and identify flat (2D) and solid (3D) shapes.</li>
                     <li>Build shapes from components (e.g., sticks and clay).</li>
                     <li>Draw shapes.</li>
                 </ul>
             </section>
-            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
                 <h3 id="module6-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Composing and Decomposing Shapes</h3>
                 <div class="flex flex-wrap gap-2 mb-3">
-                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary" data-topic="Composing and Decomposing Shapes">Explain Concept</button>
-                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent" data-topic="Composing and Decomposing Shapes">Activity Idea</button>
-                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500" data-topic="Composing and Decomposing Shapes">Generate a Story</button>
+                    <button class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center" data-topic="Composing and Decomposing Shapes">Explain Concept</button>
+                    <button class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center" data-topic="Composing and Decomposing Shapes">Activity Idea</button>
+                    <button class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center" data-topic="Composing and Decomposing Shapes">Generate a Story</button>
                 </div>
                 <div class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium"></div>
                 <div class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium"></div>
                 <div class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium"></div>
-                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3">
+                <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
                     <li>Combine simple shapes to form larger shapes (composing).</li>
                     <li>Break apart larger shapes into smaller shapes (decomposing).</li>
                     <li>Explore how shapes fit together.</li>
@@ -1995,7 +2010,7 @@
               const target = document.getElementById(this.dataset.target);
               target.classList.add("active");
               // Scroll to the main content area after switching tabs
-              document.getElementById('tab1').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
           });
 
@@ -2049,8 +2064,8 @@
                   chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
                   const payload = { contents: chatHistory };
-                  const apiKey = ""; // API key will be injected
-                  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=$AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw`;
+                  const apiKey = "AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw"; // API key will be injected
+                  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw`;
 
                   const response = await fetch(apiUrl, {
                       method: "POST",

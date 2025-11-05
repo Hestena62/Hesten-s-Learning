@@ -55,6 +55,7 @@
     <style>
       /* Disable text selection */
       body {
+        -webkit-user-select: none;  /* Safari */
         user-select: none;
         font-family: "Inter", sans-serif; /* Apply Inter font globally */
       }
@@ -1993,8 +1994,9 @@
           chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
           const payload = { contents: chatHistory };
-          const apiKey = ""; // Canvas will provide this at runtime
-          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+          const apiKey = "AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw"; // Canvas will provide this at runtime
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
 
           const response = await fetch(apiUrl, {
             method: "POST",

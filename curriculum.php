@@ -1,68 +1,127 @@
 <?php
-// Set dynamic variables for the header/footer includes
-$pageTitle = "Curriculum - Hesten's Learning";
-$pageDescription = "Explore the math, ELA, and testing curriculum aligned with EngageNY standards for Hesten's Learning.";
-$welcomeMessage = "Welcome to the Curriculum!";
-$welcomeParagraph = "Explore our educational programs designed for personalized learning.";
+  // Define page-specific variables for the header
+  $pageTitle = 'Curriculum Overview | Hesten\'s Learning';
+  $pageDescription = 'Explore the standards-based curriculum at Hesten\'s Learning, including CCSS for Math and ELA, and NGSS for Science.';
+  $pageKeywords = 'curriculum, CCSS, Common Core, NGSS, Next Generation Science Standards, math, ELA, science, history, social studies';
+  $pageAuthor = 'Hesten\'s Learning';
 
-// The header.php file includes all necessary setup (Tailwind, Font Awesome, etc.)
-// and starts the body tag.
-include 'src/header.php';
+  // Define variables for the welcome popup (from header.php)
+  $welcomeMessage = 'Our Curriculum';
+  $welcomeParagraph = 'Discover the core subjects and standards that guide our learning experiences.';
+
+  // Include the header
+  include 'src/header.php';
 ?>
 
-    <!-- Main Content Area -->
-    <!-- The body element received its base styling from header.php -->
-    <main class="container mx-auto my-10 px-4">
-        <h1 class="text-3xl font-bold text-center mb-8 text-text-default">Our Curriculum Offerings</h1>
+<!-- Main Content Area -->
+<main id="main-content" class="transition-colors duration-300">
+  <div class="container mx-auto px-4 py-12 md:py-16">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Math Curriculum Card -->
-            <div class="bg-content-bg rounded-base-rounded shadow-lg p-6 border-t-4 border-primary transition-all duration-300 hover:shadow-xl">
-                <h2 class="text-xl font-semibold mb-3 text-primary">Math Curriculum</h2>
-                <p class="text-text-secondary mb-4">Our mathematics program follows the EngageNY math framework:</p>
-                <ul class="list-disc list-inside space-y-2 text-text-default">
-                    <li><strong class="font-medium">Elementary (K-5):</strong> A STORY OF UNITS</li>
-                    <li><strong class="font-medium">Middle School (6-8):</strong> A STORY OF RATIONS</li>
-                    <li><strong class="font-medium">High School (9-12):</strong> A STORY OF FUNCTIONS</li>
-                </ul>
-                <a href="/math-modules.html" class="mt-4 inline-block px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-content-bg">
-                    Explore Math Modules
-                </a>
-            </div>
+    <!-- Page Title -->
+    <h1 class="text-4xl md:text-5xl font-bold text-primary text-center mb-8 transition-colors duration-300">
+      Curriculum Overview
+    </h1>
 
-            <!-- ELA Curriculum Card -->
-            <div class="bg-content-bg rounded-base-rounded shadow-lg p-6 border-t-4 border-primary transition-all duration-300 hover:shadow-xl">
-                <h2 class="text-xl font-semibold mb-3 text-primary">ELA Curriculum</h2>
-                <p class="text-text-secondary mb-4">Our English Language Arts program aligns with EngageNY standards:</p>
-                <ul class="list-disc list-inside space-y-2 text-text-default">
-                    <li><strong class="font-medium">Reading:</strong> Comprehension and analysis</li>
-                    <li><strong class="font-medium">Writing:</strong> Composition and research</li>
-                    <li><strong class="font-medium">Language:</strong> Grammar and vocabulary</li>
-                </ul>
-                <!-- Note: The original button was a non-linked button, kept as a button -->
-                <button class="mt-4 w-full px-4 py-2 border border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-content-bg">
-                    View ELA Resources
-                </button>
-            </div>
+    <!-- Introductory Text -->
+    <p class="text-lg text-text-secondary text-center max-w-3xl mx-auto mb-12 transition-colors duration-300">
+      Our curriculum is built on a foundation of proven, standards-based frameworks. We believe in providing a clear,
+      consistent, and high-quality education by aligning our materials with the Common Core State Standards (CCSS) and
+      the Next Generation Science Standards (NGSS).
+    </p>
 
-            <!-- Testing Card -->
-            <div class="bg-content-bg rounded-base-rounded shadow-lg p-6 border-t-4 border-primary transition-all duration-300 hover:shadow-xl">
-                <h2 class="text-xl font-semibold mb-3 text-primary">Testing</h2>
-                <p class="text-text-secondary mb-4">Our tests follow a measure of NYCCSSST:</p>
-                <ul class="list-disc list-inside space-y-2 text-text-default">
-                    <li><strong class="font-medium">Reading:</strong> Comprehension and analysis</li>
-                    <li><strong class="font-medium">Math:</strong> Composition and research</li>
-                    <li><strong class="font-medium">Social Studies:</strong> Grammar and vocabulary</li>
-                    <li><strong class="font-medium">Science:</strong> Grammar and vocabulary</li>
-                </ul>
-                <a href="/tests/index.html" class="mt-4 inline-block px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-content-bg">
-                    View Testing Resources
-                </a>
-            </div>
+    <!-- Standards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+
+      <!-- Math Card -->
+      <section
+        class="bg-content-bg shadow-lg rounded-xl p-6 transform hover:scale-105 transition-transform duration-300 ease-in-out"
+        aria-labelledby="math-heading">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-calculator text-4xl text-primary mr-4" aria-hidden="true"></i>
+          <h2 id="math-heading" class="text-2xl font-semibold text-text-default">Mathematics</h2>
         </div>
-    </main>
+        <p class="text-text-secondary mb-4">
+          Aligned with the <strong>Common Core State Standards (CCSS)</strong> for Mathematics.
+        </p>
+        <p class="text-text-default mb-6">
+          Our math curriculum focuses on developing a deep conceptual understanding of key concepts, procedural fluency,
+          and the ability to apply mathematical practices to solve real-world problems.
+        </p>
+        <a href="https://corestandards.org/Math/" target="_blank" rel="noopener noreferrer"
+          class="inline-block bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
+          View CCSS Math <i class="fas fa-external-link-alt ml-1" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <!-- ELA Card -->
+      <section
+        class="bg-content-bg shadow-lg rounded-xl p-6 transform hover:scale-105 transition-transform duration-300 ease-in-out"
+        aria-labelledby="ela-heading">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-book-open text-4xl text-primary mr-4" aria-hidden="true"></i>
+          <h2 id="ela-heading" class="text-2xl font-semibold text-text-default">English Language Arts</h2>
+        </div>
+        <p class="text-text-secondary mb-4">
+          Aligned with the <strong>Common Core State Standards (CCSS)</strong> for English Language Arts.
+        </p>
+        <p class="text-text-default mb-6">
+          We focus on building strong literacy skills by integrating reading, writing, speaking, and listening. Students
+          engage with complex texts and learn to craft evidence-based arguments.
+        </p>
+        <a href="https://corestandards.org/ELA-Literacy/" target="_blank" rel="noopener noreferrer"
+          class="inline-block bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
+          View CCSS ELA <i class="fas fa-external-link-alt ml-1" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <!-- Science Card -->
+      <section
+        class="bg-content-bg shadow-lg rounded-xl p-6 transform hover:scale-105 transition-transform duration-300 ease-in-out"
+        aria-labelledby="science-heading">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-flask text-4xl text-primary mr-4" aria-hidden="true"></i>
+          <h2 id="science-heading" class="text-2xl font-semibold text-text-default">Science</h2>
+        </div>
+        <p class="text-text-secondary mb-4">
+          Aligned with the <strong>Next Generation Science Standards (NGSS)</strong>.
+        </p>
+        <p class="text-text-default mb-6">
+          Our science curriculum is designed to be a three-dimensional experience, blending disciplinary core ideas,
+          science and engineering practices, and crosscutting concepts to foster inquiry and understanding.
+        </p>
+        <a href="https://nextgenscience.org/" target="_blank" rel="noopener noreferrer"
+          class="inline-block bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
+          View NGSS <i class="fas fa-external-link-alt ml-1" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <!-- History / Social Studies Card -->
+      <section
+        class="bg-content-bg shadow-lg rounded-xl p-6 transform hover:scale-105 transition-transform duration-300 ease-in-out"
+        aria-labelledby="social-studies-heading">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-globe-americas text-4xl text-primary mr-4" aria-hidden="true"></i>
+          <h2 id="social-studies-heading" class="text-2xl font-semibold text-text-default">History & Social Studies</h2>
+        </div>
+        <p class="text-text-secondary mb-4">
+          Guided by the <strong>CCSS for History/Social Studies</strong> and the <strong>C3 Framework</strong>.
+        </p>
+        <p class="text-text-default mb-6">
+          We emphasize critical thinking and literacy within history, civics, geography, and economics. Students learn to
+          evaluate sources, develop claims, and communicate their conclusions effectively.
+        </p>
+        <a href="https://www.socialstudies.org/standards/c3" target="_blank" rel="noopener noreferrer"
+          class="inline-block bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
+          View C3 Framework <i class="fas fa-external-link-alt ml-1" aria-hidden="true"></i>
+        </a>
+      </section>
+
+    </div> <!-- /end grid -->
+
+  </div>
+</main>
 
 <?php
-// The footer.php file includes the footer, modals, and closes the body/html tags.
-include 'src/footer.php';
+  // Include the footer
+  include 'src/footer.php';
 ?>
