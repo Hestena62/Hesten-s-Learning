@@ -10,7 +10,7 @@
   $welcomeParagraph = "Please select a subject and grade level to start your test.";
 
   // Include the header
-  include 'src/header.php'; 
+  include '..\src\header.php'; 
 ?>
 
 <!-- Main content area -->
@@ -149,5 +149,5 @@
 
 <?php
   // Include the footer
-  include 'src/footer.php'; 
+  include '..\src\footer.php'; 
 ?>

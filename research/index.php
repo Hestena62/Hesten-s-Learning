@@ -14,7 +14,7 @@
   // --- 1. INCLUDE HEADER ---
   // This file contains the DOCTYPE, <head>, and main navigation <header>
   // It uses all the $page... variables defined above
-  include 'src/header.php';
+  include '..\src\header.php';
 ?>
 
 <!--
@@ -96,7 +96,7 @@
       title: "Dyslexia & Learning Disabilities Research",
       cover: "https://placehold.co/300x400/a78bfa/ffffff?text=Dyslexia+Research",
       description: "A research journal focusing on the latest research in dyslexia, exploring innovative teaching methods and interventions.",
-      link: "research/DLDR/", // Updated link
+      link: "DLDR/", // Updated link
     }, {
       // id: "Dysgraphia-Research",
       // title: "Dysgraphia & Writing Skills Research",
@@ -165,5 +165,5 @@
   // --- 5. INCLUDE FOOTER ---
   // This file contains the <footer>, all global modals,
   // global JavaScript, and closes the </body> and </html> tags.
-  include 'src/footer.php';
+  include '..\src\footer.php';
 ?>

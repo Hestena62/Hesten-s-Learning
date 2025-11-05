@@ -20,7 +20,7 @@
 
   // --- INCLUDE THE HEADER ---
   // This line brings in the <head>, <body>, navigation, and all A11y styles/scripts.
-  include '..\src\header.php';
+  include '..\..\src\header.php';
 ?>
 
 <!-- 
@@ -166,5 +166,5 @@
   // --- INCLUDE THE FOOTER ---
   // This line brings in the footer, modals, and all the A11y panel JavaScript.
   // It also closes the </body> and </html> tags.
-  include '..\src\footer.php';
+  include '..\..\src\footer.php';
 ?>

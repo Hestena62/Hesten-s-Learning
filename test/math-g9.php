@@ -105,7 +105,7 @@ $welcomeParagraph = "Welcome to the Algebra 1 full exam practice test. This test
 
 
 // Include the header
-include 'src/header.php'; 
+include '..\src\header.php'; 
 ?>
 
 <!-- Custom styles for this specific page -->
@@ -1224,6 +1224,6 @@ include 'src/header.php';
 
 <?php
   // Include the footer
-  include 'src/footer.php'; 
+  include '..\src\footer.php'; 
 ?>
 
