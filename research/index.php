@@ -14,7 +14,7 @@
   // --- 1. INCLUDE HEADER ---
   // This file contains the DOCTYPE, <head>, and main navigation <header>
   // It uses all the $page... variables defined above
-  include '..\src\header.php';
+  include 'src/header.php';
 ?>
 
 <!--
