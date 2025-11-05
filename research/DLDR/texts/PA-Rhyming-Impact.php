@@ -1633,5 +1633,5 @@ include '../../src/header.php';
 // --- Include Footer ---
 // This file includes the main site <footer>, modals, global JS,
 // and closes the </body> and </html> tags.
-include '../src/footer.php';
+include '../../src/footer.php';
 ?>
