@@ -162,6 +162,7 @@
 
   <!-- Custom Styles -->
   <style>
+    
     /* Base styles from dynamic variables */
     body {
       /* Styles from new accessibility features */

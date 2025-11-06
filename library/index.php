@@ -121,7 +121,7 @@ $categories = [
             "date" => "1949-06-08",
             "img" => "https://m.media-amazon.com/images/I/71wANojhEKL._AC_UF1000,1000_QL80_.jpg",
             "fallback-img" => "https://placehold.co/300x450/c0392b/white?text=1984",
-            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.",
+            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother. Lexile measure of 1090L",
             "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.pdf",
             "epub-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.epub",
             "read-online-link" => "library/read/1984.php"
