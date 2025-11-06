@@ -162,13 +162,13 @@ $categories = [
             "img" => "https://m.media-amazon.com/images/I/71wANojhEKL._AC_UF1000,1000_QL80_.jpg",
             "fallback-img" => "https://placehold.co/300x450/c0392b/white?text=1984",
             "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.",
-            "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.pdf",
+            "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20Goerge%20Orwell.pdf",
             "epub-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.epub",
             "read-online-link" => "read/1984.php",
             // --- NEW FIELDS (Updated from description) ---
-            "txt-link" => "https://cdn.hestena62.com", // Add your link here
-            "mobi-link" => "https://cdn.hestena62.com", // Add your link here
-            "word-link" => "https://cdn.hestena62.com", // Add your link here
+            "txt-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.txt", // Add your link here
+            "mobi-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.mobi", // Add your link here
+            "word-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.docx", // Add your link here
             "lexile" => "1090L"
         ],
         [
