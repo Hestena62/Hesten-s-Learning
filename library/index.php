@@ -164,7 +164,7 @@ $categories = [
             "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.",
             "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20Goerge%20Orwell.pdf",
             "epub-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.epub",
-            "read-online-link" => "/read/1984.php",
+            "read-online-link" => "/library/read/1984.php",
             // --- NEW FIELDS (Updated from description) ---
             "txt-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.txt", // Add your link here
             "mobi-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.mobi", // Add your link here
