@@ -114,6 +114,98 @@
     color: #0056b3;
     font-weight: bold;
   }
+
+  /* --- Modal Styles --- */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above other content */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .modal-content {
+    /* Use CSS variables for theme compatibility, with fallbacks */
+    background-color: var(--bg-content-bg, #fff);
+    color: var(--text-default, #111827);
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+  
+  .modal-overlay.active .modal-content {
+    transform: scale(1);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, #ccc);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary, #000);
+  }
+  
+  .modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary, #555);
+    padding: 4px;
+    line-height: 1;
+  }
+  
+  .modal-close-btn:hover {
+    color: var(--text-primary, #000);
+  }
+  
+  /* Style the chapter list inside the modal */
+  #toc-chapter-list.chapter-list {
+      background: none;
+      padding: 0;
+      margin-bottom: 0;
+  }
+  
+  #toc-chapter-list.chapter-list li {
+    padding: 10px 4px;
+  }
+  
+  #toc-chapter-list.chapter-list a {
+      font-size: 1rem;
+      color: var(--text-primary, #007bff);
+      cursor: pointer;
+  }
+  #toc-chapter-list.chapter-list a:hover {
+      text-decoration: underline;
+      color: var(--accent, #0056b3);
+  }
+
 </style>
 
 <script>
@@ -339,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <p>Already! He sat as still as a mouse, in the futile hope that whoever it was might go away after a single attempt. But no, the knocking was repeated. The worst thing of all would be to delay. His heart was thumping like a drum, but his face, from long habit, was probably expressionless. He got up and moved heavily towards the door.</p>
       </div>
+    
 
       <!-- Chapter 2 -->
       <div id="chapter-2" class="chapter-section">
@@ -429,11 +522,14 @@ document.addEventListener('DOMContentLoaded', function() {
         Previous
       </button>
 
-      <a href="/elibrary-toc.php" 
+      <!-- MODIFIED: Changed <a> to <button> and added id -->
+      <button
+         id="open-toc-modal"
+         type="button"
          class="w-full sm:w-auto text-center bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white px-5 py-2 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
-         aria-label="Back to Table of Contents">
+         aria-label="Open Table of Contents">
          Table of Contents
-      </a>
+      </button>
 
       <button
         id="next-chapter-bottom"
@@ -447,6 +543,26 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </main>
 
+<!-- NEW: Table of Contents Modal -->
+<div id="toc-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <!-- Modal content container -->
+  <div class="modal-content">
+    <!-- Modal header -->
+    <div class="modal-header">
+      <h2 id="modal-title" class="modal-title">Book Outline</h2>
+      <button id="modal-close" class="modal-close-btn" aria-label="Close Modal">&times;</button>
+    </div>
+    <!-- Modal body with chapter list -->
+    <div id="toc-chapter-list" class="chapter-list">
+      <ul id="toc-list-ul">
+        <!-- Chapter links will be dynamically inserted here by JavaScript -->
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- UPDATED: Added Modal JavaScript -->
 <script>
 // Update bottom navigation buttons to match top navigation
 document.addEventListener('DOMContentLoaded', function() {
@@ -456,13 +572,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const nextBottom = document.getElementById('next-chapter-bottom');
   
   // Copy click handlers from top to bottom
-  prevBottom.onclick = prevTop.onclick;
-  nextBottom.onclick = nextTop.onclick;
+  if(prevTop) prevBottom.onclick = prevTop.onclick;
+  if(nextTop) nextBottom.onclick = nextTop.onclick;
   
   // Update visibility
   function updateBottomNav() {
-    prevBottom.style.display = prevTop.style.display;
-    nextBottom.style.display = nextTop.style.display;
+    if(prevTop) prevBottom.style.display = prevTop.style.display;
+    if(nextTop) nextBottom.style.display = nextTop.style.display;
   }
   
   // Update initially
@@ -472,8 +588,89 @@ document.addEventListener('DOMContentLoaded', function() {
   const originalShowChapter = window.showChapter;
   window.showChapter = function(chapterNum) {
     originalShowChapter(chapterNum);
-    updateBottomNav();
+    updateBottomNav(); // Update bottom nav visibility
   };
+
+  // --- NEW: Modal Logic ---
+  const tocModal = document.getElementById('toc-modal');
+  const openModalBtn = document.getElementById('open-toc-modal');
+  const closeModalBtn = document.getElementById('modal-close');
+  const tocListUl = document.getElementById('toc-list-ul');
+
+  // Function to open the modal
+  function openModal() {
+    if (tocModal) tocModal.classList.add('active');
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    if (tocModal) tocModal.classList.remove('active');
+  }
+
+  // Populate the modal chapter list
+  function populateToc() {
+    const chapters = document.querySelectorAll('.chapter-section');
+    if (!tocListUl) return;
+    
+    tocListUl.innerHTML = ''; // Clear existing list
+
+    chapters.forEach((chapter, index) => {
+      const chapterNum = index + 1;
+      // Find the chapter title text
+      const chapterTitleDiv = chapter.querySelector('.chapter-title');
+      const titleText = chapterTitleDiv ? chapterTitleDiv.textContent : 'Chapter ' + chapterNum;
+      
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#chapter-' + chapterNum; // Use href for semantics
+      a.textContent = titleText;
+      a.dataset.chapter = chapterNum; // Store chapter number
+      
+      // Add click event to navigate and close modal
+      a.onclick = function(e) {
+        e.preventDefault(); // Prevent default anchor jump
+        const num = parseInt(this.dataset.chapter, 10);
+        if (window.showChapter) {
+            window.showChapter(num);
+        }
+        closeModal();
+      };
+      
+      li.appendChild(a);
+      tocListUl.appendChild(li);
+    });
+  }
+
+  // --- Event Listeners ---
+  if (openModalBtn) {
+    openModalBtn.addEventListener('click', () => {
+      populateToc(); // (Re)populate the list every time it's opened
+      openModal();
+    });
+  }
+  
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', closeModal);
+  }
+
+  // Close modal when clicking on the overlay (backdrop)
+  if (tocModal) {
+    tocModal.addEventListener('click', function(e) {
+      // Check if the click is on the overlay itself, not the content
+      if (e.target === tocModal) {
+        closeModal();
+      }
+    });
+  }
+
+  // Close modal with 'Escape' key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      if (tocModal && tocModal.classList.contains('active')) {
+        closeModal();
+      }
+    }
+  });
 });
 </script>
 
