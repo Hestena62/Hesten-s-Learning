@@ -25,7 +25,12 @@ $categories = [
             "description" => "Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. To see how things would be if you had made other choices... Would you have done anything different, if you had the chance to undo your regrets?",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "850L" // Example Lexile
         ],
         [
             "id" => "dune",
@@ -37,7 +42,12 @@ $categories = [
             "description" => "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the 'spice' melange, a drug capable of extending life and enhancing consciousness. A stunning blend of adventure and mysticism, environmentalism, and politics.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "1080L" // Example Lexile
         ],
         [
             "id" => "atomic-habits",
@@ -49,7 +59,12 @@ $categories = [
             "description" => "An easy and proven way to build good habits and break bad ones. James Clear, an expert on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "1100L" // Example Lexile
         ],
         [
             "id" => "project-hail-mary",
@@ -61,7 +76,12 @@ $categories = [
             "description" => "A lone astronaut. An impossible mission. An ally he never expected. Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "990L" // Example Lexile
         ],
         [
             "id" => "placeholder-1",
@@ -73,7 +93,12 @@ $categories = [
             "description" => "Description for placeholder book 1.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "" // Example empty
         ],
         [
             "id" => "placeholder-2",
@@ -85,7 +110,12 @@ $categories = [
             "description" => "Description for placeholder book 2.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "Grades 4-6" // Example grade level
         ],
         [
             "id" => "placeholder-3",
@@ -97,7 +127,12 @@ $categories = [
             "description" => "Description for placeholder book 3.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => ""
         ],
         [
             "id" => "placeholder-4",
@@ -109,7 +144,12 @@ $categories = [
             "description" => "Description for placeholder book 4.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "800L"
         ],
     ],
     "Classic Fiction" => [
@@ -121,10 +161,15 @@ $categories = [
             "date" => "1949-06-08",
             "img" => "https://m.media-amazon.com/images/I/71wANojhEKL._AC_UF1000,1000_QL80_.jpg",
             "fallback-img" => "https://placehold.co/300x450/c0392b/white?text=1984",
-            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother. Lexile measure of 1090L",
+            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.",
             "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.pdf",
             "epub-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.epub",
-            "read-online-link" => "library/read/1984.php"
+            "read-online-link" => "read/1984.php",
+            // --- NEW FIELDS (Updated from description) ---
+            "txt-link" => "https://cdn.hestena62.com", // Add your link here
+            "mobi-link" => "https://cdn.hestena62.com", // Add your link here
+            "word-link" => "https://cdn.hestena62.com", // Add your link here
+            "lexile" => "1090L"
         ],
         [
             "id" => "mockingbird",
@@ -136,7 +181,12 @@ $categories = [
             "description" => "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. To Kill A Mockingbird became both an instant bestseller and a critical success when it was first published in 1960. It went on to win the Pulitzer Prize in 1961.",
             "pdf-link" => "#",
             "epub-link" => "#",
-            "read-online-link" => "#"
+            "read-online-link" => "#",
+            // --- NEW FIELDS ---
+            "txt-link" => "#",
+            "mobi-link" => "#",
+            "word-link" => "#",
+            "lexile" => "870L" // Example Lexile
         ],
         // ... other books with unique IDs ...
     ],
@@ -191,6 +241,11 @@ require_once 'src/header.php';
     .download-link[href=""] {
         display: none;
     }
+
+    /* --- NEW: Hide Lexile info if it's empty --- */
+    #modal-lexile-container:empty {
+        display: none;
+    }
 </style>
 
 <!-- 
@@ -242,11 +297,7 @@ require_once 'src/header.php';
                     <!-- 
                         Book Item
                         ---
-                        IMPROVEMENT (Scalability): 
-                        For a very large library, consider only putting a unique ID here,
-                        e.g., data-book-id="<?php echo htmlspecialchars($book['id']); ?>".
-                        Then, use JavaScript (fetch) to get the book's details from the server
-                        as JSON when the modal is opened. This keeps the initial HTML light.
+                        Pass all book data as data- attributes
                     -->
                     <div class="flex-shrink-0 cursor-pointer group" 
                          onclick="openModal(this)"
@@ -258,7 +309,14 @@ require_once 'src/header.php';
                          data-description="<?php echo htmlspecialchars($book['description']); ?>"
                          data-pdf-link="<?php echo htmlspecialchars($book['pdf-link']); ?>"
                          data-epub-link="<?php echo htmlspecialchars($book['epub-link']); ?>"
-                         data-read-online-link="<?php echo htmlspecialchars($book['read-online-link'] ?? '#'); ?>">
+                         data-read-online-link="<?php echo htmlspecialchars($book['read-online-link'] ?? '#'); ?>"
+                         
+                         <?php // --- NEW DATA ATTRIBUTES --- ?>
+                         data-txt-link="<?php echo htmlspecialchars($book['txt-link'] ?? '#'); ?>"
+                         data-mobi-link="<?php echo htmlspecialchars($book['mobi-link'] ?? '#'); ?>"
+                         data-word-link="<?php echo htmlspecialchars($book['word-link'] ?? '#'); ?>"
+                         data-lexile="<?php echo htmlspecialchars($book['lexile'] ?? ''); ?>"
+                         >
                         
                         <img src="<?php echo htmlspecialchars($book['img']); ?>" 
                              alt="<?php echo htmlspecialchars($book['title']); ?>"
@@ -273,15 +331,10 @@ require_once 'src/header.php';
 
     <?php endforeach; // End category loop ?>
 
-</div> <!-- End Main Content Container -->
+</div>
 
 
-<!-- 
-    --- Book Modal Structure ---
-    This is the pop-up that displays book information.
-    It's hidden by default and populated by JavaScript.
-    It uses theme-aware colors like bg-content-bg and text-text-default.
--->
+
 <div id="bookModal" class="modal-fade hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4 opacity-0" onclick="closeModal()">
     
     <!-- Use bg-content-bg for theme-aware background -->
@@ -315,18 +368,18 @@ require_once 'src/header.php';
                         <strong class="text-text-default">Published:</strong>
                         <span id="modal-date">YYYY-MM-DD</span>
                     </div>
+                    
+                    <!-- --- NEW LEXILE/GRADE LEVEL SECTION --- -->
+                    <!-- This div will be hidden by CSS if it's empty -->
+                    <div class="col-span-2" id="modal-lexile-container">
+                        <strong class="text-text-default">Reading Level:</strong>
+                        <span id="modal-lexile"></span>
+                    </div>
                 </div>
 
                 <h3 class="text-xl font-semibold mb-3 text-text-default">Downloads</h3>
                 <div class="flex flex-wrap gap-4">
                     
-                    <!-- 
-                        --- IMPROVEMENT (Conditional Rendering) ---
-                        The 'download-link' class is added.
-                        The CSS will now hide this <a> tag if its href is "#" or "".
-                    -->
-                    
-                    <!-- Read Online Button (Styled with green) -->
                     <a id="modal-read-online-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition duration-200 shadow-md">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                         Read Online
@@ -342,6 +395,27 @@ require_once 'src/header.php';
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
                         Epub
                     </a>
+
+                    <!-- --- NEW DOWNLOAD BUTTONS --- -->
+                    
+                    <!-- TXT Button (Styled with gray) -->
+                    <a id="modal-txt-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg transition duration-200 shadow-md">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        TXT
+                    </a>
+                    
+                    <!-- MOBI Button (Styled with orange) -->
+                    <a id="modal-mobi-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 shadow-md">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
+                        MOBI
+                    </a>
+
+                    <!-- Word Button (Styled with dark blue) -->
+                    <a id="modal-word-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-blue-800 hover:bg-blue-900 text-white font-semibold rounded-lg transition duration-200 shadow-md">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4v16m4-16v16"></path></svg>
+                        Word
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -405,6 +479,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const modalPdfLink = document.getElementById('modal-pdf-link');
     const modalEpubLink = document.getElementById('modal-epub-link');
     const modalReadOnlineLink = document.getElementById('modal-read-online-link');
+    
+    // --- NEW MODAL ELEMENTS ---
+    const modalLexileContainer = document.getElementById('modal-lexile-container');
+    const modalLexile = document.getElementById('modal-lexile');
+    const modalTxtLink = document.getElementById('modal-txt-link');
+    const modalMobiLink = document.getElementById('modal-mobi-link');
+    const modalWordLink = document.getElementById('modal-word-link');
+
 
     // Make functions available globally
     window.openModal = function(element) {
@@ -424,13 +506,21 @@ document.addEventListener("DOMContentLoaded", function () {
         modalEpubLink.href = data.epubLink;
         modalReadOnlineLink.href = data.readOnlineLink;
 
-        // --- IMPROVEMENT (Conditional Rendering) ---
-        // This JavaScript part is technically redundant now because the CSS
-        // ( .download-link[href="#"] ) already handles hiding.
-        // However, this is how you would do it purely in JS.
-        // We can leave the CSS-only solution as it's simpler.
-        // modalPdfLink.style.display = (data.pdfLink && data.pdfLink !== "#") ? 'inline-flex' : 'none';
-        // modalEpubLink.style.display = (data.epubLink && data.epubLink !== "#") ? 'inline-flex' : 'none';
+        // --- POPULATE NEW FIELDS ---
+        modalTxtLink.href = data.txtLink;
+        modalMobiLink.href = data.mobiLink;
+        modalWordLink.href = data.wordLink;
+
+        // Populate Lexile/Grade level
+        if (data.lexile) {
+            modalLexile.textContent = data.lexile;
+            // Ensure container is visible (it's hidden by CSS if empty)
+            modalLexileContainer.style.display = 'block'; 
+        } else {
+            modalLexile.textContent = '';
+            // Hide container
+            modalLexileContainer.style.display = 'none';
+        }
 
         // Show the modal with a fade-in effect
         modal.classList.remove('hidden');
