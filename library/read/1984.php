@@ -11,7 +11,7 @@
   $pageKeywords = "ebook, online reader, 1984, George Orwell, accessible reading";
 
   // (Optional) Set the author for SEO
-  $pageAuthor = "George Orwell";
+  $pageAuthor = "Hesten Allison";
 
   // --- Welcome Popup Variables (from header.php) ---
   // You can customize these or remove them if you don't want the popup on this page.
@@ -678,5 +678,5 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- INCLUDE THE FOOTER ---
   // This line brings in the footer, modals, and all the A11y panel JavaScript.
   // It also closes the </body> and </html> tags.
-  include '..\..\src\footer.php';
+  include '../src/footer.php';
 ?>
