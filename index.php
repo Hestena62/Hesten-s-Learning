@@ -118,7 +118,7 @@
       Explore skills and improve at your own pace with personalized learning
       experiences.
     </p>
-    <a href="/about.html"
+    <a href="about.php"
       class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-200 focus:outline-none focus:ring-2 focus:ring-white"
       aria-label="Get Started with Hesten's Learning">Get Started</a>
   </header>
