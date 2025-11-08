@@ -11,6 +11,17 @@
   <meta name="author" content="<?php echo isset($pageAuthor) ? $pageAuthor : ''; ?>" />
   <title><?php echo isset($pageTitle) ? $pageTitle : ''; ?></title>
 
+<!-- Default Statcounter code for Hesten's Learning https://hestena62.com -->
+<script type="text/javascript">
+var sc_project=13182035;
+var sc_invisible=1;
+var sc_security="97cdda23";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13182035/0/97cdda23/1/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for Icons -->
