@@ -14,14 +14,10 @@
       <!-- About -->
       <div>
         <h3 class="text-lg font-semibold mb-3 flex items-center">
-          <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i> About
+          <i class="fas fa-info-circle mr-2" aria-hidden="true"></i> About WikiMock
         </h3>
         <p class="text-sm opacity-90">
-          Empowering students with learning disabilities through personalized
-          learning experiences.
-          <a href="/about.html"
-            class="text-accent underline hover:text-white ml-1 focus:outline-none focus:ring-2 focus:ring-white">Learn
-            more</a>
+          This is a mock encyclopedia project built with PHP and Tailwind CSS to demonstrate dynamic content and pagination.
         </p>
       </div>
       <!-- Quick Links -->
@@ -32,29 +28,19 @@
         <nav aria-labelledby="quick-links-heading">
           <ul class="space-y-2">
             <li>
-              <a href="/curriculum.php"
+              <a href="index.php"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-book mr-2" aria-hidden="true"></i>Curriculum</a>
+                  class="fas fa-home mr-2" aria-hidden="true"></i>Main Page</a>
             </li>
             <li>
-              <a href="/research"
+              <a href="article.php?topic=random"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
-            </li>
-            <li>
-  <a href="/library"
-     class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-       class="fas fa-book mr-2" aria-hidden="true"></i>Library</a>
-</li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
+                  class="fas fa-random mr-2" aria-hidden="true"></i>Random Article</a>
             </li>
           </ul>
         </nav>
       </div>
-      <!-- Support -->
+      <!-- Support (Mock) -->
       <div>
         <h3 class="text-lg font-semibold mb-3 flex items-center" id="support-heading">
           <i class="fas fa-hands-helping mr-2" aria-hidden="true"></i> Support
@@ -62,32 +48,22 @@
         <nav aria-labelledby="support-heading">
           <ul class="space-y-2">
             <li>
-              <a href="/contact.html"
+              <a href="#"
+                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
+                  class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
+            </li>
+            <li>
+              <a href="#"
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-envelope mr-2" aria-hidden="true"></i>Contact Us</a>
-            </li>
-            <li>
-              <a href="/students.php"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
             </li>
           </ul>
         </nav>
       </div>
-      <!-- Legal & Settings -->
+      <!-- Legal (Mock) -->
       <div>
         <h3 class="text-lg font-semibold mb-3 flex items-center" id="legal-heading">
-          <i class="fas fa-balance-scale mr-2" aria-hidden="true"></i> Legal & Settings
+          <i class="fas fa-balance-scale mr-2" aria-hidden="true"></i> Legal
         </h3>
         <nav aria-labelledby="legal-heading">
           <ul class="space-y-2">
@@ -101,39 +77,13 @@
                 class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                   class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
             </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
-            </li>
           </ul>
         </nav>
       </div>
     </div>
     <div class="mt-10 border-t border-accent pt-6 text-center text-sm opacity-90">
       <p>
-        &copy; <span id="year"><?php echo $currentYear; ?></span> <?php echo $pageTitle; ?>. All rights reserved.
-        <span class="mx-2" aria-hidden="true">|</span>
-        Made with <i class="fas fa-heart text-red-400" aria-label="love"></i> for education
-      </p>
-      <p class="mt-2">
-        <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten's
-          Learning</a>
-        by
-        <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="/about-me.php"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten
-          Allison</a>
-        is licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
-          rel="license noopener noreferrer"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">CC
-          BY-NC-SA 4.0</a>
+        &copy; <span id="year"><?php echo $currentYear; ?></span> WikiMock. All content is for demonstration purposes.
       </p>
       <div class="gtranslate_wrapper mt-4"></div>
       <script>
@@ -147,22 +97,8 @@
         };
       </script>
       <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
-      <div class="mt-4 flex justify-center items-center gap-4">
-
-        <a href="https://www.buymeacoffee.com/hestena62l"
-          class="focus:outline-none focus:ring-2 focus:ring-white rounded">
-          <img
-            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hestena62&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
-            alt="Buy me a coffee" />
-        </a>
-
-      </div>
     </div>
-
-
   </footer>
-
-  <!-- REPLACED MODALS with new theme-aware and focus-trapping versions -->
 
   <!-- Message Box Modal -->
   <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
@@ -200,7 +136,7 @@
     </div>
   </div>
 
-  <!-- REPLACED SCRIPT with new comprehensive script -->
+  <!-- Main Site Script -->
   <script>
     // --- GLOBAL MODAL FUNCTIONS (New versions with focus trap) ---
     const messageBox = document.getElementById("message-box");
@@ -211,11 +147,8 @@
     const confirmYesButton = document.getElementById("confirm-yes-button");
     const confirmNoButton = document.getElementById("confirm-no-button");
 
-    // Helper to manage focus for accessibility when modals are open
     let lastFocusedElement = null;
 
-    // A11Y: Function to handle focus trap in modals
-    // [FIX] Updated function to properly add/remove its event listener
     function trapFocus(modalElement) {
       const focusableElements = modalElement.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -225,18 +158,14 @@
       const firstFocusableElement = focusableElements[0];
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-      // [FIX] Define a named handler to add/remove
       const handleFocusTrap = function (e) {
-        if (e.key !== 'Tab') {
-          return;
-        }
-
-        if (e.shiftKey) { // Shift + Tab
+        if (e.key !== 'Tab') return;
+        if (e.shiftKey) {
           if (document.activeElement === firstFocusableElement) {
             lastFocusableElement.focus();
             e.preventDefault();
           }
-        } else { // Tab
+        } else {
           if (document.activeElement === lastFocusableElement) {
             firstFocusableElement.focus();
             e.preventDefault();
@@ -244,15 +173,11 @@
         }
       };
 
-      // [FIX] Store the handler on the element so we can remove it later
       modalElement._handleFocusTrap = handleFocusTrap;
       modalElement.addEventListener('keydown', modalElement._handleFocusTrap);
-
-      // Focus the first element
       firstFocusableElement.focus();
     }
 
-    // [FIX] Helper to remove the focus trap listener
     function removeTrapFocus(modalElement) {
       if (modalElement && modalElement._handleFocusTrap) {
         modalElement.removeEventListener('keydown', modalElement._handleFocusTrap);
@@ -263,40 +188,33 @@
 
     function showMessageBox(message) {
       if (!messageBox || !messageText || !messageOkButton) return;
-
-      lastFocusedElement = document.activeElement; // Store focus
+      lastFocusedElement = document.activeElement;
       messageText.textContent = message;
       messageBox.classList.remove("hidden");
       messageBox.style.display = 'flex';
-
-      // A11Y: Focus the OK button and trap focus
       trapFocus(messageBox);
-
       messageOkButton.onclick = () => {
         messageBox.classList.add("hidden");
         messageBox.style.display = 'none';
-        removeTrapFocus(messageBox); // [FIX] Remove listener
-        if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
+        removeTrapFocus(messageBox);
+        if (lastFocusedElement) lastFocusedElement.focus();
       };
     }
 
     function showConfirmationModal(message, onConfirm) {
       if (!confirmationModal || !confirmationText || !confirmYesButton || !confirmNoButton) return;
-
-      lastFocusedElement = document.activeElement; // Store focus
+      lastFocusedElement = document.activeElement;
       confirmationText.textContent = message;
       confirmationModal.classList.remove("hidden");
       confirmationModal.style.display = 'flex';
-
-      // A11Y: Focus the "No" button by default and trap focus
       trapFocus(confirmationModal);
       if (confirmNoButton) confirmNoButton.focus();
 
       const handleConfirmation = (result) => {
         confirmationModal.classList.add("hidden");
         confirmationModal.style.display = 'none';
-        removeTrapFocus(confirmationModal); // [FIX] Remove listener
-        if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
+        removeTrapFocus(confirmationModal);
+        if (lastFocusedElement) lastFocusedElement.focus();
         onConfirm(result);
       };
 
@@ -305,11 +223,8 @@
     }
 
     // --- UI Interactions (Navigation, Dropdown, Announcement) ---
-
-    // Mobile Navigation Toggle
     const navToggle = document.getElementById("nav-toggle");
     const navContent = document.getElementById("nav-content");
-
     if (navToggle && navContent) {
       navToggle.addEventListener("click", function () {
         const isHidden = navContent.classList.toggle("hidden");
@@ -317,25 +232,6 @@
         navContent.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
       });
     }
-
-    // Profile Dropdown Toggle
-    const profileMenuButton = document.getElementById("profile-menu-button");
-    const profileDropdown = document.getElementById("profile-dropdown");
-
-    if (profileMenuButton && profileDropdown) {
-      profileMenuButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const isHidden = profileDropdown.classList.toggle("hidden");
-        this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
-      });
-    }
-
-    document.addEventListener("click", function (event) {
-      if (profileMenuButton && profileDropdown && !profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.classList.add("hidden");
-        profileMenuButton.setAttribute('aria-expanded', 'false');
-      }
-    });
 
     // Announcement Bar Close
     const closeAnnouncementBtn = document.getElementById("close-announcement");
@@ -347,14 +243,12 @@
     }
 
 
-    // --- ADVANCED ACCESSIBILITY PANEL LOGIC ---
-
+    // --- ACCESSIBILITY PANEL LOGIC ---
     const a11yPanel = document.getElementById('a11y-settings-panel');
     const a11yToggleButton = document.getElementById('a11y-toggle-button');
     const a11yCloseButton = document.getElementById('a11y-close-button');
 
     if (a11yPanel && a11yToggleButton && a11yCloseButton) {
-      // Panel open/close
       a11yToggleButton.addEventListener('click', () => {
         a11yPanel.classList.remove('translate-x-full');
         a11yPanel.setAttribute('aria-hidden', 'false');
@@ -364,16 +258,15 @@
       a11yCloseButton.addEventListener('click', () => {
         a11yPanel.classList.add('translate-x-full');
         a11yPanel.setAttribute('aria-hidden', 'true');
-        removeTrapFocus(a11yPanel); // [FIX] Remove listener
+        removeTrapFocus(a11yPanel);
         a11yToggleButton.focus();
       });
 
-      // Close on escape key
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
           a11yPanel.classList.add('translate-x-full');
           a11yPanel.setAttribute('aria-hidden', 'true');
-          removeTrapFocus(a11yPanel); // [FIX] Remove listener
+          removeTrapFocus(a11yPanel);
           a11yToggleButton.focus();
         }
       });
@@ -381,12 +274,9 @@
 
 
     // --- ACCESSIBILITY SETTINGS CONTROLS ---
-
-    // Function to apply active style to the selected font button
     function updateFontButtonUI(selectedFont) {
         const fontSelectors = document.querySelectorAll('.font-selector');
         fontSelectors.forEach(btn => {
-            // Use the font family string from settings, which might contain quotes
             const selectedFontName = selectedFont.replace(/"/g, ''); 
             if (btn.dataset.font.replace(/"/g, '') === selectedFontName) {
                 btn.classList.add('bg-primary', 'text-white', 'border-primary');
@@ -398,34 +288,22 @@
         });
     }
 
-    // Theme Buttons
     document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
     document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
     document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
 
-    // Font Selection Logic
     const fontButtonsContainer = document.getElementById('font-selection-buttons');
     if (fontButtonsContainer) {
-        // Initialize UI on load
-        // currentSettings.fontFamily will be either 'Inter', 'Open Dyslexic', or 'Roboto Mono'
-        // If currentSettings.fontFamily is not present (e.g., old settings), default to 'Inter'
         updateFontButtonUI(currentSettings.fontFamily || 'Inter');
-
         fontButtonsContainer.querySelectorAll('.font-selector').forEach(button => {
             button.addEventListener('click', (e) => {
-                const newFont = e.target.dataset.font;
-                // Save font family. Note: we save the clean string, the header applies quotes if necessary.
+                const newFont = e.currentTarget.dataset.font;
                 saveSettings({ ...currentSettings, fontFamily: newFont });
-                // Update buttons visually
                 updateFontButtonUI(newFont);
             });
         });
     }
 
-    // --- REMOVED: Dyslexia Font Toggle logic ---
-    // The previous dyslexiaToggle element and its listener are removed.
-
-    // Reduced Motion Toggle
     const motionToggle = document.getElementById('toggle-reduced-motion');
     if (motionToggle) {
       motionToggle.checked = currentSettings.reducedMotion;
@@ -436,54 +314,44 @@
       });
     }
 
-    // Font Size Slider
     const fontSizeSlider = document.getElementById('font-size-slider');
     const fontSizeValue = document.getElementById('font-size-value');
     if (fontSizeSlider && fontSizeValue) {
       fontSizeSlider.value = currentSettings.fontSize;
       fontSizeValue.textContent = Math.round(currentSettings.fontSize * 100);
-
       fontSizeSlider.addEventListener('input', (e) => {
         const value = parseFloat(e.target.value);
         fontSizeValue.textContent = Math.round(value * 100);
-        // Apply immediately for visual feedback
         document.documentElement.style.setProperty('--site-font-size', `${value}rem`);
       });
-      // Save on release
       fontSizeSlider.addEventListener('change', (e) => {
         saveSettings({ ...currentSettings, fontSize: parseFloat(e.target.value) });
       });
     }
 
-    // Line Height Slider
     const lineHeightSlider = document.getElementById('line-height-slider');
     const lineHeightValue = document.getElementById('line-height-value');
     if (lineHeightSlider && lineHeightValue) {
       lineHeightSlider.value = currentSettings.lineHeight;
       lineHeightValue.textContent = currentSettings.lineHeight.toFixed(1);
-
       lineHeightSlider.addEventListener('input', (e) => {
         const value = parseFloat(e.target.value);
         lineHeightValue.textContent = value.toFixed(1);
-        // Apply immediately for visual feedback
         document.documentElement.style.setProperty('--site-line-height', value);
       });
-      // Save on release
       lineHeightSlider.addEventListener('change', (e) => {
         saveSettings({ ...currentSettings, lineHeight: parseFloat(e.target.value) });
       });
     }
 
-    // Reading Mask Logic
     const readingMaskToggle = document.getElementById('toggle-reading-mask');
     const readingMask = document.getElementById('reading-mask');
     const readingGuide = document.getElementById('reading-guide');
     let isDragging = false;
 
     if (readingMaskToggle && readingMask && readingGuide) {
-      readingMaskToggle.checked = false; // Mask is not persistent across sessions for usability
+      readingMaskToggle.checked = false;
       readingMaskToggle.setAttribute('aria-checked', 'false');
-
       readingMaskToggle.addEventListener('change', (e) => {
         e.target.setAttribute('aria-checked', e.target.checked);
         if (e.target.checked) {
@@ -493,70 +361,42 @@
         }
       });
 
-      // Draggable reading guide logic (Touch and Mouse)
-      const startDrag = (e) => {
-        isDragging = true;
-        readingGuide.style.cursor = 'grabbing';
-        e.preventDefault();
-      };
-
+      const startDrag = (e) => { isDragging = true; readingGuide.style.cursor = 'grabbing'; e.preventDefault(); };
       const dragGuide = (clientY) => {
         if (!isDragging) return;
-        // Calculate new top percentage based on mouse/touch position
         let newTop = (clientY / window.innerHeight) * 100;
-        // Clamp value to prevent dragging outside of visible area (10% to 90%)
         newTop = Math.max(10, Math.min(90, newTop));
         readingGuide.style.top = `${newTop}%`;
       };
-
-      const stopDrag = () => {
-        isDragging = false;
-        readingGuide.style.cursor = 'pointer';
-      };
-
-      // Mouse Events
+      const stopDrag = () => { isDragging = false; readingGuide.style.cursor = 'pointer'; };
       readingGuide.addEventListener('mousedown', startDrag);
       document.addEventListener('mousemove', (e) => dragGuide(e.clientY));
       document.addEventListener('mouseup', stopDrag);
-
-      // Touch Events
       readingGuide.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
       document.addEventListener('touchmove', (e) => dragGuide(e.touches[0].clientY));
       document.addEventListener('touchend', stopDrag);
     }
 
-    // Reset Button
     const resetA11yBtn = document.getElementById('reset-a11y-settings');
     if (resetA11yBtn) {
       resetA11yBtn.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_KEY);
-        
-        // NOTE: We MUST reload the settings after clearing, as 'currentSettings' is now stale
-        // Assuming defaultSettings in header.php now uses 'fontFamily: "Inter"'
-        currentSettings = defaultSettings; // Reset the live state
-        saveSettings({ ...defaultSettings }); // Save and apply defaults
-
-        // Update UI elements to reflect reset
+        currentSettings = defaultSettings;
+        saveSettings({ ...defaultSettings });
         if (fontSizeSlider) fontSizeSlider.value = defaultSettings.fontSize;
         if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
         if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
         if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
-        
-        // Update font selection UI
         updateFontButtonUI(defaultSettings.fontFamily || 'Inter');
-        
         if (motionToggle) {
           motionToggle.checked = defaultSettings.reducedMotion;
           motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);
         }
-
-        // Force reset of non-persistent mask
         if (readingMaskToggle) {
           readingMaskToggle.checked = false;
           readingMaskToggle.setAttribute('aria-checked', 'false');
         }
         if (readingMask) readingMask.classList.add('hidden');
-
         showMessageBox("Settings have been reset to default values.");
       });
     }
