@@ -8,7 +8,7 @@ $pageAuthor = 'Research Team'; // You can change this as needed
 
 // --- Include Header ---
 // This brings in the <head>, <body>, nav bar, and accessibility panel
-include '..\src\header.php';
+include '../../src/header.php';
 ?>
 
 <!-- 
@@ -553,5 +553,5 @@ ${mdContent}
 // --- Include Footer ---
 // This brings in the <footer>, site-wide modals, all global scripts,
 // and closes the </body> and </html> tags.
-include '../src/footer.php';
+include '../../src/footer.php';
 ?>
