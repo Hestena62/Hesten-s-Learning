@@ -5,10 +5,6 @@
   $pageKeywords = "assessment, progress tracker, learning plan, practice questions, skill selection";
   $pageAuthor = "Hesten's Learning";
 
-  // Variables for the welcome popup (defined in header.php)
-  $welcomeMessage = "Welcome to your Assessment!";
-  $welcomeParagraph = "Track your progress, customize your learning plan, and practice new skills.";
-
   // Include the header
   include 'src/header.php';
 ?>
