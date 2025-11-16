@@ -8,7 +8,7 @@ $pageAuthor = 'Research Team'; // You can change this as needed
 
 // --- Include Header ---
 // This brings in the <head>, <body>, nav bar, and accessibility panel
-include '..\src\header.php';
+include 'src\header.php';
 ?>
 
 <!-- 
