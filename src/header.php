@@ -80,6 +80,11 @@
             'text-default': 'var(--color-text-default, #1F2937)',
             'text-secondary': 'var(--color-text-secondary, #6B7280)',
 
+            // ADDED for consistent hero gradient
+            'hero-bg-from': 'var(--color-hero-bg-from)',
+            'hero-bg-to': 'var(--color-hero-bg-to)',
+            // END ADDED
+
             // Original colors from index.html, now mapped to new var names
             'dark': 'var(--color-dark)',
             'light': 'var(--color-light)',
@@ -252,6 +257,11 @@
       --color-accent: #818CF8;
       --color-dark: #1F2937;
 
+      /* ADDED for consistent hero gradient */
+      --color-hero-bg-from: #6366F1;
+      --color-hero-bg-to: #818CF8;
+      /* END ADDED */
+
       /* UPDATED: Increased contrast between base and content */
       --color-light: #E5E7EB;
       /* Was #F3F4F6 (gray-200) */
@@ -280,6 +290,12 @@
       --color-accent: #A5B4FC;
       --color-dark: #E5E7EB;
       --color-light: #1A202C;
+
+      /* ADDED for consistent hero gradient */
+      --color-hero-bg-from: #6366F1;
+      --color-hero-bg-to: #818CF8;
+      /* END ADDED */
+
       --color-header-bg: #2D3748;
       --color-footer-bg-from: #4c51bf;
       --color-footer-bg-to: #5a67d8;
@@ -322,6 +338,10 @@
       --color-link: #FFFF00;
       --color-card-bg: #333333;
       --border-radius-base: 0;
+
+      /* High contrast hero gradient (matches other high-contrast backgrounds) */
+      --color-hero-bg-from: #111111;
+      --color-hero-bg-to: #333333;
 
       --color-base-bg: #000000;
       --color-content-bg: #333333;

@@ -110,7 +110,7 @@
   <!-- Hero section -->
   <!-- This content is specific to index.php -->
   <header
-    class="bg-gradient-to-r from-primary to-secondary text-white py-16 px-4 text-center rounded-b-lg shadow-xl transition-colors duration-300">
+    class="bg-gradient-to-r from-hero-bg-from to-hero-bg-to text-white py-16 px-4 text-center rounded-b-lg shadow-xl transition-colors duration-300">
     <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up">
       Welcome to Our Learning Platform
     </h1>
@@ -151,4 +151,3 @@
   // Include the reusable footer
   include 'src/footer.php';
 ?>
-
