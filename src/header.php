@@ -26,14 +26,19 @@ var sc_security="97cdda23";
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <!-- OpenDyslexic Font (Accessibility Feature) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
-  <!-- ADDED: Roboto Mono for a third font option -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <!-- === UPDATED: FONT IMPORTS === -->
   <!-- Google Fonts for Inter (Original Font) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- OpenDyslexic Font (Accessibility Feature) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap"
+    rel="stylesheet" />
+  <!-- Roboto Mono (Monospace Option) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- ADDED: Merriweather (Serif Option) -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+
 
 <script>
     // --- Tailwind Configuration with Dynamic CSS Variables ---
@@ -45,6 +50,8 @@ var sc_security="97cdda23";
             sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
             dyslexic: ['"Open Dyslexic"', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace'],
+            // ADDED: Serif font option
+            serif: ['"Merriweather"', 'serif'],
           },
           colors: {
             // Dynamic colors for easy theme switching
@@ -57,7 +64,6 @@ var sc_security="97cdda23";
             'text-secondary': 'var(--color-text-secondary, #6B7280)',
 
             // Original colors from index.html, now mapped to new var names
-            // We will define these in the theme styles (.light, .dark, .high-contrast)
             'dark': 'var(--color-dark)',
             'light': 'var(--color-light)',
             'header-bg': 'var(--color-header-bg)',
@@ -81,8 +87,13 @@ var sc_security="97cdda23";
       theme: 'light', // light, dark, high-contrast
       fontSize: 1.0, // rem
       lineHeight: 1.6, // unitless
-      fontFamily: 'Inter', // UPDATED: Replaces dyslexiaFont with a string value
+      fontFamily: 'Inter', // Default font
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      // ADDED: New settings
+      letterSpacing: 0, // px
+      wordSpacing: 0, // px
+      highlightLinks: false,
+      readableWidth: false,
     };
 
     const STORAGE_KEY = 'hl_accessibility_settings';
@@ -90,10 +101,10 @@ var sc_security="97cdda23";
     function loadSettings() {
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
-        // FIX for migration: if old settings exist but new fontFamily is missing, initialize it.
+        // Merge defaults with stored settings to ensure new features are added
         const loadedSettings = stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
         
-        // Remove old 'dyslexiaFont' if it exists and wasn't explicitly cleared by a reset.
+        // Migration logic for old 'dyslexiaFont' boolean
         if (loadedSettings.dyslexiaFont !== undefined) {
              loadedSettings.fontFamily = loadedSettings.dyslexiaFont ? 'Open Dyslexic' : 'Inter';
              delete loadedSettings.dyslexiaFont;
@@ -116,55 +127,71 @@ var sc_security="97cdda23";
       }
     }
 
-    // [FIX] Updated function to apply settings that are safe to run in <head>
+    // Settings that can be applied in the <head>
     function applyHeadSettings(settings) {
-      // Set CSS variables for dynamic sizing and spacing
-      document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
-      document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
-
-      // 2. Font Selection
-      let fontName = settings.fontFamily || 'Inter';
+      const docEl = document.documentElement;
       
-      // Wrap in quotes if needed for CSS/Tailwind lookup
+      // 1. Sizing
+      docEl.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
+      docEl.style.setProperty('--site-line-height', settings.lineHeight);
+      
+      // 2. Spacing (New)
+      docEl.style.setProperty('--site-letter-spacing', `${settings.letterSpacing}px`);
+      docEl.style.setProperty('--site-word-spacing', `${settings.wordSpacing}px`);
+
+      // 3. Font Selection
+      let fontName = settings.fontFamily || 'Inter';
       if (fontName.includes(' ') || fontName === 'Open Dyslexic') {
           fontName = `"${fontName}"`;
       }
-
-      document.documentElement.style.setProperty(
-        '--site-font-family',
-        fontName
-      );
+      docEl.style.setProperty('--site-font-family', fontName);
     }
 
-    // [FIX] Updated applySettings function
-    function applySettings(settings) {
-      // 1. Apply <head> settings (font size, line height, font family)
-      applyHeadSettings(settings);
-
+    // Settings that must be applied to the <body>
+    function applyBodySettings(settings) {
       const body = document.body;
-      if (!body) return; // Guard clause in case body isn't ready
+      if (!body) return; // Guard clause
 
-      // 2. Theme Application
-      // [FIX] Remove only theme classes, preserving base layout classes
+      // 1. Theme
       body.classList.remove('light', 'dark', 'high-contrast');
       body.classList.add(settings.theme);
 
-      // 3. Motion
+      // 2. Motion
       if (settings.reducedMotion) {
         body.classList.add('reduced-motion');
       } else {
         body.classList.remove('reduced-motion');
       }
+      
+      // 3. Highlight Links (New)
+      if (settings.highlightLinks) {
+        body.classList.add('highlight-links');
+      } else {
+        body.classList.remove('highlight-links');
+      }
+
+      // 4. Readable Width (New)
+      if (settings.readableWidth) {
+        body.classList.add('readable-width');
+      } else {
+        body.classList.remove('readable-width');
+      }
     }
+    
+    // Combined function to apply all settings
+    function applySettings(settings) {
+        applyHeadSettings(settings);
+        applyBodySettings(settings);
+    }
+
 
     // Initialize state globally
     let currentSettings = loadSettings();
 
-    // [FIX] Only apply <head>-safe settings here to prevent errors
+    // Apply <head>-safe settings immediately
     applyHeadSettings(currentSettings);
-
-    // [FIX] The body-specific settings (theme, motion) will be applied
-    // by an inline script immediately inside the <body> tag to prevent FOUC.
+    
+    // Body-specific settings will be applied by an inline script inside <body>
 
   </script>
 
@@ -175,15 +202,19 @@ var sc_security="97cdda23";
   <style>
     /* Base styles from dynamic variables */
     body {
-      /* Styles from new accessibility features */
       background-color: var(--color-base-bg);
       color: var(--color-text-default);
       font-size: var(--site-font-size, 1rem);
       line-height: var(--site-line-height, 1.6);
-      transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s;
-      min-height: 100vh;
-      /* Apply font from the variable set in applyHeadSettings */
+      /* Apply font from the variable */
       font-family: var(--site-font-family, "Inter", sans-serif);
+      
+      /* ADDED: Spacing variables */
+      letter-spacing: var(--site-letter-spacing, normal);
+      word-spacing: var(--site-word-spacing, normal);
+      
+      transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s, letter-spacing 0.3s, word-spacing 0.3s;
+      min-height: 100vh;
     }
 
     /* --- THEMES --- */
@@ -194,22 +225,21 @@ var sc_security="97cdda23";
       --color-secondary: #6366F1;
       --color-accent: #818CF8;
       --color-dark: #1F2937;
-      --color-light: #F3F4F6;
+      
+      /* UPDATED: Increased contrast between base and content */
+      --color-light: #E5E7EB; /* Was #F3F4F6 (gray-200) */
+      --color-base-bg: #E5E7EB; /* Was #F3F4F6 (gray-200) */
+      --color-content-bg: #FFFFFF; /* White */
+      --color-card-bg: #FFFFFF; /* White */
+      
       --color-header-bg: #1F2937;
       --color-footer-bg-from: #4F46E5;
       --color-footer-bg-to: #6366F1;
       --color-link: #4F46E5;
-      --color-card-bg: #FFFFFF;
       --border-radius-base: 0.75rem;
 
-      /* New accessibility vars */
-      --color-base-bg: #F3F4F6;
-      /* --color-light */
-      --color-content-bg: #FFFFFF;
       --color-text-default: #1F2937;
-      /* --color-dark */
       --color-text-secondary: #374151;
-      /* Tailwind gray-700 for better contrast */
     }
 
     /* Dark Mode (Maps to original index.html dark-mode) */
@@ -226,15 +256,10 @@ var sc_security="97cdda23";
       --color-card-bg: #2D3748;
       --border-radius-base: 0.75rem;
 
-      /* New accessibility vars */
       --color-base-bg: #1A202C;
-      /* Original dark-mode background */
       --color-content-bg: #2D3748;
-      /* Original dark-mode card bg */
       --color-text-default: #E2E8F0;
-      /* Original dark-mode text */
       --color-text-secondary: #E5E7EB;
-      /* Lightened for contrast */
     }
 
     .dark .shadow-lg {
@@ -263,11 +288,9 @@ var sc_security="97cdda23";
       --color-card-bg: #333333;
       --border-radius-base: 0;
 
-      /* New accessibility vars */
       --color-base-bg: #000000;
       --color-content-bg: #333333;
       --color-text-default: #FFFF00;
-      /* Bright yellow text */
       --color-text-secondary: #FFFFFF;
     }
 
@@ -303,7 +326,7 @@ var sc_security="97cdda23";
       background-color: var(--color-card-bg);
     }
 
-    /* Apply dynamic link color from original file */
+    /* Default link color */
     a {
       color: var(--color-link);
     }
@@ -317,6 +340,30 @@ var sc_security="97cdda23";
       scroll-behavior: auto !important;
     }
 
+    /* ADDED: Highlight Links */
+    .highlight-links a {
+        text-decoration: underline !important;
+        text-decoration-thickness: 2px !important;
+        /* Use high-contrast, theme-agnostic colors */
+        background-color: #FFFF00 !important; /* Yellow */
+        color: #000000 !important; /* Black */
+        padding: 2px 4px;
+        border-radius: 3px;
+    }
+    /* Ensure footer links are also contrasted */
+    .highlight-links footer a {
+        background-color: #FFFF00 !important;
+        color: #000000 !important;
+    }
+
+    /* ADDED: Readable Width */
+    .readable-width main {
+        max-width: 65ch; /* "character" unit, ideal for readability */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
     /* Reading Mask/Guide */
     #reading-mask {
       position: fixed;
@@ -325,32 +372,23 @@ var sc_security="97cdda23";
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
-      /* Semi-transparent black overlay */
       pointer-events: none;
-      /* Allows clicks to pass through */
       z-index: 50;
-      /* Below modals, above content */
       transition: background-color 0s;
-      /* No transition for this, as it's an accessibility tool */
     }
 
     #reading-guide {
       position: absolute;
       width: 100%;
-      /* Guide covers full width */
       height: var(--guide-height, 2.5rem);
-      /* Adjustable height */
       background-color: rgba(255, 255, 255, 0.1);
-      /* Slightly visible guide area */
       border-top: 2px solid var(--color-base-bg);
       border-bottom: 2px solid var(--color-base-bg);
       cursor: pointer;
       pointer-events: auto;
-      /* Guide can be dragged */
       transition: background-color 0.3s;
     }
 
-    /* Reading Mask in dark/high contrast mode */
     .dark #reading-guide,
     .high-contrast #reading-guide {
       background-color: rgba(255, 255, 255, 0.05);
@@ -358,41 +396,35 @@ var sc_security="97cdda23";
       border-bottom: 2px solid var(--color-text-default);
     }
 
-    /* Custom Scrollbar for aesthetics/contrast */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 10px;
     }
-
     ::-webkit-scrollbar-track {
       background: var(--color-base-bg);
       border-radius: 5px;
     }
-
     ::-webkit-scrollbar-thumb {
       background: var(--color-primary);
       border-radius: 5px;
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: var(--color-secondary);
     }
-
     .dark ::-webkit-scrollbar-track,
     .high-contrast ::-webkit-scrollbar-track {
       background: var(--color-content-bg);
     }
-
     .dark ::-webkit-scrollbar-thumb,
     .high-contrast ::-webkit-scrollbar-thumb {
       background: var(--color-primary);
     }
-
     .dark ::-webkit-scrollbar-thumb:hover,
     .high-contrast ::-webkit-scrollbar-thumb:hover {
       background: var(--color-secondary);
     }
 
-    /* A11Y: Visually hidden class for screen readers (from original index.html) */
+    /* A11Y: Visually hidden */
     .sr-only {
       position: absolute;
       width: 1px;
@@ -405,23 +437,20 @@ var sc_security="97cdda23";
       border-width: 0;
     }
 
-    /* Helper styles for new accessibility panel toggles (daisyUI classes) */
+    /* Helper styles for toggles */
     .toggle {
       appearance: none;
       width: 3rem;
       height: 1.5rem;
       border-radius: 9999px;
       background-color: #CBD5E0;
-      /* gray-400 */
       position: relative;
       transition: background-color 0.3s;
       cursor: pointer;
     }
-
     .toggle:checked {
       background-color: var(--color-primary);
     }
-
     .toggle::before {
       content: "";
       position: absolute;
@@ -433,26 +462,19 @@ var sc_security="97cdda23";
       background-color: white;
       transition: transform 0.3s;
     }
-
     .toggle:checked::before {
       transform: translateX(1.5rem);
     }
   </style>
 </head>
 
-<!-- Body now gets classes applied dynamically by JS -->
-
 <body class="antialiased font-sans">
 
-  <!-- [FIX] Inline script to apply theme/motion from localStorage immediately -->
-  <!-- This prevents the "Flash of Unstyled Content" (FOUC) -->
+  <!-- Inline script to apply <body> settings from localStorage immediately -->
   <script>
     (function () {
       // currentSettings is available from the <head> script
-      document.body.classList.add(currentSettings.theme);
-      if (currentSettings.reducedMotion) {
-        document.body.classList.add('reduced-motion');
-      }
+      applyBodySettings(currentSettings);
     })();
   </script>
 
@@ -465,7 +487,7 @@ var sc_security="97cdda23";
 
   <!-- ACCESSIBILITY SETTINGS PANEL (SIDEBAR) -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-72 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
     role="dialog" aria-modal="true" aria-label="Accessibility and Display Settings" aria-hidden="true">
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
@@ -476,11 +498,12 @@ var sc_security="97cdda23";
       </button>
     </div>
 
+    <!-- === UPDATED: Settings Panel Layout === -->
     <div class="space-y-6">
       <!-- Theme Settings -->
       <div>
         <label class="block text-sm font-medium mb-2 text-text-default">Display Mode</label>
-        <div class="flex space-x-2">
+        <div class="grid grid-cols-3 gap-2">
           <button id="theme-light"
             class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200"
             aria-label="Set theme to Light">
@@ -499,15 +522,14 @@ var sc_security="97cdda23";
         </div>
       </div>
 
-      <!-- NEW: Font Selection (replaces Dyslexia Font Toggle) -->
+      <!-- Font Selection -->
       <div>
         <label class="block text-sm font-medium mb-2 text-text-default">Reading Font</label>
-        <div id="font-selection-buttons" class="grid grid-cols-3 gap-2 text-xs font-semibold">
-            <!-- Inter (Default) -->
+        <!-- UPDATED: now grid-cols-4 -->
+        <div id="font-selection-buttons" class="grid grid-cols-4 gap-2 text-xs font-semibold">
             <button data-font="Inter" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Default</button>
-            <!-- Open Dyslexic -->
+            <button data-font="Merriweather" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Serif</button>
             <button data-font="Open Dyslexic" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Dyslexic</button>
-            <!-- Roboto Mono -->
             <button data-font="Roboto Mono" class="font-selector py-2 rounded-lg border border-gray-300 bg-white text-gray-800 dark:bg-gray-700 dark:text-white transition-colors duration-200">Monospace</button>
         </div>
       </div>
@@ -516,7 +538,8 @@ var sc_security="97cdda23";
       <div>
         <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span
             id="font-size-value">100</span>%)</label>
-        <input type="range" id="font-size-slider" min="0.8" max="1.4" step="0.1" value="1.0"
+        <!-- UPDATED: max="1.6" -->
+        <input type="range" id="font-size-slider" min="0.8" max="1.6" step="0.1" value="1.0"
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
         <div class="flex justify-between text-xs mt-1 text-text-secondary">
           <span>Small</span>
@@ -527,7 +550,7 @@ var sc_security="97cdda23";
 
       <!-- Line Height Slider -->
       <div>
-        <label for="line-height-slider" class="block text-sm font-medium mb-2 text-text-default">Line Height / Spacing
+        <label for="line-height-slider" class="block text-sm font-medium mb-2 text-text-default">Line Height
           (<span id="line-height-value">1.6</span>)</label>
         <input type="range" id="line-height-slider" min="1.3" max="2.0" step="0.1" value="1.6"
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
@@ -537,12 +560,58 @@ var sc_security="97cdda23";
         </div>
       </div>
 
+      <!-- ADDED: Letter Spacing Slider -->
+      <div>
+        <label for="letter-spacing-slider" class="block text-sm font-medium mb-2 text-text-default">Letter Spacing
+          (<span id="letter-spacing-value">0</span>px)</label>
+        <input type="range" id="letter-spacing-slider" min="-1" max="3" step="0.5" value="0"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
+        <div class="flex justify-between text-xs mt-1 text-text-secondary">
+          <span>Tight</span>
+          <span>Default</span>
+          <span>Wide</span>
+        </div>
+      </div>
+      
+      <!-- ADDED: Word Spacing Slider -->
+      <div>
+        <label for="word-spacing-slider" class="block text-sm font-medium mb-2 text-text-default">Word Spacing
+          (<span id="word-spacing-value">0</span>px)</label>
+        <input type="range" id="word-spacing-slider" min="0" max="5" step="0.5" value="0"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
+        <div class="flex justify-between text-xs mt-1 text-text-secondary">
+          <span>Default</span>
+          <span>Spacious</span>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <hr class="border-gray-200 dark:border-gray-700">
+
+      <!-- ADDED: Highlight Links Toggle -->
+      <div>
+        <label for="toggle-highlight-links" class="block text-sm font-medium mb-2 text-text-default">Highlight Links</label>
+        <div class="flex items-center justify-between">
+          <span class="text-text-secondary text-sm">Underline and highlight all links</span>
+          <input type="checkbox" id="toggle-highlight-links" class="toggle" role="switch" aria-checked="false">
+        </div>
+      </div>
+      
+      <!-- ADDED: Readable Width Toggle -->
+      <div>
+        <label for="toggle-readable-width" class="block text-sm font-medium mb-2 text-text-default">Readable Width</label>
+        <div class="flex items-center justify-between">
+          <span class="text-text-secondary text-sm">Constrain main content width</span>
+          <input type="checkbox" id="toggle-readable-width" class="toggle" role="switch" aria-checked="false">
+        </div>
+      </div>
+
       <!-- Reading Mask Toggle -->
       <div>
         <label for="toggle-reading-mask" class="block text-sm font-medium mb-2 text-text-default">Reading
           Guide/Mask</label>
         <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Enable draggable guide</span>
+          <span class="text-text-secondary text-sm">Enable draggable guide</span>
           <input type="checkbox" id="toggle-reading-mask" class="toggle" role="switch" aria-checked="false">
         </div>
       </div>
@@ -552,20 +621,19 @@ var sc_security="97cdda23";
         <label for="toggle-reduced-motion" class="block text-sm font-medium mb-2 text-text-default">Reduce
           Animations</label>
         <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Disable transitions and animations</span>
+          <span class="text-text-secondary text-sm">Disable transitions and animations</span>
           <input type="checkbox" id="toggle-reduced-motion" class="toggle" role="switch" aria-checked="false">
         </div>
       </div>
 
       <button id="reset-a11y-settings"
-        class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
         Reset All Settings
       </button>
     </div>
   </div>
 
   <!-- READING MASK/GUIDE OVERLAY (Initially Hidden) -->
-  <!-- The mask is partially opaque, and the guide is transparent to focus text -->
   <div id="reading-mask" class="hidden">
     <div id="reading-guide" style="top: 30%"></div>
   </div>
@@ -576,7 +644,7 @@ var sc_security="97cdda23";
   <div id="announcement-bar"
     class="bg-primary text-white text-center py-2 flex items-center justify-center relative transition-colors duration-300"
     role="region" aria-label="Site Announcement">
-    <p class="text-sm">I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com">admin@hestena62.com</a></p>
+    <p class="text-sm">I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com" class="font-bold underline hover:text-accent">admin@hestena62.com</a></p>
     <button id="close-announcement"
       class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
       aria-label="Close announcement">
@@ -586,7 +654,6 @@ var sc_security="97cdda23";
   <!-- Removed redundant script, logic is now at the bottom -->
 
   <!-- Navigation Bar -->
-  <!-- header-bg class will be controlled by theme variables -->
   <header class="bg-header-bg shadow-lg transition-colors duration-300">
     <div class="container mx-auto px-4 py-4">
       <nav class="flex items-center justify-between flex-wrap" aria-label="Main navigation">

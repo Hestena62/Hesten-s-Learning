@@ -162,8 +162,6 @@
 
   </footer>
 
-  <!-- REPLACED MODALS with new theme-aware and focus-trapping versions -->
-
   <!-- Message Box Modal -->
   <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
     role="alertdialog" aria-modal="true" aria-labelledby="message-title">
@@ -200,9 +198,9 @@
     </div>
   </div>
 
-  <!-- REPLACED SCRIPT with new comprehensive script -->
+  <!-- === UPDATED: Comprehensive Site-wide Script === -->
   <script>
-    // --- GLOBAL MODAL FUNCTIONS (New versions with focus trap) ---
+    // --- GLOBAL MODAL FUNCTIONS (with focus trap) ---
     const messageBox = document.getElementById("message-box");
     const messageText = document.getElementById("message-text");
     const messageOkButton = document.getElementById("message-ok-button");
@@ -211,11 +209,9 @@
     const confirmYesButton = document.getElementById("confirm-yes-button");
     const confirmNoButton = document.getElementById("confirm-no-button");
 
-    // Helper to manage focus for accessibility when modals are open
     let lastFocusedElement = null;
 
     // A11Y: Function to handle focus trap in modals
-    // [FIX] Updated function to properly add/remove its event listener
     function trapFocus(modalElement) {
       const focusableElements = modalElement.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -225,12 +221,11 @@
       const firstFocusableElement = focusableElements[0];
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-      // [FIX] Define a named handler to add/remove
+      // Define a named handler to add/remove
       const handleFocusTrap = function (e) {
         if (e.key !== 'Tab') {
           return;
         }
-
         if (e.shiftKey) { // Shift + Tab
           if (document.activeElement === firstFocusableElement) {
             lastFocusableElement.focus();
@@ -244,7 +239,7 @@
         }
       };
 
-      // [FIX] Store the handler on the element so we can remove it later
+      // Store the handler on the element so we can remove it later
       modalElement._handleFocusTrap = handleFocusTrap;
       modalElement.addEventListener('keydown', modalElement._handleFocusTrap);
 
@@ -252,7 +247,7 @@
       firstFocusableElement.focus();
     }
 
-    // [FIX] Helper to remove the focus trap listener
+    // Helper to remove the focus trap listener
     function removeTrapFocus(modalElement) {
       if (modalElement && modalElement._handleFocusTrap) {
         modalElement.removeEventListener('keydown', modalElement._handleFocusTrap);
@@ -269,13 +264,12 @@
       messageBox.classList.remove("hidden");
       messageBox.style.display = 'flex';
 
-      // A11Y: Focus the OK button and trap focus
       trapFocus(messageBox);
 
       messageOkButton.onclick = () => {
         messageBox.classList.add("hidden");
         messageBox.style.display = 'none';
-        removeTrapFocus(messageBox); // [FIX] Remove listener
+        removeTrapFocus(messageBox);
         if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
       };
     }
@@ -288,14 +282,13 @@
       confirmationModal.classList.remove("hidden");
       confirmationModal.style.display = 'flex';
 
-      // A11Y: Focus the "No" button by default and trap focus
       trapFocus(confirmationModal);
       if (confirmNoButton) confirmNoButton.focus();
 
       const handleConfirmation = (result) => {
         confirmationModal.classList.add("hidden");
         confirmationModal.style.display = 'none';
-        removeTrapFocus(confirmationModal); // [FIX] Remove listener
+        removeTrapFocus(confirmationModal);
         if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
         onConfirm(result);
       };
@@ -364,7 +357,7 @@
       a11yCloseButton.addEventListener('click', () => {
         a11yPanel.classList.add('translate-x-full');
         a11yPanel.setAttribute('aria-hidden', 'true');
-        removeTrapFocus(a11yPanel); // [FIX] Remove listener
+        removeTrapFocus(a11yPanel);
         a11yToggleButton.focus();
       });
 
@@ -373,7 +366,7 @@
         if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
           a11yPanel.classList.add('translate-x-full');
           a11yPanel.setAttribute('aria-hidden', 'true');
-          removeTrapFocus(a11yPanel); // [FIX] Remove listener
+          removeTrapFocus(a11yPanel);
           a11yToggleButton.focus();
         }
       });
@@ -386,9 +379,10 @@
     function updateFontButtonUI(selectedFont) {
         const fontSelectors = document.querySelectorAll('.font-selector');
         fontSelectors.forEach(btn => {
-            // Use the font family string from settings, which might contain quotes
-            const selectedFontName = selectedFont.replace(/"/g, ''); 
-            if (btn.dataset.font.replace(/"/g, '') === selectedFontName) {
+            const selectedFontName = (selectedFont || 'Inter').replace(/"/g, '');
+            const btnFontName = btn.dataset.font.replace(/"/g, '');
+
+            if (btnFontName === selectedFontName) {
                 btn.classList.add('bg-primary', 'text-white', 'border-primary');
                 btn.classList.remove('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600');
             } else {
@@ -406,24 +400,16 @@
     // Font Selection Logic
     const fontButtonsContainer = document.getElementById('font-selection-buttons');
     if (fontButtonsContainer) {
-        // Initialize UI on load
-        // currentSettings.fontFamily will be either 'Inter', 'Open Dyslexic', or 'Roboto Mono'
-        // If currentSettings.fontFamily is not present (e.g., old settings), default to 'Inter'
-        updateFontButtonUI(currentSettings.fontFamily || 'Inter');
+        updateFontButtonUI(currentSettings.fontFamily);
 
         fontButtonsContainer.querySelectorAll('.font-selector').forEach(button => {
             button.addEventListener('click', (e) => {
-                const newFont = e.target.dataset.font;
-                // Save font family. Note: we save the clean string, the header applies quotes if necessary.
+                const newFont = e.currentTarget.dataset.font;
                 saveSettings({ ...currentSettings, fontFamily: newFont });
-                // Update buttons visually
                 updateFontButtonUI(newFont);
             });
         });
     }
-
-    // --- REMOVED: Dyslexia Font Toggle logic ---
-    // The previous dyslexiaToggle element and its listener are removed.
 
     // Reduced Motion Toggle
     const motionToggle = document.getElementById('toggle-reduced-motion');
@@ -446,10 +432,8 @@
       fontSizeSlider.addEventListener('input', (e) => {
         const value = parseFloat(e.target.value);
         fontSizeValue.textContent = Math.round(value * 100);
-        // Apply immediately for visual feedback
         document.documentElement.style.setProperty('--site-font-size', `${value}rem`);
       });
-      // Save on release
       fontSizeSlider.addEventListener('change', (e) => {
         saveSettings({ ...currentSettings, fontSize: parseFloat(e.target.value) });
       });
@@ -465,14 +449,69 @@
       lineHeightSlider.addEventListener('input', (e) => {
         const value = parseFloat(e.target.value);
         lineHeightValue.textContent = value.toFixed(1);
-        // Apply immediately for visual feedback
         document.documentElement.style.setProperty('--site-line-height', value);
       });
-      // Save on release
       lineHeightSlider.addEventListener('change', (e) => {
         saveSettings({ ...currentSettings, lineHeight: parseFloat(e.target.value) });
       });
     }
+    
+    // ADDED: Letter Spacing Slider
+    const letterSpacingSlider = document.getElementById('letter-spacing-slider');
+    const letterSpacingValue = document.getElementById('letter-spacing-value');
+    if (letterSpacingSlider && letterSpacingValue) {
+      letterSpacingSlider.value = currentSettings.letterSpacing;
+      letterSpacingValue.textContent = currentSettings.letterSpacing.toFixed(1);
+
+      letterSpacingSlider.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        letterSpacingValue.textContent = value.toFixed(1);
+        document.documentElement.style.setProperty('--site-letter-spacing', `${value}px`);
+      });
+      letterSpacingSlider.addEventListener('change', (e) => {
+        saveSettings({ ...currentSettings, letterSpacing: parseFloat(e.target.value) });
+      });
+    }
+
+    // ADDED: Word Spacing Slider
+    const wordSpacingSlider = document.getElementById('word-spacing-slider');
+    const wordSpacingValue = document.getElementById('word-spacing-value');
+    if (wordSpacingSlider && wordSpacingValue) {
+      wordSpacingSlider.value = currentSettings.wordSpacing;
+      wordSpacingValue.textContent = currentSettings.wordSpacing.toFixed(1);
+
+      wordSpacingSlider.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        wordSpacingValue.textContent = value.toFixed(1);
+        document.documentElement.style.setProperty('--site-word-spacing', `${value}px`);
+      });
+      wordSpacingSlider.addEventListener('change', (e) => {
+        saveSettings({ ...currentSettings, wordSpacing: parseFloat(e.target.value) });
+      });
+    }
+    
+    // ADDED: Highlight Links Toggle
+    const highlightLinksToggle = document.getElementById('toggle-highlight-links');
+    if (highlightLinksToggle) {
+      highlightLinksToggle.checked = currentSettings.highlightLinks;
+      highlightLinksToggle.setAttribute('aria-checked', currentSettings.highlightLinks);
+      highlightLinksToggle.addEventListener('change', (e) => {
+        e.target.setAttribute('aria-checked', e.target.checked);
+        saveSettings({ ...currentSettings, highlightLinks: e.target.checked });
+      });
+    }
+    
+    // ADDED: Readable Width Toggle
+    const readableWidthToggle = document.getElementById('toggle-readable-width');
+    if (readableWidthToggle) {
+      readableWidthToggle.checked = currentSettings.readableWidth;
+      readableWidthToggle.setAttribute('aria-checked', currentSettings.readableWidth);
+      readableWidthToggle.addEventListener('change', (e) => {
+        e.target.setAttribute('aria-checked', e.target.checked);
+        saveSettings({ ...currentSettings, readableWidth: e.target.checked });
+      });
+    }
+
 
     // Reading Mask Logic
     const readingMaskToggle = document.getElementById('toggle-reading-mask');
@@ -481,7 +520,7 @@
     let isDragging = false;
 
     if (readingMaskToggle && readingMask && readingGuide) {
-      readingMaskToggle.checked = false; // Mask is not persistent across sessions for usability
+      readingMaskToggle.checked = false; // Mask is not persistent
       readingMaskToggle.setAttribute('aria-checked', 'false');
 
       readingMaskToggle.addEventListener('change', (e) => {
@@ -502,9 +541,7 @@
 
       const dragGuide = (clientY) => {
         if (!isDragging) return;
-        // Calculate new top percentage based on mouse/touch position
         let newTop = (clientY / window.innerHeight) * 100;
-        // Clamp value to prevent dragging outside of visible area (10% to 90%)
         newTop = Math.max(10, Math.min(90, newTop));
         readingGuide.style.top = `${newTop}%`;
       };
@@ -518,7 +555,6 @@
       readingGuide.addEventListener('mousedown', startDrag);
       document.addEventListener('mousemove', (e) => dragGuide(e.clientY));
       document.addEventListener('mouseup', stopDrag);
-
       // Touch Events
       readingGuide.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
       document.addEventListener('touchmove', (e) => dragGuide(e.touches[0].clientY));
@@ -531,24 +567,43 @@
       resetA11yBtn.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_KEY);
         
-        // NOTE: We MUST reload the settings after clearing, as 'currentSettings' is now stale
-        // Assuming defaultSettings in header.php now uses 'fontFamily: "Inter"'
-        currentSettings = defaultSettings; // Reset the live state
+        // currentSettings in the <head> is defined with `let` so we can update it.
+        // We MUST use the defaultSettings from the <head> script.
+        currentSettings = defaultSettings; 
         saveSettings({ ...defaultSettings }); // Save and apply defaults
 
         // Update UI elements to reflect reset
         if (fontSizeSlider) fontSizeSlider.value = defaultSettings.fontSize;
         if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
+        
         if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
         if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
         
+        // ADDED: Reset new sliders
+        if (letterSpacingSlider) letterSpacingSlider.value = defaultSettings.letterSpacing;
+        if (letterSpacingValue) letterSpacingValue.textContent = defaultSettings.letterSpacing.toFixed(1);
+
+        if (wordSpacingSlider) wordSpacingSlider.value = defaultSettings.wordSpacing;
+        if (wordSpacingValue) wordSpacingValue.textContent = defaultSettings.wordSpacing.toFixed(1);
+
         // Update font selection UI
-        updateFontButtonUI(defaultSettings.fontFamily || 'Inter');
+        updateFontButtonUI(defaultSettings.fontFamily);
         
         if (motionToggle) {
           motionToggle.checked = defaultSettings.reducedMotion;
           motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);
         }
+        
+        // ADDED: Reset new toggles
+        if (highlightLinksToggle) {
+          highlightLinksToggle.checked = defaultSettings.highlightLinks;
+          highlightLinksToggle.setAttribute('aria-checked', defaultSettings.highlightLinks);
+        }
+        if (readableWidthToggle) {
+          readableWidthToggle.checked = defaultSettings.readableWidth;
+          readableWidthToggle.setAttribute('aria-checked', defaultSettings.readableWidth);
+        }
+
 
         // Force reset of non-persistent mask
         if (readingMaskToggle) {
