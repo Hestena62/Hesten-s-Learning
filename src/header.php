@@ -84,7 +84,7 @@ var sc_security="97cdda23";
 
     // --- Global Accessibility/Theme State Management ---
     const defaultSettings = {
-      theme: 'light', // light, dark, high-contrast
+      theme: 'dark', // light, dark, high-contrast
       fontSize: 1.0, // rem
       lineHeight: 1.6, // unitless
       fontFamily: 'Inter', // Default font
@@ -311,27 +311,27 @@ var sc_security="97cdda23";
 
     .high-contrast header.bg-dark,
     .high-contrast footer {
-      background-color: var(--color-header-bg) !important;
-      background-image: none !important;
-    }
-
-
-    /* Apply dynamic radius from original file */
-    .rounded-base-rounded {
-      border-radius: var(--border-radius-base);
-    }
-
-    /* Apply dynamic card bg from original file */
-    .bg-card-bg {
-      background-color: var(--color-card-bg);
-    }
-
-    /* Default link color */
+    /* Apply dynamic link color from original file */
     a {
       color: var(--color-link);
     }
 
     /* --- ACCESSIBILITY UTILITIES --- */
+
+    /* ADDED: Announcement Scroller */
+    .announcement-content {
+        /* We double the content in HTML, so we animate 50% */
+        animation: scroll-left 40s linear infinite;
+    }
+
+    @keyframes scroll-left {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
 
     /* Reduced Motion */
     .reduced-motion * {
@@ -642,11 +642,39 @@ var sc_security="97cdda23";
 
   <!-- Anouncment section-->
   <div id="announcement-bar"
-    class="bg-primary text-white text-center py-2 flex items-center justify-center relative transition-colors duration-300"
+    class="bg-primary text-white py-2 flex items-center relative transition-colors duration-300"
     role="region" aria-label="Site Announcement">
-    <p class="text-sm">I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com" class="font-bold underline hover:text-accent">admin@hestena62.com</a></p>
+    
+    <!-- This div is the "window" for the scroller, takes up remaining space -->
+    <div class="flex-1 overflow-hidden whitespace-nowrap"> 
+        <!-- This div is the content that moves. We'll animate this with CSS -->
+        <div class="announcement-content inline-block"> 
+            <!-- New Announcement -->
+            <span class="announcement-item inline-block px-4 text-sm">
+                I am working on the light theme, for the moment dark mode is enabled by default.
+            </span>
+            <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
+            <!-- Original Announcement -->
+            <span class="announcement-item inline-block px-4 text-sm">
+                I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com" class="font-bold underline hover:text-accent">admin@hestena62.com</a>
+            </span>
+            <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
+            
+            <!-- REPEAT for seamless loop (aria-hidden=true) -->
+            <span class="announcement-item inline-block px-4 text-sm" aria-hidden="true">
+                I am working on the light theme, for the moment dark mode is enabled by default.
+            </span>
+            <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
+            <span class="announcement-item inline-block px-4 text-sm" aria-hidden="true">
+                I am working on each section a little at a time. If you would like a certain feature please email me at <a href="mailto:admin@hestena62.com" class="font-bold underline hover:text-accent">admin@hestena62.com</a>
+            </span>
+            <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
+        </div>
+    </div>
+    
+    <!-- Close button, outside the scroller window -->
     <button id="close-announcement"
-      class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
+      class="flex-shrink-0 px-4 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
       aria-label="Close announcement">
       <i class="fas fa-times" aria-hidden="true"></i>
     </button>
