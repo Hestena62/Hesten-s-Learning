@@ -571,54 +571,6 @@ var sc_security="97cdda23";
   </div>
 
 
-  <!--Popup-->
-  <div id="entry-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" role="dialog"
-    aria-modal="true" aria-labelledby="entry-popup-title">
-    <!-- content-bg makes this modal theme-aware -->
-    <div class="bg-content-bg rounded-xl shadow-2xl p-8 max-w-sm w-full text-center relative">
-      <h2 id="entry-popup-title" class="text-2xl font-bold mb-4 text-primary"><?php echo $welcomeMessage; ?></h2>
-      <!-- text-text-default makes this modal theme-aware -->
-      <p class="mb-6 text-text-default"><?php echo $welcomeParagraph; ?></p>
-      <button id="close-entry-popup"
-        class="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-secondary transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        aria-label="Close welcome message">
-        Close
-      </button>
-    </div>
-  </div>
-  <script>
-    // [FIX] Updated popup script with localStorage persistence
-    document.addEventListener("DOMContentLoaded", function () {
-      const popup = document.getElementById("entry-popup");
-      const closeBtn = document.getElementById("close-entry-popup");
-      const POPUP_STORAGE_KEY = 'hl_popup_dismissed';
-
-      if (popup && closeBtn) {
-        // Check if popup was already dismissed
-        try {
-          if (localStorage.getItem(POPUP_STORAGE_KEY) === 'true') {
-            popup.style.display = "none";
-            return; // Don't attach listener or focus
-          }
-        } catch (e) {
-          console.warn("Could not read from localStorage", e);
-        }
-
-        // Show popup and attach listener
-        closeBtn.addEventListener("click", function () {
-          popup.style.display = "none";
-          // Save dismissed state
-          try {
-            localStorage.setItem(POPUP_STORAGE_KEY, 'true');
-          } catch (e) {
-            console.warn("Could not write to localStorage", e);
-          }
-        });
-        // Auto-focus the close button for accessibility
-        closeBtn.focus();
-      }
-    });
-  </script>
 
   <!-- Anouncment section-->
   <div id="announcement-bar"
@@ -640,7 +592,7 @@ var sc_security="97cdda23";
       <nav class="flex items-center justify-between flex-wrap" aria-label="Main navigation">
         <!-- Logo and brand name -->
         <a class="flex items-center flex-shrink-0 text-white mr-6" href="/">
-          <img src="Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
+          <img src="..\Images\6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Company Logo" class="rounded-full h-8 w-8 mr-2"
             onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
           <span class="font-semibold text-xl tracking-tight"><?php echo isset($pageTitle) && $pageTitle !== '' ? $pageTitle : 'Hesten\'s Learning'; ?></span>
         </a>
