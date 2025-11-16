@@ -553,5 +553,5 @@ ${mdContent}
 // --- Include Footer ---
 // This brings in the <footer>, site-wide modals, all global scripts,
 // and closes the </body> and </html> tags.
-include '..\src\footer.php';
+include 'src/footer.php';
 ?>
