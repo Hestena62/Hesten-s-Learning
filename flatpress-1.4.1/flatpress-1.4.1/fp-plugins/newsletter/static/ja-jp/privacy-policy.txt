@@ -1,3 +1,0 @@
-SUBJECT|プライバシーポリシー|CONTENT|
-([url=admin.php?p=static&action=write&page=privacy-policy]編集する[/url])
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|FlatPress|

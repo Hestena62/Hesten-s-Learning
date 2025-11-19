@@ -1,6 +1,0 @@
-All svg-icons are self-created by Fraenkiman https://frank-web.dedyn.io
-
-Created with paint.net, converted with https://svgtrace.com. Not high, professional quality, but self-created.
-The color and resolution can be changed directly in the corresponding svg file.
-
-The BBcode icons (*.svg) inherit the FlatPress license.

@@ -1,3 +1,0 @@
-SUBJECT|Příliš mnoho požadavků!|CONTENT|
-Již jste podali několik žádostí. Zkuste to prosím později.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|Newsletter|

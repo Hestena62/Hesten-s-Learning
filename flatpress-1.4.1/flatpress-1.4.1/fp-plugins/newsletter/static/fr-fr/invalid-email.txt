@@ -1,3 +1,0 @@
-SUBJECT|Adresse e-mail non valide !|CONTENT|
-L'adresse e-mail n'est pas valide. Merci de réessayer.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|Newsletter|

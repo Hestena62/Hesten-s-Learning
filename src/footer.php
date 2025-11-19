@@ -107,7 +107,7 @@
                 class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/about-us.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
           </li>

@@ -1,3 +1,0 @@
-SUBJECT|Nepravilen e-poštni naslov!|CONTENT|
-E-poštni naslov je neveljaven. Prosimo, poskusite znova.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|E-novice|

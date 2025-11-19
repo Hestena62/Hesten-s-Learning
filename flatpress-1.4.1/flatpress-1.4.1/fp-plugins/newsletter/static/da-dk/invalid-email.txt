@@ -1,3 +1,0 @@
-SUBJECT|Ugyldig e-mail-adresse!|CONTENT|
-E-mail-adressen er ugyldig. Prøv venligst igen.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|Nyhedsbrev|

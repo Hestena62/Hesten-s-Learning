@@ -1,3 +1,0 @@
-SUBJECT|Déclaration de confidentialité|CONTENT|
-([url=admin.php?p=static&action=write&page=privacy-policy]Travaille sur moi![/url])
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|FlatPress|

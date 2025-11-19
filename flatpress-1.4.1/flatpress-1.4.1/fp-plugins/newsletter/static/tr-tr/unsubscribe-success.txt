@@ -1,3 +1,0 @@
-SUBJECT|Haber bültenini iptal ettiniz!|CONTENT|
-Hala güncel kalmak istiyorsanız, Atom veya RSS beslememe abone olabilirsiniz.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|Haber_Bülteni|

@@ -1,3 +1,0 @@
-SUBJECT|Du hast den Newsletter abbestellt!|CONTENT|
-Wenn du dennoch auf dem Laufenden bleiben möchtest, kannst du mein Atom oder RSS-Feed abonnieren.
-|DATE|1321009871|VERSION|fp-1.4|AUTHOR|Newsletter|
