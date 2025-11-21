@@ -4,6 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
+  <meta name="description"
+    content="Adaptive K-5 curriculum in Math, ELA, Science & Social Studies with built-in dyslexia tools, high-contrast mode, and reading guides. Personalized learning pathways designed for students with learning disabilities.">
+  <meta name="keywords"
+    content="learning disabilities, personalized education, online learning, K-5 curriculum, dyslexia support, accessible education, neurodiverse students">
+  <meta name="author" content="Hesten Allison">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hestena62.com/">
+
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
   <meta property="og:description"
@@ -13,40 +24,75 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hesten's Learning">
 
-  <title>Hesten's Learning</title>
+  <title>Hesten's Learning – Personalized Education for Neurodiverse Students</title>
   <link rel="icon" href="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" type="image/png">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  
-  <!-- Structured Data (EducationalOrganization + WebSite) -->
+  <meta name="twitter:title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
+  <meta name="twitter:description"
+    content="Adaptive K-5 curriculum with built-in accessibility tools for students with learning disabilities.">
+  <meta name="twitter:image" content="https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png">
+
+  <!-- Structured Data (Enhanced EducationalOrganization + WebSite) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "Hesten's Learning",
-    "url": "https://hestena62.com",
-    "logo": "https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
-    "description": "Personalized online learning platform for students with learning disabilities.",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "admin@hestena62.com",
-      "contactType": "customer service"
-    }
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://hestena62.com/#organization",
+        "name": "Hesten's Learning",
+        "url": "https://hestena62.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
+          "width": 512,
+          "height": 512
+        },
+        "description": "Personalized online learning platform for students with learning disabilities. Adaptive K-5 curriculum in Math, ELA, Science & Social Studies with built-in accessibility tools.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "admin@hestena62.com",
+          "contactType": "customer service",
+          "availableLanguage": "en"
+        },
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "student"
+        },
+        "educationalCredentialAwarded": "Certificate"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://hestena62.com/#website",
+        "url": "https://hestena62.com",
+        "name": "Hesten's Learning",
+        "description": "Personalized education platform for neurodiverse students",
+        "publisher": {
+          "@id": "https://hestena62.com/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://hestena62.com/search.php?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
   }
   </script>
-
-  <!-- NEW: Cache control meta tag to prevent caching during testing -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-  <!-- === FONT IMPORTS (For Accessibility Panel) === -->
+  <!-- === FONT IMPORTS (Optimized with preload and font-display) === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -124,6 +170,7 @@
         return loadedSettings;
       } catch (e) {
         console.error("Error loading settings from localStorage:", e);
+        // Fallback to defaults if localStorage is unavailable or corrupted
         return defaultSettings;
       }
     }
@@ -136,6 +183,10 @@
         updateThemeButtonUI(settings.theme); // Update theme buttons visually
       } catch (e) {
         console.error("Error saving settings to localStorage:", e);
+        // Show user-friendly error message if localStorage quota is exceeded
+        if (e.name === 'QuotaExceededError') {
+          console.warn("Storage quota exceeded. Some settings may not be saved.");
+        }
       }
     }
 
@@ -212,10 +263,16 @@
       if (readingLineElement) {
         if (settings.readingLine) {
           readingLineElement.classList.remove('hidden');
-          setupReadingLineEvents(); // Setup events when enabled
+          // Setup events when enabled (functions defined later in script)
+          if (typeof setupReadingLineEvents === 'function') {
+            setupReadingLineEvents();
+          }
         } else {
           readingLineElement.classList.add('hidden');
-          removeReadingLineEvents(); // Remove events when disabled
+          // Remove events when disabled (functions defined later in script)
+          if (typeof removeReadingLineEvents === 'function') {
+            removeReadingLineEvents();
+          }
         }
       }
     }
@@ -427,6 +484,18 @@
       border-width: 0;
     }
 
+    .sr-only:focus {
+      position: fixed;
+      width: auto;
+      height: auto;
+      padding: 0.5rem 1rem;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+      z-index: 9999;
+    }
+
     .toggle {
       appearance: none;
       width: 3rem;
@@ -457,10 +526,47 @@
     .toggle:checked::before {
       transform: translateX(1.5rem);
     }
+
+    /* Hero Section Protection - Force gradient to stay purple */
+    /* This CSS rule has !important to override any JavaScript that tries to change it */
+    #hero-section {
+      background-image: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
+      background: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
+    }
+
+    /* Prevent white background classes from working on hero - override with !important */
+    #hero-section.from-white,
+    #hero-section.to-white,
+    #hero-section.bg-white {
+      background-image: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
+      background: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
+      background-color: transparent !important;
+    }
+
+    /* Ensure text stays white on hero section and direct children */
+    #hero-section.text-text-default {
+      color: white !important;
+    }
+
+    #hero-section>h1,
+    #hero-section>p,
+    #hero-section>div>h1,
+    #hero-section>div>p {
+      color: white !important;
+    }
+
+    #hero-section .text-text-default {
+      color: white !important;
+    }
   </style>
 </head>
 
 <body class="antialiased font-sans">
+
+  <!-- Skip Navigation Link for Accessibility -->
+  <a href="#main-wrapper" class="sr-only focus:not-sr-only">
+    Skip to main content
+  </a>
 
   <!-- Apply Body Settings on load -->
   <script>
@@ -470,14 +576,14 @@
       updateThemeButtonUI(currentSettings.theme);
 
       // Initial setup for the reading line element
+      // Note: setupReadingLineEvents/removeReadingLineEvents are defined later in the script
+      // so we just handle the visibility here, events will be set up when the full script loads
       const readingLineElement = document.getElementById('reading-line');
       if (readingLineElement) {
         if (currentSettings.readingLine) {
           readingLineElement.classList.remove('hidden');
-          setupReadingLineEvents();
         } else {
           readingLineElement.classList.add('hidden');
-          removeReadingLineEvents();
         }
       }
     })();
@@ -688,9 +794,10 @@
     <div class="container mx-auto px-4 py-4 max-w-7xl">
       <nav class="flex items-center justify-between flex-wrap" aria-label="Main navigation">
         <!-- Logo and brand name -->
-        <a class="flex items-center flex-shrink-0 text-text-default transition-colors duration-300 mr-6" href="/">
+        <a class="flex items-center flex-shrink-0 text-text-default transition-colors duration-300 mr-6" href="/"
+          aria-label="Hesten's Learning Home">
           <img src="https://placehold.co/32x32/7C3AED/FFFFFF?text=HL" alt="Hesten's Learning Logo"
-            class="rounded-full h-8 w-8 mr-2 shadow-md" />
+            class="rounded-full h-8 w-8 mr-2 shadow-md" width="32" height="32" loading="eager" />
           <span class="font-extrabold text-xl tracking-tight text-primary transition-colors duration-300">
             Hesten's Learning
           </span>
@@ -758,11 +865,13 @@
         </p>
         <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
           <a href="#levels"
-            class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-10 rounded-full shadow-2xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg">
-            Enroll Today <i class="fas fa-arrow-right ml-2"></i>
+            class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-10 rounded-full shadow-2xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg"
+            aria-label="Navigate to curriculum levels section">
+            Enroll Today <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
           </a>
           <a href="/assessment.php"
-            class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg">
+            class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg"
+            aria-label="Take a free assessment to determine your learning level">
             Take Free Assessment
           </a>
         </div>
@@ -828,8 +937,9 @@
             Foundational skills in counting, letter names, and phonological awareness for the youngest learners.
           </p>
           <a href="/Level/A.html"
-            class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200"
+            aria-label="Explore Pre-K curriculum skills">
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -841,7 +951,7 @@
           </p>
           <a href="/Level/B.html"
             class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -853,7 +963,7 @@
           </p>
           <a href="/Level/C.html"
             class="text-accent font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -865,7 +975,7 @@
           </p>
           <a href="/Level/B.html"
             class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -878,7 +988,7 @@
           </p>
           <a href="/Level/D.html"
             class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -890,7 +1000,7 @@
           </p>
           <a href="/Level/D.html"
             class="text-accent font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -902,7 +1012,7 @@
           </p>
           <a href="/Level/E.html"
             class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
         </article>
 
@@ -914,7 +1024,7 @@
           </p>
           <a href="/test"
             class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm"></i>
+            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
           </a>
   </div>
 
@@ -1070,10 +1180,11 @@
       <!-- Buy Me A Coffee Button Placeholder -->
       <div class="mt-4 flex justify-center items-center gap-4">
         <a href="https://www.buymeacoffee.com/hestena62l"
-          class="focus:outline-none focus:ring-2 focus:ring-white rounded">
+          class="focus:outline-none focus:ring-2 focus:ring-white rounded"
+          aria-label="Support Hesten's Learning on Buy Me a Coffee">
           <img
             src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hestena62&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
-            alt="Buy me a coffee" />
+            alt="Buy me a coffee" width="217" height="60" loading="lazy" />
         </a>
       </div>
     </div>
@@ -1227,14 +1338,37 @@
           }
         });
       });
+
+      // Close mobile menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !navContent.classList.contains('hidden')) {
+          navContent.classList.add("hidden");
+          navToggle.setAttribute('aria-expanded', 'false');
+          navContent.setAttribute('aria-hidden', 'true');
+          navToggle.focus();
+        }
+      });
     }
 
     // Announcement Bar Close
     const closeAnnouncementBtn = document.getElementById("close-announcement");
     const announcementBar = document.getElementById("announcement-bar");
     if (closeAnnouncementBtn && announcementBar) {
+      // Save announcement state to localStorage
+      const announcementKey = 'hl_announcement_closed';
+      const wasClosed = localStorage.getItem(announcementKey);
+
+      if (wasClosed === 'true') {
+        announcementBar.style.display = "none";
+      }
+
       closeAnnouncementBtn.addEventListener("click", function () {
         announcementBar.style.display = "none";
+        try {
+          localStorage.setItem(announcementKey, 'true');
+        } catch (e) {
+          console.warn("Could not save announcement state:", e);
+        }
       });
     }
 
@@ -1445,8 +1579,8 @@
     let isReadingLineActive = currentSettings.readingLine;
 
     function moveReadingLine(clientY) {
-      if (!isReadingLineActive) return;
-      const lineHeight = readingLine.offsetHeight;
+      if (!isReadingLineActive || !readingLine) return;
+      const lineHeight = readingLine.offsetHeight || 48; // Fallback height
       // Position the line so its center is at the mouse/touch Y coordinate
       let newTop = clientY - (lineHeight / 2);
       // Ensure it stays within bounds
@@ -1557,21 +1691,187 @@
       });
     }
 
-    /*
-      !!! TROUBLESHOOTING HERO SECTION FADE ISSUE !!!
-      The *ONLY* cause for the hero section to turn white after 5 seconds is a rogue or cached
-      JavaScript block containing 'setTimeout' that explicitly changes the hero's CSS classes
-      to 'from-white' and 'to-white'.
-      
-      This script is NOT present in this file (Version 3) and should be fixed by the cache control
-      meta tags added above.
+    // --- Hero Section Protection (Prevent White Background Issue) ---
+    // This prevents any external scripts or cached code from changing the hero section to white
+    // Runs IMMEDIATELY to catch any early modifications
+    (function protectHeroSection() {
+      // Get hero section as soon as possible
+      function getHeroSection() {
+        return document.getElementById('hero-section') ||
+          document.querySelector('#hero-section') ||
+          document.querySelector('section[id="hero-section"]');
+      }
 
-      *ACTION:* If the issue persists on your server:
-      1. Hard-refresh (Ctrl+Shift+R or Cmd+Shift+R) after uploading this file.
-      2. If it STILL persists, please check all linked JavaScript files or any server-side
-         templating where this code might have been inadvertently added. The problem is 100%
-         due to lingering JavaScript code *outside* this specific file content.
-    */
+      // Store correct gradient colors based on theme
+      function getCorrectGradientColors() {
+        const body = document.body;
+        if (body.classList.contains('dark')) {
+          return { from: '#5B21B6', to: '#7C3AED' };
+        } else if (body.classList.contains('high-contrast')) {
+          return { from: '#111111', to: '#333333' };
+        } else {
+          return { from: '#5B21B6', to: '#7C3AED' }; // Light theme default
+        }
+      }
+
+      // Comprehensive restoration function
+      function restoreHeroSection() {
+        const heroSection = getHeroSection();
+        if (!heroSection) return;
+
+        const colors = getCorrectGradientColors();
+        const requiredClasses = ['from-hero-bg-from', 'to-hero-bg-to', 'text-white'];
+        const forbiddenClasses = ['from-white', 'to-white', 'text-text-default'];
+
+        // 1. Remove forbidden classes
+        forbiddenClasses.forEach(cls => {
+          heroSection.classList.remove(cls);
+        });
+
+        // 2. Ensure required classes are present
+        requiredClasses.forEach(cls => {
+          if (!heroSection.classList.contains(cls)) {
+            heroSection.classList.add(cls);
+          }
+        });
+
+        // 3. Force gradient via inline style as backup (highest priority)
+        const computedStyle = window.getComputedStyle(heroSection);
+        const bgImage = computedStyle.backgroundImage;
+
+        // Check if background is white or if classes were removed
+        if (heroSection.classList.contains('from-white') ||
+          heroSection.classList.contains('to-white') ||
+          bgImage.includes('rgb(255, 255, 255)') ||
+          bgImage.includes('#ffffff') ||
+          bgImage.includes('#FFFFFF')) {
+          // Force gradient with inline style
+          heroSection.style.backgroundImage = `linear-gradient(to right, ${colors.from}, ${colors.to})`;
+          heroSection.style.background = `linear-gradient(to right, ${colors.from}, ${colors.to})`;
+        }
+
+        // 4. Ensure CSS variables are correct on document root
+        const root = document.documentElement;
+        root.style.setProperty('--color-hero-bg-from', colors.from);
+        root.style.setProperty('--color-hero-bg-to', colors.to);
+
+        // 5. Fix text colors on hero and children
+        heroSection.classList.remove('text-text-default');
+        heroSection.classList.add('text-white');
+        heroSection.style.color = 'white';
+
+        heroSection.querySelectorAll('h1, p, a, span').forEach(el => {
+          el.classList.remove('text-text-default');
+          el.classList.add('text-white');
+          el.style.color = 'white';
+        });
+      }
+
+      // Run immediately and repeatedly
+      function startProtection() {
+        // Run immediately
+        restoreHeroSection();
+
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => {
+            restoreHeroSection();
+            setupObserver();
+            setupPeriodicChecks();
+          });
+        } else {
+          setupObserver();
+          setupPeriodicChecks();
+        }
+      }
+
+      // Setup MutationObserver for class and style changes
+      function setupObserver() {
+        const heroSection = getHeroSection();
+        if (!heroSection) return;
+
+        const observer = new MutationObserver((mutations) => {
+          let needsRestore = false;
+          mutations.forEach((mutation) => {
+            // Check class changes
+            if (mutation.type === 'attributes') {
+              if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
+                needsRestore = true;
+              }
+            }
+            // Check child changes
+            if (mutation.type === 'childList') {
+              needsRestore = true;
+            }
+          });
+          if (needsRestore) {
+            restoreHeroSection();
+          }
+        });
+
+        observer.observe(heroSection, {
+          attributes: true,
+          attributeFilter: ['class', 'style'],
+          childList: true,
+          subtree: true
+        });
+
+        // Also observe document root for CSS variable changes
+        const rootObserver = new MutationObserver(() => {
+          restoreHeroSection();
+        });
+        rootObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class', 'style']
+        });
+      }
+
+      // Setup aggressive periodic checks
+      function setupPeriodicChecks() {
+        // Check every 100ms for the first 10 seconds (when issue typically occurs)
+        const aggressiveInterval = setInterval(() => {
+          restoreHeroSection();
+        }, 100);
+
+        // Stop aggressive checking after 10 seconds
+        setTimeout(() => {
+          clearInterval(aggressiveInterval);
+
+          // Then check every 500ms for another 20 seconds
+          const moderateInterval = setInterval(() => {
+            restoreHeroSection();
+          }, 500);
+
+          setTimeout(() => {
+            clearInterval(moderateInterval);
+          }, 20000);
+        }, 10000);
+      }
+
+      // Start protection immediately
+      startProtection();
+
+      // Also run immediately if script executes after DOM is ready
+      if (document.readyState !== 'loading') {
+        restoreHeroSection();
+        setupObserver();
+        setupPeriodicChecks();
+      }
+    })();
+
+    // --- Error Handling and Performance Monitoring ---
+    window.addEventListener('error', (e) => {
+      console.error('JavaScript error:', e.error);
+      // Could send to error tracking service in production
+    });
+
+    // --- Performance: Defer non-critical operations ---
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        // Non-critical operations can be deferred here
+        console.log('Page loaded and idle');
+      });
+    }
   </script>
 
 </body>
