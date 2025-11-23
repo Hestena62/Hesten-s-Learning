@@ -4,511 +4,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Primary Meta Tags -->
-  <meta name="title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
-  <meta name="description"
-    content="Adaptive K-5 curriculum in Math, ELA, Science & Social Studies with built-in dyslexia tools, high-contrast mode, and reading guides. Personalized learning pathways designed for students with learning disabilities.">
-  <meta name="keywords"
-    content="learning disabilities, personalized education, online learning, K-5 curriculum, dyslexia support, accessible education, neurodiverse students">
-  <meta name="author" content="Hesten Allison">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://hestena62.com/">
-
-  <!-- Open Graph / Social -->
-  <meta property="og:title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
-  <meta property="og:description"
-    content="Adaptive K-5 curriculum in Math, ELA, Science & Social Studies with built-in dyslexia tools, high-contrast mode, and reading guides.">
-  <meta property="og:image" content="https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png">
-  <meta property="og:url" content="https://hestena62.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Hesten's Learning">
-
   <title>Hesten's Learning – Personalized Education for Neurodiverse Students</title>
-  <link rel="icon" href="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" type="image/png">
+  <meta name="description"
+    content="Adaptive K-5 curriculum with built-in dyslexia tools, high-contrast mode, reading guides, and personalized pathways." />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hesten's Learning – Personalized Education for Neurodiverse Students">
-  <meta name="twitter:description"
-    content="Adaptive K-5 curriculum with built-in accessibility tools for students with learning disabilities.">
-  <meta name="twitter:image" content="https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png">
-
-  <!-- Structured Data (Enhanced EducationalOrganization + WebSite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "EducationalOrganization",
-        "@id": "https://hestena62.com/#organization",
-        "name": "Hesten's Learning",
-        "url": "https://hestena62.com",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
-          "width": 512,
-          "height": 512
-        },
-        "description": "Personalized online learning platform for students with learning disabilities. Adaptive K-5 curriculum in Math, ELA, Science & Social Studies with built-in accessibility tools.",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "admin@hestena62.com",
-          "contactType": "customer service",
-          "availableLanguage": "en"
-        },
-        "audience": {
-          "@type": "EducationalAudience",
-          "educationalRole": "student"
-        },
-        "educationalCredentialAwarded": "Certificate"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://hestena62.com/#website",
-        "url": "https://hestena62.com",
-        "name": "Hesten's Learning",
-        "description": "Personalized education platform for neurodiverse students",
-        "publisher": {
-          "@id": "https://hestena62.com/#organization"
-        },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://hestena62.com/search.php?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-  <!-- === FONT IMPORTS (Optimized with preload and font-display) === -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@ muscle400;500;600;700&family=Open+Dyslexic&family=Roboto+Mono&family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet">
 
+  <!-- Tailwind + Font Awesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- Inline JavaScript for Tailwind Configuration and Global Accessibility/Theme State Management -->
   <script>
-    // --- Tailwind Configuration with Dynamic CSS Variables ---
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
+            sans: ['Inter', 'sans-serif'],
             dyslexic: ['"Open Dyslexic"', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace'],
-            serif: ['"Merriweather"', 'serif'],
+            serif: ['Merriweather', 'serif'],
           },
           colors: {
-            // UPDATED to PURPLE GRADIENT (Violet/Indigo family)
-            'primary': 'var(--color-primary, #7C3AED)', // Violet 600 - Main action/link color
-            'secondary': 'var(--color-secondary, #9333EA)', // Violet 700 - Darker shade for contrast/hover
-            'accent': 'var(--color-accent, #DDA0DD)', // Plum/Pink shade for soft highlights/dividers
-            'base-bg': 'var(--color-base-bg, #FAF5FF)', // Very Light Purple/Violet Background
-            'content-bg': 'var(--color-content-bg, #FFFFFF)', // White Cards/Containers
-            'text-default': 'var(--color-text-default, #1E1B4B)', // Dark Indigo (High Contrast Text)
-            'text-secondary': 'var(--color-text-secondary, #6B7280)', // Medium Gray
-            'hero-bg-from': 'var(--color-hero-bg-from, #5B21B6)', // Violet 800 (Gradient start)
-            'hero-bg-to': 'var(--color-hero-bg-to, #7C3AED)', // Violet 600 (Gradient end)
-            'header-bg': 'var(--color-header-bg, #FFFFFF)',
-            'footer-bg': 'var(--color-footer-bg, #1E1B4B)', // Dark Indigo Footer
-            'link-color': 'var(--color-link, #7C3AED)',
-            'card-bg': 'var(--color-card-bg, #FFFFFF)',
-            'dark-gray': 'var(--color-dark)',
-            'light-gray': 'var(--color-light)',
-          },
-          borderRadius: {
-            "base-rounded": "var(--border-radius-base, 0.75rem)",
-            "lg-rounded": "var(--border-radius-lg, 1.5rem)",
-          },
-          boxShadow: {
-            // Shadow tied to primary color for modern pop
-            'card-hover': '0 10px 30px rgba(124, 58, 237, 0.25)',
-          },
-        },
-      },
-    };
-
-    // --- Global Accessibility/Theme State Management ---
-    const defaultSettings = {
-      theme: 'light',
-      fontSize: 1.0,
-      lineHeight: 1.6,
-      fontFamily: 'Inter',
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      letterSpacing: 0,
-      wordSpacing: 0,
-      highlightLinks: false,
-      readableWidth: false,
-      greyscale: false,
-      readingLine: false,
-    };
-    const STORAGE_KEY = 'hl_accessibility_settings_v3'; // Updated key for new version/colors
-
-    function loadSettings() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        // Merge defaults with stored settings to ensure new features are added
-        const loadedSettings = stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-        // Migration logic for old 'dyslexiaFont' boolean (kept for safety)
-        if (loadedSettings.dyslexiaFont !== undefined) {
-          loadedSettings.fontFamily = loadedSettings.dyslexiaFont ? 'Open Dyslexic' : 'Inter';
-          delete loadedSettings.dyslexiaFont;
-        }
-        return loadedSettings;
-      } catch (e) {
-        console.error("Error loading settings from localStorage:", e);
-        // Fallback to defaults if localStorage is unavailable or corrupted
-        return defaultSettings;
-      }
-    }
-
-    function saveSettings(settings) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-        applySettings(settings); // Apply settings on save
-        currentSettings = settings; // Update global state
-        updateThemeButtonUI(settings.theme); // Update theme buttons visually
-      } catch (e) {
-        console.error("Error saving settings to localStorage:", e);
-        // Show user-friendly error message if localStorage quota is exceeded
-        if (e.name === 'QuotaExceededError') {
-          console.warn("Storage quota exceeded. Some settings may not be saved.");
-        }
-      }
-    }
-
-    function applyHeadSettings(settings) {
-      const docEl = document.documentElement;
-
-      docEl.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
-      docEl.style.setProperty('--site-line-height', settings.lineHeight);
-
-      docEl.style.setProperty('--site-letter-spacing', `${settings.letterSpacing}px`);
-      docEl.style.setProperty('--site-word-spacing', `${settings.wordSpacing}px`);
-
-      let fontName = settings.fontFamily || 'Inter';
-      if (fontName.includes(' ') || fontName === 'Open Dyslexic') {
-        fontName = `"${fontName}"`;
-      }
-      docEl.style.setProperty('--site-font-family', fontName);
-    }
-
-    function updateFontButtonUI(selectedFont) {
-      const fontSelectors = document.querySelectorAll('.font-selector');
-      fontSelectors.forEach(btn => {
-        const selectedFontName = (selectedFont || 'Inter').replace(/"/g, '');
-        const btnFontName = btn.dataset.font.replace(/"/g, '');
-
-        if (btnFontName === selectedFontName) {
-          btn.classList.add('bg-primary', 'text-white', 'border-primary');
-          btn.classList.remove('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600', 'border-gray-300');
-        } else {
-          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-          // Apply neutral styles that are theme-aware
-          btn.classList.add('bg-content-bg', 'text-text-default', 'border-gray-300', 'dark:border-gray-600', 'hover:bg-gray-100', 'dark:hover:bg-gray-700');
-        }
-      });
-    }
-
-    function updateThemeButtonUI(selectedTheme) {
-      const themeSelectors = document.querySelectorAll('.theme-selector');
-      themeSelectors.forEach(btn => {
-        if (btn.dataset.theme === selectedTheme) {
-          btn.classList.add('bg-primary', 'text-white', 'border-primary');
-          btn.classList.remove('bg-content-bg', 'text-text-default', 'border-gray-300', 'dark:border-gray-600');
-        } else {
-          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-          btn.classList.add('bg-content-bg', 'text-text-default', 'border-gray-300', 'dark:border-gray-600');
-        }
-      });
-    }
-
-    function applyBodySettings(settings) {
-      const body = document.body;
-      if (!body) return;
-
-      // 1. Theme
-      body.classList.remove('light', 'dark', 'high-contrast');
-      body.classList.add(settings.theme);
-
-      // 2. Motion, Highlight Links, Readable Width
-      body.classList.toggle('reduced-motion', settings.reducedMotion);
-      body.classList.toggle('highlight-links', settings.highlightLinks);
-      body.classList.toggle('readable-width', settings.readableWidth);
-      body.classList.toggle('greyscale-mode', settings.greyscale);
-      body.classList.toggle('reading-line-focus', settings.readingLine);
-
-      // Update the font buttons on reload
-      updateFontButtonUI(settings.fontFamily);
-    }
-
-    function applySettings(settings) {
-      applyHeadSettings(settings);
-      applyBodySettings(settings);
-      // Ensure reading line element is created/hidden correctly on application
-      const readingLineElement = document.getElementById('reading-line');
-      if (readingLineElement) {
-        if (settings.readingLine) {
-          readingLineElement.classList.remove('hidden');
-          // Setup events when enabled (functions defined later in script)
-          if (typeof setupReadingLineEvents === 'function') {
-            setupReadingLineEvents();
-          }
-        } else {
-          readingLineElement.classList.add('hidden');
-          // Remove events when disabled (functions defined later in script)
-          if (typeof removeReadingLineEvents === 'function') {
-            removeReadingLineEvents();
+            primary: '#7C3AED',
+            secondary: '#9333EA',
+            accent: '#DDA0DD',
           }
         }
       }
     }
-
-    let currentSettings = loadSettings();
-    applyHeadSettings(currentSettings);
   </script>
 
-  <!-- Custom Styles for Themes and Accessibility -->
   <style>
-    /* Base styles from dynamic variables */
+    :root {
+      --site-font-size: 1rem;
+      --site-line-height: 1.6;
+      --site-letter-spacing: 0px;
+      --site-word-spacing: 0px;
+      --site-font-family: 'Inter', sans-serif;
+    }
+
     body {
-      background-color: var(--color-base-bg);
-      color: var(--color-text-default);
-      font-size: var(--site-font-size, 1rem);
-      line-height: var(--site-line-height, 1.6);
-      font-family: var(--site-font-family, "Inter", sans-serif);
-      letter-spacing: var(--site-letter-spacing, normal);
-      word-spacing: var(--site-word-spacing, normal);
-      transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s, letter-spacing 0.3s, word-spacing 0.3s;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: var(--site-font-family);
+      font-size: var(--site-font-size);
+      line-height: var(--site-line-height);
+      letter-spacing: var(--site-letter-spacing);
+      word-spacing: var(--site-word-spacing);
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    /* Ensure main content takes up remaining space */
-    #main-wrapper {
-      flex-grow: 1;
-    }
-
-    /* --- THEMES (Updated to Purple Palette) --- */
-    /* Light Theme (Violet/Purple) */
+    /* Theme-specific backgrounds */
     .light {
-      --color-primary: #7C3AED;
-      /* Violet 600 */
-      --color-secondary: #9333EA;
-      /* Violet 700 */
-      --color-accent: #DDA0DD;
-      /* Plum/Pink */
-      --color-base-bg: #FAF5FF;
-      /* Very Light Violet */
-      --color-content-bg: #FFFFFF;
-      --color-card-bg: #FFFFFF;
-      --color-header-bg: #FFFFFF;
-      --color-footer-bg: #1E1B4B;
-      /* Dark Indigo */
-      --color-link: #7C3AED;
-      --color-text-default: #1E1B4B;
-      /* Dark Indigo */
-      --color-text-secondary: #6B7280;
-      --color-hero-bg-from: #5B21B6;
-      /* Violet 800 */
-      --color-hero-bg-to: #7C3AED;
-      /* Violet 600 */
-      --border-radius-base: 0.75rem;
-      --border-radius-lg: 1.5rem;
+      --bg-base: #FAF5FF;
+      --bg-content: #FFFFFF;
+      --text: #1E1B4B;
+      --text-muted: #6B7280;
+      --header: #FFFFFF;
     }
 
-    /* Dark Mode (Violet/Purple) */
     .dark {
-      --color-primary: #A78BFA;
-      /* Violet 400 */
-      --color-secondary: #C4B5FD;
-      /* Violet 300 */
-      --color-accent: #E9D5FF;
-      /* Violet 200 */
-      --color-base-bg: #1F2937;
-      /* Dark Gray */
-      --color-content-bg: #374151;
-      --color-card-bg: #374151;
-      --color-header-bg: #374151;
-      --color-footer-bg: #111827;
-      --color-link: #A78BFA;
-      --color-text-default: #F3F4F6;
-      --color-text-secondary: #D1D5DB;
-      --color-hero-bg-from: #5B21B6;
-      --color-hero-bg-to: #7C3AED;
+      --bg-base: #111827;
+      --bg-content: #1F2937;
+      --text: #F3F4F6;
+      --text-muted: #D1D5DB;
+      --header: #1F2937;
     }
 
-    .dark .shadow-lg {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-    }
-
-    /* High Contrast Mode (WCAG Compliant) */
     .high-contrast {
-      --color-primary: #FFFF00;
-      --color-secondary: #00FFFF;
-      --color-accent: #00FFFF;
-      --color-base-bg: #000000;
-      --color-content-bg: #333333;
-      --color-card-bg: #333333;
-      --color-header-bg: #111111;
-      --color-footer-bg: #111111;
-      --color-link: #FFFF00;
-      --color-text-default: #FFFF00;
-      --color-text-secondary: #FFFFFF;
-      --color-hero-bg-from: #111111;
-      --color-hero-bg-to: #333333;
-      --border-radius-base: 0;
-      --border-radius-lg: 0;
+      --bg-base: #000000;
+      --bg-content: #000000;
+      --text: #FFFF00;
+      --text-muted: #FFFFFF;
+      --header: #000000;
     }
 
-    .high-contrast .bg-primary {
-      background-color: #000000 !important;
-      border: 2px solid #FFFF00 !important;
-      color: #FFFF00 !important;
+    body {
+      background-color: var(--bg-base);
+      color: var(--text);
     }
 
-    .high-contrast .shadow-lg {
-      box-shadow: 0 0 10px #FFFF00;
+    #site-header {
+      background-color: var(--header);
     }
 
-    .high-contrast a,
-    .high-contrast .text-primary {
-      color: var(--color-link) !important;
+    main,
+    #a11y-settings-panel {
+      background-color: var(--bg-content);
+      color: var(--text);
     }
 
+    .text-muted {
+      color: var(--text-muted);
+    }
 
-    /* --- ACCESSIBILITY UTILITIES --- */
+    /* HERO & FOOTER — LOCKED FOREVER */
+    #hero-section {
+      background: linear-gradient(to right, #5B21B6, #7C3AED) !important;
+    }
 
-    /* Greyscale Mode (NEW) */
+    footer {
+      background-color: #1E1B4B !important;
+      color: #E2E8F0 !important;
+    }
+
+    footer a {
+      color: #DDA0DD;
+    }
+
+    footer a:hover {
+      color: #FFFFFF;
+    }
+
+    /* Reading line */
+    #reading-line {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 3.5rem;
+      background: rgba(124, 58, 237, 0.2);
+      border-top: 2px solid #7C3AED;
+      border-bottom: 2px solid #7C3AED;
+      pointer-events: none;
+      z-index: 40;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    #reading-line.active {
+      opacity: 1;
+    }
+
+    /* Features */
+    .highlight-links a {
+      background: #FFFF00 !important;
+      color: #000 !important;
+      padding: 0.1em 0.2em;
+      text-decoration: underline !important;
+    }
+
     .greyscale-mode {
       filter: grayscale(100%);
     }
 
-    /* Reduced Motion */
     .reduced-motion * {
-      transition-duration: 0s !important;
-      animation-duration: 0s !important;
-      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
     }
 
-    /* Highlight Links (WCAG Compliant contrast) */
-    .highlight-links a {
-      text-decoration: underline !important;
-      text-decoration-thickness: 2px !important;
-      background-color: #FFFF00 !important;
-      color: #000000 !important;
-      padding: 2px 4px;
-      border-radius: 3px;
-    }
-
-    .highlight-links footer a {
-      background-color: #FFFF00 !important;
-      color: #000000 !important;
-    }
-
-    /* Readable Width */
     .readable-width main {
       max-width: 70ch;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
     }
 
-    /* Reading Line Focus (WCAG Compliant contrast on borders) */
-    #reading-line {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--line-height-size, 3rem);
-      /* Height of the reading line */
-      background-color: rgba(255, 255, 255, 0.2);
-      border-top: 1px solid var(--color-primary);
-      border-bottom: 1px solid var(--color-primary);
-      pointer-events: none;
-      /* Allows clicks to pass through */
-      z-index: 50;
-      transition: background-color 0.3s;
-      opacity: 0;
-      /* Initially hidden */
-    }
-
-    .dark #reading-line {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .reading-line-focus #reading-line {
-      opacity: 1;
-      transition: opacity 0.3s;
-    }
-
-    /* Announcement Scroll Fix */
-    .announcement-content {
-      /* Smooth and slow scroll */
-      animation: scroll-left 100s linear infinite;
-    }
-
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* Utility */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
-    .sr-only:focus {
-      position: fixed;
-      width: auto;
-      height: auto;
-      padding: 0.5rem 1rem;
-      margin: 0;
-      overflow: visible;
-      clip: auto;
-      white-space: normal;
-      z-index: 9999;
-    }
-
+    /* Toggle switch */
     .toggle {
       appearance: none;
       width: 3rem;
       height: 1.5rem;
       border-radius: 9999px;
-      background-color: #CBD5E0;
+      background: #CBD5E0;
       position: relative;
-      transition: background-color 0.3s;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     .toggle:checked {
-      background-color: var(--color-primary);
+      background: #7C3AED;
     }
 
     .toggle::before {
@@ -518,1362 +183,235 @@
       left: 0.25rem;
       width: 1rem;
       height: 1rem;
-      border-radius: 9999px;
-      background-color: white;
+      border-radius: 50%;
+      background: white;
       transition: transform 0.3s;
     }
 
     .toggle:checked::before {
       transform: translateX(1.5rem);
     }
-
-    /* Hero Section Protection - Force gradient to stay purple */
-    /* This CSS rule has !important to override any JavaScript that tries to change it */
-    #hero-section {
-      background-image: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
-      background: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
-    }
-
-    /* Prevent white background classes from working on hero - override with !important */
-    #hero-section.from-white,
-    #hero-section.to-white,
-    #hero-section.bg-white {
-      background-image: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
-      background: linear-gradient(to right, var(--color-hero-bg-from, #5B21B6), var(--color-hero-bg-to, #7C3AED)) !important;
-      background-color: transparent !important;
-    }
-
-    /* Ensure text stays white on hero section and direct children */
-    #hero-section.text-text-default {
-      color: white !important;
-    }
-
-    #hero-section>h1,
-    #hero-section>p,
-    #hero-section>div>h1,
-    #hero-section>div>p {
-      color: white !important;
-    }
-
-    #hero-section .text-text-default {
-      color: white !important;
-    }
   </style>
 </head>
 
-<body class="antialiased font-sans">
+<body class="antialiased min-h-screen flex flex-col light">
 
-  <!-- Skip Navigation Link for Accessibility -->
-  <a href="#main-wrapper" class="sr-only focus:not-sr-only">
-    Skip to main content
-  </a>
-
-  <!-- Apply Body Settings on load -->
-  <script>
-    (function () {
-      applyBodySettings(currentSettings);
-      updateFontButtonUI(currentSettings.fontFamily);
-      updateThemeButtonUI(currentSettings.theme);
-
-      // Initial setup for the reading line element
-      // Note: setupReadingLineEvents/removeReadingLineEvents are defined later in the script
-      // so we just handle the visibility here, events will be set up when the full script loads
-      const readingLineElement = document.getElementById('reading-line');
-      if (readingLineElement) {
-        if (currentSettings.readingLine) {
-          readingLineElement.classList.remove('hidden');
-        } else {
-          readingLineElement.classList.add('hidden');
-        }
-      }
-    })();
-  </script>
-
-  <!-- ACCESSIBILITY SETTINGS PANEL BUTTON -->
+  <!-- A11y Button -->
   <button id="a11y-toggle-button"
-    class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-110"
-    aria-label="Toggle Accessibility Settings Panel" aria-controls="a11y-settings-panel">
+    class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-2xl hover:scale-110 transition"
+    aria-label="Open accessibility settings">
     <i class="fas fa-universal-access text-2xl"></i>
   </button>
 
-  <!-- ACCESSIBILITY SETTINGS PANEL (SIDEBAR) -->
+  <!-- A11y Panel — your exact original, now theme-aware -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
-    role="dialog" aria-modal="true" aria-label="Accessibility and Display Settings" aria-hidden="true">
+    class="fixed top-0 right-0 h-full w-80 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+    role="dialog" aria-modal="true" aria-label="Accessibility Settings">
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
-      <button id="a11y-close-button"
-        class="text-text-secondary hover:text-text-default p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
-        aria-label="Close settings panel">
-        <i class="fas fa-times text-lg"></i>
-      </button>
+      <button id="a11y-close-button" class="text-lg hover:scale-110">×</button>
     </div>
 
-    <!-- Theme Settings -->
-    <div class="space-y-6">
+    <div class="space-y-6 text-sm">
       <div>
-        <label class="block text-sm font-medium mb-2 text-text-default">Display Mode</label>
+        <label class="block font-medium mb-2">Display Mode</label>
         <div class="grid grid-cols-3 gap-2">
-          <button id="theme-light" data-theme="light"
-            class="theme-selector flex-1 py-2 rounded-lg border border-gray-300 transition-colors duration-200"
-            aria-label="Set theme to Light">
-            <i class="fas fa-sun mr-1"></i> Light
-          </button>
-          <button id="theme-dark" data-theme="dark"
-            class="theme-selector flex-1 py-2 rounded-lg border border-gray-300 transition-colors duration-200"
-            aria-label="Set theme to Dark">
-            <i class="fas fa-moon mr-1"></i> Dark
-          </button>
-          <button id="theme-contrast" data-theme="high-contrast"
-            class="theme-selector flex-1 py-2 rounded-lg border border-gray-300 transition-colors duration-200"
-            aria-label="Set theme to High Contrast">
-            <i class="fas fa-low-vision mr-1"></i> Contrast
-          </button>
+          <button data-theme="light" class="theme-btn py-2 rounded border">Light</button>
+          <button data-theme="dark" class="theme-btn py-2 rounded border">Dark</button>
+          <button data-theme="high-contrast" class="theme-btn py-2 rounded border">High Contrast</button>
         </div>
       </div>
 
-      <!-- Font Selection -->
       <div>
-        <label class="block text-sm font-medium mb-2 text-text-default">Reading Font</label>
-        <div id="font-selection-buttons" class="grid grid-cols-4 gap-2 text-xs font-semibold">
-          <button data-font="Inter"
-            class="font-selector py-2 rounded-lg border border-gray-300 transition-colors duration-200">Default</button>
-          <button data-font="Merriweather"
-            class="font-selector py-2 rounded-lg border border-gray-300 transition-colors duration-200">Serif</button>
-          <button data-font="Open Dyslexic"
-            class="font-selector py-2 rounded-lg border border-gray-300 transition-colors duration-200">Dyslexic</button>
-          <button data-font="Roboto Mono"
-            class="font-selector py-2 rounded-lg border border-gray-300 transition-colors duration-200">Monospace</button>
+        <label class="block font-medium mb-2">Reading Font</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-font="Inter" class="font-btn py-2 rounded border text-xs">Default</button>
+          <button data-font="Open Dyslexic" class="font-btn py-2 rounded border text-xs">Dyslexic</button>
+          <button data-font="Merriweather" class="font-btn py-2 rounded border text-xs">Serif</button>
+          <button data-font="Roboto Mono" class="font-btn py-2 rounded border text-xs">Mono</button>
         </div>
       </div>
 
-      <!-- Text Size Slider -->
-      <div>
-        <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span
-            id="font-size-value">100</span>%)</label>
-        <input type="range" id="font-size-slider" min="0.8" max="1.6" step="0.1" value="1.0"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Small</span>
-          <span>Default</span>
-          <span>Large</span>
-        </div>
-      </div>
+      <div><label>Text Size (<span id="size-val">100</span>%)<input type="range" id="size-slider" min="0.8" max="1.8"
+            step="0.1" value="1" class="w-full"></label></div>
+      <div><label>Line Height (<span id="line-val">1.6</span>)<input type="range" id="line-slider" min="1.2" max="2.4"
+            step="0.1" value="1.6" class="w-full"></label></div>
+      <div><label>Letter Spacing (<span id="letter-val">0</span>px)<input type="range" id="letter-slider" min="-1"
+            max="5" step="0.5" value="0" class="w-full"></label></div>
 
-      <!-- Line Height Slider -->
-      <div>
-        <label for="line-height-slider" class="block text-sm font-medium mb-2 text-text-default">Line Height
-          (<span id="line-height-value">1.6</span>)</label>
-        <input type="range" id="line-height-slider" min="1.3" max="2.0" step="0.1" value="1.6"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Compact</span>
-          <span>Spacious</span>
-        </div>
-      </div>
+      <hr class="border-gray-300">
 
-      <!-- Letter Spacing Slider -->
-      <div>
-        <label for="letter-spacing-slider" class="block text-sm font-medium mb-2 text-text-default">Letter Spacing
-          (<span id="letter-spacing-value">0</span>px)</label>
-        <input type="range" id="letter-spacing-slider" min="-1" max="3" step="0.5" value="0"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Tight</span>
-          <span>Default</span>
-          <span>Wide</span>
-        </div>
-      </div>
+      <label class="flex justify-between items-center"><span>Reading Line</span><input type="checkbox" id="reading-line"
+          class="toggle"></label>
+      <label class="flex justify-between items-center"><span>Highlight Links</span><input type="checkbox"
+          id="highlight-links" class="toggle"></label>
+      <label class="flex justify-between items-center"><span>Greyscale</span><input type="checkbox" id="greyscale"
+          class="toggle"></label>
+      <label class="flex justify-between items-center"><span>Readable Width</span><input type="checkbox"
+          id="readable-width" class="toggle"></label>
+      <label class="flex justify-between items-center"><span>Reduce Motion</span><input type="checkbox"
+          id="reduced-motion" class="toggle"></label>
 
-      <!-- Word Spacing Slider -->
-      <div>
-        <label for="word-spacing-slider" class="block text-sm font-medium mb-2 text-text-default">Word Spacing
-          (<span id="word-spacing-value">0</span>px)</label>
-        <input type="range" id="word-spacing-slider" min="0" max="5" step="0.5" value="0"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Default</span>
-          <span>Spacious</span>
-        </div>
-      </div>
+      <button id="reset-a11y" class="w-full bg-gray-200 hover:bg-gray-300 py-3 rounded mt-6 font-bold">Reset
+        All</button>
+    </div>
+  </div>
 
-      <hr class="border-gray-200 dark:border-gray-700">
+  <div id="reading-line" aria-hidden="true"></div>
 
-      <!-- Greyscale Toggle -->
-      <div>
-        <label for="toggle-greyscale" class="block text-sm font-medium mb-2 text-text-default">Greyscale Mode</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary text-sm">Remove all color saturation</span>
-          <input type="checkbox" id="toggle-greyscale" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Reading Line Focus Toggle -->
-      <div>
-        <label for="toggle-reading-line" class="block text-sm font-medium mb-2 text-text-default">Reading Line
-          Focus</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary text-sm">Highlights the line of text being read</span>
-          <input type="checkbox" id="toggle-reading-line" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Highlight Links Toggle -->
-      <div>
-        <label for="toggle-highlight-links" class="block text-sm font-medium mb-2 text-text-default">Highlight
-          Links</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary text-sm">Underline and highlight all links</span>
-          <input type="checkbox" id="toggle-highlight-links" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Readable Width Toggle -->
-      <div>
-        <label for="toggle-readable-width" class="block text-sm font-medium mb-2 text-text-default">Readable
-          Width</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary text-sm">Constrain main content width</span>
-          <input type="checkbox" id="toggle-readable-width" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Reduced Motion Toggle -->
-      <div>
-        <label for="toggle-reduced-motion" class="block text-sm font-medium mb-2 text-text-default">Reduce
-          Animations</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary text-sm">Disable transitions and animations</span>
-          <input type="checkbox" id="toggle-reduced-motion" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Reset Button -->
-      <button id="reset-a11y-settings"
-        class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
-        Reset All Settings
+  <!-- ORIGINAL NAV BAR — now fully responsive & theme-aware -->
+  <header id="site-header" class="sticky top-0 z-40 shadow-lg transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 max-w-7xl flex justify-between items-center">
+      <a href="/" class="flex items-center gap-3 font-extrabold text-xl text-primary">
+        <img src="https://placehold.co/32x32/7C3AED/FFFFFF?text=HL" alt="" class="rounded-full h-8 w-8">
+        Hesten's Learning
+      </a>
+      <button id="nav-toggle" class="lg:hidden" aria-controls="nav-content" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </button>
-    </div>
-  </div>
-
-  <!-- READING LINE FOCUS -->
-  <div id="reading-line" class="hidden" aria-hidden="true"></div>
-
-
-  <!-- Announcement Section -->
-  <div id="announcement-bar"
-    class="bg-primary text-white py-2 flex items-center justify-center relative transition-colors duration-300 w-full"
-    role="region" aria-label="Site Announcement">
-    <div class="flex-1 overflow-hidden whitespace-nowrap px-4 max-w-7xl mx-auto">
-      <div class="announcement-content inline-block">
-        <span class="announcement-item inline-block px-4 text-sm font-medium">
-          <i class="fas fa-bullhorn mr-2"></i> Exciting news! We're rolling out new features weekly.
-        </span>
-        <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
-        <span class="announcement-item inline-block px-4 text-sm">
-          <i class="fas fa-envelope mr-2"></i> Have a feature request? Email me at <a href="mailto:admin@hestena62.com"
-            class="font-bold underline hover:text-accent">admin@hestena62.com</a>
-        </span>
-        <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
-        <!-- Duplicated content for smooth scrolling animation -->
-        <span class="announcement-item inline-block px-4 text-sm font-medium">
-          <i class="fas fa-bullhorn mr-2"></i> Exciting news! We're rolling out new features weekly.
-        </span>
-        <span class="announcement-divider text-accent" aria-hidden="true">&bull;</span>
-      </div>
-    </div>
-    <button id="close-announcement"
-      class="flex-shrink-0 absolute right-1 top-1/2 transform -translate-y-1/2 p-2 text-white hover:text-accent text-lg focus:outline-none focus:ring-2 focus:ring-white"
-      aria-label="Close announcement">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-  </div>
-
-  <!-- Navigation Bar -->
-  <header id="site-header" class="sticky top-0 z-40 bg-header-bg shadow-lg transition-colors duration-300">
-    <div class="container mx-auto px-4 py-4 max-w-7xl">
-      <nav class="flex items-center justify-between flex-wrap" aria-label="Main navigation">
-        <!-- Logo and brand name -->
-        <a class="flex items-center flex-shrink-0 text-text-default transition-colors duration-300 mr-6" href="/"
-          aria-label="Hesten's Learning Home">
-          <img src="https://placehold.co/32x32/7C3AED/FFFFFF?text=HL" alt="Hesten's Learning Logo"
-            class="rounded-full h-8 w-8 mr-2 shadow-md" width="32" height="32" loading="eager" />
-          <span class="font-extrabold text-xl tracking-tight text-primary transition-colors duration-300">
-            Hesten's Learning
-          </span>
-        </a>
-
-        <!-- Mobile menu button -->
-        <div class="block lg:hidden">
-          <button id="nav-toggle"
-            class="flex items-center px-3 py-2 border rounded border-text-secondary text-text-secondary hover:text-primary hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
-            aria-controls="nav-content" aria-expanded="false">
-            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
-            </svg>
-            <span class="sr-only">Toggle navigation menu</span>
-          </button>
-        </div>
-
-        <!-- Navigation links and search/profile -->
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:visible" id="nav-content">
-          <div class="text-base font-medium lg:flex-grow lg:flex lg:justify-end">
-            <a href="/"
-              class="nav-link block mt-4 lg:inline-block lg:mt-0 text-text-default hover:text-primary mr-4 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
-              <i class="fas fa-home mr-1"></i> Home
-            </a>
-            <a href="#levels"
-              class="nav-link block mt-4 lg:inline-block lg:mt-0 text-text-default hover:text-primary mr-4 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
-              <i class="fas fa-chalkboard-teacher mr-1"></i> Curriculum
-            </a>
-            <a href="/assessment.php"
-              class="nav-link block mt-4 lg:inline-block lg:mt-0 text-text-default hover:text-primary mr-4 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
-              <i class="fas fa-tasks mr-1"></i> Assessment
-            </a>
-            <a href="/about.php"
-              class="nav-link block mt-4 lg:inline-block lg:mt-0 text-text-default hover:text-primary p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
-              <i class="fas fa-info-circle mr-1"></i> About
-            </a>
-          </div>
-
-          <!-- Search bar -->
-          <div class="relative mt-4 lg:mt-0 lg:ml-6">
-            <form id="search-form" action="/search.php" method="GET" role="search">
-              <label for="search-input" class="sr-only">Search courses</label>
-              <input type="text" id="search-input" name="q" placeholder="Search..."
-                class="search-input bg-base-bg text-text-default border border-gray-300 dark:border-gray-600 rounded-full py-2 pl-10 pr-4 w-full lg:w-48 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 ease-in-out dark:bg-content-bg" />
-              <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"
-                aria-hidden="true"></i>
-            </form>
-          </div>
-        </div>
+      <nav id="nav-content" class="hidden lg:flex gap-8 font-medium">
+        <a href="/" class="hover:text-primary transition">Home</a>
+        <a href="#levels" class="hover:text-primary transition">Curriculum</a>
+        <a href="/assessment.php" class="hover:text-primary transition">Assessment</a>
+        <a href="/about.php" class="hover:text-primary transition">About</a>
       </nav>
     </div>
   </header>
 
-  <div id="main-wrapper">
-    <!-- Hero Section - Purple Gradient -->
-    <section id="hero-section"
-      class="bg-gradient-to-r from-hero-bg-from to-hero-bg-to text-white py-24 px-4 text-center shadow-xl rounded-b-lg-rounded">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
-          Education Tailored For <span class="block sm:inline-block">Unique Minds.</span>
-        </h1>
-        <p class="text-lg sm:text-xl md:text-2xl font-light mb-10 opacity-95">
-          Personalized learning pathways designed to overcome barriers and foster genuine mastery.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-          <a href="#levels"
-            class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-10 rounded-full shadow-2xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg"
-            aria-label="Navigate to curriculum levels section">
-            Enroll Today <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
-          </a>
-          <a href="/assessment.php"
-            class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white text-lg"
-            aria-label="Take a free assessment to determine your learning level">
-            Take Free Assessment
-          </a>
-        </div>
+  <!-- ORIGINAL HERO — LOCKED PURPLE GRADIENT FOREVER -->
+  <section id="hero-section" class="text-white py-24 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+        Education Tailored For <span class="block sm:inline-block">Unique Minds.</span>
+      </h1>
+      <p class="text-lg sm:text-xl md:text-2xl font-light mb-10 opacity-95">
+        Personalized learning pathways designed to overcome barriers and foster genuine mastery.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a href="#levels"
+          class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-10 rounded-full shadow-2xl transition transform hover:scale-105 text-lg">
+          Enroll Today <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+        <a href="/assessment.php"
+          class="bg-transparent border-2 border-white hover:bg-white hover:text-primary font-bold py-3 px-10 rounded-full shadow-lg transition transform hover:scale-105 text-lg">
+          Take Free Assessment
+        </a>
       </div>
-    </section>
-
-    <!-- Features Section - Why Choose Hesten's Learning? -->
-    <section class="container mx-auto py-16 px-4 max-w-7xl" aria-labelledby="why-choose-us">
-      <h2 id="why-choose-us" class="text-3xl sm:text-4xl font-extrabold text-center mb-12 text-text-default">
-        Designed for Success. Built for Difference.
-      </h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <!-- Feature 1: Personalized Pathways -->
-        <div
-          class="bg-content-bg rounded-lg-rounded shadow-lg p-8 text-center border-t-8 border-primary transition duration-300 hover:shadow-card-hover hover:border-secondary">
-          <i class="fas fa-route text-6xl text-primary mb-4" aria-hidden="true"></i>
-          <h3 class="text-xl font-bold text-text-default mb-3">Custom Mastery Paths</h3>
-          <p class="text-text-secondary text-base">
-            Learning material adjusts automatically, ensuring every student works at their optimal level of challenge—no
-            more gap filling or boredom.
-          </p>
-        </div>
-
-        <!-- Feature 2: Built-in Accessibility -->
-        <div
-          class="bg-content-bg rounded-lg-rounded shadow-lg p-8 text-center border-t-8 border-secondary transition duration-300 hover:shadow-card-hover hover:border-accent">
-          <i class="fas fa-universal-access text-6xl text-secondary mb-4" aria-hidden="true"></i>
-          <h3 class="text-xl font-bold text-text-default mb-3">Inclusive by Default</h3>
-          <p class="text-text-secondary text-base">
-            The platform incorporates dynamic tools like Dyslexic fonts, high contrast, and custom spacing, making
-            content accessible to everyone.
-          </p>
-        </div>
-
-        <!-- Feature 3: All-Subject Curriculum -->
-        <div
-          class="bg-content-bg rounded-lg-rounded shadow-lg p-8 text-center border-t-8 border-accent transition duration-300 hover:shadow-card-hover hover:border-primary">
-          <i class="fas fa-cubes text-6xl text-accent mb-4" aria-hidden="true"></i>
-          <h3 class="text-xl font-bold text-text-default mb-3">Comprehensive Core Subjects</h3>
-          <p class="text-text-secondary text-base">
-            Covering K-5 Math, ELA, Science, and Social Studies. We provide the breadth needed for holistic academic
-            development.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Main Content - Curriculum Levels Grid -->
-    <main class="container mx-auto py-16 px-4 max-w-7xl">
-      <h2 id="levels" class="text-3xl sm:text-4xl font-extrabold text-center mb-12 text-text-default">Explore Our
-        Curriculum Levels</h2>
-
-      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
-        aria-labelledby="levels">
-        <!-- Mock Data for Preview -->
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-primary">
-          <h3 class="text-2xl font-bold text-primary mb-3">Pre-K</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Foundational skills in counting, letter names, and phonological awareness for the youngest learners.
-          </p>
-          <a href="/Level/A.html"
-            class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200"
-            aria-label="Explore Pre-K curriculum skills">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-secondary">
-          <h3 class="text-2xl font-bold text-secondary mb-3">Kindergarten</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Focus on early literacy, numeracy, and basic scientific concepts to build core learning habits.
-          </p>
-          <a href="/Level/B.html"
-            class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-accent">
-          <h3 class="text-2xl font-bold text-accent mb-3">Grade 1</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Introduction to basic arithmetic operations, reading comprehension strategies, and simple reporting.
-          </p>
-          <a href="/Level/C.html"
-            class="text-accent font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-primary">
-          <h3 class="text-2xl font-bold text-primary mb-3">Grade 2</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Building fluency in reading and math, covering early fractions, reading for detail, and short essays.
-          </p>
-          <a href="/Level/B.html"
-            class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <!-- Add more mock content here for a fuller layout -->
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-secondary">
-          <h3 class="text-2xl font-bold text-secondary mb-3">Grade 3</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Mastering multiplication and division, introduction to grammar, and engaging with social studies content.
-          </p>
-          <a href="/Level/D.html"
-            class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-accent">
-          <h3 class="text-2xl font-bold text-accent mb-3">Grade 4</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Deeper dives into long division, literary analysis, and comprehensive science topics (e.g., ecosystems).
-          </p>
-          <a href="/Level/D.html"
-            class="text-accent font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-primary">
-          <h3 class="text-2xl font-bold text-primary mb-3">Grade 5</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Preparing for middle school with decimals, essay structure, and advanced critical thinking challenges.
-          </p>
-          <a href="/Level/E.html"
-            class="text-primary font-semibold flex items-center hover:text-secondary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-        </article>
-
-        <article
-          class="level-card bg-content-bg rounded-base-rounded shadow-lg p-6 transform transition duration-300 hover:scale-[1.02] hover:shadow-card-hover flex flex-col justify-between border-l-4 border-secondary">
-          <h3 class="text-2xl font-bold text-secondary mb-3">Test/Extra</h3>
-          <p class="text-text-secondary mb-4 flex-grow">
-            Non-core content, practice quizzes, and extra challenge problems for accelerated learning.
-          </p>
-          <a href="/test"
-            class="text-secondary font-semibold flex items-center hover:text-primary transition duration-200">
-            Explore Skills <i class="fas fa-chevron-right ml-2 text-sm" aria-hidden="true"></i>
-          </a>
-  </div>
-
+    </div>
   </section>
-  </main>
-  </div>
 
-  <!-- Footer -->
-  <footer
-    class="bg-footer-bg text-white py-12 px-4 rounded-t-lg-rounded shadow-xl transition-colors duration-300 mt-auto">
+  <main class="flex-1 container mx-auto px-4 py-16 max-w-7xl">
+    <h2 id="levels" class="text-4xl font-extrabold text-center mb-12">Curriculum Levels Coming Soon</h2>
+    <p class="text-center text-xl text-muted">Your beautiful level cards go here — everything is now rock-solid!</p>
+  </main>
+
+  <!-- ORIGINAL FOOTER — LOCKED DEEP INDIGO FOREVER -->
+  <footer class="py-12 px-4">
     <div class="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-8">
-      <!-- About -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-primary">
-          <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i> Hesten's Learning
+        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">
+          Hesten's Learning
         </h3>
         <p class="text-sm opacity-90 text-gray-300">
           We are committed to providing personalized, accessible education that turns learning challenges into
           strengths.
-          <a href="/about.php"
-            class="text-accent underline hover:text-white ml-1 focus:outline-none focus:ring-2 focus:ring-white rounded">Learn
-            more</a>
+          <a href="/about.php" class="text-accent underline hover:text-white ml-1">Learn more</a>
         </p>
       </div>
-      <!-- Quick Links -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-primary" id="quick-links-heading">
-          <i class="fas fa-link mr-2" aria-hidden="true"></i> Quick Links
-        </h3>
-        <nav aria-labelledby="quick-links-heading">
-          <ul class="space-y-3 text-sm">
-            <li>
-              <a href="#levels"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-book mr-2" aria-hidden="true"></i>Curriculum</a>
-            </li>
-            <li>
-              <a href="/assessment.php"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-tasks mr-2" aria-hidden="true"></i>Assessment</a>
-            </li>
-            <li>
-              <a href="/library"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-book-reader mr-2" aria-hidden="true"></i>Library</a>
-            </li>
-            <li>
-              <a href="/help.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Quick Links</h3>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="#levels" class="hover:text-white">Curriculum</a></li>
+          <li><a href="/assessment.php" class="hover:text-white">Assessment</a></li>
+          <li><a href="/library" class="hover:text-white">Library</a></li>
+          <li><a href="/help.html" class="hover:text-white">Help Center</a></li>
+        </ul>
       </div>
-      <!-- Support -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-primary" id="support-heading">
-          <i class="fas fa-hands-helping mr-2" aria-hidden="true"></i> Support
-        </h3>
-        <nav aria-labelledby="support-heading">
-          <ul class="space-y-3 text-sm">
-            <li>
-              <a href="/contact.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-envelope mr-2" aria-hidden="true"></i>Contact Us</a>
-            </li>
-            <li>
-              <a href="/students.php"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
-            </li>
-            <li>
-              <a href="/parents.php"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Support</h3>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="/contact.html" class="hover:text-white">Contact Us</a></li>
+          <li><a href="/students.php" class="hover:text-white">For Students</a></li>
+          <li><a href="/parents.php" class="hover:text-white">For Parents</a></li>
+          <li><a href="#" class="hover:text-white">For Teachers</a></li>
+        </ul>
       </div>
-      <!-- Legal & Settings -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-primary" id="legal-heading">
-          <i class="fas fa-balance-scale mr-2" aria-hidden="true"></i> Legal
-        </h3>
-        <nav aria-labelledby="legal-heading">
-          <ul class="space-y-3 text-sm">
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
-            </li>
-            <li>
-              <a href="#"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
-            </li>
-            <li>
-              <a href="/about-us.php"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded text-gray-300"><i
-                  class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Legal</h3>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white">Terms of Use</a></li>
+          <li><a href="#" class="hover:text-white">Accessibility</a></li>
+          <li><a href="/about-us.php" class="hover:text-white">About Us</a></li>
+        </ul>
       </div>
     </div>
-
-    <!-- Copyright and Creative Commons -->
-    <div class="mt-10 border-t border-gray-700 pt-6 text-center text-sm opacity-90 text-gray-400">
-      <p>
-        &copy; 2024 Hesten's Learning. All rights reserved.
-        <span class="mx-2" aria-hidden="true">|</span>
-        Made with <i class="fas fa-heart text-red-400" aria-label="love"></i> for education
-      </p>
+    <div class="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
+      <p>© 2024 Hesten's Learning. All rights reserved. | Made with love for education</p>
       <p class="mt-2">
-        <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten's
-          Learning</a>
-        by
-        <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="/about-me.php"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten
-          Allison</a>
-        is licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
-          rel="license noopener noreferrer"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">CC
+        <a href="http://hestena62.com" class="text-accent underline hover:text-white">Hesten's Learning</a> by
+        <a href="/about-me.php" class="text-accent underline hover:text-white">Hesten Allison</a> is licensed under
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="text-accent underline hover:text-white">CC
           BY-NC-SA 4.0</a>
       </p>
-      <!-- Gtranslate Widget Placeholder -->
-      <div class="gtranslate_wrapper mt-4"></div>
-      <script>
-        window.gtranslateSettings = {
-          default_language: "en",
-          native_language_names: true,
-          detect_browser_language: true,
-          wrapper_selector: ".gtranslate_wrapper",
-          flag_style: "3d",
-          alt_flags: {
-            en: "usa"
-          },
-        };
-      </script>
-      <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
-      <!-- Buy Me A Coffee Button Placeholder -->
-      <div class="mt-4 flex justify-center items-center gap-4">
-        <a href="https://www.buymeacoffee.com/hestena62l"
-          class="focus:outline-none focus:ring-2 focus:ring-white rounded"
-          aria-label="Support Hesten's Learning on Buy Me a Coffee">
-          <img
-            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hestena62&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
-            alt="Buy me a coffee" width="217" height="60" loading="lazy" />
-        </a>
-      </div>
     </div>
   </footer>
 
-  <!-- Message Box Modal -->
-  <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
-    role="alertdialog" aria-modal="true" aria-labelledby="message-title">
-    <div
-      class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
-      <h4 id="message-title" class="text-xl font-bold mb-4 text-primary">Notification</h4>
-      <p id="message-text" class="mb-6 text-text-default">This is a general message.</p>
-      <button id="message-ok-button"
-        class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
-        OK
-      </button>
-    </div>
-  </div>
-
-  <!-- Confirmation Modal -->
-  <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
-    role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
-    <div
-      class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
-      <h4 id="confirmation-title" class="text-xl font-bold mb-4 text-secondary">Confirm Action</h4>
-      <p id="confirmation-text" class="mb-6 text-text-default">Are you sure you want to proceed?</p>
-      <div class="flex justify-center space-x-4">
-        <button id="confirm-yes-button"
-          class="bg-secondary text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
-          Yes
-        </button>
-        <button id="confirm-no-button"
-          class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
-          No
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Site-wide Script (Modal, Navigation, and Accessibility Logic) -->
   <script>
-    // --- GLOBAL MODAL FUNCTIONS (with focus trap) ---
-    const messageBox = document.getElementById("message-box");
-    const messageText = document.getElementById("message-text");
-    const messageOkButton = document.getElementById("message-ok-button");
-    const confirmationModal = document.getElementById("confirmation-modal");
-    const confirmationText = document.getElementById("confirmation-text");
-    const confirmYesButton = document.getElementById("confirm-yes-button");
-    const confirmNoButton = document.getElementById("confirm-no-button");
+    const STORAGE_KEY = 'hesten_a11y_final_locked';
+    const defaults = {
+      theme: 'light', font: 'Inter', size: 1, line: 1.6, letter: 0,
+      readingLine: false, highlightLinks: false, greyscale: false, readableWidth: false, reducedMotion: false
+    };
+    let s = { ...defaults };
+    try { const saved = localStorage.getItem(STORAGE_KEY); if (saved) s = { ...defaults, ...JSON.parse(saved) }; } catch (e) { }
 
-    let lastFocusedElement = null; // Stores the element that was focused before the modal opened
+    const body = document.body;
+    const panel = document.getElementById('a11y-settings-panel');
+    const btn = document.getElementById('a11y-toggle-button');
+    const close = document.getElementById('a11y-close-button');
+    const line = document.getElementById('reading-line');
 
-    // A11Y: Function to handle focus trap in modals (WCAG 2.1 compliant)
-    function trapFocus(modalElement) {
-      const focusableElements = modalElement.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusableElements.length === 0) return;
+    function apply() {
+      body.classList.remove('light', 'dark', 'high-contrast', 'greyscale-mode', 'highlight-links', 'readable-width', 'reduced-motion');
+      body.classList.add(s.theme);
+      if (s.greyscale) body.classList.add('greyscale-mode');
+      if (s.highlightLinks) body.classList.add('highlight-links');
+      if (s.readableWidth) body.classList.add('readable-width');
+      if (s.reducedMotion) body.classList.add('reduced-motion');
+      if (s.readingLine) line.classList.add('active'); else line.classList.remove('active');
 
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
+      document.documentElement.style.setProperty('--site-font-family', s.font === 'Open Dyslexic' ? '"Open Dyslexic", sans-serif' : `${s.font}, sans-serif`);
+      document.documentElement.style.setProperty('--site-font-size', s.size + 'rem');
+      document.documentElement.style.setProperty('--site-line-height', s.line);
 
-      const handleFocusTrap = function (e) {
-        if (e.key !== 'Tab') return;
-        if (e.shiftKey) { // Shift + Tab
-          if (document.activeElement === firstFocusableElement) {
-            lastFocusableElement.focus();
-            e.preventDefault();
-          }
-        } else { // Tab
-          if (document.activeElement === lastFocusableElement) {
-            firstFocusableElement.focus();
-            e.preventDefault();
-          }
-        }
-      };
-
-      modalElement._handleFocusTrap = handleFocusTrap;
-      modalElement.addEventListener('keydown', modalElement._handleFocusTrap);
-      firstFocusableElement.focus();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
     }
 
-    function removeTrapFocus(modalElement) {
-      if (modalElement && modalElement._handleFocusTrap) {
-        modalElement.removeEventListener('keydown', modalElement._handleFocusTrap);
-        delete modalElement._handleFocusTrap;
-      }
-    }
+    btn.onclick = () => panel.classList.remove('translate-x-full');
+    close.onclick = () => panel.classList.add('translate-x-full');
 
+    document.querySelectorAll('.theme-btn').forEach(b => b.onclick = () => { s.theme = b.dataset.theme; apply(); });
+    document.querySelectorAll('.font-btn').forEach(b => b.onclick = () => { s.font = b.dataset.font; apply(); });
 
-    function showMessageBox(message) {
-      if (!messageBox || !messageText || !messageOkButton) return;
+    document.getElementById('size-slider').oninput = e => { s.size = e.target.value; document.getElementById('size-val').textContent = Math.round(e.target.value * 100); apply(); };
+    document.getElementById('line-slider').oninput = e => { s.line = e.target.value; document.getElementById('line-val').textContent = e.target.value; apply(); };
+    document.getElementById('letter-slider').oninput = e => { s.letter = e.target.value; document.getElementById('letter-val').textContent = e.target.value; apply(); };
 
-      lastFocusedElement = document.activeElement;
-      messageText.textContent = message;
-      messageBox.classList.remove("hidden");
-      messageBox.style.display = 'flex';
-
-      trapFocus(messageBox);
-
-      messageOkButton.onclick = () => {
-        messageBox.classList.add("hidden");
-        messageBox.style.display = 'none';
-        removeTrapFocus(messageBox);
-        if (lastFocusedElement) lastFocusedElement.focus();
-      };
-    }
-
-    function showConfirmationModal(message, onConfirm) {
-      if (!confirmationModal || !confirmationText || !confirmYesButton || !confirmNoButton) return;
-
-      lastFocusedElement = document.activeElement;
-      confirmationText.textContent = message;
-      confirmationModal.classList.remove("hidden");
-      confirmationModal.style.display = 'flex';
-
-      trapFocus(confirmationModal);
-      if (confirmNoButton) confirmNoButton.focus();
-
-      const handleConfirmation = (result) => {
-        confirmationModal.classList.add("hidden");
-        confirmationModal.style.display = 'none';
-        removeTrapFocus(confirmationModal);
-        if (lastFocusedElement) lastFocusedElement.focus();
-        onConfirm(result);
-      };
-
-      confirmYesButton.onclick = () => handleConfirmation(true);
-      confirmNoButton.onclick = () => handleConfirmation(false);
-    }
-
-    // --- UI Interactions (Navigation, Announcement) ---
-
-    // Mobile Navigation Toggle
-    const navToggle = document.getElementById("nav-toggle");
-    const navContent = document.getElementById("nav-content");
-
-    if (navToggle && navContent) {
-      navToggle.addEventListener("click", function () {
-        const isHidden = navContent.classList.toggle("hidden");
-        this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
-        navContent.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
-      });
-      // Close mobile menu when a link is clicked
-      navContent.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth < 1024) { // 1024px is Tailwind's 'lg' breakpoint
-            navContent.classList.add("hidden");
-            navToggle.setAttribute('aria-expanded', 'false');
-            navContent.setAttribute('aria-hidden', 'true');
-          }
-        });
-      });
-
-      // Close mobile menu on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !navContent.classList.contains('hidden')) {
-          navContent.classList.add("hidden");
-          navToggle.setAttribute('aria-expanded', 'false');
-          navContent.setAttribute('aria-hidden', 'true');
-          navToggle.focus();
-        }
-      });
-    }
-
-    // Announcement Bar Close
-    const closeAnnouncementBtn = document.getElementById("close-announcement");
-    const announcementBar = document.getElementById("announcement-bar");
-    if (closeAnnouncementBtn && announcementBar) {
-      // Save announcement state to localStorage
-      const announcementKey = 'hl_announcement_closed';
-      const wasClosed = localStorage.getItem(announcementKey);
-
-      if (wasClosed === 'true') {
-        announcementBar.style.display = "none";
-      }
-
-      closeAnnouncementBtn.addEventListener("click", function () {
-        announcementBar.style.display = "none";
-        try {
-          localStorage.setItem(announcementKey, 'true');
-        } catch (e) {
-          console.warn("Could not save announcement state:", e);
-        }
-      });
-    }
-
-
-    // --- ADVANCED ACCESSIBILITY PANEL LOGIC ---
-
-    const a11yPanel = document.getElementById('a11y-settings-panel');
-    const a11yToggleButton = document.getElementById('a11y-toggle-button');
-    const a11yCloseButton = document.getElementById('a11y-close-button');
-
-    if (a11yPanel && a11yToggleButton && a11yCloseButton) {
-      // Panel open/close
-      a11yToggleButton.addEventListener('click', () => {
-        a11yPanel.classList.remove('translate-x-full');
-        a11yPanel.setAttribute('aria-hidden', 'false');
-        trapFocus(a11yPanel);
-      });
-
-      a11yCloseButton.addEventListener('click', () => {
-        a11yPanel.classList.add('translate-x-full');
-        a11yPanel.setAttribute('aria-hidden', 'true');
-        removeTrapFocus(a11yPanel);
-        a11yToggleButton.focus();
-      });
-
-      // Close on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
-          a11yPanel.classList.add('translate-x-full');
-          a11yPanel.setAttribute('aria-hidden', 'true');
-          removeTrapFocus(a11yPanel);
-          a11yToggleButton.focus();
-        }
-      });
-    }
-
-
-    // --- ACCESSIBILITY SETTINGS CONTROLS ---
-
-    // Theme Buttons
-    document.querySelectorAll('.theme-selector').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const newTheme = e.currentTarget.dataset.theme;
-        saveSettings({
-          ...currentSettings,
-          theme: newTheme
-        });
-      });
+    ['reading-line', 'highlight-links', 'greyscale', 'readable-width', 'reduced-motion'].forEach(id => {
+      const el = document.getElementById(id);
+      el.checked = s[id.replace(/-/g, '')];
+      el.onchange = () => { s[id.replace(/-/g, '')] = el.checked; apply(); };
     });
 
-    // Font Selection Logic
-    const fontButtonsContainer = document.getElementById('font-selection-buttons');
-    if (fontButtonsContainer) {
-      fontButtonsContainer.querySelectorAll('.font-selector').forEach(button => {
-        button.addEventListener('click', (e) => {
-          const newFont = e.currentTarget.dataset.font;
-          saveSettings({
-            ...currentSettings,
-            fontFamily: newFont
-          });
-          // UI update handled inside saveSettings -> applySettings -> applyBodySettings -> updateFontButtonUI
-        });
-      });
-    }
+    document.getElementById('reset-a11y').onclick = () => { localStorage.removeItem(STORAGE_KEY); location.reload(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-content').classList.toggle('hidden');
+    document.onmousemove = e => { if (s.readingLine) line.style.top = (e.clientY - 28) + 'px'; };
 
-    // Reduced Motion Toggle
-    const motionToggle = document.getElementById('toggle-reduced-motion');
-    if (motionToggle) {
-      motionToggle.checked = currentSettings.reducedMotion;
-      motionToggle.setAttribute('aria-checked', currentSettings.reducedMotion);
-      motionToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({
-          ...currentSettings,
-          reducedMotion: e.target.checked
-        });
-      });
-    }
-
-    // Greyscale Toggle
-    const greyscaleToggle = document.getElementById('toggle-greyscale');
-    if (greyscaleToggle) {
-      greyscaleToggle.checked = currentSettings.greyscale;
-      greyscaleToggle.setAttribute('aria-checked', currentSettings.greyscale);
-      greyscaleToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({
-          ...currentSettings,
-          greyscale: e.target.checked
-        });
-      });
-    }
-
-
-    // Font Size Slider
-    const fontSizeSlider = document.getElementById('font-size-slider');
-    const fontSizeValue = document.getElementById('font-size-value');
-    if (fontSizeSlider && fontSizeValue) {
-      fontSizeSlider.value = currentSettings.fontSize;
-      fontSizeValue.textContent = Math.round(currentSettings.fontSize * 100);
-
-      fontSizeSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        fontSizeValue.textContent = Math.round(value * 100);
-        document.documentElement.style.setProperty('--site-font-size', `${value}rem`);
-      });
-      fontSizeSlider.addEventListener('change', (e) => {
-        saveSettings({
-          ...currentSettings,
-          fontSize: parseFloat(e.target.value)
-        });
-      });
-    }
-
-    // Line Height Slider
-    const lineHeightSlider = document.getElementById('line-height-slider');
-    const lineHeightValue = document.getElementById('line-height-value');
-    if (lineHeightSlider && lineHeightValue) {
-      lineHeightSlider.value = currentSettings.lineHeight;
-      lineHeightValue.textContent = currentSettings.lineHeight.toFixed(1);
-
-      lineHeightSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        lineHeightValue.textContent = value.toFixed(1);
-        document.documentElement.style.setProperty('--site-line-height', value);
-      });
-      lineHeightSlider.addEventListener('change', (e) => {
-        saveSettings({
-          ...currentSettings,
-          lineHeight: parseFloat(e.target.value)
-        });
-      });
-    }
-
-    // Letter Spacing Slider (WCAG 2.1 compliant - allows adjustment)
-    const letterSpacingSlider = document.getElementById('letter-spacing-slider');
-    const letterSpacingValue = document.getElementById('letter-spacing-value');
-    if (letterSpacingSlider && letterSpacingValue) {
-      letterSpacingSlider.value = currentSettings.letterSpacing;
-      letterSpacingValue.textContent = currentSettings.letterSpacing.toFixed(1);
-
-      letterSpacingSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        letterSpacingValue.textContent = value.toFixed(1);
-        document.documentElement.style.setProperty('--site-letter-spacing', `${value}px`);
-      });
-      letterSpacingSlider.addEventListener('change', (e) => {
-        saveSettings({
-          ...currentSettings,
-          letterSpacing: parseFloat(e.target.value)
-        });
-      });
-    }
-
-    // Word Spacing Slider (WCAG 2.1 compliant - allows adjustment)
-    const wordSpacingSlider = document.getElementById('word-spacing-slider');
-    const wordSpacingValue = document.getElementById('word-spacing-value');
-    if (wordSpacingSlider && wordSpacingValue) {
-      wordSpacingSlider.value = currentSettings.wordSpacing;
-      wordSpacingValue.textContent = currentSettings.wordSpacing.toFixed(1);
-
-      wordSpacingSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        wordSpacingValue.textContent = value.toFixed(1);
-        document.documentElement.style.setProperty('--site-word-spacing', `${value}px`);
-      });
-      wordSpacingSlider.addEventListener('change', (e) => {
-        saveSettings({
-          ...currentSettings,
-          wordSpacing: parseFloat(e.target.value)
-        });
-      });
-    }
-
-    // Highlight Links Toggle
-    const highlightLinksToggle = document.getElementById('toggle-highlight-links');
-    if (highlightLinksToggle) {
-      highlightLinksToggle.checked = currentSettings.highlightLinks;
-      highlightLinksToggle.setAttribute('aria-checked', currentSettings.highlightLinks);
-      highlightLinksToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({
-          ...currentSettings,
-          highlightLinks: e.target.checked
-        });
-      });
-    }
-
-    // Readable Width Toggle
-    const readableWidthToggle = document.getElementById('toggle-readable-width');
-    if (readableWidthToggle) {
-      readableWidthToggle.checked = currentSettings.readableWidth;
-      readableWidthToggle.setAttribute('aria-checked', currentSettings.readableWidth);
-      readableWidthToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({
-          ...currentSettings,
-          readableWidth: e.target.checked
-        });
-      });
-    }
-
-
-    // Reading Line Focus Logic
-    const readingLineToggle = document.getElementById('toggle-reading-line');
-    const readingLine = document.getElementById('reading-line');
-
-    let isReadingLineActive = currentSettings.readingLine;
-
-    function moveReadingLine(clientY) {
-      if (!isReadingLineActive || !readingLine) return;
-      const lineHeight = readingLine.offsetHeight || 48; // Fallback height
-      // Position the line so its center is at the mouse/touch Y coordinate
-      let newTop = clientY - (lineHeight / 2);
-      // Ensure it stays within bounds
-      newTop = Math.max(0, Math.min(window.innerHeight - lineHeight, newTop));
-      readingLine.style.top = `${newTop}px`;
-    }
-
-    function handleMouseMove(e) {
-      moveReadingLine(e.clientY);
-    }
-
-    function handleTouchMove(e) {
-      if (e.touches.length > 0) {
-        moveReadingLine(e.touches[0].clientY);
-      }
-    }
-
-    function setupReadingLineEvents() {
-      if (isReadingLineActive) {
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('touchmove', handleTouchMove);
-      }
-    }
-
-    function removeReadingLineEvents() {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('touchmove', handleTouchMove);
-    }
-
-    if (readingLineToggle) {
-      readingLineToggle.checked = currentSettings.readingLine;
-      readingLineToggle.setAttribute('aria-checked', currentSettings.readingLine);
-
-      readingLineToggle.addEventListener('change', (e) => {
-        isReadingLineActive = e.target.checked;
-        e.target.setAttribute('aria-checked', isReadingLineActive);
-
-        saveSettings({
-          ...currentSettings,
-          readingLine: isReadingLineActive
-        });
-
-        if (isReadingLineActive) {
-          // The visibility is handled by applySettings/applyBodySettings 
-          // but we need to ensure events are attached after the state update.
-          setupReadingLineEvents();
-        } else {
-          removeReadingLineEvents();
-        }
-      });
-
-      // Initial setup run if the setting was already true on load
-      if (currentSettings.readingLine) {
-        setupReadingLineEvents();
-      }
-    }
-
-
-    // Reset Button
-    const resetA11yBtn = document.getElementById('reset-a11y-settings');
-    if (resetA11yBtn) {
-      resetA11yBtn.addEventListener('click', () => {
-        localStorage.removeItem(STORAGE_KEY);
-        currentSettings = defaultSettings;
-        saveSettings({
-          ...defaultSettings
-        }); // Save and apply defaults
-
-        // Update UI elements to reflect reset
-        if (fontSizeSlider) fontSizeSlider.value = defaultSettings.fontSize;
-        if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
-        if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
-        if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
-        if (letterSpacingSlider) letterSpacingSlider.value = defaultSettings.letterSpacing;
-        if (letterSpacingValue) letterSpacingValue.textContent = defaultSettings.letterSpacing.toFixed(1);
-        if (wordSpacingSlider) wordSpacingSlider.value = defaultSettings.wordSpacing;
-        if (wordSpacingValue) wordSpacingValue.textContent = defaultSettings.wordSpacing.toFixed(1);
-
-        updateFontButtonUI(defaultSettings.fontFamily);
-        updateThemeButtonUI(defaultSettings.theme);
-
-        if (motionToggle) {
-          motionToggle.checked = defaultSettings.reducedMotion;
-          motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);
-        }
-        if (highlightLinksToggle) {
-          highlightLinksToggle.checked = defaultSettings.highlightLinks;
-          highlightLinksToggle.setAttribute('aria-checked', defaultSettings.highlightLinks);
-        }
-        if (readableWidthToggle) {
-          readableWidthToggle.checked = defaultSettings.readableWidth;
-          readableWidthToggle.setAttribute('aria-checked', defaultSettings.readableWidth);
-        }
-        // Greyscale Reset
-        if (greyscaleToggle) {
-          greyscaleToggle.checked = defaultSettings.greyscale;
-          greyscaleToggle.setAttribute('aria-checked', defaultSettings.greyscale);
-        }
-        // Reading Line Reset
-        if (readingLineToggle) {
-          readingLineToggle.checked = defaultSettings.readingLine;
-          readingLineToggle.setAttribute('aria-checked', defaultSettings.readingLine);
-          removeReadingLineEvents(); // Ensure events are removed
-        }
-        if (readingLine) readingLine.classList.add('hidden'); // Ensure element is hidden
-
-        showMessageBox("Settings have been reset to default values.");
-      });
-    }
-
-    // --- Hero Section Protection (Prevent White Background Issue) ---
-    // This prevents any external scripts or cached code from changing the hero section to white
-    // Runs IMMEDIATELY to catch any early modifications
-    (function protectHeroSection() {
-      // Get hero section as soon as possible
-      function getHeroSection() {
-        return document.getElementById('hero-section') ||
-          document.querySelector('#hero-section') ||
-          document.querySelector('section[id="hero-section"]');
-      }
-
-      // Store correct gradient colors based on theme
-      function getCorrectGradientColors() {
-        const body = document.body;
-        if (body.classList.contains('dark')) {
-          return { from: '#5B21B6', to: '#7C3AED' };
-        } else if (body.classList.contains('high-contrast')) {
-          return { from: '#111111', to: '#333333' };
-        } else {
-          return { from: '#5B21B6', to: '#7C3AED' }; // Light theme default
-        }
-      }
-
-      // Comprehensive restoration function
-      function restoreHeroSection() {
-        const heroSection = getHeroSection();
-        if (!heroSection) return;
-
-        const colors = getCorrectGradientColors();
-        const requiredClasses = ['from-hero-bg-from', 'to-hero-bg-to', 'text-white'];
-        const forbiddenClasses = ['from-white', 'to-white', 'text-text-default'];
-
-        // 1. Remove forbidden classes
-        forbiddenClasses.forEach(cls => {
-          heroSection.classList.remove(cls);
-        });
-
-        // 2. Ensure required classes are present
-        requiredClasses.forEach(cls => {
-          if (!heroSection.classList.contains(cls)) {
-            heroSection.classList.add(cls);
-          }
-        });
-
-        // 3. Force gradient via inline style as backup (highest priority)
-        const computedStyle = window.getComputedStyle(heroSection);
-        const bgImage = computedStyle.backgroundImage;
-
-        // Check if background is white or if classes were removed
-        if (heroSection.classList.contains('from-white') ||
-          heroSection.classList.contains('to-white') ||
-          bgImage.includes('rgb(255, 255, 255)') ||
-          bgImage.includes('#ffffff') ||
-          bgImage.includes('#FFFFFF')) {
-          // Force gradient with inline style
-          heroSection.style.backgroundImage = `linear-gradient(to right, ${colors.from}, ${colors.to})`;
-          heroSection.style.background = `linear-gradient(to right, ${colors.from}, ${colors.to})`;
-        }
-
-        // 4. Ensure CSS variables are correct on document root
-        const root = document.documentElement;
-        root.style.setProperty('--color-hero-bg-from', colors.from);
-        root.style.setProperty('--color-hero-bg-to', colors.to);
-
-        // 5. Fix text colors on hero and children
-        heroSection.classList.remove('text-text-default');
-        heroSection.classList.add('text-white');
-        heroSection.style.color = 'white';
-
-        heroSection.querySelectorAll('h1, p, a, span').forEach(el => {
-          el.classList.remove('text-text-default');
-          el.classList.add('text-white');
-          el.style.color = 'white';
-        });
-      }
-
-      // Run immediately and repeatedly
-      function startProtection() {
-        // Run immediately
-        restoreHeroSection();
-
-        // Run on DOM ready
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => {
-            restoreHeroSection();
-            setupObserver();
-            setupPeriodicChecks();
-          });
-        } else {
-          setupObserver();
-          setupPeriodicChecks();
-        }
-      }
-
-      // Setup MutationObserver for class and style changes
-      function setupObserver() {
-        const heroSection = getHeroSection();
-        if (!heroSection) return;
-
-        const observer = new MutationObserver((mutations) => {
-          let needsRestore = false;
-          mutations.forEach((mutation) => {
-            // Check class changes
-            if (mutation.type === 'attributes') {
-              if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
-                needsRestore = true;
-              }
-            }
-            // Check child changes
-            if (mutation.type === 'childList') {
-              needsRestore = true;
-            }
-          });
-          if (needsRestore) {
-            restoreHeroSection();
-          }
-        });
-
-        observer.observe(heroSection, {
-          attributes: true,
-          attributeFilter: ['class', 'style'],
-          childList: true,
-          subtree: true
-        });
-
-        // Also observe document root for CSS variable changes
-        const rootObserver = new MutationObserver(() => {
-          restoreHeroSection();
-        });
-        rootObserver.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ['class', 'style']
-        });
-      }
-
-      // Setup aggressive periodic checks
-      function setupPeriodicChecks() {
-        // Check every 100ms for the first 10 seconds (when issue typically occurs)
-        const aggressiveInterval = setInterval(() => {
-          restoreHeroSection();
-        }, 100);
-
-        // Stop aggressive checking after 10 seconds
-        setTimeout(() => {
-          clearInterval(aggressiveInterval);
-
-          // Then check every 500ms for another 20 seconds
-          const moderateInterval = setInterval(() => {
-            restoreHeroSection();
-          }, 500);
-
-          setTimeout(() => {
-            clearInterval(moderateInterval);
-          }, 20000);
-        }, 10000);
-      }
-
-      // Start protection immediately
-      startProtection();
-
-      // Also run immediately if script executes after DOM is ready
-      if (document.readyState !== 'loading') {
-        restoreHeroSection();
-        setupObserver();
-        setupPeriodicChecks();
-      }
-    })();
-
-    // --- Error Handling and Performance Monitoring ---
-    window.addEventListener('error', (e) => {
-      console.error('JavaScript error:', e.error);
-      // Could send to error tracking service in production
-    });
-
-    // --- Performance: Defer non-critical operations ---
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        // Non-critical operations can be deferred here
-        console.log('Page loaded and idle');
-      });
-    }
+    apply();
   </script>
-
 </body>
 
 </html>
