@@ -1498,21 +1498,6 @@
         showMessageBox("Settings have been reset to default values.");
       });
     }
-
-    // Hero Section Gradient to White after delay
-    document.addEventListener('DOMContentLoaded', () => {
-      const heroSection = document.getElementById('hero-section');
-      if (heroSection) {
-        setTimeout(() => {
-          heroSection.classList.remove('from-hero-bg-from', 'to-hero-bg-to');
-          heroSection.classList.add('from-white', 'to-white', 'text-text-default'); // Change text color for white background
-          // Optionally, remove specific text-white class if it's directly on the hero section
-          heroSection.querySelectorAll('h1, p').forEach(el => el.classList.remove('text-white'));
-          // Re-add text-default to ensure it's visible on white
-          heroSection.querySelectorAll('h1, p').forEach(el => el.classList.add('text-text-default'));
-        }, 5000); // 5 seconds delay
-      }
-    });
   </script>
 
 </body>
