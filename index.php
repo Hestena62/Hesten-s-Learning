@@ -4,9 +4,6 @@
   $pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
   $pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
   $pageAuthor = "Hesten's Learning";
-  
-  $welcomeMessage = "Welcome!";
-  $welcomeParagraph = "Thank you for visiting Hesten's Learning. If you are visiting from a resint Facebook post, and have question? Please email me at <a href=\"mailto:admin@hestena62.com\">admin@hestena62.com</a>";
 
   // --- Dynamic Content Array ---
   // Store all learning levels in an array to be looped over.

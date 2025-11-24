@@ -587,7 +587,6 @@
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
       <button id="a11y-close-button"
-        <!-- Button to close the accessibility settings panel. -->
         class="text-text-secondary hover:text-text-default p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
         aria-label="Close settings panel">
         <i class="fas fa-times text-lg"></i>
