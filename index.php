@@ -10,21 +10,21 @@
 
   // --- Dynamic Content Array ---
   $learningLevels = [
-    ['id' => 'pre-k', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/A.html', 'icon' => 'fas fa-shapes'],
-    ['id' => 'kindergarten', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', 'link' => '/Level/B.html', 'icon' => 'fas fa-puzzle-piece'],
-    ['id' => 'grade-1', 'title' => 'Grade 1', 'description' => 'Adding, subtracting, sentence formation. Developing independence.', 'link' => '/Level/C.html', 'icon' => 'fas fa-pencil-alt'],
-    ['id' => 'grade-2', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/B.html', 'icon' => 'fas fa-book-open'],
-    ['id' => 'grade-3', 'title' => 'Grade 3', 'description' => 'Multiplication, division, reading comprehension. Critical thinking.', 'link' => '/Level/D.html', 'icon' => 'fas fa-calculator'],
-    ['id' => 'grade-4', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/D.html', 'icon' => 'fas fa-divide'],
-    ['id' => 'grade-5', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Preparing for middle school.', 'link' => '/Level/E.html', 'icon' => 'fas fa-atom'],
-    ['id' => 'grade-6', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science. Transitioning to complex subjects.', 'link' => '/Level/F.html', 'icon' => 'fas fa-globe-americas'],
-    ['id' => 'grade-7', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science. Middle school mastery.', 'link' => '/Level/G.html', 'icon' => 'fas fa-dna'],
-    ['id' => 'grade-8', 'title' => 'Grade 8', 'description' => 'Linear equations, historical analysis, earth science. Pre-high school readiness.', 'link' => '/Level/H.html', 'icon' => 'fas fa-history'],
-    ['id' => 'grade-9', 'title' => 'Grade 9', 'description' => 'Algebra, literature, physical science. Introduction to high school.', 'link' => '/Level/I.html', 'icon' => 'fas fa-flask'],
-    ['id' => 'grade-10', 'title' => 'Grade 10', 'description' => 'Geometry, world history, biology. Broadening academic horizons.', 'link' => '/Level/J.html', 'icon' => 'fas fa-project-diagram'],
-    ['id' => 'grade-11', 'title' => 'Grade 11', 'description' => 'Pre-calculus, advanced literature, chemistry. College prep.', 'link' => '/Level/K.html', 'icon' => 'fas fa-microscope'],
-    ['id' => 'grade-12', 'title' => 'Grade 12', 'description' => 'Advanced calculus, literature analysis, physics. Final preparations.', 'link' => '/Level/L.html', 'icon' => 'fas fa-graduation-cap'],
-    ['id' => 'test-section', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes, review extra materials, and challenge yourself.', 'link' => '/test', 'icon' => 'fas fa-star']
+    ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/A.html', 'icon' => 'fas fa-shapes'],
+    ['id' => 'kindergarten', 'category' => 'elem', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', 'link' => '/Level/B.html', 'icon' => 'fas fa-puzzle-piece'],
+    ['id' => 'grade-1', 'category' => 'elem', 'title' => 'Grade 1', 'description' => 'Adding, subtracting, sentence formation. Developing independence.', 'link' => '/Level/C.html', 'icon' => 'fas fa-pencil-alt'],
+    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/B.html', 'icon' => 'fas fa-book-open'],
+    ['id' => 'grade-3', 'category' => 'elem', 'title' => 'Grade 3', 'description' => 'Multiplication, division, reading comprehension. Critical thinking.', 'link' => '/Level/D.html', 'icon' => 'fas fa-calculator'],
+    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/D.html', 'icon' => 'fas fa-divide'],
+    ['id' => 'grade-5', 'category' => 'elem', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Preparing for middle school.', 'link' => '/Level/E.html', 'icon' => 'fas fa-atom'],
+    ['id' => 'grade-6', 'category' => 'middle', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science. Transitioning to complex subjects.', 'link' => '/Level/F.html', 'icon' => 'fas fa-globe-americas'],
+    ['id' => 'grade-7', 'category' => 'middle', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science. Middle school mastery.', 'link' => '/Level/G.html', 'icon' => 'fas fa-dna'],
+    ['id' => 'grade-8', 'category' => 'middle', 'title' => 'Grade 8', 'description' => 'Linear equations, historical analysis, earth science. Pre-high school readiness.', 'link' => '/Level/H.html', 'icon' => 'fas fa-history'],
+    ['id' => 'grade-9', 'category' => 'high', 'title' => 'Grade 9', 'description' => 'Algebra, literature, physical science. Introduction to high school.', 'link' => '/Level/I.html', 'icon' => 'fas fa-flask'],
+    ['id' => 'grade-10', 'category' => 'high', 'title' => 'Grade 10', 'description' => 'Geometry, world history, biology. Broadening academic horizons.', 'link' => '/Level/J.html', 'icon' => 'fas fa-project-diagram'],
+    ['id' => 'grade-11', 'category' => 'high', 'title' => 'Grade 11', 'description' => 'Pre-calculus, advanced literature, chemistry. College prep.', 'link' => '/Level/K.html', 'icon' => 'fas fa-microscope'],
+    ['id' => 'grade-12', 'category' => 'high', 'title' => 'Grade 12', 'description' => 'Advanced calculus, literature analysis, physics. Final preparations.', 'link' => '/Level/L.html', 'icon' => 'fas fa-graduation-cap'],
+    ['id' => 'test-section', 'category' => 'extra', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes, review extra materials, and challenge yourself.', 'link' => '/test', 'icon' => 'fas fa-star']
   ];
 
   include 'src/header.php';
@@ -93,30 +93,40 @@
 
   <!-- Learning Levels Grid -->
   <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
-    <div class="flex items-center justify-between mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
+    <div class="flex flex-col md:flex-row items-center justify-between mb-10 border-b border-gray-200 dark:border-gray-700 pb-6 gap-4">
         <h2 id="learning-levels-heading" class="text-3xl font-bold text-text-default border-l-8 border-primary pl-4">
             Select Your Grade Level
         </h2>
+        
+        <!-- Filter Bar -->
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Filter content">
+            <button onclick="filterContent('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-colors" aria-pressed="true">All</button>
+            <button onclick="filterContent('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">Elementary</button>
+            <button onclick="filterContent('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">Middle School</button>
+            <button onclick="filterContent('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">High School</button>
+        </div>
     </div>
     
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
+    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
       <?php foreach ($learningLevels as $level): ?>
-        <article class="group h-full">
+        <article class="level-card group h-full" data-category="<?php echo htmlspecialchars($level['category']); ?>">
           <div class="bg-content-bg h-full rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-8 border-primary p-8 flex flex-col relative overflow-hidden">
             
-            <!-- Floating Icon Background -->
+            <!-- Floating Icon Background (Decorative) -->
             <div class="absolute -right-4 -bottom-4 text-9xl opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none">
                 <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
             </div>
 
-            <!-- Icon Bubble -->
-            <div class="w-14 h-14 bg-base-bg rounded-xl shadow-sm flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
-            </div>
+            <!-- Header: Icon + Title Side-by-Side -->
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-sm flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors">
+                    <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
+                </div>
 
-            <h3 class="text-2xl font-bold text-text-default mb-3" id="<?php echo htmlspecialchars($level['id']); ?>">
-              <?php echo htmlspecialchars($level['title']); ?>
-            </h3>
+                <h3 class="text-2xl font-bold text-text-default" id="<?php echo htmlspecialchars($level['id']); ?>">
+                  <?php echo htmlspecialchars($level['title']); ?>
+                </h3>
+            </div>
             
             <p class="text-text-secondary mb-8 flex-grow leading-relaxed">
               <?php echo htmlspecialchars($level['description']); ?>
@@ -134,5 +144,36 @@
       <?php endforeach; ?>
     </section>
   </main>
+
+  <script>
+    function filterContent(category) {
+        // Update Buttons
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent === 'All')) {
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('bg-gray-200', 'text-gray-700');
+                btn.setAttribute('aria-pressed', 'true');
+            } else {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+                btn.setAttribute('aria-pressed', 'false');
+            }
+        });
+
+        // Filter Cards
+        const cards = document.querySelectorAll('.level-card');
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+                // Small animation for reappearing items
+                card.style.opacity = '0';
+                setTimeout(() => card.style.opacity = '1', 50);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+  </script>
 
 <?php include 'src/footer.php'; ?>

@@ -241,6 +241,36 @@
       border-top: 3px solid var(--color-focus-ring); border-bottom: 3px solid var(--color-focus-ring);
       cursor: row-resize; pointer-events: auto;
     }
+
+    /* PRINT STYLES - Hides non-essential UI when printing */
+    @media print {
+        header, footer, #announcement-bar, #a11y-toggle-button, #back-to-top, .skip-link { 
+            display: none !important; 
+        }
+        body { 
+            background: white !important; 
+            color: black !important; 
+        }
+        main { 
+            width: 100% !important; 
+            margin: 0 !important; 
+            padding: 0 !important; 
+        }
+        .card, article { 
+            break-inside: avoid; 
+            border: 1px solid #ccc; 
+            box-shadow: none !important; 
+            margin-bottom: 1cm;
+        }
+        a { 
+            text-decoration: none; 
+            color: black !important; 
+        }
+        a::after {
+            content: " (" attr(href) ")";
+            font-size: 0.8em;
+        }
+    }
   </style>
 </head>
 
@@ -253,11 +283,6 @@
     (function () {
       document.body.classList.add(currentSettings.theme);
       if (currentSettings.reducedMotion) document.body.classList.add('reduced-motion');
-      // Apply initial mask state before page load finishes
-      if (currentSettings.readingMask) {
-          // We can't access element by ID yet safely in head/early body, 
-          // so we rely on applySettings called after load or by the bottom script.
-      }
     })();
   </script>
 

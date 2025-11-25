@@ -1,8 +1,15 @@
 <!--
   src/footer.php
-  Top 1% Accessible Footer: Theme-aware, Responsive, and robust Modal logic.
+  Top 1% Accessible Footer: Theme-aware, Responsive, robust Modal logic, and Back-to-Top.
 -->
 <?php $currentYear = date("Y"); ?>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" 
+    class="fixed bottom-24 right-6 z-40 p-4 bg-gray-800 text-white rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700"
+    aria-label="Scroll back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
   <!-- Footer Wrapper -->
   <footer class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-12 px-4 rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 mt-auto">
@@ -168,7 +175,6 @@
   <!-- Javascript for Modals & Accessibility -->
   <script>
     // --- Focus Trap Utility ---
-    // Keeps keyboard focus inside the modal when it is open (WCAG Requirement)
     function trapFocus(element) {
         const focusableElements = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         const firstElement = focusableElements[0];
@@ -231,6 +237,22 @@
 
         document.getElementById('confirm-yes-button').onclick = () => close(true);
         document.getElementById('confirm-no-button').onclick = () => close(false);
+    }
+
+    // --- Back to Top Logic ---
+    const backToTopBtn = document.getElementById("back-to-top");
+    if(backToTopBtn) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+            } else {
+                backToTopBtn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     }
   </script>
 
