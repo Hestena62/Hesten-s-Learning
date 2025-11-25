@@ -3,7 +3,10 @@
   $pageTitle = "Hesten's Learning";
   $pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
   $pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
-  $pageAuthor = "Hesten's Learning";
+  $pageAuthor = "Hesten's Learning"; 
+  
+  $welcomeMessage = "Welcome!";
+  $welcomeParagraph = "Thank you for visiting Hesten's Learning. If you are visiting from a resint Facebook post, and have question? Please email me at <a href=\"mailto:admin@hestena62.com\">admin@hestena62.com</a>";
 
   // --- Dynamic Content Array ---
   // Store all learning levels in an array to be looped over.
@@ -100,44 +103,41 @@
     ],
   ];
 
-  // Include the reusable header
+
   include 'src/header.php';
 ?>
 
   <!-- Hero section -->
-  <!-- Uses custom CSS gradient class for guaranteed styling and Bootstrap classes for layout/sizing -->
-  <header
-    class="bg-gradient-primary text-white py-5 px-4 text-center rounded-bottom rounded-base shadow-lg transition-colors">
-    <h1 class="display-3 fw-bolder mb-3 animate-fade-in-up">
+  <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-12 px-4 text-center rounded-b-3xl shadow-lg transition-colors duration-300">
+    <h1 class="text-5xl font-extrabold mb-4 animate-fade-in-up">
       Welcome to Our Learning Platform
     </h1>
-    <p class="lead mb-4 animate-fade-in-up delay-100">
+    <p class="text-xl mb-8 animate-fade-in-up delay-100">
       Explore skills and improve at your own pace with personalized learning
       experiences.
     </p>
     <a href="about.php"
-      class="btn btn-light btn-lg text-primary fw-bold px-5 rounded-pill shadow-lg transition-transform hover-scale-105 animate-fade-in-up delay-200"
+      class="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-full shadow-xl transition-transform duration-300 hover:scale-105 animate-fade-in-up delay-200"
       aria-label="Get Started with Hesten's Learning">Get Started</a>
   </header>
 
   <!-- Main content - Learning Levels -->
-  <main class="container-xl my-5 py-4 px-4">
+  <main class="container mx-auto my-10 p-4">
     <h2 id="learning-levels-heading" class="sr-only">Learning Levels</h2>
-    <section class="row g-4" aria-labelledby="learning-levels-heading">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-labelledby="learning-levels-heading">
       
       <?php foreach ($learningLevels as $level): ?>
         <article class="col-12 col-md-6 col-lg-4">
           <div
             class="card bg-content h-100 rounded-base custom-shadow p-4 d-flex flex-column transition-transform hover-scale-105">
-            <h3 class="card-title fs-4 fw-bold text-text-default mb-2" id="<?php echo htmlspecialchars($level['id']); ?>">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2" id="<?php echo htmlspecialchars($level['id']); ?>">
               <?php echo htmlspecialchars($level['title']); ?>
             </h3>
-            <p class="card-text text-secondary-light mb-4 flex-grow-1">
+            <p class="text-gray-600 mb-4 flex-grow-1">
               <?php echo htmlspecialchars($level['description']); ?>
             </p>
             <a href="<?php echo htmlspecialchars($level['link']); ?>"
-              class="btn btn-primary text-white py-2 px-4 rounded-3 fw-medium text-center transition-colors"
-              style="--bs-btn-bg: var(--color-primary); --bs-btn-border-color: var(--color-primary); --bs-btn-hover-bg: var(--color-secondary);"
+              class="inline-block bg-blue-500 text-white py-2 px-4 rounded-lg font-medium text-center transition-colors duration-300 hover:bg-blue-600"
               aria-label="Explore <?php echo htmlspecialchars($level['title']); ?> Skills">Explore Skills</a>
           </div>
         </article>
