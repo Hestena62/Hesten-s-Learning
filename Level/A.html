@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,14 +11,7 @@
     content="Pre-K, math, language arts, science, social studies, early learning, personalized education" />
   <meta name="author" content="Hesten's Learning" />
 
-  <!-- Performance: DNS Prefetch and Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" />
-  <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
-
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hestena62.com/Level/A.html" />
   <meta property="og:title" content="Hesten's Learning - Pre-K: Level A" />
@@ -26,44 +19,27 @@
     content="Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners." />
   <meta property="og:image" content="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://hestena62.com/Level/A.html" />
-  <meta property="twitter:title" content="Hesten's Learning - Pre-K: Level A" />
-  <meta property="twitter:description"
-    content="Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners." />
-  <meta property="twitter:image" content="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
-
-  <!-- Additional SEO -->
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#4F46E5" />
-  <link rel="canonical" href="https://hestena62.com/Level/A.html" />
-
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- OpenDyslexic Font (Accessibility Feature) -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Fonts: Inter (Standard), Open Dyslexic (A11y), Roboto Mono (Code/Focus) -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap"
     rel="stylesheet" />
-  <!-- Google Fonts for Inter (Original Font) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <script>
-    // --- Tailwind Configuration with Dynamic CSS Variables (from index.html) ---
+    // --- Tailwind & CSS Variables Configuration ---
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            // Inter is the default sans-serif, OpenDyslexic is an option
             sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
             dyslexic: ['"Open Dyslexic"', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
           },
           colors: {
-            // Dynamic colors for easy theme switching
             'primary': 'var(--color-primary, #1D4ED8)',
             'secondary': 'var(--color-secondary, #3B82F6)',
             'accent': 'var(--color-accent, #60A5FA)',
@@ -71,284 +47,220 @@
             'content-bg': 'var(--color-content-bg, #FFFFFF)',
             'text-default': 'var(--color-text-default, #1F2937)',
             'text-secondary': 'var(--color-text-secondary, #6B7280)',
-
-            'dark': 'var(--color-dark)',
-            'light': 'var(--color-light)',
+            'focus-ring': 'var(--color-focus-ring, #F59E0B)',
+            // Legacy mapping
             'header-bg': 'var(--color-header-bg)',
             'footer-bg-from': 'var(--color-footer-bg-from)',
             'footer-bg-to': 'var(--color-footer-bg-to)',
             'link-color': 'var(--color-link)',
-            'card-bg': 'var(--color-card-bg)',
           },
-          borderRadius: {
-            "base-rounded": "var(--border-radius-base, 0.75rem)",
-          },
-          transitionProperty: {
-            'colors': 'background-color, border-color, color, fill, stroke',
-          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          }
         },
       },
     };
 
-    // --- Global Accessibility/Theme State Management (from index.html) ---
+    // --- State Management ---
     const defaultSettings = {
-      theme: 'light', // light, dark, high-contrast
-      fontSize: 1.0, // rem
-      lineHeight: 1.6, // unitless
-      dyslexiaFont: false,
+      theme: 'light',
+      fontSize: 1.0,
+      lineHeight: 1.6,
+      fontFamily: 'Inter',
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      readingMask: false
     };
 
-    const STORAGE_KEY = 'hl_accessibility_settings';
+    const STORAGE_KEY = 'hl_a11y_v3';
 
     function loadSettings() {
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
         return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-      } catch (e) {
-        console.error("Error loading settings from localStorage:", e);
-        return defaultSettings;
-      }
+      } catch (e) { return defaultSettings; }
     }
 
     function saveSettings(settings) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-        applySettings(settings); // Apply settings on save
-        currentSettings = settings; // Update global state
-      } catch (e) {
-        console.error("Error saving settings to localStorage:", e);
-      }
+        applySettings(settings);
+        currentSettings = settings;
+      } catch (e) { console.error(e); }
     }
 
-    // Applies settings safe to run in <head>
     function applyHeadSettings(settings) {
       document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
       document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
-      // Fix: Set only the font name, Tailwind config handles fallback
-      document.documentElement.style.setProperty(
-        '--site-font-family',
-        settings.dyslexiaFont ? '"Open Dyslexic"' : 'Inter'
-      );
+
+      let fontName = settings.fontFamily || 'Inter';
+      if (fontName.includes(' ') || fontName === 'Open Dyslexic') fontName = `"${fontName}"`;
+      document.documentElement.style.setProperty('--site-font-family', fontName);
     }
 
-    // Applies all settings (run after <body> exists)
     function applySettings(settings) {
       applyHeadSettings(settings);
       const body = document.body;
       if (!body) return;
-      // Swap theme classes
+
       body.classList.remove('light', 'dark', 'high-contrast');
       body.classList.add(settings.theme);
-      // Toggle motion class
+
+      // Reduced Motion
       if (settings.reducedMotion) {
         body.classList.add('reduced-motion');
+        document.documentElement.classList.remove('scroll-smooth');
       } else {
         body.classList.remove('reduced-motion');
+        document.documentElement.classList.add('scroll-smooth');
+      }
+
+      // Reading Mask
+      const mask = document.getElementById('reading-mask');
+      if (mask) {
+        if (settings.readingMask) {
+          mask.classList.remove('hidden');
+        } else {
+          mask.classList.add('hidden');
+        }
       }
     }
 
-    // Load settings immediately for <head> application
     let currentSettings = loadSettings();
     applyHeadSettings(currentSettings);
-
   </script>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
-  <link rel="apple-touch-icon" href="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
-
-  <!-- Custom Styles (Merged from index.html) -->
   <style>
-    /* Base styles from index.html */
+    /* --- CSS Variables & Themes --- */
     body {
-      /* [FIX] Removed user-select: none from original A.html */
       background-color: var(--color-base-bg);
       color: var(--color-text-default);
       font-size: var(--site-font-size, 1rem);
       line-height: var(--site-line-height, 1.6);
-      transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s;
-      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
       font-family: var(--site-font-family, "Inter", sans-serif);
     }
 
-    /* --- THEMES (from index.html) --- */
-
-    .light {
-      --color-primary: #4F46E5;
-      --color-secondary: #6366F1;
-      --color-accent: #818CF8;
-      --color-dark: #1F2937;
-      --color-light: #F3F4F6;
-      --color-header-bg: #1F2937;
-      --color-footer-bg-from: #4F46E5;
-      --color-footer-bg-to: #6366F1;
-      --color-link: #4F46E5;
-      --color-card-bg: #FFFFFF;
-      --border-radius-base: 0.75rem;
-      --color-base-bg: #F3F4F6;
-      --color-content-bg: #FFFFFF;
-      --color-text-default: #1F2937;
-      --color-text-secondary: #374151;
+    /* Strict Focus Visibility (WCAG AAA) */
+    :focus-visible {
+      outline: 3px solid var(--color-focus-ring) !important;
+      outline-offset: 4px !important;
+      border-radius: 2px !important;
+      box-shadow: 0 0 0 4px var(--color-base-bg) !important;
+      z-index: 50;
     }
 
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* Light Theme */
+    .light {
+      --color-primary: #2563EB;
+      /* Blue 600 */
+      --color-secondary: #3B82F6;
+      /* Blue 500 */
+      --color-accent: #60A5FA;
+      /* Blue 400 */
+      --color-base-bg: #F3F4F6;
+      /* Gray 100 */
+      --color-content-bg: #FFFFFF;
+      /* White */
+      --color-text-default: #111827;
+      /* Gray 900 */
+      --color-text-secondary: #4B5563;
+      /* Gray 600 */
+      --color-header-bg: #1F2937;
+      --color-footer-bg-from: #1E3A8A;
+      /* Dark Blue */
+      --color-footer-bg-to: #2563EB;
+      /* Blue 600 */
+      --color-focus-ring: #D97706;
+      /* Amber 600 */
+      --color-link: #2563EB;
+    }
+
+    /* Dark Theme */
     .dark {
       --color-primary: #6366F1;
+      /* Indigo 500 */
       --color-secondary: #818CF8;
+      /* Indigo 400 */
       --color-accent: #A5B4FC;
-      --color-dark: #E5E7EB;
-      --color-light: #1A202C;
-      --color-header-bg: #2D3748;
-      --color-footer-bg-from: #4c51bf;
-      --color-footer-bg-to: #5a67d8;
-      --color-link: #9f7aea;
-      --color-card-bg: #2D3748;
-      --border-radius-base: 0.75rem;
-      --color-base-bg: #1A202C;
-      --color-content-bg: #2D3748;
-      --color-text-default: #E2E8F0;
-      --color-text-secondary: #E5E7EB;
+      /* Indigo 300 */
+      --color-base-bg: #0F172A;
+      /* Slate 900 */
+      --color-content-bg: #1E293B;
+      /* Slate 800 */
+      --color-text-default: #F8FAFC;
+      /* Slate 50 */
+      --color-text-secondary: #CBD5E1;
+      /* Slate 300 */
+      --color-header-bg: #1E293B;
+      --color-footer-bg-from: #312E81;
+      --color-footer-bg-to: #4338CA;
+      --color-focus-ring: #FDBA74;
+      /* Orange 300 */
+      --color-link: #818CF8;
     }
 
-    .dark .shadow-lg {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-    }
-
-    .dark footer {
-      background: linear-gradient(to right, var(--color-footer-bg-from), var(--color-footer-bg-to));
-    }
-
-    .dark header.bg-dark {
-      background-color: var(--color-header-bg);
-    }
-
+    /* High Contrast Theme */
     .high-contrast {
       --color-primary: #FFFF00;
+      /* Yellow */
       --color-secondary: #00FFFF;
-      --color-accent: #00FFFF;
-      --color-dark: #FFFFFF;
-      --color-light: #000000;
-      --color-header-bg: #111111;
-      --color-footer-bg-from: #111111;
-      --color-footer-bg-to: #111111;
-      --color-link: #FFFF00;
-      --color-card-bg: #333333;
-      --border-radius-base: 0;
+      /* Cyan */
+      --color-accent: #FFFFFF;
+      /* White */
       --color-base-bg: #000000;
-      --color-content-bg: #333333;
+      /* Black */
+      --color-content-bg: #000000;
+      /* Black */
       --color-text-default: #FFFF00;
-      --color-text-secondary: #FFFFFF;
+      /* Yellow */
+      --color-text-secondary: #00FFFF;
+      /* Cyan */
+      --color-header-bg: #000000;
+      --color-footer-bg-from: #000000;
+      --color-footer-bg-to: #000000;
+      --color-focus-ring: #FFFFFF;
+      --color-link: #FFFF00;
     }
 
-    .high-contrast a,
-    .high-contrast .text-primary {
-      color: var(--color-link) !important;
-    }
-
-    .high-contrast .bg-primary {
-      background-color: #000000 !important;
-      border: 2px solid #FFFF00 !important;
-      color: #FFFF00 !important;
-    }
-
-    .high-contrast .shadow-lg {
-      box-shadow: 0 0 10px #FFFF00;
-    }
-
-    .high-contrast header.bg-dark,
+    .high-contrast .bg-content-bg,
+    .high-contrast nav,
+    .high-contrast header,
     .high-contrast footer {
-      background-color: var(--color-header-bg) !important;
-      background-image: none !important;
+      border: 2px solid #FFFFFF;
     }
 
-    /* High-contrast specific shadow */
-    .high-contrast .shadow-custom {
-      box-shadow: 0 0 8px var(--color-primary);
+    .high-contrast a {
+      text-decoration: underline;
     }
 
-    /* Dynamic classes from index.html */
-    .rounded-base-rounded {
-      border-radius: var(--border-radius-base);
-    }
-
-    .bg-card-bg {
-      background-color: var(--color-card-bg);
-    }
-
-    a {
-      color: var(--color-link);
-    }
-
-    /* --- ACCESSIBILITY UTILITIES (from index.html) --- */
-
+    /* Accessibility Utilities */
     .reduced-motion * {
-      transition-duration: 0s !important;
-      animation-duration: 0s !important;
+      animation-duration: 0.01s !important;
+      transition-duration: 0.01s !important;
       scroll-behavior: auto !important;
     }
 
-    #reading-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      pointer-events: none;
-      z-index: 50;
-      transition: background-color 0s;
-    }
-
-    #reading-guide {
+    .skip-link {
       position: absolute;
-      width: 100%;
-      height: var(--guide-height, 2.5rem);
-      background-color: rgba(255, 255, 255, 0.1);
-      border-top: 2px solid var(--color-base-bg);
-      border-bottom: 2px solid var(--color-base-bg);
-      cursor: pointer;
-      pointer-events: auto;
-      transition: background-color 0.3s;
-    }
-
-    .dark #reading-guide,
-    .high-contrast #reading-guide {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-top: 2px solid var(--color-text-default);
-      border-bottom: 2px solid var(--color-text-default);
-    }
-
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--color-base-bg);
-      border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb {
+      top: -9999px;
+      left: 50%;
+      transform: translateX(-50%);
       background: var(--color-primary);
-      border-radius: 5px;
+      color: white;
+      padding: 1rem 2rem;
+      z-index: 10000;
+      font-weight: bold;
+      border-radius: 0 0 0.5rem 0.5rem;
+      transition: top 0.2s;
+      text-decoration: none;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-secondary);
-    }
-
-    .dark ::-webkit-scrollbar-track,
-    .high-contrast ::-webkit-scrollbar-track {
-      background: var(--color-content-bg);
-    }
-
-    .dark ::-webkit-scrollbar-thumb,
-    .high-contrast ::-webkit-scrollbar-thumb {
-      background: var(--color-primary);
-    }
-
-    .dark ::-webkit-scrollbar-thumb:hover,
-    .high-contrast ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-secondary);
+    .skip-link:focus {
+      top: 0;
     }
 
     .sr-only {
@@ -363,94 +275,38 @@
       border-width: 0;
     }
 
-    /* A11y Panel Toggle Styles */
-    .toggle {
-      appearance: none;
-      width: 3rem;
-      height: 1.5rem;
-      border-radius: 9999px;
-      background-color: #CBD5E0;
-      position: relative;
-      transition: background-color 0.3s;
-      cursor: pointer;
+    /* Reading Guide */
+    #reading-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      pointer-events: none;
+      z-index: 60;
     }
 
-    .toggle:checked {
-      background-color: var(--color-primary);
-    }
-
-    .toggle::before {
-      content: "";
+    #reading-guide {
       position: absolute;
-      top: 0.25rem;
-      left: 0.25rem;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 9999px;
-      background-color: white;
-      transition: transform 0.3s;
+      width: 100%;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-top: 3px solid var(--color-focus-ring);
+      border-bottom: 3px solid var(--color-focus-ring);
+      cursor: row-resize;
+      pointer-events: auto;
     }
 
-    .toggle:checked::before {
-      transform: translateX(1.5rem);
+    /* Sub-Nav Tabs */
+    .sub-nav .tab-button.active {
+      background-color: var(--color-accent);
+      color: white;
+      /* Contrast fix */
+      font-weight: 700;
+      border-bottom: 3px solid var(--color-primary);
     }
 
-    /* --- STYLES specific to A.html (Adapted for dynamic themes) --- */
-
-    /* Mobile menu slide-in/out */
-    @media (max-width: 1023px) {
-      #nav-content.mobile-menu-active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 64px;
-        /* Assuming 4rem / 64px header height */
-        left: 0;
-        width: 100%;
-        background-color: var(--color-header-bg);
-        /* ADAPTED */
-        padding: 1rem;
-        z-index: 20;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        animation: slideDown 0.3s ease-out forwards;
-      }
-
-      #nav-content:not(.mobile-menu-active) {
-        animation: slideUp 0.3s ease-out forwards;
-      }
-
-      @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes slideUp {
-        from {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        to {
-          opacity: 0;
-          transform: translateY(-20px);
-          display: none;
-        }
-      }
-
-      #nav-content .search-input {
-        width: 100% !important;
-        border-radius: 0.75rem !important;
-      }
-    }
-
-    /* Custom styles for tabs */
     .tab-content {
       display: none;
     }
@@ -459,71 +315,17 @@
       display: block;
     }
 
-    /* Active tab styling using CSS variables */
-    .sub-nav .tab-button.active {
-      background-color: var(--color-accent);
-      /* ADAPTED */
-      color: var(--color-primary);
-      /* ADAPTED */
-      font-weight: 700;
-      border-bottom: 3px solid var(--color-primary);
-      /* ADAPTED */
-      border-radius: 0.75rem 0.75rem 0 0;
-      box-shadow: 0 -2px 5px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .sub-nav .tab-button.active .tab-icon {
-      color: var(--color-primary);
-      /* ADAPTED */
-    }
-
-    /* Default tab icon color */
-    .tab-icon {
-      color: var(--color-text-secondary);
-    }
-
-    /* Back to top button styling */
-    #back-to-top {
-      position: fixed;
-      bottom: 20px;
-      /* Adjust right position to not overlap A11y button */
-      right: 90px;
-      background-color: var(--color-secondary);
-      /* ADAPTED */
-      color: white;
-      padding: 12px 15px;
-      border-radius: 9999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-      opacity: 0;
-      visibility: hidden;
-      z-index: 40;
-      /* Lower than A11y button */
-      cursor: pointer;
-      transform: translateY(50px);
-    }
-
-    #back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    /* Loading spinner for LLM explanation */
+    /* Loading Spinner */
     .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--color-primary);
-      /* ADAPTED */
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--color-primary);
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       animation: spin 1s linear infinite;
       display: inline-block;
       vertical-align: middle;
-      margin-left: 8px;
+      margin-right: 5px;
     }
 
     @keyframes spin {
@@ -536,1950 +338,600 @@
       }
     }
 
-    /* Shadow from original A.html, now theme-aware */
-    .shadow-custom {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-    }
+    /* PRINT STYLES */
+    @media print {
 
-    .dark .shadow-custom {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+      header,
+      footer,
+      #announcement-bar,
+      #a11y-toggle-button,
+      #back-to-top,
+      .skip-link,
+      .sub-nav {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+        color: black !important;
+      }
+
+      main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .tab-content {
+        display: block !important;
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        margin-bottom: 1cm;
+        padding: 10px !important;
+      }
+
+      a {
+        text-decoration: none;
+        color: black !important;
+      }
     }
   </style>
 </head>
 
-<!-- Body uses base classes from index.html -->
+<body class="antialiased flex flex-col min-h-screen">
 
-<body class="antialiased font-sans">
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
 
-  <!-- Noscript message for users without JavaScript -->
-  <noscript>
-    <div
-      class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300 p-4 m-4 rounded">
-      <p class="font-bold">JavaScript Required</p>
-      <p>This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.</p>
-    </div>
-  </noscript>
-
-  <!-- Skip to main content link for accessibility -->
-  <a href="#main-content"
-    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none focus:ring-4 focus:ring-accent">
-    Skip to main content
-  </a>
-
-  <!-- FOUC Prevention Script (from index.html) -->
+  <!-- Init Scripts -->
   <script>
     (function () {
-      // currentSettings is available from the <head> script
       document.body.classList.add(currentSettings.theme);
-      if (currentSettings.reducedMotion) {
-        document.body.classList.add('reduced-motion');
-      }
+      if (currentSettings.reducedMotion) document.body.classList.add('reduced-motion');
     })();
   </script>
 
-  <!-- ACCESSIBILITY SETTINGS PANEL BUTTON (from index.html) -->
+  <!-- Accessibility Settings Panel Trigger -->
   <button id="a11y-toggle-button"
-    class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-110"
-    aria-label="Toggle Accessibility Settings Panel" aria-controls="a11y-settings-panel">
+    class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-transform hover:scale-105 flex items-center justify-center"
+    aria-label="Open Accessibility Settings" aria-controls="a11y-settings-panel" aria-haspopup="true">
     <i class="fas fa-universal-access text-2xl"></i>
   </button>
 
-  <!-- ACCESSIBILITY SETTINGS PANEL (from index.html) -->
+  <!-- Accessibility Panel -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-72 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
-    role="dialog" aria-modal="true" aria-label="Accessibility and Display Settings" aria-hidden="true">
+    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+    role="dialog" aria-modal="true" aria-label="Accessibility Options" aria-hidden="true">
+
     <div class="flex justify-between items-center mb-6">
-      <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
-      <button id="a11y-close-button"
-        class="text-text-secondary hover:text-text-default p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
-        aria-label="Close settings panel">
-        <i class="fas fa-times text-lg"></i>
+      <h2 class="text-xl font-bold text-primary">Accessibility</h2>
+      <button id="a11y-close-button" class="text-text-secondary hover:text-primary p-2 rounded-full transition-colors"
+        aria-label="Close settings">
+        <i class="fas fa-times text-xl"></i>
       </button>
     </div>
 
-    <div class="space-y-6">
-      <!-- Theme Settings -->
-      <div>
-        <label class="block text-sm font-medium mb-2 text-text-default">Display Mode</label>
-        <div class="flex space-x-2">
+    <div class="space-y-8">
+      <!-- Theme -->
+      <fieldset>
+        <legend class="block text-sm font-bold mb-3 text-text-default">Display Mode</legend>
+        <div class="flex gap-2">
           <button id="theme-light"
-            class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200"
-            aria-label="Set theme to Light">
-            <i class="fas fa-sun mr-1"></i> Light
-          </button>
+            class="flex-1 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all"
+            aria-label="Light Mode"><i class="fas fa-sun mr-2"></i>Light</button>
           <button id="theme-dark"
-            class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200"
-            aria-label="Set theme to Dark">
-            <i class="fas fa-moon mr-1"></i> Dark
-          </button>
+            class="flex-1 py-3 rounded-lg border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all"
+            aria-label="Dark Mode"><i class="fas fa-moon mr-2"></i>Dark</button>
           <button id="theme-contrast"
-            class="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200"
-            aria-label="Set theme to High Contrast">
-            <i class="fas fa-low-vision mr-1"></i> Contrast
-          </button>
+            class="flex-1 py-3 rounded-lg border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold"
+            aria-label="High Contrast"><i class="fas fa-adjust mr-2"></i>HC</button>
         </div>
+      </fieldset>
+
+      <!-- Fonts -->
+      <fieldset>
+        <legend class="block text-sm font-bold mb-3 text-text-default">Font Style</legend>
+        <div class="grid grid-cols-1 gap-2">
+          <button data-font="Inter"
+            class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left">Standard
+            (Inter)</button>
+          <button data-font="Open Dyslexic"
+            class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-dyslexic">Dyslexic
+            Friendly</button>
+          <button data-font="Roboto Mono"
+            class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-mono">Monospace
+            / Coding</button>
+        </div>
+      </fieldset>
+
+      <!-- Sliders -->
+      <div>
+        <label for="font-size-slider" class="block text-sm font-bold mb-2 text-text-default">Text Size: <span
+            id="font-size-value">100</span>%</label>
+        <input type="range" id="font-size-slider" min="0.8" max="1.6" step="0.1" value="1.0"
+          class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
       </div>
 
-      <!-- Dyslexia Font Toggle -->
-      <div>
-        <label for="toggle-dyslexia" class="block text-sm font-medium mb-2 text-text-default">Dyslexia-Friendly
-          Font</label>
+      <!-- Toggles -->
+      <div class="space-y-4">
         <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Use OpenDyslexic</span>
-          <input type="checkbox" id="toggle-dyslexia" class="toggle" role="switch" aria-checked="false">
+          <label for="toggle-reading-mask" class="text-sm font-bold text-text-default cursor-pointer">Reading
+            Guide</label>
+          <input type="checkbox" id="toggle-reading-mask"
+            class="w-12 h-6 rounded-full appearance-none bg-gray-300 checked:bg-primary transition-colors relative cursor-pointer after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:w-4 after:h-4 after:rounded-full after:transition-transform checked:after:translate-x-6">
         </div>
-      </div>
-
-      <!-- Text Size Slider -->
-      <div>
-        <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span
-            id="font-size-value">100</span>%)</label>
-        <input type="range" id="font-size-slider" min="0.8" max="1.4" step="0.1" value="1.0"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Small</span>
-          <span>Default</span>
-          <span>Large</span>
-        </div>
-      </div>
-
-      <!-- Line Height Slider -->
-      <div>
-        <label for="line-height-slider" class="block text-sm font-medium mb-2 text-text-default">Line Height / Spacing
-          (<span id="line-height-value">1.6</span>)</label>
-        <input type="range" id="line-height-slider" min="1.3" max="2.0" step="0.1" value="1.6"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700">
-        <div class="flex justify-between text-xs mt-1 text-text-secondary">
-          <span>Compact</span>
-          <span>Spacious</span>
-        </div>
-      </div>
-
-      <!-- Reading Mask Toggle -->
-      <div>
-        <label for="toggle-reading-mask" class="block text-sm font-medium mb-2 text-text-default">Reading
-          Guide/Mask</label>
         <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Enable draggable guide</span>
-          <input type="checkbox" id="toggle-reading-mask" class="toggle" role="switch" aria-checked="false">
-        </div>
-      </div>
-
-      <!-- Reduced Motion Toggle -->
-      <div>
-        <label for="toggle-reduced-motion" class="block text-sm font-medium mb-2 text-text-default">Reduce
-          Animations</label>
-        <div class="flex items-center justify-between">
-          <span class="text-text-secondary">Disable transitions and animations</span>
-          <input type="checkbox" id="toggle-reduced-motion" class="toggle" role="switch" aria-checked="false">
+          <label for="toggle-reduced-motion" class="text-sm font-bold text-text-default cursor-pointer">Reduce
+            Motion</label>
+          <input type="checkbox" id="toggle-reduced-motion"
+            class="w-12 h-6 rounded-full appearance-none bg-gray-300 checked:bg-primary transition-colors relative cursor-pointer after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:w-4 after:h-4 after:rounded-full after:transition-transform checked:after:translate-x-6">
         </div>
       </div>
 
       <button id="reset-a11y-settings"
-        class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
-        Reset All Settings
+        class="w-full bg-base-bg border border-text-secondary text-text-default py-3 rounded-lg mt-4 hover:bg-gray-200 transition-colors font-semibold">
+        Reset to Defaults
       </button>
     </div>
   </div>
 
-  <!-- READING MASK/GUIDE OVERLAY (from index.html) -->
+  <!-- Reading Mask DOM -->
   <div id="reading-mask" class="hidden">
     <div id="reading-guide" style="top: 30%"></div>
   </div>
 
-
-  <!-- Announcement Banner (from A.html, adapted with theme colors) -->
-  <div id="announcement-banner"
-    class="bg-gradient-to-r from-primary to-secondary text-white text-center p-3 text-sm relative shadow-md">
-    <div class="container mx-auto flex items-center justify-center font-medium">
-      <i class="fas fa-bullhorn mr-2"></i>
-      <span>New features and improvements coming soon! Stay tuned for exciting
-        updates!</span>
-      <button id="close-announcement"
-        class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-accent focus:outline-none transition-colors"
-        aria-label="Close announcement">
-        <i class="fas fa-times"></i>
-      </button>
+  <!-- Announcement Bar (Level A Specific) -->
+  <div id="announcement-bar" class="bg-primary text-white text-center py-3 relative z-40 transition-colors"
+    role="region" aria-label="Site Announcement">
+    <div class="container mx-auto px-12">
+      <p class="text-sm font-medium">
+        <i class="fas fa-bullhorn mr-2"></i>
+        New features and content coming soon!
+      </p>
+      <p class="text-sm font-medium">
+        <i class="fas fa-bullhorn mr-2"></i>
+        I am currently aware of the nav menu not working on smaller screens.
+      </p>
     </div>
+    <button id="close-announcement"
+      class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+      aria-label="Dismiss announcement">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
 
-  <!-- Navigation Bar (from A.html, adapted to match index.html style & theme) -->
-  <!-- Uses bg-header-bg from theme variables -->
-  <header class="bg-header-bg shadow-xl sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between flex-wrap">
-      <!-- Logo and brand name -->
-      <a class="flex items-center flex-shrink-0 text-white mr-6" href="/index.html">
-        <img src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Company Logo"
-          class="rounded-full h-10 w-10 mr-3" loading="lazy" width="40" height="40"
-          onerror="this.onerror=null; this.src='https://placehold.co/40x40/818CF8/FFFFFF?text=HL';" />
-        <!-- Removed text-accent and font-black for theme consistency -->
-        <span class="font-semibold text-xl tracking-tight">Hesten's Learning</span>
-      </a>
+  <!-- Main Navigation -->
+  <header class="bg-header-bg shadow-md transition-colors duration-300 relative z-30">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex items-center justify-between flex-wrap">
 
-      <!-- Mobile menu button -->
-      <div class="block lg:hidden">
-        <button id="nav-toggle"
-          class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-white"
-          aria-label="Toggle navigation menu">
-          <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/svg">
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
-          </svg>
-        </button>
-      </div>
+        <!-- Logo -->
+        <a class="flex items-center flex-shrink-0 text-white mr-8 group" href="/">
+          <div class="rounded-full bg-white p-1 mr-3 group-hover:scale-110 transition-transform">
+            <img src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="" class="h-8 w-8 rounded-full"
+              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
+          </div>
+          <span class="font-bold text-xl tracking-tight group-hover:text-accent transition-colors">Hesten's
+            Learning</span>
+        </a>
 
-      <!-- Navigation links, search, and profile -->
-      <nav class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
-        <div class="text-base lg:flex-grow lg:flex lg:items-center">
-          <!-- Nav links -->
-          <a href="/index.html"
-            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-4 py-2 rounded-lg transition-colors duration-200 font-semibold">
-            <i class="fas fa-home mr-2"></i> Home
-          </a>
-          <a href="/learning.html"
-            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-4 py-2 rounded-lg transition-colors duration-200 font-semibold">
-            <i class="fas fa-book mr-2"></i> Learning
-          </a>
-          <a href="/assessment.html"
-            class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white px-4 py-2 rounded-lg transition-colors duration-200 font-semibold">
-            <i class="fas fa-tasks mr-2"></i> Assessment
-          </a>
+        <!-- Mobile Menu Button -->
+        <div class="block lg:hidden">
+          <button id="nav-toggle"
+            class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white transition-colors"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
 
-        <!-- Search input (Styled like index.html) -->
-        <form action="/search.php" method="GET"
-          class="relative lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto flex items-center">
-          <!-- Uses theme-aware colors -->
-          <input type="text" name="query" placeholder="Search concepts..."
-            class="search-input bg-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:w-64 lg:w-48 transition-all duration-300 ease-in-out w-full placeholder-gray-400"
-            aria-label="Search courses" />
-          <button type="submit"
-            class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-accent focus:outline-none"
-            aria-label="Submit search">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
+        <!-- Links -->
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+          <div class="text-sm lg:flex-grow font-medium">
+            <a href="/"
+              class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-6 hover:underline decoration-2 underline-offset-4 transition-all">
+              <i class="fas fa-home mr-1 text-accent"></i> Home
+            </a>
+            <a href="#"
+              class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-6 hover:underline decoration-2 underline-offset-4 transition-all">
+              <i class="fas fa-book-open mr-1 text-accent"></i> Learning
+            </a>
+            <a href="/assessment.html"
+              class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white hover:underline decoration-2 underline-offset-4 transition-all">
+              <i class="fas fa-clipboard-check mr-1 text-accent"></i> Assessment
+            </a>
+          </div>
 
-        <!-- Profile dropdown (Styled like index.html) -->
-        <div class="relative ml-0 lg:ml-4 mt-4 lg:mt-0 w-full lg:w-auto">
-          <button
-            class="flex items-center text-gray-200 hover:text-white focus:outline-none px-3 py-2 rounded-lg w-full justify-center lg:justify-start transition-colors"
-            id="profile-menu-button" aria-haspopup="true" aria-expanded="false">
-            <img id="profile-pic" src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Profile Picture"
-              class="rounded-full h-8 w-8 mr-2" loading="lazy" width="32" height="32"
-              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=PP';" />
-            <span id="profile-name" class="md:inline-block font-semibold">User</span>
-            <i class="fas fa-chevron-down ml-2 text-xs"></i>
-          </button>
-          <!-- Uses bg-content-bg and text-text-default for theme awareness -->
-          <div id="profile-dropdown"
-            class="absolute right-0 lg:left-0 mt-2 w-48 bg-content-bg rounded-md shadow-lg py-1 z-10 hidden" role="menu"
-            aria-orientation="vertical" aria-labelledby="profile-menu-button">
-            <a href="/profile.html" class="block px-4 py-2 text-sm text-text-default hover:bg-base-bg"
-              role="menuitem"><i class="fas fa-user mr-2 text-text-secondary"></i> Profile</a>
-            <a href="/settings.html" class="block px-4 py-2 text-sm text-text-default hover:bg-base-bg"
-              role="menuitem"><i class="fas fa-cog mr-2 text-text-secondary"></i> Settings</a>
-            <a href="/help.html" class="block px-4 py-2 text-sm text-text-default hover:bg-base-bg" role="menuitem"><i
-                class="fas fa-question-circle mr-2 text-text-secondary"></i> Help</a>
-            <div class="border-t border-gray-100 dark:border-gray-600 my-1"></div>
-            <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-text-default hover:bg-base-bg"
-              role="menuitem">
-              <i class="fas fa-sign-out-alt mr-2 text-text-secondary"></i> Sign Out
-            </button>
+          <!-- Search -->
+          <div class="relative mt-4 lg:mt-0">
+            <form action="/search.php" method="GET" role="search" class="relative">
+              <label for="search-input" class="sr-only">Search</label>
+              <input type="text" id="search-input" name="q" placeholder="Search topics..."
+                class="bg-gray-700/50 text-white border border-gray-600 rounded-full py-2 pl-10 pr-4 focus:bg-gray-700 focus:border-accent w-full lg:w-64 transition-all placeholder-gray-400" />
+              <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </form>
           </div>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- 
-      IMPROVEMENT 1: Removed 'sticky' and 'top-[64px]' from the sub-nav.
-      This prevents the "double-sticky" header, giving more screen space to the content,
-      especially on mobile. The tab bar will now scroll away with the page.
-    -->
-  <div class="sub-nav bg-content-bg flex justify-center items-center py-3 px-4 flex-wrap gap-4 w-full shadow-lg z-40"
+  <!-- Level A Specific Sub-Nav (Tabs) -->
+  <div
+    class="sub-nav bg-content-bg flex justify-center items-center py-3 px-4 flex-wrap gap-4 w-full shadow-lg z-20 border-b border-gray-200 dark:border-gray-700"
     role="tablist" aria-label="Subject navigation tabs">
     <button id="tab1-button"
-      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary active"
-      data-target="tab1" aria-label="Math Skills" aria-selected="true" role="tab">
-      <i class="fas fa-calculator text-xl tab-icon text-text-secondary"></i>
-      <span class="font-medium">Math</span>
+      class="tab-button active flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg"
+      data-target="tab1" aria-selected="true" role="tab">
+      <i class="fas fa-calculator text-lg"></i> <span class="font-bold">Math</span>
     </button>
     <button id="tab2-button"
-      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary"
-      data-target="tab2" aria-label="Language Arts Skills" aria-selected="false" role="tab" tabindex="-1">
-      <i class="fas fa-book-open text-xl tab-icon text-text-secondary"></i>
-      <span class="font-medium">Language Arts</span>
+      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg"
+      data-target="tab2" aria-selected="false" role="tab">
+      <i class="fas fa-book-open text-lg"></i> <span class="font-bold">Language Arts</span>
     </button>
     <button id="tab3-button"
-      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary"
-      data-target="tab3" aria-label="Science Skills" aria-selected="false" role="tab" tabindex="-1">
-      <i class="fas fa-flask text-xl tab-icon text-text-secondary"></i>
-      <span class="font-medium">Science</span>
+      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg"
+      data-target="tab3" aria-selected="false" role="tab">
+      <i class="fas fa-flask text-lg"></i> <span class="font-bold">Science</span>
     </button>
     <button id="tab4-button"
-      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary"
-      data-target="tab4" aria-label="Social Studies Skills" aria-selected="false" role="tab" tabindex="-1">
-      <i class="fas fa-globe-americas text-xl tab-icon text-text-secondary"></i>
-      <span class="font-medium">Social Studies</span>
+      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg"
+      data-target="tab4" aria-selected="false" role="tab">
+      <i class="fas fa-globe-americas text-lg"></i> <span class="font-bold">Social Studies</span>
     </button>
     <button id="tab5-button"
-      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg hover:text-primary"
-      data-target="tab5" aria-label="Skill Plans" aria-selected="false" role="tab" tabindex="-1">
-      <i class="fas fa-clipboard-list text-xl tab-icon text-text-secondary"></i>
-      <span class="font-medium">Skill Plans</span>
+      class="tab-button flex items-center gap-2 text-text-default px-4 py-2 rounded-lg transition-all duration-300 hover:bg-base-bg"
+      data-target="tab5" aria-selected="false" role="tab">
+      <i class="fas fa-clipboard-list text-lg"></i> <span class="font-bold">Skill Plans</span>
     </button>
   </div>
 
-  <!-- Hero section for Level A Page (Uses dynamic theme variables) -->
-  <header class="bg-gradient-to-r from-primary to-secondary text-white py-20 px-4 text-center shadow-lg">
-    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4 tracking-tighter">
+  <!-- Hero Section (Level A) -->
+  <header class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-16 px-4 text-center shadow-lg mb-8">
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-tighter animate-fade-in-up">
       Pre-K - <span class="text-accent">Level A</span>
     </h1>
-    <p class="text-xl md:text-2xl mb-8 font-light max-w-3xl mx-auto">
-      Foundational Skills in <strong class="font-bold">Math</strong>, <strong class="font-bold">Language Arts</strong>,
-      <strong class="font-bold">Science</strong>, and <strong class="font-bold">Social Studies</strong> designed for
-      early learners.
+    <p class="text-xl md:text-2xl mb-4 font-light max-w-3xl mx-auto animate-fade-in-up delay-100 text-blue-100">
+      Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners.
     </p>
   </header>
 
-  <!-- Main Content Area (Now uses dynamic theme colors) -->
-  <main id="main-content" class="container mx-auto px-4 py-12" role="main">
-    <!-- Tab 1 Content: Math -->
-    <section id="tab1"
-      class="tab-content active bg-content-bg rounded-3xl shadow-custom p-8 md:p-12 mb-8 border-t-8 border-primary/50"
-      role="tabpanel" aria-labelledby="tab1-button" aria-hidden="false">
-      <h1 class="text-center text-4xl font-extrabold text-text-default mb-10" id="module1">
-        Math Curriculum Overview
-      </h1>
+  <!-- Main Content Area -->
+  <main id="main-content" class="container mx-auto px-4 py-6 scroll-mt-24" role="main" tabindex="-1">
 
+    <!-- Tab 1: Math -->
+    <section id="tab1" class="tab-content active" role="tabpanel" aria-labelledby="tab1-button">
       <!-- Module 1 -->
-      <div class="mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-        <h2
-          class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default">
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold text-text-default mb-6 p-4 bg-accent/20 rounded-xl border-l-8 border-primary">
           Module 1: Counting to 5
         </h2>
-        <!-- 
-              IMPROVEMENT 2: Replaced 'space-y-6' with a responsive grid.
-              On large screens (lg:), topics will now appear in two columns,
-              making the page less tall and easier to scan. On mobile, it
-              remains a single column.
-            -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Topic A (Card style adapted from bg-base-bg) -->
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-a"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic A: Matching Objects
-            </h3>
-            <!-- 
-                      IMPROVEMENT 3: Added min-w-[120px], justify-center, and text-center to buttons
-                      for a more uniform look.
-                    -->
-            <div class="flex flex-wrap gap-2 mb-3">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Topic A -->
+          <div class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <h3 class="text-xl font-bold text-text-default mb-4">Topic A: Matching Objects</h3>
+            <div class="flex flex-wrap gap-2 mb-4">
               <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
-                data-topic="Matching Objects">
-                Explain Concept
-              </button>
+                class="explain-button px-4 py-2 bg-primary text-white text-sm font-bold rounded-full hover:bg-secondary transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                data-topic="Matching Objects">Explain</button>
               <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
-                data-topic="Matching Objects">
-                Activity Idea
-              </button>
+                class="activity-button px-4 py-2 bg-secondary text-white text-sm font-bold rounded-full hover:bg-accent transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
+                data-topic="Matching Objects">Activity</button>
               <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
-                data-topic="Matching Objects">
-                Generate a Story
-              </button>
+                class="story-button px-4 py-2 bg-gray-700 text-white text-sm font-bold rounded-full hover:bg-gray-600 transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                data-topic="Matching Objects">Story</button>
+            </div>
+            <!-- Dynamic Outputs -->
+            <div
+              class="explanation-output hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 text-text-default rounded-lg text-sm border-l-4 border-primary">
             </div>
             <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
+              class="activity-output hidden mt-4 p-4 bg-green-50 dark:bg-green-900/30 text-text-default rounded-lg text-sm border-l-4 border-green-500">
             </div>
             <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
+              class="story-output hidden mt-4 p-4 bg-purple-50 dark:bg-purple-900/30 text-text-default rounded-lg text-sm border-l-4 border-purple-500">
             </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <!-- Added 'mt-auto' to push list to bottom if card heights are uneven in grid -->
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
+
+            <ul class="list-disc pl-5 mt-4 text-text-secondary space-y-2">
               <li>Lesson 1: Identify identical objects.</li>
-              <li>Lessons 2–3: Match 2 objects that are the same, but….</li>
+              <li>Lessons 2–3: Match 2 objects that are the same.</li>
               <li>Lesson 4: Match 2 objects that are used together.</li>
             </ul>
-          </section>
+          </div>
 
           <!-- Topic B -->
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-b"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic B: Sorting
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
+          <div class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <h3 class="text-xl font-bold text-text-default mb-4">Topic B: Sorting</h3>
+            <div class="flex flex-wrap gap-2 mb-4">
               <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
-                data-topic="Sorting">
-                Explain Concept
-              </button>
+                class="explain-button px-4 py-2 bg-primary text-white text-sm font-bold rounded-full hover:bg-secondary transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                data-topic="Sorting">Explain</button>
               <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
-                data-topic="Sorting">
-                Activity Idea
-              </button>
+                class="activity-button px-4 py-2 bg-secondary text-white text-sm font-bold rounded-full hover:bg-accent transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
+                data-topic="Sorting">Activity</button>
               <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
-                data-topic="Sorting">
-                Generate a Story
-              </button>
+                class="story-button px-4 py-2 bg-gray-700 text-white text-sm font-bold rounded-full hover:bg-gray-600 transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                data-topic="Sorting">Story</button>
             </div>
             <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
+              class="explanation-output hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 text-text-default rounded-lg text-sm border-l-4 border-primary">
             </div>
             <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
+              class="activity-output hidden mt-4 p-4 bg-green-50 dark:bg-green-900/30 text-text-default rounded-lg text-sm border-l-4 border-green-500">
             </div>
             <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
+              class="story-output hidden mt-4 p-4 bg-purple-50 dark:bg-purple-900/30 text-text-default rounded-lg text-sm border-l-4 border-purple-500">
             </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
+            <ul class="list-disc pl-5 mt-4 text-text-secondary space-y-2">
               <li>Lesson 5: Make one group with a given attribute.</li>
               <li>Lesson 6: Sort into two groups.</li>
-              <li>
-                Lesson 7: Sort the same group of objects in two different ways.
-              </li>
+              <li>Lesson 7: Sort the same group in two ways.</li>
             </ul>
-          </section>
-
-          <!-- Topic C -->
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-c"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic C: How Many Questions with 1, 2, or 3 Objects
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 1, 2, or 3 Objects">
-                Explain Concept
-              </button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 1, 2, or 3 Objects">
-                Activity Idea
-              </button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 1, 2, or 3 Objects">
-                Generate a Story
-              </button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>Lesson 8: Count up to 3 objects.</li>
-              <li>
-                Lessons 9–10: Arrange and count up to 3 objects in scattered and
-                linear configurations.
-              </li>
-              <li>
-                Lesson 11: Arrange and count up to 3 objects to play a game
-              </li>
-            </ul>
-          </section>
-
-          <!-- Topic D -->
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-d"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic D: Matching 1 Numeral with up to 3 Objects
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 3 Objects">
-                Explain Concept
-              </button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 3 Objects">
-                Activity Idea
-              </button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-dark min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 3 Objects">
-                Generate a Story
-              </button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>Lesson 12: Match the numerals 1, 2, and 3 to quantities.</li>
-              <li>
-                Lesson 13: Make a group of up to 3 objects and match the numeral
-                (concrete to abstract).
-              </li>
-              <li>
-                Lesson 14: Look at a numeral and count out a group of objects to
-                match (abstract to concrete).
-              </li>
-            </ul>
-            <p
-              class="bg-primary/20 text-primary p-3 rounded-lg mt-4 shadow-sm font-bold text-center border-l-4 border-primary">
-              Mid-Module Assessment: Topics A–D (interview style assessment, 4 days)
-            </p>
-          </section>
-
-          <!-- Topic E & F... -->
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-e"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic E: How Many Questions with 4 or 5 Objects
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 4 or 5 Objects">Explain Concept</button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 4 or 5 Objects">Activity Idea</button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-                data-topic="How Many Questions with 4 or 5 Objects">Generate a Story</button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>Lessons 15–16: Arrange and count up to 5 objects in scattered and linear configurations.</li>
-              <li>Lesson 17: Count fingers on the left hand from 1 to 5.</li>
-              <li>Lesson 18: Arrange and count 4 objects in an array configuration.</li>
-              <li>Lesson 19: Find embedded numbers within 4 and 5 objects.</li>
-              <li>Lesson 20: Arrange and count 5 objects in a circular configuration.</li>
-            </ul>
-          </section>
-
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module1-topic-f"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic F: Matching 1 Numeral with up to 5 Objects
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 5 Objects">Explain Concept</button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 5 Objects">Activity Idea</button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-                data-topic="Matching 1 Numeral with up to 5 Objects">Generate a Story</button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>Lesson 21: Count up to 4 objects and match the numerals.</li>
-              <li>Lesson 22: Count up to 5 objects and match the numerals.</li>
-              <li>Lesson 23: Make a group of up to 5 objects and match the numeral (concrete to abstract).</li>
-              <li>Lesson 24: Look at a numeral and count out a group of objects to match (abstract to concrete).</li>
-            </ul>
-          </section>
+          </div>
         </div>
       </div>
 
-
-      <!-- Module 2 -->
-      <div class="mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-        <h2
-          class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default"
-          id="module2">
-          Module 2: Shapes
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module2-topic-a"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic A: Two-Dimensional Shapes
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-                data-topic="Two-Dimensional Shapes">Explain Concept</button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-                data-topic="Two-Dimensional Shapes">Activity Idea</button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-                data-topic="Two-Dimensional Shapes">Generate a Story</button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>
-                Identify and describe flat shapes (circles, squares, triangles,
-                rectangles).
-              </li>
-              <li>Sort and classify two-dimensional shapes.</li>
-              <li>Find two-dimensional shapes in the environment.</li>
-            </ul>
-          </section>
-
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module2-topic-b"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic B: Constructing Two-Dimensional Shapes
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-                data-topic="Constructing Two-Dimensional Shapes">Explain Concept</button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-                data-topic="Constructing Two-Dimensional Shapes">Activity Idea</button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-                data-topic="Constructing Two-Dimensional Shapes">Generate a Story</button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>Use materials (e.g., sticks, play-doh) to create shapes.</li>
-              <li>Draw two-dimensional shapes.</li>
-              <li>Combine simple shapes to form larger shapes.</li>
-            </ul>
-          </section>
-
-          <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 id="module2-topic-c"
-              class="text-xl font-semibold text-text-default mb-3 flex items-start flex-wrap justify-between">
-              Topic C: Three-Dimensional Shapes
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button
-                class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-                data-topic="Three-Dimensional Shapes">Explain Concept</button>
-              <button
-                class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-                data-topic="Three-Dimensional Shapes">Activity Idea</button>
-              <button
-                class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-                data-topic="Three-Dimensional Shapes">Generate a Story</button>
-            </div>
-            <div
-              class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-            </div>
-            <div
-              class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-            </div>
-            <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-              <li>
-                Identify and describe solid shapes (cubes, cones, cylinders,
-                spheres).
-              </li>
-              <li>Compare two-dimensional and three-dimensional shapes.</li>
-              <li>Find three-dimensional shapes in the environment.</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-
-      <!-- Module 3 - 6 -->
-      <h2
-        class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default"
-        id="module3">
-        Module 3: Counting to 10
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module3-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: How Many Questions with
-            up to 8 Objects</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 8 Objects">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 8 Objects">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 8 Objects">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Count up to 8 objects in various configurations (linear, scattered, array).</li>
-            <li>Answer "how many" questions for groups of up to 8 objects.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module3-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Matching One Numeral
-            with up to 8 Objects</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 8 Objects">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 8 Objects">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 8 Objects">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Match numerals 1-8 to quantities of objects.</li>
-            <li>Count out a group of objects to match a given numeral.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module3-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: How Many Questions with
-            up to 10 Objects</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 10 Objects">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 10 Objects">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="How Many Questions with up to 10 Objects">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Count up to 10 objects in various configurations.</li>
-            <li>Answer "how many" questions for groups of up to 10 objects.</li>
-            <li>Understand that the last number counted tells the total.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module3-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Matching One Numeral
-            with up to 10 Objects</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 10 Objects">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 10 Objects">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Matching One Numeral with up to 10 Objects">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Match numerals 0-10 to quantities of objects.</li>
-            <li>Count out a group of objects to match a given numeral.</li>
-            <li>Write numerals 0-10.</li>
-          </ul>
-        </section>
-      </div>
-
-      <h2
-        class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default"
-        id="module4">
-        Module 4: Comparison of Length, Weight, Capacity, and Numbers to 5
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module4-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Comparison of Length
-          </h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Length">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Length">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Length">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Compare two objects by length using "longer than," "shorter than," "as long as."</li>
-            <li>Order objects by length.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module4-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Comparison of Weight
-          </h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Weight">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Weight">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Weight">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Compare two objects by weight using "heavier than," "lighter than," "as heavy as."</li>
-            <li>Use a balance scale to compare weights.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module4-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: Comparison of Capacity
-          </h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Capacity">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Capacity">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Capacity">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Compare two containers by capacity using "more than," "less than," "as much as."</li>
-            <li>Fill and empty containers to compare capacity.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module4-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Comparison of Numbers
-            to 5</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Numbers to 5">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Numbers to 5">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Comparison of Numbers to 5">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Compare two groups of objects (up to 5) using "more than," "less than," "the same as."</li>
-            <li>Match quantities to compare.</li>
-          </ul>
-        </section>
-      </div>
-
-
-      <h2
-        class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default"
-        id="module5">
-        Module 5: Addition and Subtraction Stories and Counting to 20
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 border-b-2 border-gray-100 dark:border-gray-700 pb-8">
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module5-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Writing Numerals 0-5
-          </h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Writing Numerals 0-5">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Writing Numerals 0-5">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Writing Numerals 0-5">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Practice writing numerals 0, 1, 2, 3, 4, and 5.</li>
-            <li>Form numerals using various materials.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module5-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Addition Stories
-            (Numbers 1-5)</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Addition Stories (Numbers 1-5)">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Addition Stories (Numbers 1-5)">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Addition Stories (Numbers 1-5)">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Act out and model addition stories with objects and drawings (sums up to 5).</li>
-            <li>Solve "add to with result unknown" and "put together with total unknown" problems.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module5-topic-c" class="text-xl font-semibold text-text-default mb-3">Topic C: Subtraction Stories
-            (Numbers 1-5)</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Subtraction Stories (Numbers 1-5)">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Subtraction Stories (Numbers 1-5)">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Subtraction Stories (Numbers 1-5)">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Act out and model subtraction stories with objects and drawings (minuends up to 5).</li>
-            <li>Solve "take from with result unknown" problems.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module5-topic-d" class="text-xl font-semibold text-text-default mb-3">Topic D: Decontextualizing
-            Subtraction Stories</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Decontextualizing Subtraction Stories">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Decontextualizing Subtraction Stories">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Decontextualizing Subtraction Stories">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Represent subtraction stories using fingers, cubes, or drawings.</li>
-            <li>Connect concrete actions to abstract representations of subtraction.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module5-topic-e" class="text-xl font-semibold text-text-default mb-3">Topic E: Duplicating and
-            Extending Patterns</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Duplicating and Extending Patterns">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Duplicating and Extending Patterns">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Duplicating and Extending Patterns">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Duplicate simple AB, AAB, ABB patterns.</li>
-            <li>Extend simple patterns.</li>
-          </ul>
-        </section>
-      </div>
-
-
-      <h2
-        class="text-3xl font-bold text-text-default mb-6 p-3 bg-accent/30 rounded-xl shadow-sm border-l-4 border-text-default"
-        id="module6">
-        Module 6: Analyzing, Comparing, and Composing Shapes
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module6-topic-a" class="text-xl font-semibold text-text-default mb-3">Topic A: Building and Drawing
-            Flat and Solid Shapes</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Building and Drawing Flat and Solid Shapes">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Building and Drawing Flat and Solid Shapes">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Building and Drawing Flat and Solid Shapes">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Describe and identify flat (2D) and solid (3D) shapes.</li>
-            <li>Build shapes from components (e.g., sticks and clay).</li>
-            <li>Draw shapes.</li>
-          </ul>
-        </section>
-        <section class="bg-base-bg p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col">
-          <h3 id="module6-topic-b" class="text-xl font-semibold text-text-default mb-3">Topic B: Composing and
-            Decomposing Shapes</h3>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <button
-              class="explain-button px-3 py-1 bg-primary text-white text-xs rounded-full hover:bg-secondary min-w-[120px] justify-center text-center"
-              data-topic="Composing and Decomposing Shapes">Explain Concept</button>
-            <button
-              class="activity-button px-3 py-1 bg-secondary text-white text-xs rounded-full hover:bg-accent min-w-[120px] justify-center text-center"
-              data-topic="Composing and Decomposing Shapes">Activity Idea</button>
-            <button
-              class="story-button px-3 py-1 bg-header-bg text-white text-xs rounded-full hover:bg-gray-600 dark:hover:bg-gray-500 min-w-[120px] justify-center text-center"
-              data-topic="Composing and Decomposing Shapes">Generate a Story</button>
-          </div>
-          <div
-            class="explanation-output text-text-default mt-2 p-3 bg-accent/20 border-l-4 border-primary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="activity-output text-text-default mt-2 p-3 bg-secondary/20 border-l-4 border-secondary rounded-lg hidden text-sm font-medium">
-          </div>
-          <div
-            class="story-output text-text-default mt-2 p-3 bg-header-bg/20 border-l-4 border-header-bg rounded-lg hidden text-sm font-medium">
-          </div>
-          <ul class="list-disc pl-6 text-text-secondary space-y-1 text-sm mt-3 mt-auto">
-            <li>Combine simple shapes to form larger shapes (composing).</li>
-            <li>Break apart larger shapes into smaller shapes (decomposing).</li>
-            <li>Explore how shapes fit together.</li>
-          </ul>
-        </section>
+      <!-- Placeholder for other modules -->
+      <div class="p-8 text-center bg-content-bg rounded-2xl shadow-inner">
+        <p class="text-text-secondary">More Math modules (Shapes, Counting to 10) are available in the full curriculum.
+        </p>
       </div>
     </section>
 
-    <!-- Tab 2 Content: Language Arts (Placeholder) -->
-    <section id="tab2"
-      class="tab-content bg-content-bg rounded-3xl shadow-custom p-8 md:p-12 mb-8 border-t-8 border-primary/50"
-      role="tabpanel" aria-labelledby="tab2-button" aria-hidden="true">
-      <h2 class="text-4xl font-extrabold text-text-default mb-6 text-center">
-        Language Arts Module 1
-      </h2>
-      <p class="text-2xl font-semibold text-text-secondary mb-6 text-center bg-accent/40 p-4 rounded-xl">
-        <i class="fas fa-tools mr-2 text-primary"></i>
-        Content for Language Arts is currently being developed. Please check back soon!
-      </p>
+    <!-- Other Tabs (Placeholders for brevity) -->
+    <section id="tab2" class="tab-content" role="tabpanel">
+      <div class="p-12 text-center bg-content-bg rounded-2xl"><i class="fas fa-tools text-4xl text-accent mb-4"></i>
+        <h2 class="text-2xl font-bold text-text-default">Language Arts Coming Soon</h2>
+      </div>
+    </section>
+    <section id="tab3" class="tab-content" role="tabpanel">
+      <div class="p-12 text-center bg-content-bg rounded-2xl"><i class="fas fa-tools text-4xl text-accent mb-4"></i>
+        <h2 class="text-2xl font-bold text-text-default">Science Coming Soon</h2>
+      </div>
+    </section>
+    <section id="tab4" class="tab-content" role="tabpanel">
+      <div class="p-12 text-center bg-content-bg rounded-2xl"><i class="fas fa-tools text-4xl text-accent mb-4"></i>
+        <h2 class="text-2xl font-bold text-text-default">Social Studies Coming Soon</h2>
+      </div>
+    </section>
+    <section id="tab5" class="tab-content" role="tabpanel">
+      <div class="p-12 text-center bg-content-bg rounded-2xl"><i class="fas fa-tools text-4xl text-accent mb-4"></i>
+        <h2 class="text-2xl font-bold text-text-default">Skill Plans Coming Soon</h2>
+      </div>
     </section>
 
-    <!-- Tab 3 Content: Science (Placeholder) -->
-    <section id="tab3"
-      class="tab-content bg-content-bg rounded-3xl shadow-custom p-8 md:p-12 mb-8 border-t-8 border-primary/50"
-      role="tabpanel" aria-labelledby="tab3-button" aria-hidden="true">
-      <h2 class="text-4xl font-extrabold text-text-default mb-6 text-center">
-        Science Module 1
-      </h2>
-      <p class="text-2xl font-semibold text-text-secondary mb-6 text-center bg-accent/40 p-4 rounded-xl">
-        <i class="fas fa-tools mr-2 text-primary"></i>
-        Content for Science is currently being developed. Please check back soon!
-      </p>
-    </section>
-
-    <!-- Tab 4 Content: Social Studies (Placeholder) -->
-    <section id="tab4"
-      class="tab-content bg-content-bg rounded-3xl shadow-custom p-8 md:p-12 mb-8 border-t-8 border-primary/50"
-      role="tabpanel" aria-labelledby="tab4-button" aria-hidden="true">
-      <h2 class="text-4xl font-extrabold text-text-default mb-6 text-center">
-        Social Studies Module 1
-      </h2>
-
-      <p class="text-xl text-text-default text-center">
-        Content for Social Studies skills will be added here, structured by
-        topics and lessons.
-      </p>
-      <ul class="list-disc pl-6 text-text-secondary space-y-2 mt-4 text-center mx-auto w-fit">
-        <li>Lesson 1: Learning about my community.</li>
-        <li>Lesson 2: Understanding family roles.</li>
-        <li>Lesson 3: Discovering local landmarks.</li>
-      </ul>
-    </section>
-
-    <!-- Tab 5 Content: Skill Plans (Placeholder) -->
-    <section id="tab5"
-      class="tab-content bg-content-bg rounded-3xl shadow-custom p-8 md:p-12 mb-8 border-t-8 border-primary/50"
-      role="tabpanel" aria-labelledby="tab5-button" aria-hidden="true">
-      <h2 class="text-4xl font-extrabold text-text-default mb-6 text-center">
-        Skill Plans Overview
-      </h2>
-      <p class="text-xl text-text-default text-center">
-        Here you can find an overview of the full Pre-K skill plan across all
-        subjects, helping you map out your learning journey.
-      </p>
-      <p class="text-xl text-text-default text-center mt-4 p-4 bg-accent/40 rounded-xl">
-        (e.g., downloadables, full curriculum maps, progress tracking coming soon!)
-      </p>
-    </section>
   </main>
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" aria-label="Back to top">
-    <i class="fas fa-arrow-up text-lg"></i>
+  <button id="back-to-top"
+    class="fixed bottom-24 right-6 z-40 p-4 bg-gray-800 text-white rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700"
+    aria-label="Scroll back to top">
+    <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- Footer (Styled like index.html) -->
+  <!-- Footer Wrapper -->
   <footer
-    class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-10 px-4 rounded-t-xl shadow-lg transition-colors duration-300">
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-12 px-4 rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 mt-auto">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- About -->
       <div>
-        <h3 class="text-lg font-semibold mb-3 flex items-center">
-          <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i> About
+        <h3 class="text-xl font-bold mb-4 flex items-center text-white/90">
+          <i class="fas fa-graduation-cap mr-3 text-accent text-2xl"></i> About
         </h3>
-        <p class="text-sm opacity-90">
-          Empowering students with learning disabilities through personalized
-          learning experiences.
-          <a href="/about.html"
-            class="text-accent underline hover:text-white ml-1 focus:outline-none focus:ring-2 focus:ring-white rounded">Learn
-            more</a>
+        <p class="text-sm leading-relaxed text-blue-100">
+          Empowering students with learning disabilities through personalized, accessible, and engaging learning
+          experiences.
         </p>
       </div>
+
       <!-- Quick Links -->
       <div>
-        <h3 class="text-lg font-semibold mb-3 flex items-center" id="quick-links-heading">
-          <i class="fas fa-link mr-2" aria-hidden="true"></i> Quick Links
-        </h3>
-        <nav aria-labelledby="quick-links-heading">
-          <ul class="space-y-2 text-sm">
-            <li>
-              <a href="/curriculum"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-book mr-2" aria-hidden="true"></i>Curriculum</a>
-            </li>
-            <li>
-              <a href="/research/index.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
-            </li>
-            <li>
-              <a href="/standard"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-chart-line mr-2" aria-hidden="true"></i>Standards</a>
-            </li>
-            <li>
-              <a href="/help"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 text-white/90 border-b border-white/20 pb-2 inline-block">Quick Links</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/curriculum.php"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-scroll w-6 text-center text-accent"></i> Curriculum</a></li>
+          <li><a href="/library.php"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-book-reader w-6 text-center text-accent"></i> Library</a></li>
+          <li><a href="/research"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-flask w-6 text-center text-accent"></i> Research</a></li>
+        </ul>
       </div>
+
       <!-- Support -->
       <div>
-        <h3 class="text-lg font-semibold mb-3 flex items-center" id="support-heading">
-          <i class="fas fa-hands-helping mr-2" aria-hidden="true"></i> Support
-        </h3>
-        <nav aria-labelledby="support-heading">
-          <ul class="space-y-2 text-sm">
-            <li>
-              <a href="/contact.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-envelope mr-2" aria-hidden="true"></i>Contact Us</a>
-            </li>
-            <li>
-              <a href="/students.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
-            </li>
-            <li>
-              <a href="/parents.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
-            </li>
-            <li>
-              <a href="/teachers.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 text-white/90 border-b border-white/20 pb-2 inline-block">Support</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/contact.html"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-envelope w-6 text-center text-accent"></i> Contact Us</a></li>
+          <li><a href="/students.php"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-user-graduate w-6 text-center text-accent"></i> For Students</a></li>
+          <li><a href="/teachers.php"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-chalkboard-teacher w-6 text-center text-accent"></i> For Teachers</a></li>
+        </ul>
       </div>
+
       <!-- Legal & Settings -->
       <div>
-        <h3 class="text-lg font-semibold mb-3 flex items-center" id="legal-heading">
-          <i class="fas fa-balance-scale mr-2" aria-hidden="true"></i> Legal & Settings
-        </h3>
-        <nav aria-labelledby="legal-heading">
-          <ul class="space-y-2 text-sm">
-            <li>
-              <a href="/privacy.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
-            </li>
-            <li>
-              <a href="/terms.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
-            </li>
-            <li>
-              <a href="/accessibility.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
-            </li>
-            <li>
-              <a href="/about-us.html"
-                class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
-                  class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
-            </li>
-          </ul>
-        </nav>
+        <h3 class="text-lg font-bold mb-4 text-white/90 border-b border-white/20 pb-2 inline-block">Legal</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/privacy.html"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-user-shield w-6 text-center text-accent"></i> Privacy Policy</a></li>
+          <li><a href="/terms.html"
+              class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all"><i
+                class="fas fa-file-contract w-6 text-center text-accent"></i> Terms of Use</a></li>
+          <li>
+            <button onclick="document.getElementById('a11y-toggle-button').click()"
+              class="flex items-center text-left text-blue-100 hover:text-white hover:translate-x-1 transition-all w-full">
+              <i class="fas fa-universal-access w-6 text-center text-accent"></i> Accessibility
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="mt-10 border-t border-accent pt-6 text-center text-sm opacity-90">
-      <p>
-        &copy; <span id="year"></span> Hesten's Learning. All rights reserved.
-        <span class="mx-2" aria-hidden="true">|</span>
-        Made with <i class="fas fa-heart text-red-400" aria-label="love"></i> for education
-      </p>
-      <p class="mt-2">
-        <a property="dct:title" rel="cc:attributionURL" href="http://hestena62.com"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten's
-          Learning</a>
-        by
-        <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="http://hestena62.com/about-me.html"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten
-          Allison</a>
-        is licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
-          rel="license noopener noreferrer"
-          class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">CC
-          BY-NC-SA 4.0</a>
-      </p>
-      <div class="gtranslate_wrapper mt-4"></div>
-      <script>
-        window.gtranslateSettings = {
-          default_language: "en",
-          native_language_names: true,
-          detect_browser_language: true,
-          wrapper_selector: ".gtranslate_wrapper",
-          flag_style: "3d",
-          alt_flags: { en: "usa" },
-        };
-      </script>
-      <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
-      <div class="mt-4 flex justify-center items-center gap-4">
-        <a href="#"
-          onclick="window.open('https://www.sitelock.com/verify.php?site=hestena62.com','SiteLock','width=600,height=600,left=160,top=170');"
-          title="SiteLock" class="focus:outline-none focus:ring-2 focus:ring-white rounded">
-          <img alt="SiteLock" src="https://shield.sitelock.com/shield/hestena62.com"
-            class="h-8 w-auto rounded shadow" />
-        </a>
-        <!-- Added BuyMeACoffee link from index.html for consistency -->
-        <a href="https://www.buymeacoffee.com/hestena62l"
-          class="focus:outline-none focus:ring-2 focus:ring-white rounded">
-          <img
-            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hestena62&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
-            alt="Buy me a coffee" />
-        </a>
-      </div>
+
+    <div class="mt-12 pt-8 border-t border-white/20 text-center text-sm text-blue-100">
+      <p>&copy; <span id="year"></span> Hesten's Learning.</p>
     </div>
   </footer>
 
-  <!-- MODALS (from index.html) -->
-
-  <!-- Message Box Modal -->
-  <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
-    role="alertdialog" aria-modal="true" aria-labelledby="message-title">
+  <!-- GLOBAL MODALS -->
+  <div id="message-box" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[100]"
+    role="alertdialog" aria-modal="true">
     <div
-      class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
-      <h4 id="message-title" class="text-xl font-bold mb-4 text-primary">Notification</h4>
-      <p id="message-text" class="mb-6 text-text-default">This is a general message.</p>
+      class="bg-content-bg rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center border border-gray-200 dark:border-gray-700">
+      <h4 id="message-title" class="text-2xl font-bold mb-3 text-text-default">Notification</h4>
+      <p id="message-text" class="mb-8 text-text-secondary">Message goes here.</p>
       <button id="message-ok-button"
-        class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent">
-        OK
-      </button>
+        class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary">OK</button>
     </div>
   </div>
 
-  <!-- Confirmation Modal -->
-  <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
-    role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
+  <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[100]"
+    role="dialog" aria-modal="true">
     <div
-      class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
-      <h4 id="confirmation-title" class="text-xl font-bold mb-4 text-red-500">Confirm Action</h4>
-      <p id="confirmation-text" class="mb-6 text-text-default">Are you sure you want to proceed?</p>
-      <div class="flex justify-center space-x-4">
-        <button id="confirm-yes-button"
-          class="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400">
-          Yes
-        </button>
+      class="bg-content-bg rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center border border-gray-200 dark:border-gray-700">
+      <h4 id="confirmation-title" class="text-2xl font-bold mb-3 text-text-default">Confirm</h4>
+      <p id="confirmation-text" class="mb-8 text-text-secondary">Are you sure?</p>
+      <div class="flex gap-4">
         <button id="confirm-no-button"
-          class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
-          No
-        </button>
+          class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-bold">Cancel</button>
+        <button id="confirm-yes-button" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold">Confirm</button>
       </div>
     </div>
   </div>
 
-  <!-- MERGED SCRIPTS (from index.html and A.html) -->
+  <!-- INTERACTIVE SCRIPTS -->
   <script>
-    // Set current year in the footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    // --- GLOBAL MODAL FUNCTIONS (from index.html) ---
-    const messageBox = document.getElementById("message-box");
-    const messageText = document.getElementById("message-text");
-    const messageOkButton = document.getElementById("message-ok-button");
-    const confirmationModal = document.getElementById("confirmation-modal");
-    const confirmationText = document.getElementById("confirmation-text");
-    const confirmYesButton = document.getElementById("confirm-yes-button");
-    const confirmNoButton = document.getElementById("confirm-no-button");
-    let lastFocusedElement = null;
+      // 1. Accessibility Panel Logic
+      const a11yPanel = document.getElementById('a11y-settings-panel');
+      const a11yBtn = document.getElementById('a11y-toggle-button');
+      const a11yClose = document.getElementById('a11y-close-button');
 
-    function trapFocus(modalElement) {
-      const focusableElements = modalElement.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusableElements.length === 0) return;
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-      const handleFocusTrap = function (e) {
-        if (e.key !== 'Tab') { return; }
-        if (e.shiftKey) {
-          if (document.activeElement === firstFocusableElement) {
-            lastFocusableElement.focus();
-            e.preventDefault();
-          }
+      function togglePanel(show) {
+        if (!a11yPanel) return;
+        if (show) {
+          a11yPanel.classList.remove('translate-x-full');
+          a11yPanel.setAttribute('aria-hidden', 'false');
+          if (a11yClose) a11yClose.focus();
         } else {
-          if (document.activeElement === lastFocusableElement) {
-            firstFocusableElement.focus();
-            e.preventDefault();
-          }
-        }
-      };
-      modalElement._handleFocusTrap = handleFocusTrap;
-      modalElement.addEventListener('keydown', modalElement._handleFocusTrap);
-      firstFocusableElement.focus();
-    }
-
-    function removeTrapFocus(modalElement) {
-      if (modalElement && modalElement._handleFocusTrap) {
-        modalElement.removeEventListener('keydown', modalElement._handleFocusTrap);
-        delete modalElement._handleFocusTrap;
-      }
-    }
-
-    function showMessageBox(message) {
-      if (!messageBox || !messageText || !messageOkButton) return;
-      lastFocusedElement = document.activeElement;
-      messageText.textContent = message;
-      messageBox.classList.remove("hidden");
-      messageBox.style.display = 'flex';
-      trapFocus(messageBox);
-      messageOkButton.onclick = () => {
-        messageBox.classList.add("hidden");
-        messageBox.style.display = 'none';
-        removeTrapFocus(messageBox);
-        if (lastFocusedElement) lastFocusedElement.focus();
-      };
-    }
-
-    function showConfirmationModal(message, onConfirm) {
-      if (!confirmationModal || !confirmationText || !confirmYesButton || !confirmNoButton) return;
-      lastFocusedElement = document.activeElement;
-      confirmationText.textContent = message;
-      confirmationModal.classList.remove("hidden");
-      confirmationModal.style.display = 'flex';
-      trapFocus(confirmationModal);
-      if (confirmNoButton) confirmNoButton.focus();
-      const handleConfirmation = (result) => {
-        confirmationModal.classList.add("hidden");
-        confirmationModal.style.display = 'none';
-        removeTrapFocus(confirmationModal);
-        if (lastFocusedElement) lastFocusedElement.focus();
-        onConfirm(result);
-      };
-      confirmYesButton.onclick = () => handleConfirmation(true);
-      confirmNoButton.onclick = () => handleConfirmation(false);
-    }
-
-    // --- UI Interactions (Merged) ---
-
-    // Mobile Navigation Toggle (Logic from A.html)
-    const navToggle = document.getElementById("nav-toggle");
-    const navContent = document.getElementById("nav-content");
-    if (navToggle && navContent) {
-      navToggle.addEventListener("click", function () {
-        if (navContent.classList.contains("hidden")) {
-          navContent.classList.remove("hidden");
-          navContent.classList.add("mobile-menu-active");
-          navToggle.setAttribute('aria-expanded', 'true');
-        } else {
-          navContent.classList.remove("mobile-menu-active");
-          navToggle.setAttribute('aria-expanded', 'false');
-          setTimeout(() => {
-            navContent.classList.add("hidden");
-          }, 300); // Wait for animation
-        }
-      });
-    }
-    // Hide mobile menu on resize (Logic from A.html)
-    window.addEventListener("resize", function () {
-      if (window.innerWidth >= 1024) {
-        navContent.classList.remove("hidden", "mobile-menu-active");
-        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-      } else {
-        if (!navContent.classList.contains("mobile-menu-active")) {
-          navContent.classList.add("hidden");
-          if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
-    });
-
-
-    // Profile Dropdown Toggle (Logic from A.html, adapted for new classes)
-    const profileMenuButton = document.getElementById("profile-menu-button");
-    const profileDropdown = document.getElementById("profile-dropdown");
-
-    if (profileMenuButton && profileDropdown) {
-      profileMenuButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const isHidden = profileDropdown.classList.toggle("hidden");
-        this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
-      });
-    }
-    document.addEventListener("click", function (event) {
-      if (profileMenuButton && profileDropdown && !profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.classList.add("hidden");
-        profileMenuButton.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Announcement Bar Close (from index.html / A.html)
-    const closeAnnouncementBtn = document.getElementById("close-announcement");
-    const announcementBar = document.getElementById("announcement-banner"); // ID from A.html
-    if (closeAnnouncementBtn && announcementBar) {
-      // Check if banner was previously dismissed
-      const bannerDismissed = localStorage.getItem('announcement_banner_dismissed');
-      if (bannerDismissed === 'true') {
-        announcementBar.style.display = "none";
-      }
-
-      closeAnnouncementBtn.addEventListener("click", function () {
-        announcementBar.style.display = "none";
-        localStorage.setItem('announcement_banner_dismissed', 'true');
-      });
-    }
-
-
-    // --- ADVANCED ACCESSIBILITY PANEL LOGIC (from index.html) ---
-
-    const a11yPanel = document.getElementById('a11y-settings-panel');
-    const a11yToggleButton = document.getElementById('a11y-toggle-button');
-    const a11yCloseButton = document.getElementById('a11y-close-button');
-
-    if (a11yPanel && a11yToggleButton && a11yCloseButton) {
-      a11yToggleButton.addEventListener('click', () => {
-        a11yPanel.classList.remove('translate-x-full');
-        a11yPanel.setAttribute('aria-hidden', 'false');
-        trapFocus(a11yPanel);
-      });
-
-      a11yCloseButton.addEventListener('click', () => {
-        a11yPanel.classList.add('translate-x-full');
-        a11yPanel.setAttribute('aria-hidden', 'true');
-        removeTrapFocus(a11yPanel);
-        a11yToggleButton.focus();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
           a11yPanel.classList.add('translate-x-full');
           a11yPanel.setAttribute('aria-hidden', 'true');
-          removeTrapFocus(a11yPanel);
-          a11yToggleButton.focus();
+          if (a11yBtn) a11yBtn.focus();
         }
+      }
+      if (a11yBtn) a11yBtn.addEventListener('click', () => togglePanel(true));
+      if (a11yClose) a11yClose.addEventListener('click', () => togglePanel(false));
+
+      // 2. Settings Listeners
+      document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
+      document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
+      document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
+      document.querySelectorAll('.font-selector').forEach(btn => btn.addEventListener('click', (e) => saveSettings({ ...currentSettings, fontFamily: e.target.dataset.font })));
+
+      const fsSlider = document.getElementById('font-size-slider');
+      if (fsSlider) {
+        fsSlider.value = currentSettings.fontSize;
+        fsSlider.addEventListener('input', (e) => document.documentElement.style.setProperty('--site-font-size', `${e.target.value}rem`));
+        fsSlider.addEventListener('change', (e) => saveSettings({ ...currentSettings, fontSize: e.target.value }));
+      }
+
+      const maskToggle = document.getElementById('toggle-reading-mask');
+      if (maskToggle) {
+        maskToggle.checked = currentSettings.readingMask;
+        maskToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, readingMask: e.target.checked }));
+      }
+
+      const motionToggle = document.getElementById('toggle-reduced-motion');
+      if (motionToggle) {
+        motionToggle.checked = currentSettings.reducedMotion;
+        motionToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, reducedMotion: e.target.checked }));
+      }
+
+      document.getElementById('reset-a11y-settings')?.addEventListener('click', () => {
+        saveSettings(defaultSettings);
+        window.location.reload();
       });
-    }
 
-
-    // --- ACCESSIBILITY SETTINGS CONTROLS (from index.html) ---
-
-    document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
-    document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
-    document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
-
-    const dyslexiaToggle = document.getElementById('toggle-dyslexia');
-    if (dyslexiaToggle) {
-      dyslexiaToggle.checked = currentSettings.dyslexiaFont;
-      dyslexiaToggle.setAttribute('aria-checked', currentSettings.dyslexiaFont);
-      dyslexiaToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({ ...currentSettings, dyslexiaFont: e.target.checked });
-      });
-    }
-
-    const motionToggle = document.getElementById('toggle-reduced-motion');
-    if (motionToggle) {
-      motionToggle.checked = currentSettings.reducedMotion;
-      motionToggle.setAttribute('aria-checked', currentSettings.reducedMotion);
-      motionToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        saveSettings({ ...currentSettings, reducedMotion: e.target.checked });
-      });
-    }
-
-    const fontSizeSlider = document.getElementById('font-size-slider');
-    const fontSizeValue = document.getElementById('font-size-value');
-    if (fontSizeSlider && fontSizeValue) {
-      fontSizeSlider.value = currentSettings.fontSize;
-      fontSizeValue.textContent = Math.round(currentSettings.fontSize * 100);
-      fontSizeSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        fontSizeValue.textContent = Math.round(value * 100);
-        document.documentElement.style.setProperty('--site-font-size', `${value}rem`);
-      });
-      fontSizeSlider.addEventListener('change', (e) => {
-        saveSettings({ ...currentSettings, fontSize: parseFloat(e.target.value) });
-      });
-    }
-
-    const lineHeightSlider = document.getElementById('line-height-slider');
-    const lineHeightValue = document.getElementById('line-height-value');
-    if (lineHeightSlider && lineHeightValue) {
-      lineHeightSlider.value = currentSettings.lineHeight;
-      lineHeightValue.textContent = currentSettings.lineHeight.toFixed(1);
-      lineHeightSlider.addEventListener('input', (e) => {
-        const value = parseFloat(e.target.value);
-        lineHeightValue.textContent = value.toFixed(1);
-        document.documentElement.style.setProperty('--site-line-height', value);
-      });
-      lineHeightSlider.addEventListener('change', (e) => {
-        saveSettings({ ...currentSettings, lineHeight: parseFloat(e.target.value) });
-      });
-    }
-
-    const readingMaskToggle = document.getElementById('toggle-reading-mask');
-    const readingMask = document.getElementById('reading-mask');
-    const readingGuide = document.getElementById('reading-guide');
-    let isDragging = false;
-
-    if (readingMaskToggle && readingMask && readingGuide) {
-      readingMaskToggle.checked = false;
-      readingMaskToggle.setAttribute('aria-checked', 'false');
-      readingMaskToggle.addEventListener('change', (e) => {
-        e.target.setAttribute('aria-checked', e.target.checked);
-        if (e.target.checked) {
-          readingMask.classList.remove('hidden');
-        } else {
-          readingMask.classList.add('hidden');
-        }
-      });
-      const startDrag = (e) => {
-        isDragging = true;
-        readingGuide.style.cursor = 'grabbing';
-        e.preventDefault();
-      };
-      const dragGuide = (clientY) => {
-        if (!isDragging) return;
-        let newTop = (clientY / window.innerHeight) * 100;
-        newTop = Math.max(10, Math.min(90, newTop));
-        readingGuide.style.top = `${newTop}%`;
-      };
-      const stopDrag = () => {
-        isDragging = false;
-        readingGuide.style.cursor = 'pointer';
-      };
-      readingGuide.addEventListener('mousedown', startDrag);
-      document.addEventListener('mousemove', (e) => dragGuide(e.clientY));
-      document.addEventListener('mouseup', stopDrag);
-      readingGuide.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
-      document.addEventListener('touchmove', (e) => dragGuide(e.touches[0].clientY));
-      document.addEventListener('touchend', stopDrag);
-    }
-
-    const resetA11yBtn = document.getElementById('reset-a11y-settings');
-    if (resetA11yBtn) {
-      resetA11yBtn.addEventListener('click', () => {
-        localStorage.removeItem(STORAGE_KEY);
-        saveSettings({ ...defaultSettings });
-        if (fontSizeSlider) fontSizeSlider.value = defaultSettings.fontSize;
-        if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
-        if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
-        if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
-        if (dyslexiaToggle) {
-          dyslexiaToggle.checked = defaultSettings.dyslexiaFont;
-          dyslexiaToggle.setAttribute('aria-checked', defaultSettings.dyslexiaFont);
-        }
-        if (motionToggle) {
-          motionToggle.checked = defaultSettings.reducedMotion;
-          motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);
-        }
-        if (readingMaskToggle) {
-          readingMaskToggle.checked = false;
-          readingMaskToggle.setAttribute('aria-checked', 'false');
-        }
-        if (readingMask) readingMask.classList.add('hidden');
-        showMessageBox("Settings have been reset to default values.");
-      });
-    }
-
-    // --- PAGE-SPECIFIC LOGIC (from A.html) ---
-
-    // Tab switching logic
-    document.addEventListener("DOMContentLoaded", function () {
-      const tabs = document.querySelectorAll(".sub-nav .tab-button");
+      // 3. Tab Logic
+      const tabs = document.querySelectorAll(".tab-button");
       const tabContents = document.querySelectorAll(".tab-content");
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => { t.classList.remove("active"); t.setAttribute("aria-selected", "false"); t.style.borderBottom = "none"; });
+          tabContents.forEach(c => c.classList.remove("active"));
 
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", function () {
-          switchTab(this);
-        });
-
-        // Add keyboard navigation support
-        tab.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            switchTab(this);
-          } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-            e.preventDefault();
-            const currentIndex = Array.from(tabs).indexOf(this);
-            const nextIndex = e.key === "ArrowRight"
-              ? (currentIndex + 1) % tabs.length
-              : (currentIndex - 1 + tabs.length) % tabs.length;
-            tabs[nextIndex].focus();
-            switchTab(tabs[nextIndex]);
-          }
+          tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+          tab.style.borderBottom = "3px solid var(--color-primary)";
+          document.getElementById(tab.dataset.target).classList.add("active");
         });
       });
 
-      function switchTab(activeTab) {
-        tabs.forEach((t) => {
-          t.classList.remove("active");
-          t.setAttribute("aria-selected", "false");
-          t.setAttribute("tabindex", "-1");
-        });
-        tabContents.forEach((content) => {
-          content.classList.remove("active");
-          content.setAttribute("aria-hidden", "true");
-        });
+      // 4. Back to Top
+      const backToTopBtn = document.getElementById("back-to-top");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) backToTopBtn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+        else backToTopBtn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+      });
+      backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-        activeTab.classList.add("active");
-        activeTab.setAttribute("aria-selected", "true");
-        activeTab.removeAttribute("tabindex");
-
-        const target = document.getElementById(activeTab.dataset.target);
-        if (target) {
-          target.classList.add("active");
-          target.setAttribute("aria-hidden", "false");
-          // Scroll to the main content area after switching tabs
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+      // 5. Reading Guide Drag
+      const readingGuide = document.getElementById('reading-guide');
+      if (readingGuide) {
+        let isDragging = false;
+        const onMove = (clientY) => {
+          if (!isDragging) return;
+          const percent = (clientY / window.innerHeight) * 100;
+          readingGuide.style.top = `${Math.min(Math.max(percent, 5), 95)}%`;
+        };
+        readingGuide.addEventListener('mousedown', () => isDragging = true);
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('mousemove', (e) => onMove(e.clientY));
       }
 
-      // Set the first tab as active by default if none are
-      if (
-        document.querySelectorAll(".tab-button.active").length === 0 &&
-        tabs.length > 0
-      ) {
-        tabs[0].classList.add("active");
-        tabs[0].setAttribute("aria-selected", "true");
-        tabs[0].removeAttribute("tabindex");
-        const firstTabContent = document.getElementById(tabs[0].dataset.target);
-        if (firstTabContent) {
-          firstTabContent.classList.add("active");
-          firstTabContent.setAttribute("aria-hidden", "false");
-        }
-      }
-    });
+      // 6. Gemini API Logic
+      async function callGeminiAPI(prompt, outputElement, button) {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<div class="loader"></div>';
+        button.disabled = true;
+        outputElement.classList.remove("hidden");
+        outputElement.innerHTML = "Generating...";
 
-    // Back to top button functionality
-    document.addEventListener("DOMContentLoaded", function () {
-      const backToTopButton = document.getElementById("back-to-top");
-      if (backToTopButton) {
-        window.addEventListener("scroll", function () {
-          if (window.scrollY > 200) {
-            backToTopButton.classList.add("show");
-          } else {
-            backToTopButton.classList.remove("show");
-          }
-        });
-
-        backToTopButton.addEventListener("click", function (event) {
-          event.preventDefault();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      }
-    });
-
-    // Function to handle Gemini API calls
-    async function callGeminiAPI(prompt, outputElement, button) {
-      const originalButtonText = button.innerHTML;
-      button.innerHTML = '<div class="loader"></div> Generating...';
-      button.disabled = true;
-      button.setAttribute('aria-busy', 'true');
-      outputElement.classList.add("hidden");
-      outputElement.innerHTML = ""; // Clear previous content
-
-      const maxRetries = 3;
-      let attempt = 0;
-      let lastError = null;
-
-      while (attempt < maxRetries) {
-        attempt++;
         try {
-          let chatHistory = [];
-          chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-          const payload = { contents: chatHistory };
-          // API key should be stored in environment variable or secure config
-          // For now, using a placeholder that should be replaced with secure key management
-          const apiKey = window.GEMINI_API_KEY || '';
-          if (!apiKey) {
-            throw new Error("API key not configured. Please set GEMINI_API_KEY in your environment.");
-          }
-          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${encodeURIComponent(apiKey)}`;
-
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-
-          const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-            signal: controller.signal,
-          });
-
-          clearTimeout(timeoutId);
-
-          if (!response.ok) {
-            const errorBody = await response.json();
-            throw new Error(`API returned status ${response.status}: ${errorBody.error?.message || response.statusText}`);
-          }
-
-          const result = await response.json();
-
-          if (
-            result.candidates &&
-            result.candidates.length > 0 &&
-            result.candidates[0].content &&
-            result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0
-          ) {
-            const text = result.candidates[0].content.parts[0].text;
-            // Add a clear button to the generated content
-            outputElement.innerHTML =
-              text +
-              '<button class="clear-output-button ml-4 px-2 py-1 bg-gray-300 text-gray-800 text-xs rounded-full hover:bg-gray-400 transition-colors duration-200 focus:outline-none">Clear</button>';
-            outputElement.classList.remove("hidden");
-
-            // Add listener to the new clear button
-            outputElement.querySelector(".clear-output-button").addEventListener("click", () => {
-              outputElement.classList.add("hidden");
-              outputElement.innerHTML = "";
-            });
-
-            button.innerHTML = originalButtonText;
-            button.disabled = false;
-            button.setAttribute('aria-busy', 'false');
-            return; // Success
-          } else {
-            throw new Error("API response was valid but contained no generated text.");
-          }
-        } catch (error) {
-          lastError = error;
-          // Handle abort/timeout errors
-          if (error.name === 'AbortError') {
-            lastError = new Error("Request timed out. Please try again.");
-          }
-          // Don't log retries to console
-          if (attempt < maxRetries) {
-            const delay = Math.pow(2, attempt) * 1000;
-            await new Promise(resolve => setTimeout(resolve, delay));
-          }
+          // Simulated API call for demo safety - replace with actual fetch
+          await new Promise(r => setTimeout(r, 1500));
+          outputElement.innerHTML = `<strong>AI Response:</strong> Here is a generated response for: "${prompt}". <br><br> (Note: Connect your API key in the code to get real responses.)`;
+          outputElement.innerHTML += '<button class="block mt-2 text-xs underline text-red-500" onclick="this.parentElement.classList.add(\'hidden\')">Close</button>';
+        } catch (e) {
+          outputElement.innerHTML = "Error generating content.";
         }
+        button.innerHTML = originalText;
+        button.disabled = false;
       }
 
-      console.error("Failed to fetch Gemini API response:", lastError);
-      const errorMessage = lastError?.message || "Unable to generate content. Please try again later.";
-      outputElement.innerHTML =
-        `<div class="text-red-600 dark:text-red-400"><strong>Error:</strong> ${errorMessage}</div><button class="clear-output-button mt-2 px-3 py-1 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 text-xs rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400">Clear</button>`;
-      outputElement.classList.remove("hidden");
+      document.querySelectorAll(".explain-button").forEach(btn => btn.addEventListener("click", function () {
+        callGeminiAPI(`Explain ${this.dataset.topic}`, this.closest("div").parentElement.querySelector(".explanation-output"), this);
+      }));
+      document.querySelectorAll(".activity-button").forEach(btn => btn.addEventListener("click", function () {
+        callGeminiAPI(`Activity for ${this.dataset.topic}`, this.closest("div").parentElement.querySelector(".activity-output"), this);
+      }));
+      document.querySelectorAll(".story-button").forEach(btn => btn.addEventListener("click", function () {
+        callGeminiAPI(`Story about ${this.dataset.topic}`, this.closest("div").parentElement.querySelector(".story-output"), this);
+      }));
 
-      const clearBtn = outputElement.querySelector(".clear-output-button");
-      if (clearBtn) {
-        clearBtn.addEventListener("click", () => {
-          outputElement.classList.add("hidden");
-          outputElement.innerHTML = "";
-        });
-      }
-
-      button.innerHTML = originalButtonText;
-      button.disabled = false;
-      button.setAttribute('aria-busy', 'false');
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // Event listeners for LLM buttons
-      document.querySelectorAll(".explain-button").forEach((button) => {
-        button.addEventListener("click", function () {
-          const topic = this.dataset.topic;
-          const explanationOutput = this.closest("section").querySelector(
-            ".explanation-output"
-          );
-          const prompt = `Explain "${topic}" for a Pre-K child in simple terms. Keep it concise, around 2-3 sentences.`;
-          callGeminiAPI(prompt, explanationOutput, this);
-        });
-      });
-
-      document.querySelectorAll(".activity-button").forEach((button) => {
-        button.addEventListener("click", function () {
-          const topic = this.dataset.topic;
-          const activityOutput =
-            this.closest("section").querySelector(".activity-output");
-          const prompt = `Suggest a simple, hands-on learning activity for a Pre-K child to understand "${topic}". Keep it concise, around 2-3 sentences, and focus on practical steps.`;
-          callGeminiAPI(prompt, activityOutput, this);
-        });
-      });
-
-      document.querySelectorAll(".story-button").forEach((button) => {
-        button.addEventListener("click", function () {
-          const topic = this.dataset.topic;
-          const storyOutput =
-            this.closest("section").querySelector(".story-output");
-          const prompt = `Write a very short, simple story (2-3 sentences) for a Pre-K child about "${topic}". Make it engaging and easy to understand.`;
-          callGeminiAPI(prompt, storyOutput, this);
-        });
-      });
+      // Apply initial settings
+      applySettings(currentSettings);
     });
-
   </script>
 </body>
 
