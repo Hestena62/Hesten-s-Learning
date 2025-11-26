@@ -4,413 +4,914 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hesten's Learning – Personalized Education for Neurodiverse Students</title>
+  <title>Hesten's Learning - Personalized Education</title>
   <meta name="description"
-    content="Adaptive K-5 curriculum with built-in dyslexia tools, high-contrast mode, reading guides, and personalized pathways." />
+    content="Empowering students with learning disabilities through personalized learning experiences." />
+  <meta name="keywords" content="education, learning disabilities, accessibility, math, reading, science" />
+  <meta name="author" content="Hesten's Learning" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@ muscle400;500;600;700&family=Open+Dyslexic&family=Roboto+Mono&family=Merriweather:wght@400;700&display=swap"
-    rel="stylesheet">
-
-  <!-- Tailwind + Font Awesome -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Fonts: Inter (Standard), Open Dyslexic (A11y), Roboto Mono (Code/Focus), Comic Neue (Playful) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
 
   <script>
+    // --- Tailwind & CSS Variables Configuration (Matched to Level A) ---
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
             dyslexic: ['"Open Dyslexic"', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace'],
-            serif: ['Merriweather', 'serif'],
+            playful: ['"Comic Neue"', 'cursive'],
           },
           colors: {
-            primary: '#7C3AED',
-            secondary: '#9333EA',
-            accent: '#DDA0DD',
+            'primary': 'var(--color-primary, #4F46E5)',
+            'primary-dark': 'var(--color-primary-dark, #4338CA)',
+            'secondary': 'var(--color-secondary, #EC4899)',
+            'accent': 'var(--color-accent, #8B5CF6)',
+            'success': 'var(--color-success, #10B981)',
+            'base-bg': 'var(--color-base-bg, #F3F4F6)',
+            'content-bg': 'var(--color-content-bg, #FFFFFF)',
+            'text-default': 'var(--color-text-default, #1F2937)',
+            'text-muted': 'var(--color-text-muted, #6B7280)',
+            'focus-ring': 'var(--color-focus-ring, #F59E0B)',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+            'bounce-soft': 'bounceSoft 2s infinite',
+            'pulse-slow': 'pulse 3s infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            bounceSoft: {
+              '0%, 100%': { transform: 'translateY(-5%)' },
+              '50%': { transform: 'translateY(0)' },
+            }
           }
+        },
+      },
+    };
+
+    // --- State Management ---
+    const defaultSettings = {
+      theme: 'light',
+      fontSize: 1.0,
+      lineHeight: 1.6,
+      fontFamily: 'Inter',
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      readingMask: false
+    };
+
+    const STORAGE_KEY = 'hl_a11y_v4';
+
+    function loadSettings() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
+      } catch (e) { return defaultSettings; }
+    }
+
+    function saveSettings(settings) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+        applySettings(settings);
+        currentSettings = settings;
+      } catch (e) { console.error(e); }
+    }
+
+    function applyHeadSettings(settings) {
+      document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
+      document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
+
+      let fontName = settings.fontFamily || 'Inter';
+      if (fontName.includes(' ') || fontName === 'Open Dyslexic') fontName = `"${fontName}"`;
+      document.documentElement.style.setProperty('--site-font-family', fontName);
+    }
+
+    function applySettings(settings) {
+      applyHeadSettings(settings);
+      const body = document.body;
+      if (!body) return;
+
+      body.classList.remove('light', 'dark', 'high-contrast', 'calm');
+      body.classList.add(settings.theme);
+
+      // Reduced Motion
+      if (settings.reducedMotion) {
+        body.classList.add('reduced-motion');
+        document.documentElement.classList.remove('scroll-smooth');
+      } else {
+        body.classList.remove('reduced-motion');
+        document.documentElement.classList.add('scroll-smooth');
+      }
+
+      // Reading Mask
+      const mask = document.getElementById('reading-mask');
+      if (mask) {
+        if (settings.readingMask) {
+          mask.classList.remove('hidden');
+        } else {
+          mask.classList.add('hidden');
         }
       }
     }
+
+    let currentSettings = loadSettings();
+    applyHeadSettings(currentSettings);
   </script>
 
   <style>
+    /* --- CSS Variables & Themes --- */
     :root {
       --site-font-size: 1rem;
       --site-line-height: 1.6;
-      --site-letter-spacing: 0px;
-      --site-word-spacing: 0px;
       --site-font-family: 'Inter', sans-serif;
     }
 
     body {
-      font-family: var(--site-font-family);
+      background-color: var(--color-base-bg);
+      color: var(--color-text-default);
       font-size: var(--site-font-size);
       line-height: var(--site-line-height);
-      letter-spacing: var(--site-letter-spacing);
-      word-spacing: var(--site-word-spacing);
-      transition: background-color 0.4s ease, color 0.4s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-family: var(--site-font-family);
+      overflow-x: hidden;
     }
 
-    /* Theme-specific backgrounds */
+    /* Strict Focus Visibility (WCAG AAA) */
+    :focus-visible {
+      outline: 3px solid var(--color-focus-ring) !important;
+      outline-offset: 2px !important;
+      border-radius: 4px !important;
+      box-shadow: 0 0 0 4px var(--color-base-bg) !important;
+      z-index: 50;
+    }
+
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* Light Theme (Playful) */
     .light {
-      --bg-base: #FAF5FF;
-      --bg-content: #FFFFFF;
-      --text: #1E1B4B;
-      --text-muted: #6B7280;
-      --header: #FFFFFF;
+      --color-primary: #4F46E5;
+      --color-primary-dark: #4338CA;
+      --color-secondary: #EC4899;
+      --color-accent: #8B5CF6;
+      --color-success: #10B981;
+      --color-base-bg: #F0F9FF;
+      --color-content-bg: #FFFFFF;
+      --color-text-default: #111827;
+      --color-text-muted: #4B5563;
+      --color-focus-ring: #F59E0B;
+      --header-gradient-from: #4F46E5;
+      --header-gradient-to: #8B5CF6;
     }
 
+    /* Dark Theme */
     .dark {
-      --bg-base: #111827;
-      --bg-content: #1F2937;
-      --text: #F3F4F6;
-      --text-muted: #D1D5DB;
-      --header: #1F2937;
+      --color-primary: #818CF8;
+      --color-primary-dark: #6366F1;
+      --color-secondary: #F472B6;
+      --color-accent: #A78BFA;
+      --color-success: #34D399;
+      --color-base-bg: #0F172A;
+      --color-content-bg: #1E293B;
+      --color-text-default: #F3F4F6;
+      --color-text-muted: #9CA3AF;
+      --color-focus-ring: #FDBA74;
+      --header-gradient-from: #1E293B;
+      --header-gradient-to: #312E81;
     }
 
+    /* High Contrast Theme */
     .high-contrast {
-      --bg-base: #000000;
-      --bg-content: #000000;
-      --text: #FFFF00;
-      --text-muted: #FFFFFF;
-      --header: #000000;
+      --color-primary: #FFFF00;
+      --color-primary-dark: #DDDD00;
+      --color-secondary: #00FFFF;
+      --color-accent: #FFFFFF;
+      --color-success: #00FF00;
+      --color-base-bg: #000000;
+      --color-content-bg: #000000;
+      --color-text-default: #FFFF00;
+      --color-text-muted: #00FFFF;
+      --color-focus-ring: #FFFFFF;
+      --header-gradient-from: #000000;
+      --header-gradient-to: #000000;
     }
 
-    body {
-      background-color: var(--bg-base);
-      color: var(--text);
+    .high-contrast .card,
+    .high-contrast nav,
+    .high-contrast header,
+    .high-contrast footer,
+    .high-contrast button {
+      border: 2px solid #FFFFFF;
     }
 
-    #site-header {
-      background-color: var(--header);
+    .high-contrast a {
+      text-decoration: underline;
     }
 
-    main,
-    #a11y-settings-panel {
-      background-color: var(--bg-content);
-      color: var(--text);
+    /* Accessibility Utilities */
+    .reduced-motion * {
+      animation-duration: 0.01s !important;
+      transition-duration: 0.01s !important;
+      scroll-behavior: auto !important;
     }
 
-    .text-muted {
-      color: var(--text-muted);
+    .skip-link {
+      position: absolute;
+      top: -9999px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-primary);
+      color: white;
+      padding: 1rem 2rem;
+      z-index: 10000;
+      font-weight: bold;
+      border-radius: 0 0 0.5rem 0.5rem;
+      transition: top 0.2s;
+      text-decoration: none;
     }
 
-    /* HERO & FOOTER — LOCKED FOREVER */
-    #hero-section {
-      background: linear-gradient(to right, #5B21B6, #7C3AED) !important;
+    .skip-link:focus {
+      top: 0;
     }
 
-    footer {
-      background-color: #1E1B4B !important;
-      color: #E2E8F0 !important;
-    }
-
-    footer a {
-      color: #DDA0DD;
-    }
-
-    footer a:hover {
-      color: #FFFFFF;
-    }
-
-    /* Reading line */
-    #reading-line {
+    /* Reading Guide */
+    #reading-mask {
       position: fixed;
+      top: 0;
       left: 0;
       width: 100%;
-      height: 3.5rem;
-      background: rgba(124, 58, 237, 0.2);
-      border-top: 2px solid #7C3AED;
-      border-bottom: 2px solid #7C3AED;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
       pointer-events: none;
-      z-index: 40;
-      opacity: 0;
-      transition: opacity 0.3s;
+      z-index: 60;
     }
 
-    #reading-line.active {
-      opacity: 1;
-    }
-
-    /* Features */
-    .highlight-links a {
-      background: #FFFF00 !important;
-      color: #000 !important;
-      padding: 0.1em 0.2em;
-      text-decoration: underline !important;
-    }
-
-    .greyscale-mode {
-      filter: grayscale(100%);
-    }
-
-    .reduced-motion * {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
-
-    .readable-width main {
-      max-width: 70ch;
-      margin: 0 auto;
-    }
-
-    /* Toggle switch */
-    .toggle {
-      appearance: none;
-      width: 3rem;
-      height: 1.5rem;
-      border-radius: 9999px;
-      background: #CBD5E0;
-      position: relative;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .toggle:checked {
-      background: #7C3AED;
-    }
-
-    .toggle::before {
-      content: "";
+    #reading-guide {
       position: absolute;
-      top: 0.25rem;
-      left: 0.25rem;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: white;
-      transition: transform 0.3s;
+      width: 100%;
+      height: 4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-top: 4px solid var(--color-focus-ring);
+      border-bottom: 4px solid var(--color-focus-ring);
+      cursor: row-resize;
+      pointer-events: auto;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85);
     }
 
-    .toggle:checked::before {
-      transform: translateX(1.5rem);
+    /* Loading Spinner */
+    .loader {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid currentColor;
+      border-radius: 50%;
+      width: 1.2em;
+      height: 1.2em;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
 
-<body class="antialiased min-h-screen flex flex-col light">
+<body class="antialiased flex flex-col min-h-screen selection:bg-accent selection:text-white">
 
-  <!-- A11y Button -->
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+
+  <!-- Init Scripts -->
+  <script>
+    (function () {
+      document.body.classList.add(currentSettings.theme);
+      if (currentSettings.reducedMotion) document.body.classList.add('reduced-motion');
+    })();
+  </script>
+
+  <!-- Accessibility Settings Panel Trigger -->
   <button id="a11y-toggle-button"
-    class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-2xl hover:scale-110 transition"
-    aria-label="Open accessibility settings">
-    <i class="fas fa-universal-access text-2xl"></i>
+    class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-primary text-white rounded-full shadow-2xl hover:bg-primary-dark focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-all hover:scale-110 flex items-center justify-center border-4 border-white dark:border-gray-800"
+    aria-label="Open Accessibility Settings" aria-controls="a11y-settings-panel" aria-haspopup="true">
+    <i class="fas fa-universal-access text-3xl"></i>
   </button>
 
-  <!-- A11y Panel — your exact original, now theme-aware -->
+  <!-- Accessibility Panel -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-80 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
-    role="dialog" aria-modal="true" aria-label="Accessibility Settings">
-    <div class="flex justify-between items-center mb-6">
-      <h3 class="text-xl font-bold text-primary">Accessibility Settings</h3>
-      <button id="a11y-close-button" class="text-lg hover:scale-110">×</button>
+    class="fixed top-0 right-0 h-full w-80 md:w-96 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+    role="dialog" aria-modal="true" aria-label="Accessibility Options" aria-hidden="true">
+
+    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="text-2xl font-bold text-primary flex items-center gap-2">
+        <i class="fas fa-sliders-h"></i> Settings
+      </h2>
+      <button id="a11y-close-button"
+        class="text-text-muted hover:text-primary p-2 rounded-full transition-colors bg-base-bg hover:bg-gray-200 dark:hover:bg-gray-700"
+        aria-label="Close settings">
+        <i class="fas fa-times text-xl"></i>
+      </button>
     </div>
 
-    <div class="space-y-6 text-sm">
-      <div>
-        <label class="block font-medium mb-2">Display Mode</label>
+    <div class="space-y-8">
+      <!-- Theme -->
+      <fieldset>
+        <legend class="block text-sm font-bold mb-3 text-text-default uppercase tracking-wider">Display Mode</legend>
         <div class="grid grid-cols-3 gap-2">
-          <button data-theme="light" class="theme-btn py-2 rounded border">Light</button>
-          <button data-theme="dark" class="theme-btn py-2 rounded border">Dark</button>
-          <button data-theme="high-contrast" class="theme-btn py-2 rounded border">High Contrast</button>
+          <button id="theme-light"
+            class="flex flex-col items-center justify-center py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all focus:ring-2 focus:ring-primary"
+            aria-label="Light Mode">
+            <i class="fas fa-sun text-2xl mb-1 text-yellow-500"></i>
+            <span class="text-xs font-bold">Light</span>
+          </button>
+          <button id="theme-dark"
+            class="flex flex-col items-center justify-center py-3 rounded-xl border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all focus:ring-2 focus:ring-primary"
+            aria-label="Dark Mode">
+            <i class="fas fa-moon text-2xl mb-1 text-indigo-400"></i>
+            <span class="text-xs font-bold">Dark</span>
+          </button>
+          <button id="theme-contrast"
+            class="flex flex-col items-center justify-center py-3 rounded-xl border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold focus:ring-2 focus:ring-white"
+            aria-label="High Contrast">
+            <i class="fas fa-adjust text-2xl mb-1"></i>
+            <span class="text-xs font-bold">High Contrast</span>
+          </button>
+        </div>
+      </fieldset>
+
+      <!-- Fonts -->
+      <fieldset>
+        <legend class="block text-sm font-bold mb-3 text-text-default uppercase tracking-wider">Typography</legend>
+        <div class="grid grid-cols-1 gap-3">
+          <button data-font="Inter"
+            class="font-selector w-full py-3 px-4 rounded-xl border-2 border-transparent bg-base-bg text-text-default hover:bg-gray-200 dark:hover:bg-gray-700 text-left flex justify-between items-center transition-all">
+            <span>Standard (Inter)</span>
+            <i class="fas fa-font text-text-muted"></i>
+          </button>
+          <button data-font="Open Dyslexic"
+            class="font-selector w-full py-3 px-4 rounded-xl border-2 border-transparent bg-base-bg text-text-default hover:bg-gray-200 dark:hover:bg-gray-700 text-left font-dyslexic flex justify-between items-center transition-all">
+            <span>Dyslexic Friendly</span>
+            <i class="fas fa-universal-access text-text-muted"></i>
+          </button>
+          <button data-font="Comic Neue"
+            class="font-selector w-full py-3 px-4 rounded-xl border-2 border-transparent bg-base-bg text-text-default hover:bg-gray-200 dark:hover:bg-gray-700 text-left font-playful flex justify-between items-center transition-all">
+            <span>Playful (Comic)</span>
+            <i class="fas fa-child text-text-muted"></i>
+          </button>
+        </div>
+      </fieldset>
+
+      <!-- Sliders -->
+      <div class="bg-base-bg p-4 rounded-xl">
+        <label for="font-size-slider" class="flex justify-between text-sm font-bold mb-2 text-text-default">
+          <span>Text Size</span>
+          <span class="bg-primary text-white px-2 py-0.5 rounded text-xs"><span id="font-size-value">100</span>%</span>
+        </label>
+        <input type="range" id="font-size-slider" min="0.8" max="1.6" step="0.1" value="1.0"
+          class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
+        <div class="flex justify-between text-xs text-text-muted mt-1">
+          <span>A</span>
+          <span class="text-lg">A</span>
         </div>
       </div>
 
-      <div>
-        <label class="block font-medium mb-2">Reading Font</label>
-        <div class="grid grid-cols-2 gap-2">
-          <button data-font="Inter" class="font-btn py-2 rounded border text-xs">Default</button>
-          <button data-font="Open Dyslexic" class="font-btn py-2 rounded border text-xs">Dyslexic</button>
-          <button data-font="Merriweather" class="font-btn py-2 rounded border text-xs">Serif</button>
-          <button data-font="Roboto Mono" class="font-btn py-2 rounded border text-xs">Mono</button>
+      <!-- Toggles -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-base-bg transition-colors">
+          <label for="toggle-reading-mask"
+            class="text-sm font-bold text-text-default cursor-pointer flex items-center gap-2">
+            <i class="fas fa-ruler-horizontal text-secondary"></i> Reading Guide
+          </label>
+          <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+            <input type="checkbox" name="toggle" id="toggle-reading-mask"
+              class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out" />
+            <label for="toggle-reading-mask"
+              class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-base-bg transition-colors">
+          <label for="toggle-reduced-motion"
+            class="text-sm font-bold text-text-default cursor-pointer flex items-center gap-2">
+            <i class="fas fa-film text-secondary"></i> Reduce Motion
+          </label>
+          <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+            <input type="checkbox" name="toggle" id="toggle-reduced-motion"
+              class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out" />
+            <label for="toggle-reduced-motion"
+              class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+          </div>
         </div>
       </div>
 
-      <div><label>Text Size (<span id="size-val">100</span>%)<input type="range" id="size-slider" min="0.8" max="1.8"
-            step="0.1" value="1" class="w-full"></label></div>
-      <div><label>Line Height (<span id="line-val">1.6</span>)<input type="range" id="line-slider" min="1.2" max="2.4"
-            step="0.1" value="1.6" class="w-full"></label></div>
-      <div><label>Letter Spacing (<span id="letter-val">0</span>px)<input type="range" id="letter-slider" min="-1"
-            max="5" step="0.5" value="0" class="w-full"></label></div>
-
-      <hr class="border-gray-300">
-
-      <label class="flex justify-between items-center"><span>Reading Line</span><input type="checkbox" id="reading-line"
-          class="toggle"></label>
-      <label class="flex justify-between items-center"><span>Highlight Links</span><input type="checkbox"
-          id="highlight-links" class="toggle"></label>
-      <label class="flex justify-between items-center"><span>Greyscale</span><input type="checkbox" id="greyscale"
-          class="toggle"></label>
-      <label class="flex justify-between items-center"><span>Readable Width</span><input type="checkbox"
-          id="readable-width" class="toggle"></label>
-      <label class="flex justify-between items-center"><span>Reduce Motion</span><input type="checkbox"
-          id="reduced-motion" class="toggle"></label>
-
-      <button id="reset-a11y" class="w-full bg-gray-200 hover:bg-gray-300 py-3 rounded mt-6 font-bold">Reset
-        All</button>
+      <button id="reset-a11y-settings"
+        class="w-full bg-transparent border-2 border-text-muted text-text-muted py-3 rounded-xl mt-4 hover:bg-text-muted hover:text-white transition-colors font-semibold flex items-center justify-center gap-2">
+        <i class="fas fa-undo"></i> Reset to Defaults
+      </button>
     </div>
   </div>
 
-  <div id="reading-line" aria-hidden="true"></div>
+  <style>
+    /* Custom Toggle Styles */
+    .toggle-checkbox:checked {
+      right: 0;
+      border-color: var(--color-primary);
+    }
 
-  <!-- ORIGINAL NAV BAR — now fully responsive & theme-aware -->
-  <header id="site-header" class="sticky top-0 z-40 shadow-lg transition-all duration-300">
-    <div class="container mx-auto px-4 py-4 max-w-7xl flex justify-between items-center">
-      <a href="/" class="flex items-center gap-3 font-extrabold text-xl text-primary">
-        <img src="https://placehold.co/32x32/7C3AED/FFFFFF?text=HL" alt="" class="rounded-full h-8 w-8">
-        Hesten's Learning
-      </a>
-      <button id="nav-toggle" class="lg:hidden" aria-controls="nav-content" aria-expanded="false">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-      <nav id="nav-content" class="hidden lg:flex gap-8 font-medium">
-        <a href="/" class="hover:text-primary transition">Home</a>
-        <a href="#levels" class="hover:text-primary transition">Curriculum</a>
-        <a href="/assessment.php" class="hover:text-primary transition">Assessment</a>
-        <a href="/about.php" class="hover:text-primary transition">About</a>
+    .toggle-checkbox:checked+.toggle-label {
+      background-color: var(--color-primary);
+    }
+
+    .toggle-checkbox {
+      right: calc(100% - 1.5rem);
+      border-color: #E5E7EB;
+    }
+  </style>
+
+  <!-- Reading Mask DOM -->
+  <div id="reading-mask" class="hidden">
+    <div id="reading-guide" style="top: 30%">
+      <div
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-50">
+        Drag me</div>
+    </div>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div id="announcement-bar"
+    class="bg-gradient-to-r from-secondary to-accent text-white py-2 relative z-40 transition-colors" role="region"
+    aria-label="Site Announcement">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-xs md:text-sm font-bold tracking-wide">
+        <i class="fas fa-star mr-2 animate-pulse"></i>
+        New Curriculum Updates! Check out the redesigned Level A.
+      </p>
+    </div>
+    <button id="close-announcement"
+      class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
+      aria-label="Dismiss announcement">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="bg-white dark:bg-gray-900 shadow-md transition-colors duration-300 relative z-30 sticky top-0">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex items-center justify-between flex-wrap">
+
+        <!-- Logo -->
+        <a class="flex items-center flex-shrink-0 text-text-default mr-8 group" href="/">
+          <div
+            class="rounded-full bg-base-bg p-1 mr-3 group-hover:rotate-12 transition-transform duration-300 border-2 border-primary">
+            <div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+          </div>
+          <span
+            class="font-bold text-xl tracking-tight font-playful group-hover:text-primary transition-colors">Hesten's
+            Learning</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <div class="block lg:hidden">
+          <button id="nav-toggle"
+            class="flex items-center px-3 py-2 border rounded text-text-muted border-gray-300 hover:text-primary hover:border-primary transition-colors focus:ring-2 focus:ring-primary"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+
+        <!-- Links & Search -->
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300 ease-in-out"
+          id="nav-content">
+          <div
+            class="text-sm lg:flex-grow font-semibold pt-4 lg:pt-0 pb-4 lg:pb-0 border-t lg:border-t-0 border-gray-100 dark:border-gray-800 lg:border-none">
+            <a href="/"
+              class="block mt-2 lg:inline-block lg:mt-0 text-primary font-bold mr-6 px-3 py-2 rounded-lg bg-primary/10">
+              <i class="fas fa-home mr-1"></i> Home
+            </a>
+            <a href="#"
+              class="block mt-2 lg:inline-block lg:mt-0 text-text-muted hover:text-primary mr-6 hover:bg-base-bg lg:hover:bg-transparent px-3 py-2 rounded-lg transition-all">
+              <i class="fas fa-book-open mr-1 text-secondary"></i> Learning
+            </a>
+            <a href="/assessment.html"
+              class="block mt-2 lg:inline-block lg:mt-0 text-text-muted hover:text-primary mr-6 hover:bg-base-bg lg:hover:bg-transparent px-3 py-2 rounded-lg transition-all">
+              <i class="fas fa-clipboard-check mr-1 text-success"></i> Assessment
+            </a>
+          </div>
+
+          <!-- Search -->
+          <div class="relative">
+            <form action="/search.php" method="GET" role="search" class="relative">
+              <label for="search-input" class="sr-only">Search</label>
+              <input type="text" id="search-input" name="q" placeholder="Search topics..."
+                class="bg-base-bg text-text-default border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary w-full lg:w-64 transition-all placeholder-gray-400 font-medium" />
+              <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </form>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
 
-  <!-- ORIGINAL HERO — LOCKED PURPLE GRADIENT FOREVER -->
-  <section id="hero-section" class="text-white py-24 px-4 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-        Education Tailored For <span class="block sm:inline-block">Unique Minds.</span>
+  <!-- Hero Section -->
+  <div
+    class="bg-gradient-to-r from-[var(--header-gradient-from)] to-[var(--header-gradient-to)] text-white py-12 md:py-24 px-4 text-center shadow-lg relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-10 left-10 text-white/10 text-8xl animate-bounce-soft"><i class="fas fa-shapes"></i></div>
+    <div class="absolute bottom-10 right-10 text-white/10 text-9xl animate-pulse-slow"><i class="fas fa-rocket"></i>
+    </div>
+    <div class="absolute top-20 right-1/4 text-white/5 text-6xl animate-pulse"><i class="fas fa-book-open"></i></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 font-playful animate-fade-in-up drop-shadow-md">
+        Learning Without <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">Limits</span>
       </h1>
-      <p class="text-lg sm:text-xl md:text-2xl font-light mb-10 opacity-95">
-        Personalized learning pathways designed to overcome barriers and foster genuine mastery.
+      <p class="text-xl md:text-2xl mb-10 font-medium text-blue-50 max-w-2xl mx-auto animate-fade-in-up"
+        style="animation-delay: 0.1s;">
+        Empowering every student with personalized, accessible, and engaging educational experiences.
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-6">
-        <a href="#levels"
-          class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-10 rounded-full shadow-2xl transition transform hover:scale-105 text-lg">
-          Enroll Today <i class="fas fa-arrow-right ml-2"></i>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <a href="#main-content"
+          class="bg-white text-primary font-bold py-4 px-10 rounded-full shadow-lg transition-transform transform hover:scale-105 flex items-center justify-center gap-2">
+          <i class="fas fa-play"></i> Start Learning
         </a>
-        <a href="/assessment.php"
-          class="bg-transparent border-2 border-white hover:bg-white hover:text-primary font-bold py-3 px-10 rounded-full shadow-lg transition transform hover:scale-105 text-lg">
-          Take Free Assessment
+        <a href="about.php"
+          class="bg-transparent border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full transition-transform transform hover:scale-105 hover:bg-white/10 flex items-center justify-center gap-2">
+          Learn More
         </a>
       </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="container mx-auto px-4 -mt-10 relative z-20 mb-20" aria-labelledby="features-heading">
+    <h2 id="features-heading" class="sr-only">Why Choose Us</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <!-- Feature 1 -->
+      <article
+        class="p-8 rounded-3xl bg-content-bg shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 transform hover:-translate-y-1">
+        <div
+          class="w-20 h-20 bg-blue-50 dark:bg-blue-900/30 text-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner border border-blue-100 dark:border-blue-800">
+          <i class="fas fa-universal-access"></i>
+        </div>
+        <h3 class="text-xl font-bold text-text-default mb-3 font-playful">Accessibility First</h3>
+        <p class="text-text-secondary leading-relaxed text-sm">Built with dyslexia-friendly fonts, reading guides, and
+          high-contrast modes for all learners.</p>
+      </article>
+      <!-- Feature 2 -->
+      <article
+        class="p-8 rounded-3xl bg-content-bg shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 transform hover:-translate-y-1">
+        <div
+          class="w-20 h-20 bg-pink-50 dark:bg-pink-900/30 text-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner border border-pink-100 dark:border-pink-800">
+          <i class="fas fa-road"></i>
+        </div>
+        <h3 class="text-xl font-bold text-text-default mb-3 font-playful">Personalized Paths</h3>
+        <p class="text-text-secondary leading-relaxed text-sm">Learn at your own pace with curriculum tailored to
+          specific grade level needs and abilities.</p>
+      </article>
+      <!-- Feature 3 -->
+      <article
+        class="p-8 rounded-3xl bg-content-bg shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 transform hover:-translate-y-1">
+        <div
+          class="w-20 h-20 bg-green-50 dark:bg-green-900/30 text-success rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner border border-green-100 dark:border-green-800">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3 class="text-xl font-bold text-text-default mb-3 font-playful">Comprehensive</h3>
+        <p class="text-text-secondary leading-relaxed text-sm">Complete coverage of Math, ELA, Science, and Social
+          Studies from Pre-K through Grade 12.</p>
+      </article>
     </div>
   </section>
 
-  <main class="flex-1 container mx-auto px-4 py-16 max-w-7xl">
-    <h2 id="levels" class="text-4xl font-extrabold text-center mb-12">Curriculum Levels Coming Soon</h2>
-    <p class="text-center text-xl text-muted">Your beautiful level cards go here — everything is now rock-solid!</p>
+  <!-- Learning Levels Grid -->
+  <main class="container mx-auto my-10 px-4 scroll-mt-24 min-h-screen" id="main-content" tabindex="-1">
+
+    <!-- Filter Tabs (Styled like Level A Sub-nav) -->
+    <div
+      class="sticky top-[72px] z-20 bg-content-bg/95 backdrop-blur shadow-sm border border-gray-200 dark:border-gray-800 rounded-2xl mb-10 p-2">
+      <div class="flex overflow-x-auto hide-scrollbar gap-2 md:justify-center" role="group" aria-label="Filter content">
+        <button onclick="filterContent('all', this)"
+          class="filter-btn active flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap">
+          <i class="fas fa-layer-group"></i> All Grades
+        </button>
+        <button onclick="filterContent('elem', this)"
+          class="filter-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap">
+          <i class="fas fa-shapes"></i> Elementary
+        </button>
+        <button onclick="filterContent('middle', this)"
+          class="filter-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap">
+          <i class="fas fa-flask"></i> Middle School
+        </button>
+        <button onclick="filterContent('high', this)"
+          class="filter-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap">
+          <i class="fas fa-graduation-cap"></i> High School
+        </button>
+      </div>
+    </div>
+
+    <style>
+      .filter-btn {
+        color: var(--color-text-muted);
+        background: transparent;
+      }
+
+      .filter-btn:hover {
+        background-color: var(--color-base-bg);
+        color: var(--color-primary);
+      }
+
+      .filter-btn.active {
+        background-color: var(--color-primary);
+        color: white;
+        shadow: lg;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+
+    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      aria-labelledby="learning-levels-heading">
+      <!-- Cards will be populated by JS to mimic dynamic PHP -->
+    </section>
   </main>
 
-  <!-- ORIGINAL FOOTER — LOCKED DEEP INDIGO FOREVER -->
-  <footer class="py-12 px-4">
-    <div class="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">
-          Hesten's Learning
-        </h3>
-        <p class="text-sm opacity-90 text-gray-300">
-          We are committed to providing personalized, accessible education that turns learning challenges into
-          strengths.
-          <a href="/about.php" class="text-accent underline hover:text-white ml-1">Learn more</a>
+  <!-- Back to Top Button -->
+  <button id="back-to-top"
+    class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-gray-800 text-white rounded-full shadow-xl opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700 flex items-center justify-center"
+    aria-label="Scroll back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="bg-content-bg border-t border-gray-200 dark:border-gray-800 py-12 px-4 mt-auto">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- Brand -->
+      <div class="col-span-1 md:col-span-1">
+        <div class="flex items-center gap-2 mb-4 text-primary font-bold text-xl font-playful">
+          <i class="fas fa-graduation-cap"></i> Hesten's Learning
+        </div>
+        <p class="text-sm leading-relaxed text-text-muted">
+          Empowering little learners with big dreams. Accessible, personalized, and fun education for Pre-K.
         </p>
       </div>
+
+      <!-- Quick Links -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Quick Links</h3>
-        <ul class="space-y-3 text-sm text-gray-300">
-          <li><a href="#levels" class="hover:text-white">Curriculum</a></li>
-          <li><a href="/assessment.php" class="hover:text-white">Assessment</a></li>
-          <li><a href="/library" class="hover:text-white">Library</a></li>
-          <li><a href="/help.html" class="hover:text-white">Help Center</a></li>
+        <h3 class="text-sm font-bold mb-4 text-text-default uppercase tracking-wider">Explore</h3>
+        <ul class="space-y-3 text-sm text-text-muted">
+          <li><a href="#" class="hover:text-primary transition-colors">Curriculum</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors">Library</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors">Games</a></li>
         </ul>
       </div>
+
+      <!-- Support -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Support</h3>
-        <ul class="space-y-3 text-sm text-gray-300">
-          <li><a href="/contact.html" class="hover:text-white">Contact Us</a></li>
-          <li><a href="/students.php" class="hover:text-white">For Students</a></li>
-          <li><a href="/parents.php" class="hover:text-white">For Parents</a></li>
-          <li><a href="#" class="hover:text-white">For Teachers</a></li>
+        <h3 class="text-sm font-bold mb-4 text-text-default uppercase tracking-wider">Community</h3>
+        <ul class="space-y-3 text-sm text-text-muted">
+          <li><a href="#" class="hover:text-primary transition-colors">For Parents</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors">For Teachers</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors">Contact Support</a></li>
         </ul>
       </div>
+
+      <!-- Legal -->
       <div>
-        <h3 class="text-lg font-bold mb-4 flex items-center text-accent">Legal</h3>
-        <ul class="space-y-3 text-sm text-gray-300">
-          <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-white">Terms of Use</a></li>
-          <li><a href="#" class="hover:text-white">Accessibility</a></li>
-          <li><a href="/about-us.php" class="hover:text-white">About Us</a></li>
+        <h3 class="text-sm font-bold mb-4 text-text-default uppercase tracking-wider">Legal</h3>
+        <ul class="space-y-3 text-sm text-text-muted">
+          <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
+          <li>
+            <button onclick="document.getElementById('a11y-toggle-button').click()"
+              class="hover:text-primary transition-colors font-bold text-accent">
+              <i class="fas fa-universal-access mr-1"></i> Accessibility
+            </button>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
-      <p>© 2024 Hesten's Learning. All rights reserved. | Made with love for education</p>
-      <p class="mt-2">
-        <a href="http://hestena62.com" class="text-accent underline hover:text-white">Hesten's Learning</a> by
-        <a href="/about-me.php" class="text-accent underline hover:text-white">Hesten Allison</a> is licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="text-accent underline hover:text-white">CC
-          BY-NC-SA 4.0</a>
-      </p>
+
+    <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800 text-center text-sm text-text-muted">
+      <p>&copy; <span id="year"></span> Hesten's Learning. Made with <i class="fas fa-heart text-red-400 mx-1"></i> for
+        kids.</p>
     </div>
   </footer>
 
+  <!-- INTERACTIVE SCRIPTS -->
   <script>
-    const STORAGE_KEY = 'hesten_a11y_final_locked';
-    const defaults = {
-      theme: 'light', font: 'Inter', size: 1, line: 1.6, letter: 0,
-      readingLine: false, highlightLinks: false, greyscale: false, readableWidth: false, reducedMotion: false
-    };
-    let s = { ...defaults };
-    try { const saved = localStorage.getItem(STORAGE_KEY); if (saved) s = { ...defaults, ...JSON.parse(saved) }; } catch (e) { }
+    const apiKey = ""; // API Key
 
-    const body = document.body;
-    const panel = document.getElementById('a11y-settings-panel');
-    const btn = document.getElementById('a11y-toggle-button');
-    const close = document.getElementById('a11y-close-button');
-    const line = document.getElementById('reading-line');
+    // --- Dynamic Data (Replacing PHP Array for this HTML preview) ---
+    const learningLevels = [
+      { id: 'pre-k', category: 'elem', title: 'Pre-K', description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.', link: '/Level/A.html', icon: 'fas fa-shapes', color: 'blue' },
+      { id: 'kindergarten', category: 'elem', title: 'Kindergarten', description: 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', link: '/Level/B.html', icon: 'fas fa-puzzle-piece', color: 'pink' },
+      { id: 'grade-1', category: 'elem', title: 'Grade 1', description: 'Adding, subtracting, sentence formation. Developing independence.', link: '/Level/C.html', icon: 'fas fa-pencil-alt', color: 'green' },
+      { id: 'grade-2', category: 'elem', title: 'Grade 2', description: 'Basic multiplication, reading fluency. Expanding foundational knowledge.', link: '/Level/B.html', icon: 'fas fa-book-open', color: 'orange' },
+      { id: 'grade-3', category: 'elem', title: 'Grade 3', description: 'Multiplication, division, reading comprehension. Critical thinking.', link: '/Level/D.html', icon: 'fas fa-calculator', color: 'purple' },
+      { id: 'grade-4', category: 'elem', title: 'Grade 4', description: 'Advanced multiplication, division, reading comprehension. Deeper dives.', link: '/Level/D.html', icon: 'fas fa-divide', color: 'teal' },
+      { id: 'grade-5', category: 'elem', title: 'Grade 5', description: 'Decimals, essay writing, ecosystems. Preparing for middle school.', link: '/Level/E.html', icon: 'fas fa-atom', color: 'indigo' },
+      { id: 'grade-6', category: 'middle', title: 'Grade 6', description: 'Fractions, essay writing, earth science. Transitioning to complex subjects.', link: '/Level/F.html', icon: 'fas fa-globe-americas', color: 'cyan' },
+      { id: 'grade-7', category: 'middle', title: 'Grade 7', description: 'Proportional relationships, persuasive writing, life science. Middle school mastery.', link: '/Level/G.html', icon: 'fas fa-dna', color: 'rose' },
+      { id: 'grade-8', category: 'middle', title: 'Grade 8', description: 'Linear equations, historical analysis, earth science. Pre-high school readiness.', link: '/Level/H.html', icon: 'fas fa-history', color: 'amber' },
+      { id: 'grade-9', category: 'high', title: 'Grade 9', description: 'Algebra, literature, physical science. Introduction to high school.', link: '/Level/I.html', icon: 'fas fa-flask', color: 'emerald' },
+      { id: 'grade-10', category: 'high', title: 'Grade 10', description: 'Geometry, world history, biology. Broadening academic horizons.', link: '/Level/J.html', icon: 'fas fa-project-diagram', color: 'violet' },
+      { id: 'grade-11', category: 'high', title: 'Grade 11', description: 'Pre-calculus, advanced literature, chemistry. College prep.', link: '/Level/K.html', icon: 'fas fa-microscope', color: 'sky' },
+      { id: 'grade-12', category: 'high', title: 'Grade 12', description: 'Advanced calculus, literature analysis, physics. Final preparations.', link: '/Level/L.html', icon: 'fas fa-graduation-cap', color: 'fuchsia' },
+      { id: 'test-section', category: 'extra', title: 'Test/Extra', 'description': 'Practice with quizzes, review extra materials, and challenge yourself.', link: '/test', icon: 'fas fa-star', color: 'yellow' }
+    ];
 
-    function apply() {
-      body.classList.remove('light', 'dark', 'high-contrast', 'greyscale-mode', 'highlight-links', 'readable-width', 'reduced-motion');
-      body.classList.add(s.theme);
-      if (s.greyscale) body.classList.add('greyscale-mode');
-      if (s.highlightLinks) body.classList.add('highlight-links');
-      if (s.readableWidth) body.classList.add('readable-width');
-      if (s.reducedMotion) body.classList.add('reduced-motion');
-      if (s.readingLine) line.classList.add('active'); else line.classList.remove('active');
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-      document.documentElement.style.setProperty('--site-font-family', s.font === 'Open Dyslexic' ? '"Open Dyslexic", sans-serif' : `${s.font}, sans-serif`);
-      document.documentElement.style.setProperty('--site-font-size', s.size + 'rem');
-      document.documentElement.style.setProperty('--site-line-height', s.line);
+      // 1. Accessibility Panel Logic
+      const a11yPanel = document.getElementById('a11y-settings-panel');
+      const a11yBtn = document.getElementById('a11y-toggle-button');
+      const a11yClose = document.getElementById('a11y-close-button');
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
-    }
+      function togglePanel(show) {
+        if (!a11yPanel) return;
+        if (show) {
+          a11yPanel.classList.remove('translate-x-full');
+          a11yPanel.setAttribute('aria-hidden', 'false');
+          if (a11yClose) a11yClose.focus();
+        } else {
+          a11yPanel.classList.add('translate-x-full');
+          a11yPanel.setAttribute('aria-hidden', 'true');
+          if (a11yBtn) a11yBtn.focus();
+        }
+      }
+      if (a11yBtn) a11yBtn.addEventListener('click', () => togglePanel(true));
+      if (a11yClose) a11yClose.addEventListener('click', () => togglePanel(false));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) togglePanel(false);
+      });
 
-    btn.onclick = () => panel.classList.remove('translate-x-full');
-    close.onclick = () => panel.classList.add('translate-x-full');
+      // 2. Settings Listeners
+      document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'light' }));
+      document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'dark' }));
+      document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({ ...currentSettings, theme: 'high-contrast' }));
+      document.querySelectorAll('.font-selector').forEach(btn => btn.addEventListener('click', (e) => saveSettings({ ...currentSettings, fontFamily: e.currentTarget.dataset.font })));
 
-    document.querySelectorAll('.theme-btn').forEach(b => b.onclick = () => { s.theme = b.dataset.theme; apply(); });
-    document.querySelectorAll('.font-btn').forEach(b => b.onclick = () => { s.font = b.dataset.font; apply(); });
+      const fsSlider = document.getElementById('font-size-slider');
+      if (fsSlider) {
+        const valSpan = document.getElementById('font-size-value');
+        fsSlider.value = currentSettings.fontSize;
+        if (valSpan) valSpan.textContent = Math.round(currentSettings.fontSize * 100);
 
-    document.getElementById('size-slider').oninput = e => { s.size = e.target.value; document.getElementById('size-val').textContent = Math.round(e.target.value * 100); apply(); };
-    document.getElementById('line-slider').oninput = e => { s.line = e.target.value; document.getElementById('line-val').textContent = e.target.value; apply(); };
-    document.getElementById('letter-slider').oninput = e => { s.letter = e.target.value; document.getElementById('letter-val').textContent = e.target.value; apply(); };
+        fsSlider.addEventListener('input', (e) => {
+          const val = e.target.value;
+          document.documentElement.style.setProperty('--site-font-size', `${val}rem`);
+          if (valSpan) valSpan.textContent = Math.round(val * 100);
+        });
+        fsSlider.addEventListener('change', (e) => saveSettings({ ...currentSettings, fontSize: e.target.value }));
+      }
 
-    ['reading-line', 'highlight-links', 'greyscale', 'readable-width', 'reduced-motion'].forEach(id => {
-      const el = document.getElementById(id);
-      el.checked = s[id.replace(/-/g, '')];
-      el.onchange = () => { s[id.replace(/-/g, '')] = el.checked; apply(); };
+      const maskToggle = document.getElementById('toggle-reading-mask');
+      if (maskToggle) {
+        maskToggle.checked = currentSettings.readingMask;
+        maskToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, readingMask: e.target.checked }));
+      }
+
+      const motionToggle = document.getElementById('toggle-reduced-motion');
+      if (motionToggle) {
+        motionToggle.checked = currentSettings.reducedMotion;
+        motionToggle.addEventListener('change', (e) => saveSettings({ ...currentSettings, reducedMotion: e.target.checked }));
+      }
+
+      document.getElementById('reset-a11y-settings')?.addEventListener('click', () => {
+        saveSettings(defaultSettings);
+        window.location.reload();
+      });
+
+      // 3. Mobile Navigation Logic
+      const navToggle = document.getElementById('nav-toggle');
+      const navContent = document.getElementById('nav-content');
+      if (navToggle && navContent) {
+        navToggle.addEventListener('click', function () {
+          navContent.classList.toggle('hidden');
+        });
+      }
+
+      // 4. Render Learning Grid
+      renderGrid('all');
+
+      // 5. Back to Top
+      const backToTopBtn = document.getElementById("back-to-top");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) backToTopBtn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+        else backToTopBtn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+      });
+      backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      // 6. Reading Guide Drag
+      const readingGuide = document.getElementById('reading-guide');
+      if (readingGuide) {
+        let isDragging = false;
+        const onMove = (clientY) => {
+          if (!isDragging) return;
+          const percent = (clientY / window.innerHeight) * 100;
+          readingGuide.style.top = `${Math.min(Math.max(percent, 5), 95)}%`;
+        };
+        readingGuide.addEventListener('mousedown', () => isDragging = true);
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('mousemove', (e) => onMove(e.clientY));
+      }
+
+      // 7. Announcement Bar
+      const closeAnnouncement = document.getElementById('close-announcement');
+      if (closeAnnouncement) {
+        closeAnnouncement.addEventListener('click', () => {
+          document.getElementById('announcement-bar').style.display = 'none';
+        });
+      }
+
+      // Apply initial settings
+      applySettings(currentSettings);
     });
 
-    document.getElementById('reset-a11y').onclick = () => { localStorage.removeItem(STORAGE_KEY); location.reload(); };
-    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-content').classList.toggle('hidden');
-    document.onmousemove = e => { if (s.readingLine) line.style.top = (e.clientY - 28) + 'px'; };
+    // --- Filter Function ---
+    window.filterContent = function (category, btnElement) {
+      // Update Buttons
+      if (btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active', 'bg-primary', 'text-white', 'shadow-lg');
+        });
+        btnElement.classList.add('active');
+      }
 
-    apply();
+      renderGrid(category);
+    }
+
+    function renderGrid(category) {
+      const grid = document.getElementById('level-grid');
+      grid.innerHTML = '';
+
+      learningLevels.forEach(level => {
+        if (category === 'all' || level.category === category) {
+          // Determine Colors based on level ID (simple mapping)
+          const cardHTML = `
+                <article class="level-card h-full animate-fade-in-up">
+                  <div class="card bg-content-bg h-full rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-l-8 border-${level.color || 'primary'} p-8 flex flex-col relative overflow-hidden group">
+                    
+                    <!-- Decorative BG Icon -->
+                    <div class="absolute -right-6 -bottom-6 text-9xl opacity-5 group-hover:opacity-10 transition-opacity text-text-default pointer-events-none">
+                        <i class="${level.icon}"></i>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-16 h-16 shrink-0 bg-base-bg rounded-2xl shadow-inner flex items-center justify-center text-${level.color}-500 text-3xl group-hover:scale-110 transition-transform">
+                            <i class="${level.icon} text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-text-default font-playful group-hover:text-primary transition-colors">
+                          ${level.title}
+                        </h3>
+                    </div>
+                    
+                    <p class="text-text-secondary mb-8 flex-grow leading-relaxed relative z-10 text-sm">
+                      ${level.description}
+                    </p>
+                    
+                    <a href="${level.link}"
+                      class="w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border-2 border-transparent hover:border-primary hover:text-primary transition-all duration-300 relative z-10">
+                      <span>Explore Skills</span>
+                      <i class="fas fa-arrow-right"></i>
+                    </a>
+                  </div>
+                </article>
+                `;
+          grid.innerHTML += cardHTML;
+        }
+      });
+    }
   </script>
 </body>
 
