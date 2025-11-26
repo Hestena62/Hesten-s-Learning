@@ -6,7 +6,7 @@
 
   <!-- Back to Top Button -->
   <button id="back-to-top" 
-    class="fixed bottom-24 right-6 z-40 p-4 bg-gray-800 text-white rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700"
+    class="fixed bottom-24 right-6 z-40 p-4 bg-gray-800 text-white rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700 no-print"
     aria-label="Scroll back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
@@ -95,11 +95,6 @@
           <li>
             <a href="/terms.html" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
                 <i class="fas fa-file-contract w-6 text-center text-accent"></i> Terms of Use
-            </a>
-          </li>
-          <li>
-            <a href="/contact.html" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
-                <i class="fas fa-paper-plane w-6 text-center text-accent"></i> Contact
             </a>
           </li>
           <li>

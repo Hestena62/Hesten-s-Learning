@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en-US" class="scroll-smooth">
+<html lang="en-US" class="scroll-smooth scroll-pt-24">
+<!-- Added scroll-pt-24 to ensure jump links don't hide behind fixed headers -->
 
 <head>
   <meta charset="UTF-8" />
@@ -26,11 +27,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <!-- Fonts: Inter (Standard), Open Dyslexic (A11y), Roboto Mono (Code/Focus) -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
 <script>
     // --- Tailwind & CSS Variables Configuration ---
     tailwind.config = {
+      darkMode: 'class', // Enables dark mode via 'dark' class
       theme: {
         extend: {
           fontFamily: {
@@ -220,9 +222,9 @@
 
     .skip-link {
         position: absolute; top: -9999px; left: 50%; transform: translateX(-50%);
-        background: var(--color-primary); color: white; padding: 1rem 2rem; z-index: 10000;
+        background: var(--color-primary); color: var(--color-base-bg); padding: 1rem 2rem; z-index: 10000;
         font-weight: bold; border-radius: 0 0 0.5rem 0.5rem; transition: top 0.2s;
-        text-decoration: none;
+        text-decoration: none; border: 2px solid white;
     }
     .skip-link:focus { top: 0; }
 
@@ -244,7 +246,7 @@
 
     /* PRINT STYLES - Hides non-essential UI when printing */
     @media print {
-        header, footer, #announcement-bar, #a11y-toggle-button, #back-to-top, .skip-link { 
+        header, footer, #announcement-bar, #a11y-toggle-button, #back-to-top, .skip-link, .no-print { 
             display: none !important; 
         }
         body { 
@@ -288,14 +290,14 @@
 
   <!-- Accessibility Settings Panel Trigger -->
   <button id="a11y-toggle-button"
-    class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-transform hover:scale-105 flex items-center justify-center"
+    class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-transform hover:scale-105 flex items-center justify-center no-print"
     aria-label="Open Accessibility Settings" aria-controls="a11y-settings-panel" aria-haspopup="true">
     <i class="fas fa-universal-access text-2xl"></i>
   </button>
 
   <!-- Accessibility Panel -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary no-print"
     role="dialog" aria-modal="true" aria-label="Accessibility Options" aria-hidden="true">
     
     <div class="flex justify-between items-center mb-6">
@@ -351,19 +353,8 @@
   </div>
 
   <!-- Reading Mask DOM -->
-  <div id="reading-mask" class="hidden">
+  <div id="reading-mask" class="hidden no-print">
     <div id="reading-guide" style="top: 30%"></div>
-  </div>
-
-  <!-- Welcome Popup -->
-  <div id="entry-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[100] hidden" role="dialog" aria-modal="true" aria-labelledby="entry-popup-title">
-    <div class="bg-content-bg rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative mx-4 border border-gray-200 dark:border-gray-700">
-      <h2 id="entry-popup-title" class="text-3xl font-bold mb-4 text-primary"><?php echo $welcomeMessage; ?></h2>
-      <p class="mb-8 text-lg text-text-default leading-relaxed"><?php echo $welcomeParagraph; ?></p>
-      <button id="close-entry-popup" class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-all transform hover:scale-105">
-        Get Started
-      </button>
-    </div>
   </div>
 
   <!-- Announcement Bar -->
@@ -371,7 +362,7 @@
     <div class="container mx-auto px-12">
         <p class="text-sm font-medium">
             <i class="fas fa-info-circle mr-2"></i>
-            I am working on each section a little at a time. Feature requests? Email <a href="mailto:admin@hestena62.com" class="underline hover:text-white font-bold decoration-2">admin@hestena62.com</a>
+            We are constantly improving! Feature requests? Email <a href="mailto:admin@hestena62.com" class="underline hover:text-white font-bold decoration-2">admin@hestena62.com</a>
         </p>
     </div>
     <button id="close-announcement" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Dismiss announcement">
@@ -386,7 +377,7 @@
         
         <!-- Logo -->
         <a class="flex items-center flex-shrink-0 text-white mr-8 group" href="/">
-          <div class="rounded-full bg-white p-1 mr-3 group-hover:scale-110 transition-transform">
+          <div class="rounded-full bg-white p-1 mr-3 group-hover:scale-110 transition-transform shadow-lg">
              <img src="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="" class="h-8 w-8 rounded-full" 
              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
           </div>
@@ -406,7 +397,7 @@
             <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-6 hover:underline decoration-2 underline-offset-4 transition-all">
                 <i class="fas fa-home mr-1 text-accent"></i> Home
             </a>
-            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-6 hover:underline decoration-2 underline-offset-4 transition-all">
+            <a href="#main-content" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-6 hover:underline decoration-2 underline-offset-4 transition-all">
                 <i class="fas fa-book-open mr-1 text-accent"></i> Learning
             </a>
             <a href="/assessment.html" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white hover:underline decoration-2 underline-offset-4 transition-all">

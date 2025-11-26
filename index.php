@@ -4,9 +4,6 @@
   $pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
   $pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
   $pageAuthor = "Hesten's Learning"; 
-  
-  $welcomeMessage = "Welcome to Hesten's Learning!";
-  $welcomeParagraph = "Thank you for visiting. We are dedicated to making education accessible for everyone. If you have questions or feedback, please email <a href=\"mailto:admin@hestena62.com\" class=\"underline text-primary hover:text-secondary\">admin@hestena62.com</a>.";
 
   // --- Dynamic Content Array ---
   $learningLevels = [
@@ -30,149 +27,340 @@
   include 'src/header.php';
 ?>
 
-  <!-- Hero Section -->
-  <header class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-24 px-4 text-center rounded-b-[4rem] shadow-2xl relative overflow-hidden mb-16">
-    <!-- Decorative Background Icons -->
-    <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none select-none">
-        <i class="fas fa-shapes absolute top-10 left-10 text-7xl animate-pulse"></i>
-        <i class="fas fa-calculator absolute bottom-20 right-20 text-9xl"></i>
-        <i class="fas fa-book absolute top-20 right-1/3 text-6xl"></i>
-        <i class="fas fa-atom absolute bottom-10 left-1/4 text-6xl"></i>
+  <!-- Hero Section with Glassmorphism -->
+  <header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-24 pb-32 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-16">
+    <!-- Decorative Animated Background Icons -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
+        <i class="fas fa-shapes absolute top-10 left-10 text-8xl animate-pulse text-white/50"></i>
+        <i class="fas fa-calculator absolute bottom-1/4 right-10 text-[10rem] text-white/30 rotate-12"></i>
+        <i class="fas fa-book absolute top-20 right-1/3 text-7xl text-white/40 -rotate-12"></i>
+        <i class="fas fa-atom absolute bottom-10 left-1/4 text-8xl text-white/40 animate-bounce" style="animation-duration: 3s;"></i>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="relative z-10 max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up tracking-tight leading-tight">
-          Learning Without Limits
-        </h1>
-        <p class="text-xl md:text-2xl mb-10 text-blue-100 animate-fade-in-up delay-100 max-w-2xl mx-auto leading-relaxed">
-          Empowering every student with personalized, accessible, and engaging educational experiences.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-200">
-            <a href="#main-content"
-              class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
-              Start Learning
-            </a>
-            <a href="about.php"
-              class="bg-transparent border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
-              Learn More
-            </a>
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+        <!-- Content Container -->
+        <div class="backdrop-blur-sm bg-white/10 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
+            <span class="inline-block py-1 px-3 rounded-full bg-accent/20 border border-accent/50 text-blue-50 text-sm font-bold mb-4 tracking-wide uppercase">
+                Accessible Education for All
+            </span>
+            <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-md">
+              Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Limits</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light">
+              Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white">how you learn</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#main-content"
+                  class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
+                  <span>Start Learning</span>
+                  <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <a href="about.php"
+                  class="bg-transparent border-2 border-white/40 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
+                  Learn More
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+                <div class="text-3xl font-bold text-accent mb-1">100%</div>
+                <div class="text-sm text-blue-100">Accessible</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+                <div class="text-3xl font-bold text-accent mb-1">K-12</div>
+                <div class="text-sm text-blue-100">Grade Levels</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+                <div class="text-3xl font-bold text-accent mb-1">Free</div>
+                <div class="text-sm text-blue-100">To Use</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+                <div class="text-3xl font-bold text-accent mb-1">Safe</div>
+                <div class="text-sm text-blue-100">Private & Secure</div>
+            </div>
         </div>
     </div>
   </header>
 
   <!-- Features Section -->
-  <section class="container mx-auto px-4 mb-20" aria-labelledby="features-heading">
-    <h2 id="features-heading" class="sr-only">Why Choose Us</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+  <section class="container mx-auto px-4 mb-24" aria-labelledby="features-heading">
+    <div class="text-center mb-12">
+        <h2 id="features-heading" class="text-3xl md:text-4xl font-bold text-text-default mb-4">Why Choose Hesten's Learning?</h2>
+        <p class="text-text-secondary max-w-2xl mx-auto">We combine modern technology with proven educational strategies to create a platform where everyone succeeds.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Feature 1 -->
-        <article class="p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
+        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-universal-access"></i>
             </div>
-            <h3 class="text-xl font-bold text-text-default mb-3">Accessibility First</h3>
-            <p class="text-text-secondary leading-relaxed">Built with dyslexia-friendly fonts, reading guides, and high-contrast modes for all learners.</p>
+            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Accessibility First</h3>
+            <p class="text-text-secondary leading-relaxed text-center">Built from the ground up with dyslexia-friendly fonts, reading guides, and high-contrast modes for all learners.</p>
         </article>
         <!-- Feature 2 -->
-        <article class="p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
+        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-2xl -rotate-3 group-hover:-rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-road"></i>
             </div>
-            <h3 class="text-xl font-bold text-text-default mb-3">Personalized Paths</h3>
-            <p class="text-text-secondary leading-relaxed">Learn at your own pace with curriculum tailored to specific grade level needs and abilities.</p>
+            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Personalized Paths</h3>
+            <p class="text-text-secondary leading-relaxed text-center">Learn at your own pace with curriculum tailored to specific grade level needs and individual abilities.</p>
         </article>
         <!-- Feature 3 -->
-        <article class="p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
+        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-check-circle"></i>
             </div>
-            <h3 class="text-xl font-bold text-text-default mb-3">Comprehensive</h3>
-            <p class="text-text-secondary leading-relaxed">Complete coverage of Math, ELA, Science, and Social Studies from Pre-K through Grade 12.</p>
+            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Comprehensive</h3>
+            <p class="text-text-secondary leading-relaxed text-center">Complete coverage of Math, ELA, Science, and Social Studies from Pre-K through Grade 12.</p>
         </article>
     </div>
   </section>
 
   <!-- Learning Levels Grid -->
   <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
-    <div class="flex flex-col md:flex-row items-center justify-between mb-10 border-b border-gray-200 dark:border-gray-700 pb-6 gap-4">
-        <h2 id="learning-levels-heading" class="text-3xl font-bold text-text-default border-l-8 border-primary pl-4">
-            Select Your Grade Level
-        </h2>
-        
-        <!-- Filter Bar -->
-        <div class="flex flex-wrap gap-2" role="group" aria-label="Filter content">
-            <button onclick="filterContent('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-colors" aria-pressed="true">All</button>
-            <button onclick="filterContent('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">Elementary</button>
-            <button onclick="filterContent('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">Middle School</button>
-            <button onclick="filterContent('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-pressed="false">High School</button>
+    
+    <!-- Controls Bar -->
+    <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="w-full md:w-auto">
+                <h2 id="learning-levels-heading" class="text-3xl font-bold text-text-default flex items-center gap-3">
+                    <span class="w-2 h-8 bg-primary rounded-full"></span>
+                    Select Your Grade
+                </h2>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
+                 <!-- Search Input -->
+                <div class="relative w-full sm:w-64">
+                    <label for="level-search" class="sr-only">Search grades or topics</label>
+                    <input type="text" id="level-search" placeholder="Search grades..." 
+                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        onkeyup="applyFilters()">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter content">
+                    <button onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-all shadow-sm" aria-pressed="true" data-filter="all">All</button>
+                    <button onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="elem">Elementary</button>
+                    <button onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="middle">Middle</button>
+                    <button onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="high">High School</button>
+                </div>
+            </div>
+        </div>
+        <!-- Live Region for Screen Readers -->
+        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">
+            Showing all levels
         </div>
     </div>
     
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
       <?php foreach ($learningLevels as $level): ?>
-        <article class="level-card group h-full" data-category="<?php echo htmlspecialchars($level['category']); ?>">
-          <div class="bg-content-bg h-full rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-8 border-primary p-8 flex flex-col relative overflow-hidden">
+        <article class="level-card group h-full" 
+                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
+                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
+                 data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>">
+          <div class="bg-content-bg h-full rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
             
-            <!-- Floating Icon Background (Decorative) -->
-            <div class="absolute -right-4 -bottom-4 text-9xl opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none">
+            <!-- Floating Icon Background -->
+            <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
                 <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
             </div>
 
-            <!-- Header: Icon + Title Side-by-Side -->
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-sm flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors">
+            <!-- Header -->
+            <div class="flex items-center gap-4 mb-6 relative z-10">
+                <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-inner flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                 </div>
 
-                <h3 class="text-2xl font-bold text-text-default" id="<?php echo htmlspecialchars($level['id']); ?>">
+                <h3 class="text-2xl font-bold text-text-default group-hover:text-primary transition-colors" id="<?php echo htmlspecialchars($level['id']); ?>">
                   <?php echo htmlspecialchars($level['title']); ?>
                 </h3>
             </div>
             
-            <p class="text-text-secondary mb-8 flex-grow leading-relaxed">
+            <p class="text-text-secondary mb-8 flex-grow leading-relaxed relative z-10">
               <?php echo htmlspecialchars($level['description']); ?>
             </p>
             
             <a href="<?php echo htmlspecialchars($level['link']); ?>"
-              class="w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border border-transparent hover:border-primary hover:text-primary transition-all duration-300 focus:ring-4 focus:ring-primary/40 focus:outline-none"
+              class="relative z-10 w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border border-transparent hover:border-primary hover:text-primary hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 focus:ring-4 focus:ring-primary/40 focus:outline-none group-focus:ring-4 shadow-sm"
               aria-labelledby="<?php echo htmlspecialchars($level['id']); ?>">
               <span>Explore Skills</span>
-              <i class="fas fa-arrow-right"></i>
+              <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
             </a>
 
           </div>
         </article>
       <?php endforeach; ?>
     </section>
+    
+    <!-- No Results Message -->
+    <div id="no-results" class="hidden text-center py-20">
+        <div class="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-gray-400">
+            <i class="fas fa-search"></i>
+        </div>
+        <h3 class="text-xl font-bold text-text-default">No levels found</h3>
+        <p class="text-text-secondary">Try adjusting your search or category filter.</p>
+        <button onclick="resetFilters()" class="mt-4 text-primary font-bold hover:underline">Clear Filters</button>
+    </div>
+
   </main>
 
+  <!-- Testimonials Section -->
+  <section class="bg-base-bg py-20 border-t border-gray-200 dark:border-gray-700">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-text-default mb-12">Trusted by Families</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Review 1 -->
+              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                  <div class="flex text-yellow-400 mb-4 text-sm">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <p class="text-text-secondary italic mb-6">"Finally, a resource that my son can actually read without getting frustrated. The dyslexic font option is a game changer."</p>
+                  <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-700 font-bold">S</div>
+                      <div>
+                          <p class="font-bold text-text-default text-sm">Sarah M.</p>
+                          <p class="text-xs text-text-secondary">Parent of 4th Grader</p>
+                      </div>
+                  </div>
+              </div>
+              <!-- Review 2 -->
+              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                  <div class="flex text-yellow-400 mb-4 text-sm">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <p class="text-text-secondary italic mb-6">"I use this for my special education classroom. The personalized paths allow each student to work at their own level."</p>
+                  <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold">J</div>
+                      <div>
+                          <p class="font-bold text-text-default text-sm">Mr. James</p>
+                          <p class="text-xs text-text-secondary">Special Ed Teacher</p>
+                      </div>
+                  </div>
+              </div>
+               <!-- Review 3 -->
+              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                  <div class="flex text-yellow-400 mb-4 text-sm">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <p class="text-text-secondary italic mb-6">"Math was always hard for me, but the visual examples here make it sense. I like the dark mode too."</p>
+                  <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-700 font-bold">A</div>
+                      <div>
+                          <p class="font-bold text-text-default text-sm">Alex</p>
+                          <p class="text-xs text-text-secondary">8th Grade Student</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="container mx-auto px-4 my-20">
+      <div class="bg-primary rounded-3xl p-8 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+           <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                <i class="fas fa-envelope-open-text absolute top-10 left-10 text-9xl"></i>
+                <i class="fas fa-paper-plane absolute bottom-10 right-10 text-8xl"></i>
+           </div>
+           <div class="relative z-10 max-w-2xl mx-auto">
+               <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Community</h2>
+               <p class="text-blue-100 mb-8 text-lg">Stay updated with new lessons, accessibility features, and educational resources delivered to your inbox.</p>
+               <form class="flex flex-col sm:flex-row gap-4">
+                   <input type="email" placeholder="Enter your email address" class="flex-grow px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-white/50" required>
+                   <button type="submit" class="bg-gray-900 text-white font-bold py-4 px-8 rounded-full hover:bg-gray-800 transition-colors focus:ring-4 focus:ring-white/50">Subscribe</button>
+               </form>
+               <p class="text-xs text-blue-200 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+           </div>
+      </div>
+  </section>
+
   <script>
-    function filterContent(category) {
-        // Update Buttons
+    // State for filters
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    function setCategory(category) {
+        currentCategory = category;
+        
+        // Update Buttons Visual State
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
-            if (btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent === 'All')) {
+            const isMatch = btn.dataset.filter === category;
+            if (isMatch) {
                 btn.classList.add('bg-primary', 'text-white');
-                btn.classList.remove('bg-gray-200', 'text-gray-700');
+                btn.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
                 btn.setAttribute('aria-pressed', 'true');
             } else {
                 btn.classList.remove('bg-primary', 'text-white');
-                btn.classList.add('bg-gray-200', 'text-gray-700');
+                btn.classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
                 btn.setAttribute('aria-pressed', 'false');
             }
         });
 
-        // Filter Cards
+        applyFilters();
+    }
+
+    function resetFilters() {
+        document.getElementById('level-search').value = '';
+        currentSearch = '';
+        setCategory('all');
+    }
+
+    function applyFilters() {
+        // Get search value
+        const searchInput = document.getElementById('level-search');
+        currentSearch = searchInput.value.toLowerCase().trim();
+
         const cards = document.querySelectorAll('.level-card');
+        let visibleCount = 0;
+
         cards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
+            const cardCat = card.dataset.category;
+            const cardTitle = card.dataset.title;
+            const cardDesc = card.dataset.desc;
+
+            // Check Category Match
+            const catMatch = (currentCategory === 'all' || cardCat === currentCategory);
+            
+            // Check Search Match
+            const searchMatch = (currentSearch === '' || cardTitle.includes(currentSearch) || cardDesc.includes(currentSearch));
+
+            if (catMatch && searchMatch) {
                 card.style.display = 'block';
-                // Small animation for reappearing items
-                card.style.opacity = '0';
-                setTimeout(() => card.style.opacity = '1', 50);
+                // Trigger reflow for animation
+                requestAnimationFrame(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
+                visibleCount++;
             } else {
                 card.style.display = 'none';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
             }
         });
+
+        // Update Results Count for Screen Reader
+        const resultsMsg = document.getElementById('results-count');
+        resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
+
+        // Show/Hide "No Results" graphic
+        const noResults = document.getElementById('no-results');
+        const grid = document.getElementById('level-grid');
+        
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+            grid.classList.add('hidden');
+        } else {
+            noResults.classList.add('hidden');
+            grid.classList.remove('hidden');
+        }
     }
   </script>
 
