@@ -622,3 +622,5 @@
       applySettings(currentSettings);
     });
   </script>
+</body>
+</html>

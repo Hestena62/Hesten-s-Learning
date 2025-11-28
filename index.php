@@ -66,9 +66,11 @@
         </div>
 
         <!-- Quick Stats Bar -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
+        <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1">100%</div>
+                <div class="text-3xl font-bold text-accent mb-1 flex justify-center items-center">
+                    <span class="stat-counter" data-target="100">0</span><span>%</span>
+                </div>
                 <div class="text-sm text-blue-100">Accessible</div>
             </div>
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
@@ -80,7 +82,9 @@
                 <div class="text-sm text-blue-100">To Use</div>
             </div>
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1">Safe</div>
+                <div class="text-3xl font-bold text-accent mb-1 flex justify-center items-center">
+                    <span class="stat-counter" data-target="100">0</span><span>%</span>
+                </div>
                 <div class="text-sm text-blue-100">Private & Secure</div>
             </div>
         </div>
@@ -122,11 +126,53 @@
     </div>
   </section>
 
+  <!-- How It Works Section -->
+  <section class="container mx-auto px-4 mb-24">
+      <div class="bg-base-bg rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-700">
+        <div class="text-center mb-12">
+            <span class="text-primary font-bold tracking-wider uppercase text-sm">Getting Started</span>
+            <h2 class="text-3xl font-bold text-text-default mt-2">Your Learning Journey</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            <!-- Decorative Line for Desktop -->
+            <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-300 dark:bg-gray-600 -z-10" aria-hidden="true"></div>
+
+            <!-- Step 1 -->
+            <div class="text-center relative">
+                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
+                    <span class="text-3xl font-bold text-primary">1</span>
+                </div>
+                <h3 class="text-xl font-bold text-text-default mb-2">Select Grade</h3>
+                <p class="text-text-secondary text-sm px-4">Choose your current grade level from the options below.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="text-center relative">
+                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
+                    <span class="text-3xl font-bold text-primary">2</span>
+                </div>
+                <h3 class="text-xl font-bold text-text-default mb-2">Choose Topic</h3>
+                <p class="text-text-secondary text-sm px-4">Pick a subject you want to practice or explore new skills.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="text-center relative">
+                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
+                    <span class="text-3xl font-bold text-primary">3</span>
+                </div>
+                <h3 class="text-xl font-bold text-text-default mb-2">Start Learning</h3>
+                <p class="text-text-secondary text-sm px-4">Engage with interactive lessons designed for you.</p>
+            </div>
+        </div>
+      </div>
+  </section>
+
   <!-- Learning Levels Grid -->
   <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
     
     <!-- Controls Bar -->
-    <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10">
+    <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10 sticky top-4 z-20 backdrop-blur-md bg-opacity-95">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="w-full md:w-auto">
                 <h2 id="learning-levels-heading" class="text-3xl font-bold text-text-default flex items-center gap-3">
@@ -219,6 +265,114 @@
 
   </main>
 
+  <!-- Community Voices / Testimonials -->
+  <section class="bg-content-bg py-20 border-y border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-text-default mb-12">Community Voices</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
+                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
+                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"This platform has completely changed how my son approaches math. The accessibility features are a game changer."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">S</div>
+                    <div>
+                        <div class="font-bold text-text-default">Sarah J.</div>
+                        <div class="text-xs text-text-secondary">Parent of 4th Grader</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
+                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
+                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"As a special education teacher, I need resources that adapt. Hesten's Learning does exactly that."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">M</div>
+                    <div>
+                        <div class="font-bold text-text-default">Mark T.</div>
+                        <div class="text-xs text-text-secondary">Special Ed Teacher</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
+                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
+                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"I can finally read the lessons without getting a headache. The dark mode and fonts are awesome!"</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">J</div>
+                    <div>
+                        <div class="font-bold text-text-default">Jamie</div>
+                        <div class="text-xs text-text-secondary">8th Grade Student</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accessible Accordion) -->
+  <section class="container mx-auto px-4 py-20 max-w-4xl">
+      <h2 class="text-3xl font-bold text-center text-text-default mb-10">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                  Is Hesten's Learning really free?
+                  <span class="transition-transform group-open:rotate-180 text-primary">
+                      <i class="fas fa-chevron-down"></i>
+                  </span>
+              </summary>
+              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                  Yes! Our mission is to provide accessible education to everyone. All core curriculum content from Pre-K to Grade 12 is completely free to access.
+              </div>
+          </details>
+
+          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                  Do I need an account to use the site?
+                  <span class="transition-transform group-open:rotate-180 text-primary">
+                      <i class="fas fa-chevron-down"></i>
+                  </span>
+              </summary>
+              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                  No account is required to access the learning materials. However, creating an optional account allows you to save progress and customize your accessibility settings permanently.
+              </div>
+          </details>
+          
+          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                  Can I use this on a tablet or phone?
+                  <span class="transition-transform group-open:rotate-180 text-primary">
+                      <i class="fas fa-chevron-down"></i>
+                  </span>
+              </summary>
+              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                  Absolutely. Our entire platform is fully responsive and optimized for mobile devices, tablets, and desktops.
+              </div>
+          </details>
+      </div>
+  </section>
+
+  <!-- Newsletter / Updates CTA -->
+  <div class="container mx-auto px-4 mb-20">
+      <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+          <div class="absolute inset-0 opacity-10 pattern-dots"></div> <!-- Decorative pattern placeholder -->
+          <div class="relative z-10 max-w-2xl mx-auto">
+              <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay in the Loop</h2>
+              <p class="text-blue-100 mb-8 text-lg">Join our community to get the latest updates on new curriculum, features, and accessibility tools.</p>
+              
+              <form class="flex flex-col sm:flex-row gap-4" onsubmit="event.preventDefault(); showMessageBox('Thanks for subscribing! We will keep you posted.', 'Subscription Successful');">
+                  <label for="newsletter-email" class="sr-only">Email Address</label>
+                  <input type="email" id="newsletter-email" placeholder="Enter your email address" required
+                         class="flex-grow px-6 py-4 rounded-full text-gray-900 focus:ring-4 focus:ring-white/50 border-none outline-none shadow-lg" />
+                  <button type="submit" class="bg-white text-primary font-bold px-8 py-4 rounded-full hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center gap-2">
+                      Subscribe <i class="fas fa-paper-plane"></i>
+                  </button>
+              </form>
+              <p class="text-xs text-blue-200 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+          </div>
+      </div>
+  </div>
+
   <script>
     // State for filters
     let currentCategory = 'all';
@@ -231,8 +385,50 @@
             // Using 'input' event catches pasting and 'x' clear clicks, unlike keyup
             searchInput.addEventListener('input', applyFilters); 
         }
+
+        // Initialize Stats Observer
+        initStatsCounter();
     });
 
+    // --- Stats Counter Animation ---
+    function initStatsCounter() {
+        const stats = document.querySelectorAll('.stat-counter');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 2000; // ms
+                    const start = 0;
+                    const startTime = performance.now();
+
+                    const updateCounter = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Ease out function
+                        const easeOut = 1 - Math.pow(1 - progress, 3);
+                        
+                        const current = Math.floor(easeOut * target);
+                        el.innerText = current;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            el.innerText = target;
+                        }
+                    };
+
+                    requestAnimationFrame(updateCounter);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => observer.observe(stat));
+    }
+
+    // --- Filter Logic ---
     function setCategory(category) {
         currentCategory = category;
         
