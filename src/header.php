@@ -24,6 +24,11 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
+  <!-- Google Fonts: Lexend (Reading), Comic Neue (Dyslexia alternative), Merriweather (Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lexend:wght@300;400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
     /* --- CUSTOM FONT DECLARATIONS --- */
     
@@ -36,7 +41,7 @@
       font-display: swap;
     }
 
-    /* Inter (Standard Sans) - Please upload Inter-Regular.ttf and Inter-Bold.ttf */
+    /* Inter (Standard Sans) */
     @font-face {
       font-family: 'Inter';
       src: url('/font/Inter/static/Inter_18pt-Regular.ttf') format('truetype');
@@ -45,7 +50,7 @@
       font-display: swap;
     }
     
-    /* Roboto Mono (Coding) - Please upload RobotoMono-Regular.ttf */
+    /* Roboto Mono (Coding) */
     @font-face {
       font-family: 'Roboto Mono';
       src: url('/font/Roboto_Mono/static/RobotoMono-Regular.ttf') format('truetype');
@@ -59,6 +64,8 @@
       /* Default spacing variables */
       --site-word-spacing: normal;
       --site-letter-spacing: normal;
+      --site-saturation: 100%;
+      --cursor-size: auto;
     }
 
     body {
@@ -71,9 +78,11 @@
       /* Advanced Typography Support */
       word-spacing: var(--site-word-spacing);
       letter-spacing: var(--site-letter-spacing);
+      filter: saturate(var(--site-saturation));
+      cursor: var(--cursor-size);
 
       /* Smoother transitions */
-      transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease, word-spacing 0.3s ease, letter-spacing 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease, word-spacing 0.3s ease, letter-spacing 0.3s ease, filter 0.3s ease;
     }
 
     /* Strict Focus Visibility (WCAG AAA) */
@@ -81,63 +90,123 @@
       outline: 3px solid var(--color-focus-ring) !important;
       outline-offset: 4px !important;
       border-radius: 2px !important;
-      box-shadow: 0 0 0 4px var(--color-base-bg) !important; /* Creates a gap for better contrast */
+      box-shadow: 0 0 0 4px var(--color-base-bg) !important; 
       z-index: 50;
     }
     :focus:not(:focus-visible) { outline: none; }
 
-    /* Light Theme */
+    /* Light Theme (Default) */
     .light {
-      --color-primary: #2563EB;     /* Blue 600 */
-      --color-secondary: #3B82F6;   /* Blue 500 */
-      --color-accent: #60A5FA;      /* Blue 400 */
-      --color-base-bg: #F3F4F6;     /* Gray 100 */
-      --color-content-bg: #FFFFFF;  /* White */
-      --color-text-default: #111827;/* Gray 900 */
-      --color-text-secondary: #4B5563;/* Gray 600 */
+      --color-primary: #2563EB;     
+      --color-secondary: #3B82F6;   
+      --color-accent: #60A5FA;      
+      --color-base-bg: #F3F4F6;     
+      --color-content-bg: #FFFFFF;  
+      --color-text-default: #111827;
+      --color-text-secondary: #4B5563;
       --color-header-bg: #1F2937;
-      --color-footer-bg-from: #1E3A8A; /* Dark Blue */
-      --color-footer-bg-to: #2563EB;   /* Blue 600 */
-      --color-focus-ring: #D97706;  /* Amber 600 */
+      --color-footer-bg-from: #1E3A8A; 
+      --color-footer-bg-to: #2563EB;   
+      --color-focus-ring: #D97706;  
       --color-link: #2563EB;
     }
 
     /* Dark Theme */
     .dark {
-      --color-primary: #6366F1;     /* Indigo 500 */
-      --color-secondary: #818CF8;   /* Indigo 400 */
-      --color-accent: #A5B4FC;      /* Indigo 300 */
-      --color-base-bg: #0F172A;     /* Slate 900 */
-      --color-content-bg: #1E293B;  /* Slate 800 */
-      --color-text-default: #F8FAFC;/* Slate 50 */
-      --color-text-secondary: #CBD5E1;/* Slate 300 */
+      --color-primary: #6366F1;     
+      --color-secondary: #818CF8;   
+      --color-accent: #A5B4FC;      
+      --color-base-bg: #0F172A;     
+      --color-content-bg: #1E293B;  
+      --color-text-default: #F8FAFC;
+      --color-text-secondary: #CBD5E1;
       --color-header-bg: #1E293B;
       --color-footer-bg-from: #312E81;
       --color-footer-bg-to: #4338CA;
-      --color-focus-ring: #FDBA74;  /* Orange 300 */
+      --color-focus-ring: #FDBA74;  
       --color-link: #818CF8;
     }
 
     /* High Contrast Theme */
     .high-contrast {
-      --color-primary: #FFFF00;     /* Yellow */
-      --color-secondary: #00FFFF;   /* Cyan */
-      --color-accent: #FFFFFF;      /* White */
-      --color-base-bg: #000000;     /* Black */
-      --color-content-bg: #000000;  /* Black */
-      --color-text-default: #FFFF00;/* Yellow */
-      --color-text-secondary: #00FFFF;/* Cyan */
+      --color-primary: #FFFF00;     
+      --color-secondary: #00FFFF;   
+      --color-accent: #FFFFFF;      
+      --color-base-bg: #000000;     
+      --color-content-bg: #000000;  
+      --color-text-default: #FFFF00;
+      --color-text-secondary: #00FFFF;
       --color-header-bg: #000000;
       --color-footer-bg-from: #000000;
       --color-footer-bg-to: #000000;
       --color-focus-ring: #FFFFFF;
       --color-link: #FFFF00;
     }
-    
+
+    /* Sepia Theme (Reading Comfort) */
+    .sepia {
+      --color-primary: #8B4513;     
+      --color-secondary: #A0522D;   
+      --color-accent: #CD853F;      
+      --color-base-bg: #F4ECD8;     /* Warm beige */
+      --color-content-bg: #FDF6E3;  /* Solarized light */
+      --color-text-default: #433422;
+      --color-text-secondary: #5C4B37;
+      --color-header-bg: #3E2723;
+      --color-footer-bg-from: #3E2723;
+      --color-footer-bg-to: #5D4037;
+      --color-focus-ring: #D2691E;  
+      --color-link: #8B4513;
+    }
+
+    /* Midnight Theme (Blue Light Reduction) */
+    .midnight {
+      --color-primary: #82Aaff;     
+      --color-secondary: #82Aaff;   
+      --color-accent: #C792EA;      
+      --color-base-bg: #011627;     /* Deep Night Blue */
+      --color-content-bg: #0B2942;  
+      --color-text-default: #D6DEEB;
+      --color-text-secondary: #7E97AC;
+      --color-header-bg: #01111D;
+      --color-footer-bg-from: #01111D;
+      --color-footer-bg-to: #0B2942;
+      --color-focus-ring: #FAD43D;  
+      --color-link: #82Aaff;
+    }
+
+    /* High Contrast borders */
     .high-contrast .bg-content-bg, .high-contrast nav, .high-contrast header, .high-contrast footer {
         border: 2px solid #FFFFFF;
     }
     .high-contrast a { text-decoration: underline; }
+
+    /* Accessibility Classes */
+    .cursor-large, .cursor-large a, .cursor-large button {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 48 48' style='fill:black;stroke:white;stroke-width:2px;'><polygon points='0,0 0,40 12,28 24,40 30,30 15,20 40,20'/></svg>"), auto !important;
+    }
+    
+    .link-highlight a {
+        text-decoration: underline !important;
+        text-decoration-thickness: 2px !important;
+        background-color: rgba(255, 255, 0, 0.2);
+    }
+    .dark .link-highlight a, .midnight .link-highlight a {
+        background-color: rgba(255, 255, 0, 0.1);
+        color: #FFD700 !important;
+    }
+
+    .hide-images img, .hide-images video, .hide-images .bg-image {
+        display: none !important;
+    }
+    /* Show alt text placeholder when images hidden */
+    .hide-images img[alt]::after {
+        content: attr(alt);
+        display: block;
+        padding: 1rem;
+        border: 1px dashed var(--color-text-secondary);
+        background: var(--color-base-bg);
+    }
 
     /* Animation Keyframes */
     @keyframes fadeInUp {
@@ -187,7 +256,7 @@
       cursor: row-resize; pointer-events: auto;
     }
 
-    /* PRINT STYLES - Hides non-essential UI when printing */
+    /* PRINT STYLES */
     @media print {
         header, footer, #announcement-bar, #a11y-toggle-button, #back-to-top, .skip-link, .no-print { 
             display: none !important; 
@@ -211,10 +280,6 @@
             text-decoration: none; 
             color: black !important; 
         }
-        a::after {
-            content: " (" attr(href) ")";
-            font-size: 0.8em;
-        }
     }
   </style>
 
@@ -228,6 +293,9 @@
             sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
             dyslexic: ['OpenDyslexic', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace'],
+            lexend: ['"Lexend"', 'sans-serif'],
+            comic: ['"Comic Neue"', 'cursive'],
+            serif: ['"Merriweather"', 'serif'],
           },
           colors: {
             'primary': 'var(--color-primary, #1D4ED8)',
@@ -259,9 +327,15 @@
       lineHeight: 1.6,
       wordSpacing: 0,
       letterSpacing: 0,
+      saturation: 100,
       fontFamily: 'Inter',
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      readingMask: false
+      readingMask: false,
+      maskHeight: 3, // rem
+      maskOpacity: 0.85,
+      linkHighlight: false,
+      cursorSize: 'normal',
+      hideImages: false
     };
 
     const STORAGE_KEY = 'hl_a11y_v3';
@@ -269,6 +343,7 @@
     function loadSettings() {
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
+        // Merge stored with default to ensure new keys exist
         return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
       } catch (e) { return defaultSettings; }
     }
@@ -278,28 +353,40 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
         applySettings(settings);
         currentSettings = settings;
+        // Dispatch event so settings.php can listen to updates from modal if needed
+        window.dispatchEvent(new CustomEvent('settingsChanged', { detail: settings }));
       } catch (e) { console.error(e); }
     }
 
     function applyHeadSettings(settings) {
-      document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
-      document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
-      document.documentElement.style.setProperty('--site-word-spacing', `${settings.wordSpacing}em`);
-      document.documentElement.style.setProperty('--site-letter-spacing', `${settings.letterSpacing}em`);
+      const root = document.documentElement.style;
+      root.setProperty('--site-font-size', `${settings.fontSize}rem`);
+      root.setProperty('--site-line-height', settings.lineHeight);
+      root.setProperty('--site-word-spacing', `${settings.wordSpacing}em`);
+      root.setProperty('--site-letter-spacing', `${settings.letterSpacing}em`);
+      root.setProperty('--site-saturation', `${settings.saturation}%`);
       
       let fontName = settings.fontFamily || 'Inter';
       
-      // Map Friendly Names to CSS Names
+      // Map Friendly Names to CSS Names if needed
       if (fontName === 'Open Dyslexic') fontName = 'OpenDyslexic';
-      if (fontName === 'Roboto Mono') fontName = 'Roboto Mono';
-      if (fontName === 'Inter') fontName = 'Inter';
       
       // Ensure fonts with spaces are quoted
       if (fontName.includes(' ') && !fontName.includes('"') && !fontName.includes("'")) {
           fontName = `"${fontName}"`;
       }
       
-      document.documentElement.style.setProperty('--site-font-family', fontName);
+      root.setProperty('--site-font-family', fontName);
+      
+      // Reading Mask config
+      const mask = document.getElementById('reading-mask');
+      if(mask) {
+         mask.style.backgroundColor = `rgba(0,0,0,${settings.maskOpacity || 0.85})`;
+      }
+      const guide = document.getElementById('reading-guide');
+      if(guide) {
+         guide.style.height = `${settings.maskHeight || 3}rem`;
+      }
     }
 
     function applySettings(settings) {
@@ -307,15 +394,20 @@
       const body = document.body;
       if (!body) return;
 
-      body.classList.remove('light', 'dark', 'high-contrast');
+      // Reset themes
+      body.classList.remove('light', 'dark', 'high-contrast', 'sepia', 'midnight');
       body.classList.add(settings.theme);
 
-      // Reduced Motion
+      // Toggles
+      body.classList.toggle('reduced-motion', settings.reducedMotion);
+      body.classList.toggle('link-highlight', settings.linkHighlight);
+      body.classList.toggle('cursor-large', settings.cursorSize === 'large');
+      body.classList.toggle('hide-images', settings.hideImages);
+      
+      // Scroll behavior toggle
       if (settings.reducedMotion) {
-        body.classList.add('reduced-motion');
         document.documentElement.classList.remove('scroll-smooth');
       } else {
-        body.classList.remove('reduced-motion');
         document.documentElement.classList.add('scroll-smooth');
       }
 
@@ -342,8 +434,13 @@
   <!-- Init Scripts to prevent FOUC -->
   <script>
     (function () {
-      document.body.classList.add(currentSettings.theme);
-      if (currentSettings.reducedMotion) document.body.classList.add('reduced-motion');
+      const s = currentSettings;
+      const b = document.body;
+      b.classList.add(s.theme);
+      if (s.reducedMotion) b.classList.add('reduced-motion');
+      if (s.linkHighlight) b.classList.add('link-highlight');
+      if (s.cursorSize === 'large') b.classList.add('cursor-large');
+      if (s.hideImages) b.classList.add('hide-images');
     })();
   </script>
 
@@ -354,7 +451,7 @@
     <i class="fas fa-universal-access text-2xl"></i>
   </button>
 
-  <!-- Accessibility Panel -->
+  <!-- Accessibility Panel (Quick View) -->
   <div id="a11y-settings-panel"
     class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary no-print"
     role="dialog" aria-modal="true" aria-label="Accessibility Options" aria-hidden="true">
@@ -371,9 +468,12 @@
       <fieldset>
         <legend class="block text-sm font-bold mb-3 text-text-default">Display Mode</legend>
         <div class="flex gap-2">
-          <button id="theme-light" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all" aria-label="Light Mode"><i class="fas fa-sun mr-2"></i>Light</button>
-          <button id="theme-dark" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all" aria-label="Dark Mode"><i class="fas fa-moon mr-2"></i>Dark</button>
-          <button id="theme-contrast" type="button" class="flex-1 py-3 rounded-lg border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold" aria-label="High Contrast"><i class="fas fa-adjust mr-2"></i>HC</button>
+          <button id="theme-light" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all" aria-label="Light Mode"><i class="fas fa-sun mr-2"></i></button>
+          <button id="theme-dark" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all" aria-label="Dark Mode"><i class="fas fa-moon mr-2"></i></button>
+          <button id="theme-contrast" type="button" class="flex-1 py-3 rounded-lg border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold" aria-label="High Contrast"><i class="fas fa-adjust mr-2"></i></button>
+        </div>
+        <div class="mt-2 text-center">
+             <a href="/settings.php" class="text-sm text-primary underline">More Themes</a>
         </div>
       </fieldset>
 
@@ -383,7 +483,7 @@
         <div class="grid grid-cols-1 gap-2">
             <button type="button" data-font="Inter" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left">Standard (Inter)</button>
             <button type="button" data-font="Open Dyslexic" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-dyslexic" style="font-family: 'OpenDyslexic';">Dyslexic Friendly</button>
-            <button type="button" data-font="Roboto Mono" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-mono">Monospace / Coding</button>
+            <button type="button" data-font="Lexend" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-sans" style="font-family: 'Lexend';">Lexend (Reading)</button>
         </div>
       </fieldset>
 
@@ -408,7 +508,7 @@
       <!-- Settings Link -->
       <div class="mt-6 pt-6 border-t border-gray-300 dark:border-gray-600">
           <a href="/settings.php" class="flex items-center justify-center w-full py-3 px-4 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-bold shadow-md">
-              <i class="fas fa-cog mr-2"></i> Advanced Settings
+              <i class="fas fa-sliders-h mr-2"></i> All Settings
           </a>
       </div>
 
@@ -444,7 +544,6 @@
         <!-- Logo -->
         <a class="flex items-center flex-shrink-0 text-white mr-8 group" href="/">
           <div class="rounded-full bg-white p-1 mr-3 group-hover:scale-110 transition-transform shadow-lg">
-             <!-- Corrected alt text to be empty for decorative image next to text -->
              <img src="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="" class="h-8 w-8 rounded-full" 
              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
           </div>
@@ -520,7 +619,7 @@
           }
       });
 
-      // 2. Settings Interaction Listeners
+      // 2. Settings Interaction Listeners (Panel Only)
       
       // Themes
       document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({...currentSettings, theme: 'light'}));
@@ -572,7 +671,6 @@
       // Reset Button
       document.getElementById('reset-a11y-settings')?.addEventListener('click', () => {
           saveSettings(defaultSettings);
-          // Reload page to force clean reset of all UI elements
           window.location.reload();
       });
 
@@ -596,20 +694,7 @@
           document.addEventListener('touchmove', (e) => onMove(e.touches[0].clientY));
       }
 
-      // 4. Existing Popup & Nav Logic
-      const popup = document.getElementById("entry-popup");
-      if(popup && !localStorage.getItem('hl_popup_dismissed')) {
-          popup.classList.remove('hidden');
-          const closeBtn = document.getElementById("close-entry-popup");
-          if(closeBtn) {
-              closeBtn.focus();
-              closeBtn.addEventListener("click", () => {
-                  popup.classList.add('hidden');
-                  localStorage.setItem('hl_popup_dismissed', 'true');
-              });
-          }
-      }
-      
+      // 4. Navbar & Annoucement Logic
       document.getElementById('nav-toggle')?.addEventListener('click', function() {
           document.getElementById('nav-content').classList.toggle('hidden');
       });
@@ -618,7 +703,7 @@
           document.getElementById('announcement-bar').style.display = 'none';
       });
 
-      // Apply initial settings (Redundant but safe for ensuring UI state matches)
+      // Apply initial settings
       applySettings(currentSettings);
     });
   </script>

@@ -1,292 +1,350 @@
 <?php
-  // --- settings.php ---
   $pageTitle = "Accessibility Settings - Hesten's Learning";
-  $pageDescription = "Customize your viewing experience with advanced accessibility controls.";
+  $pageDescription = "Customize your learning experience with advanced accessibility tools, fonts, and themes.";
   include 'src/header.php';
 ?>
 
-<main class="container mx-auto px-4 py-12 mb-16" id="main-content">
+<main id="main-content" class="container mx-auto px-4 py-12 mb-12">
     
-    <div class="max-w-3xl mx-auto">
-        <div class="flex items-center gap-4 mb-8">
-            <a href="/" class="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" aria-label="Go back to Home">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <h1 class="text-4xl font-bold text-text-default">Accessibility Settings</h1>
-        </div>
+    <header class="mb-10 text-center md:text-left">
+        <h1 class="text-4xl font-bold text-text-default mb-4">
+            <i class="fas fa-sliders-h text-primary mr-3"></i> Accessibility & Preferences
+        </h1>
+        <p class="text-text-secondary max-w-2xl text-lg">
+            Customize Hesten's Learning to match your needs. Settings are saved automatically to your browser.
+        </p>
+    </header>
 
-        <div class="bg-content-bg rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            
-            <!-- Header -->
-            <div class="bg-primary/10 p-6 border-b border-gray-200 dark:border-gray-700">
-                <p class="text-text-secondary">Customize the look and feel of Hesten's Learning to match your specific needs. These settings are saved automatically to your device.</p>
-            </div>
+    <div class="flex flex-col lg:flex-row gap-8">
+        
+        <!-- SETTINGS SIDEBAR (Navigation) -->
+        <aside class="w-full lg:w-1/4">
+            <nav class="sticky top-24 bg-content-bg rounded-xl shadow-md p-4 border border-gray-200 dark:border-gray-700">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#visuals" class="flex items-center p-3 rounded-lg hover:bg-base-bg text-text-default font-bold transition-colors">
+                            <i class="fas fa-eye w-8 text-center text-primary"></i> Visuals & Themes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#typography" class="flex items-center p-3 rounded-lg hover:bg-base-bg text-text-default font-bold transition-colors">
+                            <i class="fas fa-font w-8 text-center text-primary"></i> Typography
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tools" class="flex items-center p-3 rounded-lg hover:bg-base-bg text-text-default font-bold transition-colors">
+                            <i class="fas fa-toolbox w-8 text-center text-primary"></i> Cognitive Tools
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#data" class="flex items-center p-3 rounded-lg hover:bg-base-bg text-text-default font-bold transition-colors">
+                            <i class="fas fa-save w-8 text-center text-primary"></i> Data & Reset
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
 
-            <div class="p-8 space-y-10">
-                
-                <!-- Section 1: Display Mode -->
-                <section aria-labelledby="theme-heading">
-                    <h2 id="theme-heading" class="text-2xl font-bold text-text-default mb-4 flex items-center gap-2">
-                        <i class="fas fa-adjust text-accent"></i> Display Mode
-                    </h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <button id="page-theme-light" class="theme-card flex flex-col items-center justify-center p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer transition-all bg-white text-gray-900 shadow-sm hover:shadow-md">
-                            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                                <i class="fas fa-sun text-xl text-yellow-500"></i>
-                            </div>
-                            <span class="font-bold">Light Mode</span>
+        <!-- MAIN SETTINGS AREA -->
+        <div class="w-full lg:w-1/2 space-y-8">
+
+            <!-- SECTION: VISUALS -->
+            <section id="visuals" class="bg-content-bg rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                    Visuals & Themes
+                </h2>
+
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-text-secondary mb-3">Color Theme</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <button onclick="updateSetting('theme', 'light')" class="theme-btn group relative p-4 rounded-xl border-2 border-gray-200 hover:border-primary transition-all text-center bg-gray-50 text-gray-900" data-val="light">
+                            <i class="fas fa-sun text-2xl mb-2 text-yellow-500"></i>
+                            <span class="block font-bold">Light</span>
+                            <div class="absolute inset-0 border-4 border-primary rounded-xl opacity-0 scale-95 transition-all selected-ring"></div>
                         </button>
-                        <button id="page-theme-dark" class="theme-card flex flex-col items-center justify-center p-6 rounded-xl border-2 border-gray-700 hover:border-primary cursor-pointer transition-all bg-gray-800 text-white shadow-sm hover:shadow-md">
-                            <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center mb-3">
-                                <i class="fas fa-moon text-xl text-indigo-300"></i>
-                            </div>
-                            <span class="font-bold">Dark Mode</span>
+                        
+                        <button onclick="updateSetting('theme', 'dark')" class="theme-btn group relative p-4 rounded-xl border-2 border-gray-600 hover:border-primary transition-all text-center bg-slate-900 text-white" data-val="dark">
+                            <i class="fas fa-moon text-2xl mb-2 text-indigo-400"></i>
+                            <span class="block font-bold">Dark</span>
+                            <div class="absolute inset-0 border-4 border-primary rounded-xl opacity-0 scale-95 transition-all selected-ring"></div>
                         </button>
-                        <button id="page-theme-contrast" class="theme-card flex flex-col items-center justify-center p-6 rounded-xl border-2 border-black hover:border-white cursor-pointer transition-all bg-black text-yellow-400 shadow-sm hover:shadow-md">
-                            <div class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center mb-3 border border-yellow-400">
-                                <i class="fas fa-adjust text-xl"></i>
-                            </div>
-                            <span class="font-bold">High Contrast</span>
+
+                        <button onclick="updateSetting('theme', 'high-contrast')" class="theme-btn group relative p-4 rounded-xl border-2 border-black hover:border-yellow-400 transition-all text-center bg-black text-yellow-300" data-val="high-contrast">
+                            <i class="fas fa-adjust text-2xl mb-2"></i>
+                            <span class="block font-bold">Contrast</span>
+                            <div class="absolute inset-0 border-4 border-yellow-400 rounded-xl opacity-0 scale-95 transition-all selected-ring"></div>
+                        </button>
+                        
+                        <button onclick="updateSetting('theme', 'sepia')" class="theme-btn group relative p-4 rounded-xl border-2 border-amber-200 hover:border-amber-600 transition-all text-center bg-[#F4ECD8] text-[#433422]" data-val="sepia">
+                            <i class="fas fa-coffee text-2xl mb-2 text-amber-700"></i>
+                            <span class="block font-bold">Sepia</span>
+                            <div class="absolute inset-0 border-4 border-amber-600 rounded-xl opacity-0 scale-95 transition-all selected-ring"></div>
+                        </button>
+
+                        <button onclick="updateSetting('theme', 'midnight')" class="theme-btn group relative p-4 rounded-xl border-2 border-blue-900 hover:border-blue-400 transition-all text-center bg-[#011627] text-[#D6DEEB]" data-val="midnight">
+                            <i class="fas fa-star text-2xl mb-2 text-blue-300"></i>
+                            <span class="block font-bold">Midnight</span>
+                            <div class="absolute inset-0 border-4 border-blue-400 rounded-xl opacity-0 scale-95 transition-all selected-ring"></div>
                         </button>
                     </div>
-                </section>
-
-                <hr class="border-gray-200 dark:border-gray-700" />
-
-                <!-- Section 2: Typography -->
-                <section aria-labelledby="typo-heading">
-                    <h2 id="typo-heading" class="text-2xl font-bold text-text-default mb-6 flex items-center gap-2">
-                        <i class="fas fa-font text-accent"></i> Typography
-                    </h2>
-                    
-                    <div class="space-y-8">
-                        <!-- Font Family -->
-                        <div>
-                            <label class="block text-sm font-bold text-text-secondary mb-3">Font Family</label>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <button data-set-font="Inter" class="page-font-selector py-3 px-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-text-default hover:border-primary transition-all font-sans text-left">
-                                    <span class="block font-bold">Standard</span>
-                                    <span class="text-xs opacity-75">Inter (Sans-serif)</span>
-                                </button>
-                                <button data-set-font="Open Dyslexic" class="page-font-selector py-3 px-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-text-default hover:border-primary transition-all font-dyslexic text-left">
-                                    <span class="block font-bold">Dyslexic Friendly</span>
-                                    <span class="text-xs opacity-75">Open Dyslexic</span>
-                                </button>
-                                <button data-set-font="Roboto Mono" class="page-font-selector py-3 px-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-text-default hover:border-primary transition-all font-mono text-left">
-                                    <span class="block font-bold">Monospace</span>
-                                    <span class="text-xs opacity-75">Roboto Mono (Coding)</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Font Size -->
-                            <div>
-                                <label for="page-fs-slider" class="flex justify-between text-sm font-bold text-text-secondary mb-2">
-                                    <span>Font Size</span>
-                                    <span class="text-primary"><span id="page-fs-value">100</span>%</span>
-                                </label>
-                                <div class="flex items-center gap-4">
-                                    <i class="fas fa-font text-xs text-text-secondary"></i>
-                                    <input type="range" id="page-fs-slider" min="0.8" max="1.6" step="0.1" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
-                                    <i class="fas fa-font text-xl text-text-secondary"></i>
-                                </div>
-                            </div>
-
-                            <!-- Line Height -->
-                            <div>
-                                <label for="page-lh-slider" class="flex justify-between text-sm font-bold text-text-secondary mb-2">
-                                    <span>Line Spacing</span>
-                                    <span class="text-primary" id="page-lh-value">1.6</span>
-                                </label>
-                                <div class="flex items-center gap-4">
-                                    <i class="fas fa-bars text-xs text-text-secondary"></i>
-                                    <input type="range" id="page-lh-slider" min="1.0" max="2.5" step="0.1" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
-                                    <i class="fas fa-bars text-xl text-text-secondary"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Word Spacing (Advanced) -->
-                            <div>
-                                <label for="page-ws-slider" class="flex justify-between text-sm font-bold text-text-secondary mb-2">
-                                    <span>Word Spacing</span>
-                                    <span class="text-primary"><span id="page-ws-value">Normal</span></span>
-                                </label>
-                                <input type="range" id="page-ws-slider" min="0" max="1.0" step="0.1" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
-                            </div>
-
-                            <!-- Letter Spacing (Advanced) -->
-                            <div>
-                                <label for="page-ls-slider" class="flex justify-between text-sm font-bold text-text-secondary mb-2">
-                                    <span>Letter Spacing</span>
-                                    <span class="text-primary"><span id="page-ls-value">Normal</span></span>
-                                </label>
-                                <input type="range" id="page-ls-slider" min="0" max="0.3" step="0.05" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer accent-primary">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <hr class="border-gray-200 dark:border-gray-700" />
-
-                <!-- Section 3: Tools -->
-                <section aria-labelledby="tools-heading">
-                    <h2 id="tools-heading" class="text-2xl font-bold text-text-default mb-6 flex items-center gap-2">
-                        <i class="fas fa-tools text-accent"></i> Assisted Reading
-                    </h2>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl border border-gray-200 dark:border-gray-700">
-                            <div>
-                                <span class="block font-bold text-text-default">Reading Guide</span>
-                                <span class="text-sm text-text-secondary">Adds a horizontal guide line that follows your cursor.</span>
-                            </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="page-mask-toggle" class="sr-only peer">
-                                <div class="w-14 h-8 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
-                            </label>
-                        </div>
-
-                        <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl border border-gray-200 dark:border-gray-700">
-                            <div>
-                                <span class="block font-bold text-text-default">Reduce Motion</span>
-                                <span class="text-sm text-text-secondary">Minimizes animations and smooth scrolling effects.</span>
-                            </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="page-motion-toggle" class="sr-only peer">
-                                <div class="w-14 h-8 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="pt-6">
-                    <button id="page-reset-btn" class="w-full py-4 rounded-xl border-2 border-red-200 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:border-red-900 dark:text-red-400 font-bold transition-colors flex items-center justify-center gap-2">
-                        <i class="fas fa-undo"></i> Reset All Settings to Default
-                    </button>
                 </div>
 
-            </div>
+                <div class="mb-6">
+                    <label for="saturation-slider" class="block text-sm font-bold text-text-default mb-2">Color Saturation: <span id="saturation-display">100</span>%</label>
+                    <input type="range" id="saturation-slider" min="0" max="200" step="10" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary" oninput="updateSetting('saturation', this.value)">
+                    <div class="flex justify-between text-xs text-text-secondary mt-1">
+                        <span>Grayscale (0%)</span>
+                        <span>Normal (100%)</span>
+                        <span>Vivid (200%)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: TYPOGRAPHY -->
+            <section id="typography" class="bg-content-bg rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                    Typography
+                </h2>
+
+                <div class="mb-8">
+                    <label for="font-family-select" class="block text-sm font-bold text-text-default mb-2">Typeface</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="updateSetting('fontFamily', 'Inter')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Inter" style="font-family: 'Inter', sans-serif">
+                            <span class="font-bold block">Inter</span>
+                            <span class="text-xs text-text-secondary">Standard, clean sans-serif.</span>
+                        </button>
+                        <button onclick="updateSetting('fontFamily', 'Lexend')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Lexend" style="font-family: 'Lexend', sans-serif">
+                            <span class="font-bold block">Lexend</span>
+                            <span class="text-xs text-text-secondary">Designed for reading proficiency.</span>
+                        </button>
+                        <button onclick="updateSetting('fontFamily', 'Open Dyslexic')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Open Dyslexic" style="font-family: 'OpenDyslexic', sans-serif">
+                            <span class="font-bold block">Open Dyslexic</span>
+                            <span class="text-xs text-text-secondary">Weighted bottoms for dyslexia.</span>
+                        </button>
+                        <button onclick="updateSetting('fontFamily', 'Comic Neue')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Comic Neue" style="font-family: 'Comic Neue', cursive">
+                            <span class="font-bold block">Comic Neue</span>
+                            <span class="text-xs text-text-secondary">Informal, highly readable.</span>
+                        </button>
+                        <button onclick="updateSetting('fontFamily', 'Merriweather')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Merriweather" style="font-family: 'Merriweather', serif">
+                            <span class="font-bold block">Merriweather</span>
+                            <span class="text-xs text-text-secondary">Classic serif for long reading.</span>
+                        </button>
+                        <button onclick="updateSetting('fontFamily', 'Roboto Mono')" class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20" data-font="Roboto Mono" style="font-family: 'Roboto Mono', monospace">
+                            <span class="font-bold block">Monospace</span>
+                            <span class="text-xs text-text-secondary">Good for coding and differentiation.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-text-default mb-2">Text Size</label>
+                        <input type="range" id="size-slider" min="0.8" max="2.0" step="0.1" class="w-full accent-primary" oninput="updateSetting('fontSize', this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-text-default mb-2">Line Height</label>
+                        <input type="range" id="line-slider" min="1.0" max="2.5" step="0.1" class="w-full accent-primary" oninput="updateSetting('lineHeight', this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-text-default mb-2">Letter Spacing</label>
+                        <input type="range" id="letter-slider" min="0" max="0.3" step="0.01" class="w-full accent-primary" oninput="updateSetting('letterSpacing', this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-text-default mb-2">Word Spacing</label>
+                        <input type="range" id="word-slider" min="0" max="0.5" step="0.05" class="w-full accent-primary" oninput="updateSetting('wordSpacing', this.value)">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: TOOLS -->
+            <section id="tools" class="bg-content-bg rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                    Cognitive Tools
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Reading Guide -->
+                    <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl">
+                        <div>
+                            <span class="font-bold text-text-default block">Reading Guide</span>
+                            <span class="text-sm text-text-secondary">A horizontal bar to help focus on lines of text.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="mask-toggle" class="sr-only peer" onchange="updateSetting('readingMask', this.checked)">
+                            <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+
+                    <!-- Link Highlights -->
+                    <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl">
+                        <div>
+                            <span class="font-bold text-text-default block">Highlight Links</span>
+                            <span class="text-sm text-text-secondary">Add a yellow background and underline to all links.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="link-toggle" class="sr-only peer" onchange="updateSetting('linkHighlight', this.checked)">
+                            <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+
+                    <!-- Reduced Motion -->
+                    <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl">
+                        <div>
+                            <span class="font-bold text-text-default block">Reduce Motion</span>
+                            <span class="text-sm text-text-secondary">Stop animations and smooth scrolling.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="motion-toggle" class="sr-only peer" onchange="updateSetting('reducedMotion', this.checked)">
+                            <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                    
+                    <!-- Large Cursor -->
+                    <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl">
+                        <div>
+                            <span class="font-bold text-text-default block">Larger Cursor</span>
+                            <span class="text-sm text-text-secondary">Make the mouse cursor larger and easier to see.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="cursor-toggle" class="sr-only peer" onchange="updateSetting('cursorSize', this.checked ? 'large' : 'normal')">
+                            <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                    
+                    <!-- Hide Images -->
+                    <div class="flex items-center justify-between p-4 bg-base-bg rounded-xl">
+                        <div>
+                            <span class="font-bold text-text-default block">Hide Images</span>
+                            <span class="text-sm text-text-secondary">Hide photos to reduce distraction (shows text).</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="images-toggle" class="sr-only peer" onchange="updateSetting('hideImages', this.checked)">
+                            <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION: DATA -->
+            <section id="data" class="bg-content-bg rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                    Data & Reset
+                </h2>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="resetSettings()" class="flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-bold py-4 px-6 rounded-xl transition-colors border border-red-200">
+                        <i class="fas fa-undo mr-2"></i> Reset to Defaults
+                    </button>
+                    <!-- Simulated Export feature -->
+                    <button onclick="exportSettings()" class="flex-1 bg-base-bg hover:bg-gray-200 text-text-default font-bold py-4 px-6 rounded-xl transition-colors border border-gray-300 dark:border-gray-600">
+                        <i class="fas fa-download mr-2"></i> Export Settings
+                    </button>
+                </div>
+            </section>
+
         </div>
+
+        <!-- LIVE PREVIEW SIDEBAR (Desktop) -->
+        <aside class="hidden lg:block w-1/4">
+            <div class="sticky top-24">
+                <div class="bg-content-bg p-6 rounded-2xl shadow-xl border border-primary/20">
+                    <h3 class="text-sm font-bold text-primary uppercase tracking-wider mb-4">Live Preview</h3>
+                    <div class="space-y-4">
+                        <h4 class="text-2xl font-bold text-text-default leading-tight">The quick brown fox jumps over the lazy dog.</h4>
+                        <p class="text-text-secondary">
+                            This text demonstrates your current typography settings. Adjust line height, spacing, and font size to see changes instantly.
+                        </p>
+                        <div class="p-4 bg-base-bg rounded-lg border border-gray-200 dark:border-gray-700">
+                             <a href="#" class="text-primary hover:underline">This is a sample link</a>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-xs text-text-secondary">
+                            Changes are saved automatically.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
 
 </main>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Sync Controls with Global State
-        const settings = loadSettings(); // Uses function from header.php
+    // --- SETTINGS PAGE LOGIC ---
 
-        // 1. Theme Buttons
-        const themeMap = { 'light': 'page-theme-light', 'dark': 'page-theme-dark', 'high-contrast': 'page-theme-contrast' };
+    function updateSetting(key, value) {
+        // Get fresh copy from localStorage or memory
+        const settings = loadSettings(); 
         
-        function updateThemeUI(activeTheme) {
-            Object.values(themeMap).forEach(id => {
-                document.getElementById(id).classList.remove('ring-4', 'ring-primary', 'ring-offset-2');
-            });
-            const activeId = themeMap[activeTheme];
-            if(activeId) document.getElementById(activeId).classList.add('ring-4', 'ring-primary', 'ring-offset-2');
-        }
-        updateThemeUI(settings.theme);
+        // Update specific key
+        settings[key] = value;
+        
+        // Save & Apply Global
+        saveSettings(settings);
+        
+        // Update Local UI (Visual feedback)
+        updateUIState(settings);
+    }
 
-        Object.entries(themeMap).forEach(([themeName, btnId]) => {
-            document.getElementById(btnId).addEventListener('click', () => {
-                const newSettings = loadSettings();
-                newSettings.theme = themeName;
-                saveSettings(newSettings);
-                updateThemeUI(themeName);
-            });
-        });
-
-        // 2. Font Family
-        function updateFontUI(activeFont) {
-            document.querySelectorAll('.page-font-selector').forEach(btn => {
-                if(btn.dataset.setFont === activeFont) {
-                    btn.classList.add('border-primary', 'bg-blue-50', 'dark:bg-blue-900/30');
-                    btn.classList.remove('border-gray-200', 'dark:border-gray-700');
-                } else {
-                    btn.classList.remove('border-primary', 'bg-blue-50', 'dark:bg-blue-900/30');
-                    btn.classList.add('border-gray-200', 'dark:border-gray-700');
-                }
-            });
-        }
-        updateFontUI(settings.fontFamily);
-
-        document.querySelectorAll('.page-font-selector').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const newSettings = loadSettings();
-                newSettings.fontFamily = btn.dataset.setFont;
-                saveSettings(newSettings);
-                updateFontUI(newSettings.fontFamily);
-            });
-        });
-
-        // 3. Range Sliders Generic Handler
-        function bindSlider(id, key, displayId, unit = '', mapValue = (v) => v) {
-            const slider = document.getElementById(id);
-            const display = document.getElementById(displayId);
-            
-            if(!slider || !display) return;
-
-            // Set Initial
-            slider.value = settings[key] || (key === 'fontSize' ? 1.0 : 0); // fallback
-            
-            const updateDisplay = (val) => {
-                let showVal = val;
-                if(key === 'fontSize') showVal = Math.round(val * 100);
-                if(key === 'wordSpacing' || key === 'letterSpacing') {
-                    showVal = val == 0 ? 'Normal' : val + 'em';
-                }
-                display.innerText = showVal;
-            };
-            updateDisplay(slider.value);
-
-            // Listeners
-            slider.addEventListener('input', (e) => {
-                const val = e.target.value;
-                updateDisplay(val);
-                // Apply immediately for visual feedback
-                document.documentElement.style.setProperty(unit, val + (key.includes('Spacing') ? 'em' : (key === 'fontSize' ? 'rem' : '')));
-            });
-
-            slider.addEventListener('change', (e) => {
-                const newSettings = loadSettings();
-                newSettings[key] = e.target.value;
-                saveSettings(newSettings);
-            });
-        }
-
-        bindSlider('page-fs-slider', 'fontSize', 'page-fs-value', '--site-font-size');
-        bindSlider('page-lh-slider', 'lineHeight', 'page-lh-value', '--site-line-height');
-        bindSlider('page-ws-slider', 'wordSpacing', 'page-ws-value', '--site-word-spacing');
-        bindSlider('page-ls-slider', 'letterSpacing', 'page-ls-value', '--site-letter-spacing');
-
-        // 4. Toggles
-        const maskToggle = document.getElementById('page-mask-toggle');
-        maskToggle.checked = settings.readingMask;
-        maskToggle.addEventListener('change', (e) => {
-            const newSettings = loadSettings();
-            newSettings.readingMask = e.target.checked;
-            saveSettings(newSettings);
-        });
-
-        const motionToggle = document.getElementById('page-motion-toggle');
-        motionToggle.checked = settings.reducedMotion;
-        motionToggle.addEventListener('change', (e) => {
-            const newSettings = loadSettings();
-            newSettings.reducedMotion = e.target.checked;
-            saveSettings(newSettings);
-        });
-
-        // 5. Reset
-        document.getElementById('page-reset-btn').addEventListener('click', () => {
-            if(confirm('Are you sure you want to reset all accessibility settings to default?')) {
-                saveSettings(defaultSettings);
-                window.location.reload();
+    function updateUIState(settings) {
+        // Update Theme Buttons Ring
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            const ring = btn.querySelector('.selected-ring');
+            if (btn.dataset.val === settings.theme) {
+                ring.classList.remove('opacity-0', 'scale-95');
+            } else {
+                ring.classList.add('opacity-0', 'scale-95');
             }
         });
+
+        // Update Font Buttons
+        document.querySelectorAll('.font-btn').forEach(btn => {
+            if (btn.dataset.font === settings.fontFamily) {
+                btn.setAttribute('data-active', 'true');
+                btn.classList.add('ring-2', 'ring-primary', 'bg-blue-50', 'dark:bg-blue-900/20');
+            } else {
+                btn.setAttribute('data-active', 'false');
+                btn.classList.remove('ring-2', 'ring-primary', 'bg-blue-50', 'dark:bg-blue-900/20');
+            }
+        });
+
+        // Update Sliders
+        if(document.getElementById('saturation-slider')) {
+            document.getElementById('saturation-slider').value = settings.saturation;
+            document.getElementById('saturation-display').innerText = settings.saturation;
+        }
+        if(document.getElementById('size-slider')) document.getElementById('size-slider').value = settings.fontSize;
+        if(document.getElementById('line-slider')) document.getElementById('line-slider').value = settings.lineHeight;
+        if(document.getElementById('letter-slider')) document.getElementById('letter-slider').value = settings.letterSpacing;
+        if(document.getElementById('word-slider')) document.getElementById('word-slider').value = settings.wordSpacing;
+
+        // Update Toggles
+        if(document.getElementById('mask-toggle')) document.getElementById('mask-toggle').checked = settings.readingMask;
+        if(document.getElementById('link-toggle')) document.getElementById('link-toggle').checked = settings.linkHighlight;
+        if(document.getElementById('motion-toggle')) document.getElementById('motion-toggle').checked = settings.reducedMotion;
+        if(document.getElementById('cursor-toggle')) document.getElementById('cursor-toggle').checked = (settings.cursorSize === 'large');
+        if(document.getElementById('images-toggle')) document.getElementById('images-toggle').checked = settings.hideImages;
+    }
+
+    function resetSettings() {
+        if(confirm('Are you sure you want to reset all accessibility settings to default?')) {
+            saveSettings(defaultSettings);
+            window.location.reload();
+        }
+    }
+
+    function exportSettings() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(loadSettings()));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "hesten-settings.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        alert('Settings downloaded as hesten-settings.json');
+    }
+
+    // Initialize UI on Load
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUIState(loadSettings());
     });
 </script>
 
