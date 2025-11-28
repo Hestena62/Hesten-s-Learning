@@ -210,75 +210,7 @@
 
   </main>
 
-  <!-- Testimonials Section -->
-  <section class="bg-base-bg py-20 border-t border-gray-200 dark:border-gray-700">
-      <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-bold text-center text-text-default mb-12">Trusted by Families</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <!-- Review 1 -->
-              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div class="flex text-yellow-400 mb-4 text-sm">
-                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  </div>
-                  <p class="text-text-secondary italic mb-6">"Finally, a resource that my son can actually read without getting frustrated. The dyslexic font option is a game changer."</p>
-                  <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-700 font-bold">S</div>
-                      <div>
-                          <p class="font-bold text-text-default text-sm">Sarah M.</p>
-                          <p class="text-xs text-text-secondary">Parent of 4th Grader</p>
-                      </div>
-                  </div>
-              </div>
-              <!-- Review 2 -->
-              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div class="flex text-yellow-400 mb-4 text-sm">
-                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  </div>
-                  <p class="text-text-secondary italic mb-6">"I use this for my special education classroom. The personalized paths allow each student to work at their own level."</p>
-                  <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold">J</div>
-                      <div>
-                          <p class="font-bold text-text-default text-sm">Mr. James</p>
-                          <p class="text-xs text-text-secondary">Special Ed Teacher</p>
-                      </div>
-                  </div>
-              </div>
-               <!-- Review 3 -->
-              <div class="bg-content-bg p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div class="flex text-yellow-400 mb-4 text-sm">
-                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  </div>
-                  <p class="text-text-secondary italic mb-6">"Math was always hard for me, but the visual examples here make it sense. I like the dark mode too."</p>
-                  <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-700 font-bold">A</div>
-                      <div>
-                          <p class="font-bold text-text-default text-sm">Alex</p>
-                          <p class="text-xs text-text-secondary">8th Grade Student</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="container mx-auto px-4 my-20">
-      <div class="bg-primary rounded-3xl p-8 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
-           <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                <i class="fas fa-envelope-open-text absolute top-10 left-10 text-9xl"></i>
-                <i class="fas fa-paper-plane absolute bottom-10 right-10 text-8xl"></i>
-           </div>
-           <div class="relative z-10 max-w-2xl mx-auto">
-               <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Community</h2>
-               <p class="text-blue-100 mb-8 text-lg">Stay updated with new lessons, accessibility features, and educational resources delivered to your inbox.</p>
-               <form class="flex flex-col sm:flex-row gap-4">
-                   <input type="email" placeholder="Enter your email address" class="flex-grow px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-white/50" required>
-                   <button type="submit" class="bg-gray-900 text-white font-bold py-4 px-8 rounded-full hover:bg-gray-800 transition-colors focus:ring-4 focus:ring-white/50">Subscribe</button>
-               </form>
-               <p class="text-xs text-blue-200 mt-4">We respect your privacy. Unsubscribe at any time.</p>
-           </div>
-      </div>
-  </section>
+  
 
   <script>
     // State for filters

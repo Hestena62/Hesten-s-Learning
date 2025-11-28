@@ -24,7 +24,7 @@
         <p class="text-sm leading-relaxed text-blue-100">
           Empowering students with learning disabilities through personalized, accessible, and engaging learning experiences.
         </p>
-        <a href="/about.html" class="inline-block mt-4 text-sm font-bold text-accent hover:text-white underline decoration-2 underline-offset-4 transition-colors focus:ring-2 focus:ring-white rounded px-1">
+        <a href="/about-us.php" class="inline-block mt-4 text-sm font-bold text-accent hover:text-white underline decoration-2 underline-offset-4 transition-colors focus:ring-2 focus:ring-white rounded px-1">
             Read our mission &rarr;
         </a>
       </div>
@@ -39,7 +39,7 @@
             </a>
           </li>
           <li>
-            <a href="/library.php" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
+            <a href="/library/" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
                 <i class="fas fa-book-reader w-6 text-center text-accent"></i> Library
             </a>
           </li>
@@ -76,7 +76,7 @@
             </a>
           </li>
           <li>
-            <a href="/teachers.php" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
+            <a href="#" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
                 <i class="fas fa-chalkboard-teacher w-6 text-center text-accent"></i> For Teachers
             </a>
           </li>
@@ -115,7 +115,7 @@
       
       <p class="text-xs opacity-80 mb-6">
         <a href="http://hestena62.com" class="hover:text-white underline">Hesten's Learning</a> by 
-        <a href="http://hestena62.com/about-me.html" class="hover:text-white underline">Hesten Allison</a> is licensed under 
+        <a href="/about-me.php" class="hover:text-white underline">Hesten Allison</a> is licensed under 
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener" class="hover:text-white underline">CC BY-NC-SA 4.0</a>
       </p>
 

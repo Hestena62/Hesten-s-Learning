@@ -47,7 +47,7 @@
           
           <!-- Converted <p> tags with Tailwind's leading-relaxed for readability -->
           <p class="text-justify leading-relaxed mb-4">
-            Hello world. My name is Hesten, and I'm a homeschooled student based in the United States. I've always had a voracious appetite for learning and sharing knowledge, and that's what ultimately led me to create this educational website.
+            I am currently a student at CCV, working towards my Secondary Ed degree. I've always had a voracious appetite for learning and sharing knowledge, and that's what ultimately led me to create this educational website.
           </p>
           <p class="text-justify leading-relaxed mb-4">
             The primary catalyst for this project was my younger sister, who faces some learning challenges. I wanted to build a platform that could not only support her education but make learning more accessible and enjoyable for her. I drew inspiration from many places, but one website that particularly influenced me was IXL. I admired IXL's interactive approach and comprehensive curriculum, and I wanted to incorporate some of those elements into my own site.
