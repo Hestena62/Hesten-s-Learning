@@ -24,12 +24,10 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
-  <!-- Google Fonts: Inter, Roboto Mono -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
   <style>
-    /* --- CUSTOM FONT DECLARATION --- */
-    /* This tells the browser to use your uploaded file */
+    /* --- CUSTOM FONT DECLARATIONS --- */
+    
+    /* Open Dyslexic */
     @font-face {
       font-family: 'OpenDyslexic';
       src: url('/font/OpenDydlexic/OpenDyslexic-Regular.otf') format('opentype');
@@ -38,15 +36,44 @@
       font-display: swap;
     }
 
+    /* Inter (Standard Sans) - Please upload Inter-Regular.ttf and Inter-Bold.ttf */
+    @font-face {
+      font-family: 'Inter';
+      src: url('/font/Inter/static/Inter_18pt-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* Roboto Mono (Coding) - Please upload RobotoMono-Regular.ttf */
+    @font-face {
+      font-family: 'Roboto Mono';
+      src: url('/font/Roboto_Mono/static/RobotoMono-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* --- CSS Variables & Themes --- */
+    :root {
+      /* Default spacing variables */
+      --site-word-spacing: normal;
+      --site-letter-spacing: normal;
+    }
+
     body {
       background-color: var(--color-base-bg);
       color: var(--color-text-default);
       font-size: var(--site-font-size, 1rem);
       line-height: var(--site-line-height, 1.6);
-      /* Smoother font transition */
-      transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease; 
       font-family: var(--site-font-family, "Inter", sans-serif);
+      
+      /* Advanced Typography Support */
+      word-spacing: var(--site-word-spacing);
+      letter-spacing: var(--site-letter-spacing);
+
+      /* Smoother transitions */
+      transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease, word-spacing 0.3s ease, letter-spacing 0.3s ease;
     }
 
     /* Strict Focus Visibility (WCAG AAA) */
@@ -117,13 +144,18 @@
         from { opacity: 0; transform: translate3d(0, 40px, 0); }
         to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
     
-    /* Staggered Animation Utilities */
-    .animate-fade-in-up { 
-        animation: fadeInUp 0.6s ease-out forwards; 
-        opacity: 0; /* Start invisible so it fades in */
+    /* Wiggle Animation for Hero Icons */
+    @keyframes wiggle {
+        0%, 100% { transform: rotate(-3deg); }
+        50% { transform: rotate(3deg); }
     }
-    
+    .animate-wiggle { animation: wiggle 3s ease-in-out infinite; }
+
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+
     /* Accessibility Utilities */
     .reduced-motion * {
       animation-duration: 0.01s !important;
@@ -186,7 +218,7 @@
     }
   </style>
 
-  <script>
+<script>
     // --- Tailwind & CSS Variables Configuration ---
     tailwind.config = {
       darkMode: 'class', // Enables dark mode via 'dark' class
@@ -194,7 +226,7 @@
         extend: {
           fontFamily: {
             sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
-            dyslexic: ['OpenDyslexic', 'sans-serif'], /* Matches @font-face name */
+            dyslexic: ['OpenDyslexic', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace'],
           },
           colors: {
@@ -215,12 +247,6 @@
           animation: {
             'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
             'wiggle': 'wiggle 3s ease-in-out infinite',
-          },
-          keyframes: {
-            wiggle: {
-              '0%, 100%': { transform: 'rotate(-3deg)' },
-              '50%': { transform: 'rotate(3deg)' },
-            }
           }
         },
       },
@@ -231,6 +257,8 @@
       theme: 'light',
       fontSize: 1.0, 
       lineHeight: 1.6,
+      wordSpacing: 0,
+      letterSpacing: 0,
       fontFamily: 'Inter',
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       readingMask: false
@@ -256,16 +284,18 @@
     function applyHeadSettings(settings) {
       document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
       document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
+      document.documentElement.style.setProperty('--site-word-spacing', `${settings.wordSpacing}em`);
+      document.documentElement.style.setProperty('--site-letter-spacing', `${settings.letterSpacing}em`);
       
       let fontName = settings.fontFamily || 'Inter';
       
-      // FIX: Map the UI name 'Open Dyslexic' to the CSS name 'OpenDyslexic'
-      if (fontName === 'Open Dyslexic') {
-          fontName = 'OpenDyslexic';
-      }
+      // Map Friendly Names to CSS Names
+      if (fontName === 'Open Dyslexic') fontName = 'OpenDyslexic';
+      if (fontName === 'Roboto Mono') fontName = 'Roboto Mono';
+      if (fontName === 'Inter') fontName = 'Inter';
       
-      // Ensure fonts with spaces (like 'Roboto Mono') are quoted
-      if (fontName.includes(' ') && !fontName.includes('"')) {
+      // Ensure fonts with spaces are quoted
+      if (fontName.includes(' ') && !fontName.includes('"') && !fontName.includes("'")) {
           fontName = `"${fontName}"`;
       }
       
@@ -373,6 +403,13 @@
             <label for="toggle-reduced-motion" class="text-sm font-bold text-text-default cursor-pointer">Reduce Motion</label>
             <input type="checkbox" id="toggle-reduced-motion" class="w-12 h-6 rounded-full appearance-none bg-gray-300 checked:bg-primary transition-colors relative cursor-pointer after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:w-4 after:h-4 after:rounded-full after:transition-transform checked:after:translate-x-6">
         </div>
+      </div>
+
+      <!-- Settings Link -->
+      <div class="mt-6 pt-6 border-t border-gray-300 dark:border-gray-600">
+          <a href="/settings.php" class="flex items-center justify-center w-full py-3 px-4 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-bold shadow-md">
+              <i class="fas fa-cog mr-2"></i> Advanced Settings
+          </a>
       </div>
 
       <button id="reset-a11y-settings" type="button" class="w-full bg-base-bg border border-text-secondary text-text-default py-3 rounded-lg mt-4 hover:bg-gray-200 transition-colors font-semibold">

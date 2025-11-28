@@ -102,6 +102,11 @@
                 <i class="fas fa-universal-access w-6 text-center text-accent"></i> Accessibility
             </button>
           </li>
+          <li>
+            <a href="/settings.php" class="flex items-center text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1">
+                <i class="fas fa-cog w-6 text-center text-accent"></i> Settings
+            </a>
+          </li>
         </ul>
       </div>
     </div>
