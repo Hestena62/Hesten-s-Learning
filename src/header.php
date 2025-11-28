@@ -1,143 +1,51 @@
 <!DOCTYPE html>
 <html lang="en-US" class="scroll-smooth scroll-pt-24">
-<!-- Added scroll-pt-24 to ensure jump links don't hide behind fixed headers -->
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="<?php echo isset($pageDescription) ? $pageDescription : 'Empowering students with learning disabilities through personalized learning experiences.'; ?>" />
+    content="<?php echo isset($pageDescription) ? htmlspecialchars($pageDescription) : 'Empowering students with learning disabilities through personalized learning experiences.'; ?>" />
   <meta name="keywords"
-    content="<?php echo isset($pageKeywords) ? $pageKeywords : 'education, learning disabilities, accessibility'; ?>" />
-  <meta name="author" content="<?php echo isset($pageAuthor) ? $pageAuthor : 'Hesten\'s Learning'; ?>" />
+    content="<?php echo isset($pageKeywords) ? htmlspecialchars($pageKeywords) : 'education, learning disabilities, accessibility'; ?>" />
+  <meta name="author" content="<?php echo isset($pageAuthor) ? htmlspecialchars($pageAuthor) : 'Hesten\'s Learning'; ?>" />
   
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="<?php echo isset($pageTitle) ? $pageTitle : 'Hesten\'s Learning'; ?>" />
-  <meta property="og:description" content="<?php echo isset($pageDescription) ? $pageDescription : 'Personalized, accessible learning for everyone.'; ?>" />
+  <meta property="og:title" content="<?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?>" />
+  <meta property="og:description" content="<?php echo isset($pageDescription) ? htmlspecialchars($pageDescription) : 'Personalized, accessible learning for everyone.'; ?>" />
   <meta property="og:image" content="https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
   <meta property="og:url" content="https://hestena62.com" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title><?php echo isset($pageTitle) ? $pageTitle : 'Hesten\'s Learning'; ?></title>
+  <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?></title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
-  <!-- Fonts: Inter (Standard), Open Dyslexic (A11y), Roboto Mono (Code/Focus) -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
-<script>
-    // --- Tailwind & CSS Variables Configuration ---
-    tailwind.config = {
-      darkMode: 'class', // Enables dark mode via 'dark' class
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
-            dyslexic: ['"Open Dyslexic"', 'sans-serif'],
-            mono: ['"Roboto Mono"', 'monospace'],
-          },
-          colors: {
-            'primary': 'var(--color-primary, #1D4ED8)',
-            'secondary': 'var(--color-secondary, #3B82F6)',
-            'accent': 'var(--color-accent, #60A5FA)',
-            'base-bg': 'var(--color-base-bg, #F9FAFB)',
-            'content-bg': 'var(--color-content-bg, #FFFFFF)',
-            'text-default': 'var(--color-text-default, #1F2937)',
-            'text-secondary': 'var(--color-text-secondary, #6B7280)',
-            'focus-ring': 'var(--color-focus-ring, #F59E0B)', 
-            // Legacy/Theme mapping
-            'header-bg': 'var(--color-header-bg)',
-            'footer-bg-from': 'var(--color-footer-bg-from)',
-            'footer-bg-to': 'var(--color-footer-bg-to)',
-            'link-color': 'var(--color-link)',
-          },
-          animation: {
-            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-          }
-        },
-      },
-    };
-
-    // --- State Management ---
-    const defaultSettings = {
-      theme: 'light',
-      fontSize: 1.0, 
-      lineHeight: 1.6,
-      fontFamily: 'Inter',
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      readingMask: false
-    };
-
-    const STORAGE_KEY = 'hl_a11y_v3';
-
-    function loadSettings() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-      } catch (e) { return defaultSettings; }
-    }
-
-    function saveSettings(settings) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-        applySettings(settings);
-        currentSettings = settings;
-      } catch (e) { console.error(e); }
-    }
-
-    function applyHeadSettings(settings) {
-      document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
-      document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
-      
-      let fontName = settings.fontFamily || 'Inter';
-      if (fontName.includes(' ') || fontName === 'Open Dyslexic') fontName = `"${fontName}"`;
-      document.documentElement.style.setProperty('--site-font-family', fontName);
-    }
-
-    function applySettings(settings) {
-      applyHeadSettings(settings);
-      const body = document.body;
-      if (!body) return;
-
-      body.classList.remove('light', 'dark', 'high-contrast');
-      body.classList.add(settings.theme);
-
-      // Reduced Motion
-      if (settings.reducedMotion) {
-        body.classList.add('reduced-motion');
-        document.documentElement.classList.remove('scroll-smooth');
-      } else {
-        body.classList.remove('reduced-motion');
-        document.documentElement.classList.add('scroll-smooth');
-      }
-
-      // Reading Mask
-      const mask = document.getElementById('reading-mask');
-      if (mask) {
-        if (settings.readingMask) {
-          mask.classList.remove('hidden');
-        } else {
-          mask.classList.add('hidden');
-        }
-      }
-    }
-
-    let currentSettings = loadSettings();
-    applyHeadSettings(currentSettings);
-  </script>
+  <!-- Google Fonts: Inter, Roboto Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
+    /* --- CUSTOM FONT DECLARATION --- */
+    /* This tells the browser to use your uploaded file */
+    @font-face {
+      font-family: 'OpenDyslexic';
+      src: url('/font/OpenDydlexic/OpenDyslexic-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* --- CSS Variables & Themes --- */
     body {
       background-color: var(--color-base-bg);
       color: var(--color-text-default);
       font-size: var(--site-font-size, 1rem);
       line-height: var(--site-line-height, 1.6);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      /* Smoother font transition */
+      transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease; 
       font-family: var(--site-font-family, "Inter", sans-serif);
     }
 
@@ -209,10 +117,13 @@
         from { opacity: 0; transform: translate3d(0, 40px, 0); }
         to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
-    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-
+    
+    /* Staggered Animation Utilities */
+    .animate-fade-in-up { 
+        animation: fadeInUp 0.6s ease-out forwards; 
+        opacity: 0; /* Start invisible so it fades in */
+    }
+    
     /* Accessibility Utilities */
     .reduced-motion * {
       animation-duration: 0.01s !important;
@@ -274,6 +185,124 @@
         }
     }
   </style>
+
+  <script>
+    // --- Tailwind & CSS Variables Configuration ---
+    tailwind.config = {
+      darkMode: 'class', // Enables dark mode via 'dark' class
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
+            dyslexic: ['OpenDyslexic', 'sans-serif'], /* Matches @font-face name */
+            mono: ['"Roboto Mono"', 'monospace'],
+          },
+          colors: {
+            'primary': 'var(--color-primary, #1D4ED8)',
+            'secondary': 'var(--color-secondary, #3B82F6)',
+            'accent': 'var(--color-accent, #60A5FA)',
+            'base-bg': 'var(--color-base-bg, #F9FAFB)',
+            'content-bg': 'var(--color-content-bg, #FFFFFF)',
+            'text-default': 'var(--color-text-default, #1F2937)',
+            'text-secondary': 'var(--color-text-secondary, #6B7280)',
+            'focus-ring': 'var(--color-focus-ring, #F59E0B)', 
+            // Legacy/Theme mapping
+            'header-bg': 'var(--color-header-bg)',
+            'footer-bg-from': 'var(--color-footer-bg-from)',
+            'footer-bg-to': 'var(--color-footer-bg-to)',
+            'link-color': 'var(--color-link)',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'wiggle': 'wiggle 3s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            }
+          }
+        },
+      },
+    };
+
+    // --- State Management ---
+    const defaultSettings = {
+      theme: 'light',
+      fontSize: 1.0, 
+      lineHeight: 1.6,
+      fontFamily: 'Inter',
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      readingMask: false
+    };
+
+    const STORAGE_KEY = 'hl_a11y_v3';
+
+    function loadSettings() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
+      } catch (e) { return defaultSettings; }
+    }
+
+    function saveSettings(settings) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+        applySettings(settings);
+        currentSettings = settings;
+      } catch (e) { console.error(e); }
+    }
+
+    function applyHeadSettings(settings) {
+      document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
+      document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
+      
+      let fontName = settings.fontFamily || 'Inter';
+      
+      // FIX: Map the UI name 'Open Dyslexic' to the CSS name 'OpenDyslexic'
+      if (fontName === 'Open Dyslexic') {
+          fontName = 'OpenDyslexic';
+      }
+      
+      // Ensure fonts with spaces (like 'Roboto Mono') are quoted
+      if (fontName.includes(' ') && !fontName.includes('"')) {
+          fontName = `"${fontName}"`;
+      }
+      
+      document.documentElement.style.setProperty('--site-font-family', fontName);
+    }
+
+    function applySettings(settings) {
+      applyHeadSettings(settings);
+      const body = document.body;
+      if (!body) return;
+
+      body.classList.remove('light', 'dark', 'high-contrast');
+      body.classList.add(settings.theme);
+
+      // Reduced Motion
+      if (settings.reducedMotion) {
+        body.classList.add('reduced-motion');
+        document.documentElement.classList.remove('scroll-smooth');
+      } else {
+        body.classList.remove('reduced-motion');
+        document.documentElement.classList.add('scroll-smooth');
+      }
+
+      // Reading Mask
+      const mask = document.getElementById('reading-mask');
+      if (mask) {
+        if (settings.readingMask) {
+          mask.classList.remove('hidden');
+        } else {
+          mask.classList.add('hidden');
+        }
+      }
+    }
+
+    let currentSettings = loadSettings();
+    applyHeadSettings(currentSettings);
+  </script>
 </head>
 
 <body class="antialiased flex flex-col min-h-screen">
@@ -289,7 +318,7 @@
   </script>
 
   <!-- Accessibility Settings Panel Trigger -->
-  <button id="a11y-toggle-button"
+  <button id="a11y-toggle-button" type="button"
     class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-transform hover:scale-105 flex items-center justify-center no-print"
     aria-label="Open Accessibility Settings" aria-controls="a11y-settings-panel" aria-haspopup="true">
     <i class="fas fa-universal-access text-2xl"></i>
@@ -302,7 +331,7 @@
     
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-xl font-bold text-primary">Accessibility</h2>
-      <button id="a11y-close-button" class="text-text-secondary hover:text-primary p-2 rounded-full transition-colors" aria-label="Close settings">
+      <button id="a11y-close-button" type="button" class="text-text-secondary hover:text-primary p-2 rounded-full transition-colors" aria-label="Close settings">
         <i class="fas fa-times text-xl"></i>
       </button>
     </div>
@@ -312,9 +341,9 @@
       <fieldset>
         <legend class="block text-sm font-bold mb-3 text-text-default">Display Mode</legend>
         <div class="flex gap-2">
-          <button id="theme-light" class="flex-1 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all" aria-label="Light Mode"><i class="fas fa-sun mr-2"></i>Light</button>
-          <button id="theme-dark" class="flex-1 py-3 rounded-lg border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all" aria-label="Dark Mode"><i class="fas fa-moon mr-2"></i>Dark</button>
-          <button id="theme-contrast" class="flex-1 py-3 rounded-lg border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold" aria-label="High Contrast"><i class="fas fa-adjust mr-2"></i>HC</button>
+          <button id="theme-light" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-900 hover:border-primary transition-all" aria-label="Light Mode"><i class="fas fa-sun mr-2"></i>Light</button>
+          <button id="theme-dark" type="button" class="flex-1 py-3 rounded-lg border-2 border-gray-700 bg-gray-800 text-white hover:border-primary transition-all" aria-label="Dark Mode"><i class="fas fa-moon mr-2"></i>Dark</button>
+          <button id="theme-contrast" type="button" class="flex-1 py-3 rounded-lg border-2 border-black bg-black text-yellow-400 hover:border-yellow-400 transition-all font-bold" aria-label="High Contrast"><i class="fas fa-adjust mr-2"></i>HC</button>
         </div>
       </fieldset>
 
@@ -322,9 +351,9 @@
       <fieldset>
         <legend class="block text-sm font-bold mb-3 text-text-default">Font Style</legend>
         <div class="grid grid-cols-1 gap-2">
-            <button data-font="Inter" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left">Standard (Inter)</button>
-            <button data-font="Open Dyslexic" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-dyslexic">Dyslexic Friendly</button>
-            <button data-font="Roboto Mono" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-mono">Monospace / Coding</button>
+            <button type="button" data-font="Inter" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left">Standard (Inter)</button>
+            <button type="button" data-font="Open Dyslexic" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-dyslexic" style="font-family: 'OpenDyslexic';">Dyslexic Friendly</button>
+            <button type="button" data-font="Roboto Mono" class="font-selector w-full py-2 px-4 rounded border bg-content-bg text-text-default hover:bg-base-bg text-left font-mono">Monospace / Coding</button>
         </div>
       </fieldset>
 
@@ -346,7 +375,7 @@
         </div>
       </div>
 
-      <button id="reset-a11y-settings" class="w-full bg-base-bg border border-text-secondary text-text-default py-3 rounded-lg mt-4 hover:bg-gray-200 transition-colors font-semibold">
+      <button id="reset-a11y-settings" type="button" class="w-full bg-base-bg border border-text-secondary text-text-default py-3 rounded-lg mt-4 hover:bg-gray-200 transition-colors font-semibold">
         Reset to Defaults
       </button>
     </div>
@@ -365,7 +394,7 @@
             We are constantly improving! Feature requests? Email <a href="mailto:admin@hestena62.com" class="underline hover:text-white font-bold decoration-2">admin@hestena62.com</a>
         </p>
     </div>
-    <button id="close-announcement" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Dismiss announcement">
+    <button id="close-announcement" type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Dismiss announcement">
       <i class="fas fa-times"></i>
     </button>
   </div>
@@ -378,15 +407,16 @@
         <!-- Logo -->
         <a class="flex items-center flex-shrink-0 text-white mr-8 group" href="/">
           <div class="rounded-full bg-white p-1 mr-3 group-hover:scale-110 transition-transform shadow-lg">
+             <!-- Corrected alt text to be empty for decorative image next to text -->
              <img src="Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="" class="h-8 w-8 rounded-full" 
              onerror="this.onerror=null; this.src='https://placehold.co/32x32/818CF8/FFFFFF?text=HL';" />
           </div>
-          <span class="font-bold text-xl tracking-tight group-hover:text-accent transition-colors"><?php echo isset($pageTitle) ? $pageTitle : 'Hesten\'s Learning'; ?></span>
+          <span class="font-bold text-xl tracking-tight group-hover:text-accent transition-colors"><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?></span>
         </a>
 
         <!-- Mobile Menu Button -->
         <div class="block lg:hidden">
-          <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white transition-colors" aria-label="Toggle navigation">
+          <button id="nav-toggle" type="button" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white transition-colors" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
           </button>
         </div>
@@ -410,7 +440,7 @@
             <form action="/search.php" method="GET" role="search" class="relative">
               <label for="search-input" class="sr-only">Search</label>
               <input type="text" id="search-input" name="q" placeholder="Search topics..."
-                class="bg-gray-700/50 text-white border border-gray-600 rounded-full py-2 pl-10 pr-4 focus:bg-gray-700 focus:border-accent w-full lg:w-64 transition-all placeholder-gray-400" />
+                class="bg-gray-700/50 text-white border border-gray-600 rounded-full py-2 pl-10 pr-4 focus:bg-gray-700 focus:border-accent w-full lg:w-64 transition-all placeholder-gray-400 focus:w-full lg:focus:w-80 focus:shadow-lg" />
               <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             </form>
           </div>

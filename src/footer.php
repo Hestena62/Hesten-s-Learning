@@ -5,7 +5,7 @@
 <?php $currentYear = date("Y"); ?>
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" 
+  <button id="back-to-top" type="button"
     class="fixed bottom-24 right-6 z-40 p-4 bg-gray-800 text-white rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 pointer-events-none focus:outline-none focus:ring-4 focus:ring-accent hover:bg-gray-700 no-print"
     aria-label="Scroll back to top">
     <i class="fas fa-arrow-up"></i>
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li>
-            <button onclick="document.getElementById('a11y-toggle-button').click()" class="flex items-center text-left text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1 w-full">
+            <button onclick="document.getElementById('a11y-toggle-button').click()" type="button" class="flex items-center text-left text-blue-100 hover:text-white hover:translate-x-1 transition-all focus:outline-none focus:ring-2 focus:ring-white rounded p-1 w-full">
                 <i class="fas fa-universal-access w-6 text-center text-accent"></i> Accessibility
             </button>
           </li>
@@ -109,7 +109,7 @@
     <!-- Copyright & Credits -->
     <div class="mt-12 pt-8 border-t border-white/20 text-center text-sm text-blue-100">
       <p class="mb-4">
-        &copy; <?php echo $currentYear; ?> <?php echo isset($pageTitle) ? $pageTitle : "Hesten's Learning"; ?>. 
+        &copy; <?php echo $currentYear; ?> <?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : "Hesten's Learning"; ?>. 
         Made with <i class="fas fa-heart text-red-400 mx-1 animate-pulse" aria-label="love"></i> for inclusive education.
       </p>
       
@@ -141,7 +141,7 @@
       </div>
       <h4 id="message-title" class="text-2xl font-bold mb-3 text-text-default">Notification</h4>
       <p id="message-text" class="mb-8 text-text-secondary leading-relaxed">Message goes here.</p>
-      <button id="message-ok-button" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary focus:ring-4 focus:ring-primary/50 transition-colors">
+      <button id="message-ok-button" type="button" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary focus:ring-4 focus:ring-primary/50 transition-colors">
         OK
       </button>
     </div>
@@ -157,10 +157,10 @@
       <h4 id="confirmation-title" class="text-2xl font-bold mb-3 text-text-default">Confirm Action</h4>
       <p id="confirmation-text" class="mb-8 text-text-secondary">Are you sure?</p>
       <div class="flex gap-4">
-        <button id="confirm-no-button" class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 focus:ring-4 focus:ring-gray-400 transition-colors">
+        <button id="confirm-no-button" type="button" class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 focus:ring-4 focus:ring-gray-400 transition-colors">
           Cancel
         </button>
-        <button id="confirm-yes-button" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary focus:ring-4 focus:ring-primary/50 transition-colors">
+        <button id="confirm-yes-button" type="button" class="flex-1 bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary focus:ring-4 focus:ring-primary/50 transition-colors">
           Confirm
         </button>
       </div>
@@ -172,6 +172,9 @@
     // --- Focus Trap Utility ---
     function trapFocus(element) {
         const focusableElements = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        
+        if (focusableElements.length === 0) return; // Prevent crash if no focusable elements
+
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 

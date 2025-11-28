@@ -34,7 +34,8 @@
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl animate-pulse text-white/50"></i>
         <i class="fas fa-calculator absolute bottom-1/4 right-10 text-[10rem] text-white/30 rotate-12"></i>
         <i class="fas fa-book absolute top-20 right-1/3 text-7xl text-white/40 -rotate-12"></i>
-        <i class="fas fa-atom absolute bottom-10 left-1/4 text-8xl text-white/40 animate-bounce" style="animation-duration: 3s;"></i>
+        <!-- Added wiggle animation for engagement -->
+        <i class="fas fa-atom absolute bottom-10 left-1/4 text-8xl text-white/40 animate-wiggle" style="animation-duration: 4s;"></i>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
     </div>
 
@@ -52,9 +53,10 @@
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#main-content"
-                  class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
-                  <span>Start Learning</span>
-                  <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                  class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
+                  <span class="relative z-10">Start Learning</span>
+                  <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform relative z-10"></i>
                 </a>
                 <a href="about.php"
                   class="bg-transparent border-2 border-white/40 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
@@ -65,19 +67,19 @@
 
         <!-- Quick Stats Bar -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
                 <div class="text-3xl font-bold text-accent mb-1">100%</div>
                 <div class="text-sm text-blue-100">Accessible</div>
             </div>
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
                 <div class="text-3xl font-bold text-accent mb-1">K-12</div>
                 <div class="text-sm text-blue-100">Grade Levels</div>
             </div>
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
                 <div class="text-3xl font-bold text-accent mb-1">Free</div>
                 <div class="text-sm text-blue-100">To Use</div>
             </div>
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
                 <div class="text-3xl font-bold text-accent mb-1">Safe</div>
                 <div class="text-sm text-blue-100">Private & Secure</div>
             </div>
@@ -138,17 +140,17 @@
                 <div class="relative w-full sm:w-64">
                     <label for="level-search" class="sr-only">Search grades or topics</label>
                     <input type="text" id="level-search" placeholder="Search grades..." 
-                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                        onkeyup="applyFilters()">
+                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md"
+                        > <!-- oninput handled in script below -->
                     <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
 
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter content">
-                    <button onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-all shadow-sm" aria-pressed="true" data-filter="all">All</button>
-                    <button onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="elem">Elementary</button>
-                    <button onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="middle">Middle</button>
-                    <button onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="high">High School</button>
+                    <button type="button" onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-all shadow-sm" aria-pressed="true" data-filter="all">All</button>
+                    <button type="button" onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="elem">Elementary</button>
+                    <button type="button" onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="middle">Middle</button>
+                    <button type="button" onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="high">High School</button>
                 </div>
             </div>
         </div>
@@ -159,12 +161,16 @@
     </div>
     
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
-      <?php foreach ($learningLevels as $level): ?>
-        <article class="level-card group h-full" 
+      <?php 
+        $delay = 0.1; // Staggered animation initial delay
+        foreach ($learningLevels as $level): 
+      ?>
+        <article class="level-card group h-full animate-fade-in-up" 
+                 style="animation-delay: <?php echo $delay; ?>s;"
                  data-category="<?php echo htmlspecialchars($level['category']); ?>"
                  data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
                  data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>">
-          <div class="bg-content-bg h-full rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
+          <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
             
             <!-- Floating Icon Background -->
             <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
@@ -195,7 +201,10 @@
 
           </div>
         </article>
-      <?php endforeach; ?>
+      <?php 
+        $delay += 0.05; // Increment delay for next card
+        endforeach; 
+      ?>
     </section>
     
     <!-- No Results Message -->
@@ -205,17 +214,24 @@
         </div>
         <h3 class="text-xl font-bold text-text-default">No levels found</h3>
         <p class="text-text-secondary">Try adjusting your search or category filter.</p>
-        <button onclick="resetFilters()" class="mt-4 text-primary font-bold hover:underline">Clear Filters</button>
+        <button onclick="resetFilters()" type="button" class="mt-4 text-primary font-bold hover:underline">Clear Filters</button>
     </div>
 
   </main>
-
-  
 
   <script>
     // State for filters
     let currentCategory = 'all';
     let currentSearch = '';
+
+    // Attach Event Listeners properly
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('level-search');
+        if(searchInput) {
+            // Using 'input' event catches pasting and 'x' clear clicks, unlike keyup
+            searchInput.addEventListener('input', applyFilters); 
+        }
+    });
 
     function setCategory(category) {
         currentCategory = category;
@@ -239,7 +255,8 @@
     }
 
     function resetFilters() {
-        document.getElementById('level-search').value = '';
+        const searchInput = document.getElementById('level-search');
+        if(searchInput) searchInput.value = '';
         currentSearch = '';
         setCategory('all');
     }
@@ -247,15 +264,17 @@
     function applyFilters() {
         // Get search value
         const searchInput = document.getElementById('level-search');
-        currentSearch = searchInput.value.toLowerCase().trim();
+        if(searchInput) {
+            currentSearch = searchInput.value.toLowerCase().trim();
+        }
 
         const cards = document.querySelectorAll('.level-card');
         let visibleCount = 0;
 
         cards.forEach(card => {
             const cardCat = card.dataset.category;
-            const cardTitle = card.dataset.title;
-            const cardDesc = card.dataset.desc;
+            const cardTitle = card.dataset.title || '';
+            const cardDesc = card.dataset.desc || '';
 
             // Check Category Match
             const catMatch = (currentCategory === 'all' || cardCat === currentCategory);
@@ -264,15 +283,17 @@
             const searchMatch = (currentSearch === '' || cardTitle.includes(currentSearch) || cardDesc.includes(currentSearch));
 
             if (catMatch && searchMatch) {
-                card.style.display = 'block';
-                // Trigger reflow for animation
+                // Use classList for hidden state instead of inline styles for cleaner CSS handling
+                card.classList.remove('hidden');
+                
+                // Trigger reflow for animation if needed, or just let CSS transition handle it
                 requestAnimationFrame(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
                 });
                 visibleCount++;
             } else {
-                card.style.display = 'none';
+                card.classList.add('hidden');
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
             }
@@ -280,18 +301,18 @@
 
         // Update Results Count for Screen Reader
         const resultsMsg = document.getElementById('results-count');
-        resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
+        if(resultsMsg) resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
 
         // Show/Hide "No Results" graphic
         const noResults = document.getElementById('no-results');
         const grid = document.getElementById('level-grid');
         
         if (visibleCount === 0) {
-            noResults.classList.remove('hidden');
-            grid.classList.add('hidden');
+            if(noResults) noResults.classList.remove('hidden');
+            if(grid) grid.classList.add('hidden');
         } else {
-            noResults.classList.add('hidden');
-            grid.classList.remove('hidden');
+            if(noResults) noResults.classList.add('hidden');
+            if(grid) grid.classList.remove('hidden');
         }
     }
   </script>
