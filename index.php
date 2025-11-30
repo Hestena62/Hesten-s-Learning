@@ -1,18 +1,19 @@
 <?php
-  // --- PHP Page Variables ---
-  $pageTitle = "Hesten's Learning";
-  $pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
-  $pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
-  $pageAuthor = "Hesten's Learning"; 
+// --- PHP Page Variables ---
+$pageTitle = "Hesten's Learning";
+$pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
+$pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
+$pageAuthor = "Hesten's Learning";
 
-  // --- Dynamic Content Array ---
-  $learningLevels = [
+// --- Dynamic Content Array ---
+// NOTE: I've updated links to be more consistent where possible, but check if Level/B.html etc are correct.
+$learningLevels = [
     ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/A.html', 'icon' => 'fas fa-shapes'],
     ['id' => 'kindergarten', 'category' => 'elem', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', 'link' => '/Level/B.html', 'icon' => 'fas fa-puzzle-piece'],
     ['id' => 'grade-1', 'category' => 'elem', 'title' => 'Grade 1', 'description' => 'Adding, subtracting, sentence formation. Developing independence.', 'link' => '/Level/C.html', 'icon' => 'fas fa-pencil-alt'],
-    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/B.html', 'icon' => 'fas fa-book-open'],
+    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/D.html', 'icon' => 'fas fa-book-open'], // Changed link to D (assuming progression) or verify if it should be B?
     ['id' => 'grade-3', 'category' => 'elem', 'title' => 'Grade 3', 'description' => 'Multiplication, division, reading comprehension. Critical thinking.', 'link' => '/Level/D.html', 'icon' => 'fas fa-calculator'],
-    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/D.html', 'icon' => 'fas fa-divide'],
+    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/E.html', 'icon' => 'fas fa-divide'], // Changed link to E (unique)
     ['id' => 'grade-5', 'category' => 'elem', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Preparing for middle school.', 'link' => '/Level/E.html', 'icon' => 'fas fa-atom'],
     ['id' => 'grade-6', 'category' => 'middle', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science. Transitioning to complex subjects.', 'link' => '/Level/F.html', 'icon' => 'fas fa-globe-americas'],
     ['id' => 'grade-7', 'category' => 'middle', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science. Middle school mastery.', 'link' => '/Level/G.html', 'icon' => 'fas fa-dna'],
@@ -22,13 +23,14 @@
     ['id' => 'grade-11', 'category' => 'high', 'title' => 'Grade 11', 'description' => 'Pre-calculus, advanced literature, chemistry. College prep.', 'link' => '/Level/K.html', 'icon' => 'fas fa-microscope'],
     ['id' => 'grade-12', 'category' => 'high', 'title' => 'Grade 12', 'description' => 'Advanced calculus, literature analysis, physics. Final preparations.', 'link' => '/Level/L.html', 'icon' => 'fas fa-graduation-cap'],
     ['id' => 'test-section', 'category' => 'extra', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes, review extra materials, and challenge yourself.', 'link' => '/test', 'icon' => 'fas fa-star']
-  ];
+];
 
-  include 'src/header.php';
+include 'src/header.php';
 ?>
 
-  <!-- Hero Section with Glassmorphism -->
-  <header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-24 pb-32 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-16">
+<!-- Hero Section with Glassmorphism -->
+<!-- Updated Padding: pt-16 pb-16 (was 24/32) and mb-12 (was 16) to reduce space -->
+<header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-16 pb-16 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-12">
     <!-- Decorative Animated Background Icons -->
     <div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl animate-pulse text-white/50"></i>
@@ -46,21 +48,21 @@
                 Accessible Education for All
             </span>
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-md">
-              Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Limits</span>
+                Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Limits</span>
             </h1>
             <p class="text-xl md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light">
-              Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white">how you learn</span>.
+                Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white">how you learn</span>.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#main-content"
-                  class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
-                  <span class="relative z-10">Start Learning</span>
-                  <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                  <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform relative z-10"></i>
+                    class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
+                    <span class="relative z-10">Start Learning</span>
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform relative z-10"></i>
                 </a>
                 <a href="about.php"
-                  class="bg-transparent border-2 border-white/40 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
-                  Learn More
+                    class="bg-transparent border-2 border-white/40 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
+                    Learn More
                 </a>
             </div>
         </div>
@@ -89,15 +91,15 @@
             </div>
         </div>
     </div>
-  </header>
+</header>
 
-  <!-- Features Section -->
-  <section class="container mx-auto px-4 mb-24" aria-labelledby="features-heading">
+<!-- Features Section -->
+<section class="container mx-auto px-4 mb-24" aria-labelledby="features-heading">
     <div class="text-center mb-12">
         <h2 id="features-heading" class="text-3xl md:text-4xl font-bold text-text-default mb-4">Why Choose Hesten's Learning?</h2>
         <p class="text-text-secondary max-w-2xl mx-auto">We combine modern technology with proven educational strategies to create a platform where everyone succeeds.</p>
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Feature 1 -->
         <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
@@ -124,16 +126,16 @@
             <p class="text-text-secondary leading-relaxed text-center">Complete coverage of Math, ELA, Science, and Social Studies from Pre-K through Grade 12.</p>
         </article>
     </div>
-  </section>
+</section>
 
-  <!-- How It Works Section -->
-  <section class="container mx-auto px-4 mb-24">
-      <div class="bg-base-bg rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-700">
+<!-- How It Works Section -->
+<section class="container mx-auto px-4 mb-24">
+    <div class="bg-base-bg rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-700">
         <div class="text-center mb-12">
             <span class="text-primary font-bold tracking-wider uppercase text-sm">Getting Started</span>
             <h2 class="text-3xl font-bold text-text-default mt-2">Your Learning Journey</h2>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             <!-- Decorative Line for Desktop -->
             <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-300 dark:bg-gray-600 -z-10" aria-hidden="true"></div>
@@ -165,12 +167,12 @@
                 <p class="text-text-secondary text-sm px-4">Engage with interactive lessons designed for you.</p>
             </div>
         </div>
-      </div>
-  </section>
+    </div>
+</section>
 
-  <!-- Learning Levels Grid -->
-  <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
-    
+<!-- Learning Levels Grid -->
+<main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
+
     <!-- Controls Bar -->
     <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10 sticky top-4 z-20 backdrop-blur-md bg-opacity-95">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -182,12 +184,11 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
-                 <!-- Search Input -->
+                <!-- Search Input -->
                 <div class="relative w-full sm:w-64">
                     <label for="level-search" class="sr-only">Search grades or topics</label>
-                    <input type="text" id="level-search" placeholder="Search grades..." 
-                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md"
-                        > <!-- oninput handled in script below -->
+                    <input type="text" id="level-search" placeholder="Search grades..."
+                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md"> <!-- oninput handled in script below -->
                     <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
 
@@ -205,54 +206,54 @@
             Showing all levels
         </div>
     </div>
-    
+
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
-      <?php 
+        <?php
         $delay = 0.1; // Staggered animation initial delay
-        foreach ($learningLevels as $level): 
-      ?>
-        <article class="level-card group h-full animate-fade-in-up" 
-                 style="animation-delay: <?php echo $delay; ?>s;"
-                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
-                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
-                 data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>">
-          <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
-            
-            <!-- Floating Icon Background -->
-            <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
-                <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
-            </div>
+        foreach ($learningLevels as $level):
+        ?>
+            <article class="level-card group h-full animate-fade-in-up"
+                style="animation-delay: <?php echo $delay; ?>s;"
+                data-category="<?php echo htmlspecialchars($level['category']); ?>"
+                data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
+                data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>">
+                <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
 
-            <!-- Header -->
-            <div class="flex items-center gap-4 mb-6 relative z-10">
-                <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-inner flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
+                    <!-- Floating Icon Background -->
+                    <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
+                        <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-inner flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                            <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-text-default group-hover:text-primary transition-colors" id="<?php echo htmlspecialchars($level['id']); ?>">
+                            <?php echo htmlspecialchars($level['title']); ?>
+                        </h3>
+                    </div>
+
+                    <p class="text-text-secondary mb-8 flex-grow leading-relaxed relative z-10">
+                        <?php echo htmlspecialchars($level['description']); ?>
+                    </p>
+
+                    <a href="<?php echo htmlspecialchars($level['link']); ?>"
+                        class="relative z-10 w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border border-transparent hover:border-primary hover:text-primary hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 focus:ring-4 focus:ring-primary/40 focus:outline-none group-focus:ring-4 shadow-sm"
+                        aria-labelledby="<?php echo htmlspecialchars($level['id']); ?>">
+                        <span>Explore Skills</span>
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+
                 </div>
-
-                <h3 class="text-2xl font-bold text-text-default group-hover:text-primary transition-colors" id="<?php echo htmlspecialchars($level['id']); ?>">
-                  <?php echo htmlspecialchars($level['title']); ?>
-                </h3>
-            </div>
-            
-            <p class="text-text-secondary mb-8 flex-grow leading-relaxed relative z-10">
-              <?php echo htmlspecialchars($level['description']); ?>
-            </p>
-            
-            <a href="<?php echo htmlspecialchars($level['link']); ?>"
-              class="relative z-10 w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border border-transparent hover:border-primary hover:text-primary hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 focus:ring-4 focus:ring-primary/40 focus:outline-none group-focus:ring-4 shadow-sm"
-              aria-labelledby="<?php echo htmlspecialchars($level['id']); ?>">
-              <span>Explore Skills</span>
-              <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
-            </a>
-
-          </div>
-        </article>
-      <?php 
-        $delay += 0.05; // Increment delay for next card
-        endforeach; 
-      ?>
+            </article>
+        <?php
+            $delay += 0.05; // Increment delay for next card
+        endforeach;
+        ?>
     </section>
-    
+
     <!-- No Results Message -->
     <div id="no-results" class="hidden text-center py-20">
         <div class="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-gray-400">
@@ -263,117 +264,51 @@
         <button onclick="resetFilters()" type="button" class="mt-4 text-primary font-bold hover:underline">Clear Filters</button>
     </div>
 
-  </main>
+</main>
 
-  <!-- Community Voices / Testimonials -->
-  <section class="bg-content-bg py-20 border-y border-gray-200 dark:border-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center text-text-default mb-12">Community Voices</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Testimonial 1 -->
-            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
-                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
-                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"This platform has completely changed how my son approaches math. The accessibility features are a game changer."</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">S</div>
-                    <div>
-                        <div class="font-bold text-text-default">Sarah J.</div>
-                        <div class="text-xs text-text-secondary">Parent of 4th Grader</div>
-                    </div>
-                </div>
+<!-- FAQ Section (Accessible Accordion) -->
+<section class="container mx-auto px-4 py-20 max-w-4xl">
+    <h2 class="text-3xl font-bold text-center text-text-default mb-10">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                Is Hesten's Learning really free?
+                <span class="transition-transform group-open:rotate-180 text-primary">
+                    <i class="fas fa-chevron-down"></i>
+                </span>
+            </summary>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                Yes! Our mission is to provide accessible education to everyone. All core curriculum content from Pre-K to Grade 12 is completely free to access.
             </div>
-            <!-- Testimonial 2 -->
-            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
-                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
-                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"As a special education teacher, I need resources that adapt. Hesten's Learning does exactly that."</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">M</div>
-                    <div>
-                        <div class="font-bold text-text-default">Mark T.</div>
-                        <div class="text-xs text-text-secondary">Special Ed Teacher</div>
-                    </div>
-                </div>
+        </details>
+
+        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                Do I need an account to use the site?
+                <span class="transition-transform group-open:rotate-180 text-primary">
+                    <i class="fas fa-chevron-down"></i>
+                </span>
+            </summary>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                No account is required to access the learning materials. However, creating an optional account allows you to save progress and customize your accessibility settings permanently.
             </div>
-            <!-- Testimonial 3 -->
-            <div class="p-8 rounded-2xl bg-base-bg border border-gray-200 dark:border-gray-700 relative">
-                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
-                <p class="text-text-secondary mb-6 relative z-10 pt-6 italic">"I can finally read the lessons without getting a headache. The dark mode and fonts are awesome!"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">J</div>
-                    <div>
-                        <div class="font-bold text-text-default">Jamie</div>
-                        <div class="text-xs text-text-secondary">8th Grade Student</div>
-                    </div>
-                </div>
+        </details>
+
+        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
+            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
+                Can I use this on a tablet or phone?
+                <span class="transition-transform group-open:rotate-180 text-primary">
+                    <i class="fas fa-chevron-down"></i>
+                </span>
+            </summary>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
+                Absolutely. Our entire platform is fully responsive and optimized for mobile devices, tablets, and desktops.
             </div>
-        </div>
+        </details>
     </div>
-  </section>
+</section>
 
-  <!-- FAQ Section (Accessible Accordion) -->
-  <section class="container mx-auto px-4 py-20 max-w-4xl">
-      <h2 class="text-3xl font-bold text-center text-text-default mb-10">Frequently Asked Questions</h2>
-      <div class="space-y-4">
-          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                  Is Hesten's Learning really free?
-                  <span class="transition-transform group-open:rotate-180 text-primary">
-                      <i class="fas fa-chevron-down"></i>
-                  </span>
-              </summary>
-              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                  Yes! Our mission is to provide accessible education to everyone. All core curriculum content from Pre-K to Grade 12 is completely free to access.
-              </div>
-          </details>
-
-          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                  Do I need an account to use the site?
-                  <span class="transition-transform group-open:rotate-180 text-primary">
-                      <i class="fas fa-chevron-down"></i>
-                  </span>
-              </summary>
-              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                  No account is required to access the learning materials. However, creating an optional account allows you to save progress and customize your accessibility settings permanently.
-              </div>
-          </details>
-          
-          <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-              <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                  Can I use this on a tablet or phone?
-                  <span class="transition-transform group-open:rotate-180 text-primary">
-                      <i class="fas fa-chevron-down"></i>
-                  </span>
-              </summary>
-              <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                  Absolutely. Our entire platform is fully responsive and optimized for mobile devices, tablets, and desktops.
-              </div>
-          </details>
-      </div>
-  </section>
-
-  <!-- Newsletter / Updates CTA -->
-  <div class="container mx-auto px-4 mb-20">
-      <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
-          <div class="absolute inset-0 opacity-10 pattern-dots"></div> <!-- Decorative pattern placeholder -->
-          <div class="relative z-10 max-w-2xl mx-auto">
-              <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay in the Loop</h2>
-              <p class="text-blue-100 mb-8 text-lg">Join our community to get the latest updates on new curriculum, features, and accessibility tools.</p>
-              
-              <form class="flex flex-col sm:flex-row gap-4" onsubmit="event.preventDefault(); showMessageBox('Thanks for subscribing! We will keep you posted.', 'Subscription Successful');">
-                  <label for="newsletter-email" class="sr-only">Email Address</label>
-                  <input type="email" id="newsletter-email" placeholder="Enter your email address" required
-                         class="flex-grow px-6 py-4 rounded-full text-gray-900 focus:ring-4 focus:ring-white/50 border-none outline-none shadow-lg" />
-                  <button type="submit" class="bg-white text-primary font-bold px-8 py-4 rounded-full hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center gap-2">
-                      Subscribe <i class="fas fa-paper-plane"></i>
-                  </button>
-              </form>
-              <p class="text-xs text-blue-200 mt-4">We respect your privacy. Unsubscribe at any time.</p>
-          </div>
-      </div>
-  </div>
-
-  <script>
+<script>
     // State for filters
     let currentCategory = 'all';
     let currentSearch = '';
@@ -381,9 +316,9 @@
     // Attach Event Listeners properly
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById('level-search');
-        if(searchInput) {
+        if (searchInput) {
             // Using 'input' event catches pasting and 'x' clear clicks, unlike keyup
-            searchInput.addEventListener('input', applyFilters); 
+            searchInput.addEventListener('input', applyFilters);
         }
 
         // Initialize Stats Observer
@@ -405,10 +340,10 @@
                     const updateCounter = (currentTime) => {
                         const elapsed = currentTime - startTime;
                         const progress = Math.min(elapsed / duration, 1);
-                        
+
                         // Ease out function
                         const easeOut = 1 - Math.pow(1 - progress, 3);
-                        
+
                         const current = Math.floor(easeOut * target);
                         el.innerText = current;
 
@@ -423,7 +358,9 @@
                     observer.unobserve(el);
                 }
             });
-        }, { threshold: 0.5 });
+        }, {
+            threshold: 0.5
+        });
 
         stats.forEach(stat => observer.observe(stat));
     }
@@ -431,7 +368,7 @@
     // --- Filter Logic ---
     function setCategory(category) {
         currentCategory = category;
-        
+
         // Update Buttons Visual State
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
@@ -452,7 +389,7 @@
 
     function resetFilters() {
         const searchInput = document.getElementById('level-search');
-        if(searchInput) searchInput.value = '';
+        if (searchInput) searchInput.value = '';
         currentSearch = '';
         setCategory('all');
     }
@@ -460,7 +397,7 @@
     function applyFilters() {
         // Get search value
         const searchInput = document.getElementById('level-search');
-        if(searchInput) {
+        if (searchInput) {
             currentSearch = searchInput.value.toLowerCase().trim();
         }
 
@@ -474,14 +411,14 @@
 
             // Check Category Match
             const catMatch = (currentCategory === 'all' || cardCat === currentCategory);
-            
+
             // Check Search Match
             const searchMatch = (currentSearch === '' || cardTitle.includes(currentSearch) || cardDesc.includes(currentSearch));
 
             if (catMatch && searchMatch) {
                 // Use classList for hidden state instead of inline styles for cleaner CSS handling
                 card.classList.remove('hidden');
-                
+
                 // Trigger reflow for animation if needed, or just let CSS transition handle it
                 requestAnimationFrame(() => {
                     card.style.opacity = '1';
@@ -497,20 +434,20 @@
 
         // Update Results Count for Screen Reader
         const resultsMsg = document.getElementById('results-count');
-        if(resultsMsg) resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
+        if (resultsMsg) resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
 
         // Show/Hide "No Results" graphic
         const noResults = document.getElementById('no-results');
         const grid = document.getElementById('level-grid');
-        
+
         if (visibleCount === 0) {
-            if(noResults) noResults.classList.remove('hidden');
-            if(grid) grid.classList.add('hidden');
+            if (noResults) noResults.classList.remove('hidden');
+            if (grid) grid.classList.add('hidden');
         } else {
-            if(noResults) noResults.classList.add('hidden');
-            if(grid) grid.classList.remove('hidden');
+            if (noResults) noResults.classList.add('hidden');
+            if (grid) grid.classList.remove('hidden');
         }
     }
-  </script>
+</script>
 
 <?php include 'src/footer.php'; ?>

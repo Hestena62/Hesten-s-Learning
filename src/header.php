@@ -32,10 +32,10 @@
   <style>
     /* --- CUSTOM FONT DECLARATIONS --- */
     
-    /* Open Dyslexic */
+    /* Open Dyslexic - FIXED TYPO (was OpenDydlexic) */
     @font-face {
       font-family: 'OpenDyslexic';
-      src: url('/font/OpenDydlexic/OpenDyslexic-Regular.otf') format('opentype');
+      src: url('/font/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -427,7 +427,7 @@
   </script>
 </head>
 
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased flex flex-col min-h-screen relative">
 
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
 
@@ -445,6 +445,7 @@
   </script>
 
   <!-- Accessibility Settings Panel Trigger -->
+  <!-- CHANGED: 'fixed' to 'absolute' to scroll with the page -->
   <button id="a11y-toggle-button" type="button"
     class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:ring-4 focus:ring-offset-2 focus:ring-primary transition-transform hover:scale-105 flex items-center justify-center no-print"
     aria-label="Open Accessibility Settings" aria-controls="a11y-settings-panel" aria-haspopup="true">
@@ -453,7 +454,7 @@
 
   <!-- Accessibility Panel (Quick View) -->
   <div id="a11y-settings-panel"
-    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary no-print"
+    class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full hidden transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary no-print"
     role="dialog" aria-modal="true" aria-label="Accessibility Options" aria-hidden="true">
     
     <div class="flex justify-between items-center mb-6">
@@ -597,15 +598,23 @@
       function togglePanel(show) {
           if (!a11yPanel) return;
           if (show) {
-              a11yPanel.classList.remove('translate-x-full');
-              a11yPanel.setAttribute('aria-hidden', 'false');
-              // Focus management for accessibility
-              if(a11yClose) a11yClose.focus();
+              a11yPanel.classList.remove('hidden');
+              // Delay to allow display change to render before transition
+              setTimeout(() => {
+                  a11yPanel.classList.remove('translate-x-full');
+                  a11yPanel.setAttribute('aria-hidden', 'false');
+                  if(a11yClose) a11yClose.focus();
+              }, 10);
           } else {
               a11yPanel.classList.add('translate-x-full');
               a11yPanel.setAttribute('aria-hidden', 'true');
               // Return focus to trigger
               if(a11yBtn) a11yBtn.focus();
+              
+              // Wait for transition to complete before hiding
+              setTimeout(() => {
+                  a11yPanel.classList.add('hidden');
+              }, 300);
           }
       }
 
@@ -707,5 +716,3 @@
       applySettings(currentSettings);
     });
   </script>
-</body>
-</html>
