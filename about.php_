@@ -9,7 +9,7 @@
   
   // Welcome popup messages (from header.php)
   $welcomeMessage = "Welcome to the Guide!";
-  $welcomeParagraph = "Find out how to get started as a student, parent, or teacher.";
+  $welcomeParagraph = "Find out how to get started as a student, parent, or teacher. You can browse lessons without signing in.";
 
   // --- Include Header ---
   // This file contains the <head>, <body> tag, accessibility panel, and navigation bar.
@@ -23,7 +23,7 @@
 <main class="container mx-auto p-4 md:p-8 min-h-screen">
   
   <!-- Page Header -->
-  <header class="text-center mb-12">
+  <header class="text-center mb-6">
     <h1 class="text-3xl md:text-5xl font-bold text-primary mb-4 transition-colors duration-300">
       How to Use This Site
     </h1>
@@ -31,6 +31,11 @@
       Welcome! Whether you're a student ready to learn, a parent supporting your child, or a teacher managing a class, this guide will help you get started.
     </p>
   </header>
+
+  <!-- Notice: No Account Required -->
+  <div role="note" class="max-w-4xl mx-auto mb-8 p-4 rounded-lg bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100 border-l-4 border-yellow-400">
+    <strong>No account required:</strong> You can browse lessons and curriculum without signing in. Creating an account is optional — sign in only if you want to save progress, join classes, or access teacher-assigned content.
+  </div>
 
   <!-- 
     Tabbed Interface
@@ -75,7 +80,7 @@
         </h2>
         
         <div class="space-y-4 prose max-w-none text-text-default prose-headings:text-primary prose-a:text-link">
-          <p>Welcome, students! This platform is built to help you learn at your own pace. Here's how to get started:</p>
+          <p>Welcome, students! You can browse lessons and start many activities without creating an account. Creating an account is optional — sign in to save progress, join classes, and access teacher-assigned content.</p>
           
           <h3 class="text-xl font-semibold">1. Your Dashboard</h3>
           <p>After you log in, you'll land on your dashboard. This is your home base! From here, you can see your assigned courses, track your progress, and see any new announcements from your teacher.</p>
