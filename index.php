@@ -55,7 +55,7 @@ include 'src/header.php';
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#main-content"
-                    class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
+                    class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
                     <span class="relative z-10">Start Learning</span>
                     <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform relative z-10"></i>
@@ -69,14 +69,17 @@ include 'src/header.php';
 
         <!-- Quick Stats Bar -->
         <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
+            <!-- UPDATED: Connected to Real Progress Logic -->
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
                 <div class="text-3xl font-bold text-accent mb-1 flex justify-center items-center">
-                    <span class="stat-counter" data-target="100">0</span><span>%</span>
+                    <span id="user-progress-stat">0</span><span>%</span>
                 </div>
-                <div class="text-sm text-blue-100">Accessible</div>
+                <div class="text-sm text-blue-100">Your Progress</div>
             </div>
+
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1">K-12</div>
+                <!-- Dynamic Count from PHP array size -->
+                <div class="text-3xl font-bold text-accent mb-1"><?php echo count($learningLevels); ?></div>
                 <div class="text-sm text-blue-100">Grade Levels</div>
             </div>
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
@@ -216,13 +219,33 @@ include 'src/header.php';
                 style="animation-delay: <?php echo $delay; ?>s;"
                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
-                data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>">
+                data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>"
+                data-id="<?php echo htmlspecialchars($level['id']); ?>"> <!-- Added data-id for JS -->
+
                 <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
 
                     <!-- Floating Icon Background -->
                     <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
                         <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                     </div>
+
+                    <!-- NEW: TTS (Text-to-Speech) Toggle Button (Top Left) -->
+                    <button type="button"
+                        class="tts-toggle absolute top-4 left-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all z-20 focus:outline-none focus:ring-2 focus:ring-primary"
+                        onclick="toggleSpeech(this)"
+                        data-title="<?php echo htmlspecialchars($level['title']); ?>"
+                        data-desc="<?php echo htmlspecialchars($level['description']); ?>"
+                        aria-label="Read <?php echo htmlspecialchars($level['title']); ?> aloud">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+
+                    <!-- Completion Toggle Button (Top Right) -->
+                    <button type="button"
+                        class="completion-toggle absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-300 flex items-center justify-center hover:border-green-500 hover:text-green-500 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-green-400"
+                        onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
+                        aria-label="Mark <?php echo htmlspecialchars($level['title']); ?> as complete">
+                        <i class="fas fa-check"></i>
+                    </button>
 
                     <!-- Header -->
                     <div class="flex items-center gap-4 mb-6 relative z-10">
@@ -290,7 +313,7 @@ include 'src/header.php';
                 </span>
             </summary>
             <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                No account is required to access the learning materials. However, creating an optional account allows you to save progress and customize your accessibility settings permanently.
+                No account is required to access the learning materials.
             </div>
         </details>
 
@@ -313,6 +336,12 @@ include 'src/header.php';
     let currentCategory = 'all';
     let currentSearch = '';
 
+    // NEW: Progress State
+    let completedLevels = [];
+
+    // NEW: TTS State
+    let currentTTSBtn = null;
+
     // Attach Event Listeners properly
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById('level-search');
@@ -323,7 +352,142 @@ include 'src/header.php';
 
         // Initialize Stats Observer
         initStatsCounter();
+
+        // NEW: Load Progress
+        loadProgress();
     });
+
+    // --- NEW: TTS (Text-to-Speech) Logic ---
+    function toggleSpeech(btn) {
+        // Prevent event bubbling if necessary (though btn is absolute)
+        if (event) event.stopPropagation();
+
+        // 1. If this specific button is already speaking, stop it.
+        if (currentTTSBtn === btn && window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            resetTTSUI(btn);
+            currentTTSBtn = null;
+            return;
+        }
+
+        // 2. If speaking something else, stop it first.
+        window.speechSynthesis.cancel();
+        if (currentTTSBtn) {
+            resetTTSUI(currentTTSBtn);
+        }
+
+        // 3. Start speaking current card
+        const title = btn.getAttribute('data-title');
+        const desc = btn.getAttribute('data-desc');
+        const textToRead = `${title}. ${desc}`;
+
+        const utterance = new SpeechSynthesisUtterance(textToRead);
+
+        // Optional: Select voice preference? (Default usually fine)
+        // const voices = window.speechSynthesis.getVoices();
+
+        utterance.onend = function() {
+            resetTTSUI(btn);
+            currentTTSBtn = null;
+        };
+
+        utterance.onerror = function() {
+            resetTTSUI(btn);
+            currentTTSBtn = null;
+        }
+
+        // Update UI to Active State
+        btn.innerHTML = '<i class="fas fa-stop"></i>';
+        btn.classList.add('bg-primary', 'text-white', 'animate-pulse', 'border-primary');
+        btn.classList.remove('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
+
+        currentTTSBtn = btn;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function resetTTSUI(btn) {
+        if (!btn) return;
+        btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        btn.classList.remove('bg-primary', 'text-white', 'animate-pulse', 'border-primary');
+        btn.classList.add('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
+    }
+
+
+    // --- NEW: Progress Tracking Logic ---
+    function loadProgress() {
+        try {
+            const stored = localStorage.getItem('hl_completed_levels');
+            if (stored) {
+                completedLevels = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error("Could not load progress", e);
+        }
+
+        // Update UI
+        updateProgressUI();
+    }
+
+    function toggleCompletion(levelId, btnElement) {
+        // Prevent bubbling if button is inside a clickable card area
+        if (event) event.stopPropagation();
+
+        const index = completedLevels.indexOf(levelId);
+
+        if (index > -1) {
+            // Remove
+            completedLevels.splice(index, 1);
+        } else {
+            // Add
+            completedLevels.push(levelId);
+            // Trigger a nice confetti or sound effect here in the future!
+        }
+
+        saveProgress();
+        updateProgressUI();
+    }
+
+    function saveProgress() {
+        localStorage.setItem('hl_completed_levels', JSON.stringify(completedLevels));
+    }
+
+    function updateProgressUI() {
+        // 1. Update Card Styles
+        const buttons = document.querySelectorAll('.completion-toggle');
+        buttons.forEach(btn => {
+            // Find parent article to get ID
+            const card = btn.closest('.level-card');
+            const id = card.getAttribute('data-id');
+
+            if (completedLevels.includes(id)) {
+                // Completed State
+                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
+                btn.classList.remove('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
+                btn.setAttribute('aria-pressed', 'true');
+
+                // Optional: Add a visual indicator to the card itself
+                card.querySelector('.bg-content-bg').classList.add('ring-2', 'ring-green-400');
+            } else {
+                // Incomplete State
+                btn.classList.remove('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
+                btn.classList.add('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
+                btn.setAttribute('aria-pressed', 'false');
+
+                card.querySelector('.bg-content-bg').classList.remove('ring-2', 'ring-green-400');
+            }
+        });
+
+        // 2. Update Hero Stat
+        const totalLevels = document.querySelectorAll('.level-card').length; // Or use PHP count passed to JS
+        const completedCount = completedLevels.length;
+        const percentage = totalLevels > 0 ? Math.round((completedCount / totalLevels) * 100) : 0;
+
+        const statEl = document.getElementById('user-progress-stat');
+        if (statEl) {
+            // Simple counting animation for the stat
+            statEl.innerText = percentage;
+        }
+    }
 
     // --- Stats Counter Animation ---
     function initStatsCounter() {
