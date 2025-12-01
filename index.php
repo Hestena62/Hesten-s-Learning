@@ -6,14 +6,13 @@ $pageKeywords = "learning disabilities, personalized education, online learning,
 $pageAuthor = "Hesten's Learning";
 
 // --- Dynamic Content Array ---
-// NOTE: I've updated links to be more consistent where possible, but check if Level/B.html etc are correct.
 $learningLevels = [
-    ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/A.html', 'icon' => 'fas fa-shapes'],
+    ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/a.php', 'icon' => 'fas fa-shapes'],
     ['id' => 'kindergarten', 'category' => 'elem', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', 'link' => '/Level/B.html', 'icon' => 'fas fa-puzzle-piece'],
     ['id' => 'grade-1', 'category' => 'elem', 'title' => 'Grade 1', 'description' => 'Adding, subtracting, sentence formation. Developing independence.', 'link' => '/Level/C.html', 'icon' => 'fas fa-pencil-alt'],
-    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/D.html', 'icon' => 'fas fa-book-open'], // Changed link to D (assuming progression) or verify if it should be B?
+    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/D.html', 'icon' => 'fas fa-book-open'],
     ['id' => 'grade-3', 'category' => 'elem', 'title' => 'Grade 3', 'description' => 'Multiplication, division, reading comprehension. Critical thinking.', 'link' => '/Level/D.html', 'icon' => 'fas fa-calculator'],
-    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/E.html', 'icon' => 'fas fa-divide'], // Changed link to E (unique)
+    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/E.html', 'icon' => 'fas fa-divide'],
     ['id' => 'grade-5', 'category' => 'elem', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Preparing for middle school.', 'link' => '/Level/E.html', 'icon' => 'fas fa-atom'],
     ['id' => 'grade-6', 'category' => 'middle', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science. Transitioning to complex subjects.', 'link' => '/Level/F.html', 'icon' => 'fas fa-globe-americas'],
     ['id' => 'grade-7', 'category' => 'middle', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science. Middle school mastery.', 'link' => '/Level/G.html', 'icon' => 'fas fa-dna'],
@@ -28,15 +27,16 @@ $learningLevels = [
 include 'src/header.php';
 ?>
 
+<!-- Confetti Library for Gamification -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <!-- Hero Section with Glassmorphism -->
-<!-- Updated Padding: pt-16 pb-16 (was 24/32) and mb-12 (was 16) to reduce space -->
 <header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-16 pb-16 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-12">
     <!-- Decorative Animated Background Icons -->
     <div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl animate-pulse text-white/50"></i>
         <i class="fas fa-calculator absolute bottom-1/4 right-10 text-[10rem] text-white/30 rotate-12"></i>
         <i class="fas fa-book absolute top-20 right-1/3 text-7xl text-white/40 -rotate-12"></i>
-        <!-- Added wiggle animation for engagement -->
         <i class="fas fa-atom absolute bottom-10 left-1/4 text-8xl text-white/40 animate-wiggle" style="animation-duration: 4s;"></i>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
     </div>
@@ -78,7 +78,6 @@ include 'src/header.php';
             </div>
 
             <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <!-- Dynamic Count from PHP array size -->
                 <div class="text-3xl font-bold text-accent mb-1"><?php echo count($learningLevels); ?></div>
                 <div class="text-sm text-blue-100">Grade Levels</div>
             </div>
@@ -104,7 +103,6 @@ include 'src/header.php';
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
         <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
             <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-universal-access"></i>
@@ -112,7 +110,6 @@ include 'src/header.php';
             <h3 class="text-xl font-bold text-text-default mb-3 text-center">Accessibility First</h3>
             <p class="text-text-secondary leading-relaxed text-center">Built from the ground up with dyslexia-friendly fonts, reading guides, and high-contrast modes for all learners.</p>
         </article>
-        <!-- Feature 2 -->
         <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
             <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-2xl -rotate-3 group-hover:-rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-road"></i>
@@ -120,7 +117,6 @@ include 'src/header.php';
             <h3 class="text-xl font-bold text-text-default mb-3 text-center">Personalized Paths</h3>
             <p class="text-text-secondary leading-relaxed text-center">Learn at your own pace with curriculum tailored to specific grade level needs and individual abilities.</p>
         </article>
-        <!-- Feature 3 -->
         <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
             <div class="w-16 h-16 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 <i class="fas fa-check-circle"></i>
@@ -140,10 +136,8 @@ include 'src/header.php';
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <!-- Decorative Line for Desktop -->
             <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-300 dark:bg-gray-600 -z-10" aria-hidden="true"></div>
 
-            <!-- Step 1 -->
             <div class="text-center relative">
                 <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
                     <span class="text-3xl font-bold text-primary">1</span>
@@ -152,7 +146,6 @@ include 'src/header.php';
                 <p class="text-text-secondary text-sm px-4">Choose your current grade level from the options below.</p>
             </div>
 
-            <!-- Step 2 -->
             <div class="text-center relative">
                 <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
                     <span class="text-3xl font-bold text-primary">2</span>
@@ -161,7 +154,6 @@ include 'src/header.php';
                 <p class="text-text-secondary text-sm px-4">Pick a subject you want to practice or explore new skills.</p>
             </div>
 
-            <!-- Step 3 -->
             <div class="text-center relative">
                 <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
                     <span class="text-3xl font-bold text-primary">3</span>
@@ -176,6 +168,24 @@ include 'src/header.php';
 <!-- Learning Levels Grid -->
 <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
 
+    <!-- NEW: Continue Learning Banner (Dynamic) -->
+    <div id="resume-banner" class="hidden mb-10 bg-gradient-to-r from-primary to-secondary rounded-2xl p-6 shadow-lg text-white transform hover:scale-[1.01] transition-transform cursor-pointer animate-fade-in-up">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Welcome Back!</h3>
+                    <p class="text-blue-100">Ready to continue with <span id="next-level-name" class="font-bold text-white underline"></span>?</p>
+                </div>
+            </div>
+            <button class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-md">
+                Resume Learning
+            </button>
+        </div>
+    </div>
+
     <!-- Controls Bar -->
     <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10 sticky top-4 z-20 backdrop-blur-md bg-opacity-95">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -187,12 +197,19 @@ include 'src/header.php';
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
-                <!-- Search Input -->
+                <!-- Search Input with Clear Button -->
                 <div class="relative w-full sm:w-64">
-                    <label for="level-search" class="sr-only">Search grades or topics</label>
-                    <input type="text" id="level-search" placeholder="Search grades..."
-                        class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md"> <!-- oninput handled in script below -->
+                    <label for="level-search" class="sr-only">Search grades or topics (Press '/' to focus)</label>
+                    <input type="text" id="level-search" placeholder="Search grades... (/)"
+                        class="w-full pl-10 pr-10 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md">
                     <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+
+                    <!-- Clear Button -->
+                    <button id="clear-search" onclick="resetFilters()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none"
+                        aria-label="Clear search">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
                 </div>
 
                 <!-- Filter Buttons -->
@@ -212,7 +229,7 @@ include 'src/header.php';
 
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
         <?php
-        $delay = 0.1; // Staggered animation initial delay
+        $delay = 0.1;
         foreach ($learningLevels as $level):
         ?>
             <article class="level-card group h-full animate-fade-in-up"
@@ -220,7 +237,8 @@ include 'src/header.php';
                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
                 data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>"
-                data-id="<?php echo htmlspecialchars($level['id']); ?>"> <!-- Added data-id for JS -->
+                data-id="<?php echo htmlspecialchars($level['id']); ?>"
+                data-link="<?php echo htmlspecialchars($level['link']); ?>"> <!-- Added data-link for banner logic -->
 
                 <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
 
@@ -229,7 +247,7 @@ include 'src/header.php';
                         <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                     </div>
 
-                    <!-- NEW: TTS (Text-to-Speech) Toggle Button (Top Left) -->
+                    <!-- TTS Button -->
                     <button type="button"
                         class="tts-toggle absolute top-4 left-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all z-20 focus:outline-none focus:ring-2 focus:ring-primary"
                         onclick="toggleSpeech(this)"
@@ -239,7 +257,7 @@ include 'src/header.php';
                         <i class="fas fa-volume-up"></i>
                     </button>
 
-                    <!-- Completion Toggle Button (Top Right) -->
+                    <!-- Completion Toggle Button -->
                     <button type="button"
                         class="completion-toggle absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-300 flex items-center justify-center hover:border-green-500 hover:text-green-500 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-green-400"
                         onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
@@ -272,7 +290,7 @@ include 'src/header.php';
                 </div>
             </article>
         <?php
-            $delay += 0.05; // Increment delay for next card
+            $delay += 0.05;
         endforeach;
         ?>
     </section>
@@ -289,118 +307,95 @@ include 'src/header.php';
 
 </main>
 
-<!-- FAQ Section (Accessible Accordion) -->
 <section class="container mx-auto px-4 py-20 max-w-4xl">
     <h2 class="text-3xl font-bold text-center text-text-default mb-10">Frequently Asked Questions</h2>
     <div class="space-y-4">
         <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
             <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
                 Is Hesten's Learning really free?
-                <span class="transition-transform group-open:rotate-180 text-primary">
-                    <i class="fas fa-chevron-down"></i>
-                </span>
+                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
             </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                Yes! Our mission is to provide accessible education to everyone. All core curriculum content from Pre-K to Grade 12 is completely free to access.
-            </div>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">Yes! All core curriculum content from Pre-K to Grade 12, and beyond is completely free.</div>
         </details>
-
         <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
             <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                Do I need an account to use the site?
-                <span class="transition-transform group-open:rotate-180 text-primary">
-                    <i class="fas fa-chevron-down"></i>
-                </span>
+                Do I need an account?
+                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
             </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                No account is required to access the learning materials.
-            </div>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">No account is required. Your progress is saved locally in your browser to protect your privacy.</div>
         </details>
-
         <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
             <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                Can I use this on a tablet or phone?
-                <span class="transition-transform group-open:rotate-180 text-primary">
-                    <i class="fas fa-chevron-down"></i>
-                </span>
+                Does it work on tablets?
+                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
             </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">
-                Absolutely. Our entire platform is fully responsive and optimized for mobile devices, tablets, and desktops.
-            </div>
+            <div class="px-6 pb-6 text-text-secondary leading-relaxed">Absolutely. The platform is fully responsive for mobile, tablet, and desktop.</div>
         </details>
     </div>
 </section>
 
 <script>
-    // State for filters
+    // --- State ---
     let currentCategory = 'all';
     let currentSearch = '';
-
-    // NEW: Progress State
     let completedLevels = [];
-
-    // NEW: TTS State
     let currentTTSBtn = null;
 
-    // Attach Event Listeners properly
+    // Order of levels for "Next Level" logic
+    const levelOrder = [
+        <?php foreach ($learningLevels as $lvl) {
+            echo "'" . $lvl['id'] . "',";
+        } ?>
+    ];
+
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById('level-search');
         if (searchInput) {
-            // Using 'input' event catches pasting and 'x' clear clicks, unlike keyup
             searchInput.addEventListener('input', applyFilters);
         }
 
-        // Initialize Stats Observer
-        initStatsCounter();
+        // Shortcut: Press '/' to focus search
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
 
-        // NEW: Load Progress
+        initStatsCounter();
         loadProgress();
+        checkResumeLearning();
     });
 
-    // --- NEW: TTS (Text-to-Speech) Logic ---
+    // --- TTS Logic ---
     function toggleSpeech(btn) {
-        // Prevent event bubbling if necessary (though btn is absolute)
         if (event) event.stopPropagation();
-
-        // 1. If this specific button is already speaking, stop it.
         if (currentTTSBtn === btn && window.speechSynthesis.speaking) {
             window.speechSynthesis.cancel();
             resetTTSUI(btn);
             currentTTSBtn = null;
             return;
         }
-
-        // 2. If speaking something else, stop it first.
         window.speechSynthesis.cancel();
-        if (currentTTSBtn) {
-            resetTTSUI(currentTTSBtn);
-        }
+        if (currentTTSBtn) resetTTSUI(currentTTSBtn);
 
-        // 3. Start speaking current card
         const title = btn.getAttribute('data-title');
         const desc = btn.getAttribute('data-desc');
         const textToRead = `${title}. ${desc}`;
-
         const utterance = new SpeechSynthesisUtterance(textToRead);
 
-        // Optional: Select voice preference? (Default usually fine)
-        // const voices = window.speechSynthesis.getVoices();
-
-        utterance.onend = function() {
+        utterance.onend = () => {
+            resetTTSUI(btn);
+            currentTTSBtn = null;
+        };
+        utterance.onerror = () => {
             resetTTSUI(btn);
             currentTTSBtn = null;
         };
 
-        utterance.onerror = function() {
-            resetTTSUI(btn);
-            currentTTSBtn = null;
-        }
-
-        // Update UI to Active State
         btn.innerHTML = '<i class="fas fa-stop"></i>';
         btn.classList.add('bg-primary', 'text-white', 'animate-pulse', 'border-primary');
         btn.classList.remove('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
-
         currentTTSBtn = btn;
         window.speechSynthesis.speak(utterance);
     }
@@ -412,39 +407,35 @@ include 'src/header.php';
         btn.classList.add('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
     }
 
-
-    // --- NEW: Progress Tracking Logic ---
+    // --- Progress & Gamification Logic ---
     function loadProgress() {
         try {
             const stored = localStorage.getItem('hl_completed_levels');
-            if (stored) {
-                completedLevels = JSON.parse(stored);
-            }
-        } catch (e) {
-            console.error("Could not load progress", e);
-        }
-
-        // Update UI
+            if (stored) completedLevels = JSON.parse(stored);
+        } catch (e) {}
         updateProgressUI();
     }
 
     function toggleCompletion(levelId, btnElement) {
-        // Prevent bubbling if button is inside a clickable card area
         if (event) event.stopPropagation();
-
         const index = completedLevels.indexOf(levelId);
 
         if (index > -1) {
-            // Remove
             completedLevels.splice(index, 1);
         } else {
-            // Add
             completedLevels.push(levelId);
-            // Trigger a nice confetti or sound effect here in the future!
+            // TRIGGER CONFETTI
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: {
+                    y: 0.6
+                }
+            });
         }
-
         saveProgress();
         updateProgressUI();
+        checkResumeLearning();
     }
 
     function saveProgress() {
@@ -452,44 +443,67 @@ include 'src/header.php';
     }
 
     function updateProgressUI() {
-        // 1. Update Card Styles
         const buttons = document.querySelectorAll('.completion-toggle');
         buttons.forEach(btn => {
-            // Find parent article to get ID
             const card = btn.closest('.level-card');
             const id = card.getAttribute('data-id');
 
             if (completedLevels.includes(id)) {
-                // Completed State
                 btn.classList.add('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
                 btn.classList.remove('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
                 btn.setAttribute('aria-pressed', 'true');
-
-                // Optional: Add a visual indicator to the card itself
                 card.querySelector('.bg-content-bg').classList.add('ring-2', 'ring-green-400');
             } else {
-                // Incomplete State
                 btn.classList.remove('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
                 btn.classList.add('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
                 btn.setAttribute('aria-pressed', 'false');
-
                 card.querySelector('.bg-content-bg').classList.remove('ring-2', 'ring-green-400');
             }
         });
 
-        // 2. Update Hero Stat
-        const totalLevels = document.querySelectorAll('.level-card').length; // Or use PHP count passed to JS
-        const completedCount = completedLevels.length;
-        const percentage = totalLevels > 0 ? Math.round((completedCount / totalLevels) * 100) : 0;
-
+        const totalLevels = document.querySelectorAll('.level-card').length;
+        const percentage = totalLevels > 0 ? Math.round((completedLevels.length / totalLevels) * 100) : 0;
         const statEl = document.getElementById('user-progress-stat');
-        if (statEl) {
-            // Simple counting animation for the stat
-            statEl.innerText = percentage;
+        if (statEl) statEl.innerText = percentage;
+    }
+
+    // --- "Smart" Banner Logic ---
+    function checkResumeLearning() {
+        const banner = document.getElementById('resume-banner');
+        if (completedLevels.length === 0) {
+            banner.classList.add('hidden');
+            return;
+        }
+
+        // Find the first level that is NOT complete
+        let nextLevelId = null;
+        for (let i = 0; i < levelOrder.length; i++) {
+            if (!completedLevels.includes(levelOrder[i])) {
+                nextLevelId = levelOrder[i];
+                break;
+            }
+        }
+
+        if (nextLevelId) {
+            // Find data for this level from the DOM
+            const card = document.querySelector(`.level-card[data-id="${nextLevelId}"]`);
+            if (card) {
+                const title = card.getAttribute('data-title');
+                const link = card.getAttribute('data-link');
+
+                document.getElementById('next-level-name').textContent = title.charAt(0).toUpperCase() + title.slice(1);
+                banner.querySelector('button').onclick = () => window.location.href = link;
+                banner.onclick = () => window.location.href = link;
+                banner.classList.remove('hidden');
+            }
+        } else {
+            // All levels done!
+            banner.innerHTML = '<div class="text-center w-full"><h3 class="text-xl font-bold">🎉 Incredible! You completed everything! 🎉</h3></div>';
+            banner.classList.remove('hidden');
         }
     }
 
-    // --- Stats Counter Animation ---
+    // --- Stats Counter ---
     function initStatsCounter() {
         const stats = document.querySelectorAll('.stat-counter');
         const observer = new IntersectionObserver((entries) => {
@@ -497,27 +511,18 @@ include 'src/header.php';
                 if (entry.isIntersecting) {
                     const el = entry.target;
                     const target = parseInt(el.getAttribute('data-target'));
-                    const duration = 2000; // ms
-                    const start = 0;
+                    let start = 0;
+                    const duration = 2000;
                     const startTime = performance.now();
 
                     const updateCounter = (currentTime) => {
                         const elapsed = currentTime - startTime;
                         const progress = Math.min(elapsed / duration, 1);
-
-                        // Ease out function
                         const easeOut = 1 - Math.pow(1 - progress, 3);
-
-                        const current = Math.floor(easeOut * target);
-                        el.innerText = current;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            el.innerText = target;
-                        }
+                        el.innerText = Math.floor(easeOut * target);
+                        if (progress < 1) requestAnimationFrame(updateCounter);
+                        else el.innerText = target;
                     };
-
                     requestAnimationFrame(updateCounter);
                     observer.unobserve(el);
                 }
@@ -525,15 +530,12 @@ include 'src/header.php';
         }, {
             threshold: 0.5
         });
-
         stats.forEach(stat => observer.observe(stat));
     }
 
-    // --- Filter Logic ---
+    // --- Filters ---
     function setCategory(category) {
         currentCategory = category;
-
-        // Update Buttons Visual State
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
             const isMatch = btn.dataset.filter === category;
@@ -547,7 +549,6 @@ include 'src/header.php';
                 btn.setAttribute('aria-pressed', 'false');
             }
         });
-
         applyFilters();
     }
 
@@ -559,11 +560,13 @@ include 'src/header.php';
     }
 
     function applyFilters() {
-        // Get search value
         const searchInput = document.getElementById('level-search');
-        if (searchInput) {
-            currentSearch = searchInput.value.toLowerCase().trim();
-        }
+        if (searchInput) currentSearch = searchInput.value.toLowerCase().trim();
+
+        // Show/Hide Clear Button
+        const clearBtn = document.getElementById('clear-search');
+        if (currentSearch.length > 0) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
 
         const cards = document.querySelectorAll('.level-card');
         let visibleCount = 0;
@@ -572,18 +575,11 @@ include 'src/header.php';
             const cardCat = card.dataset.category;
             const cardTitle = card.dataset.title || '';
             const cardDesc = card.dataset.desc || '';
-
-            // Check Category Match
             const catMatch = (currentCategory === 'all' || cardCat === currentCategory);
-
-            // Check Search Match
             const searchMatch = (currentSearch === '' || cardTitle.includes(currentSearch) || cardDesc.includes(currentSearch));
 
             if (catMatch && searchMatch) {
-                // Use classList for hidden state instead of inline styles for cleaner CSS handling
                 card.classList.remove('hidden');
-
-                // Trigger reflow for animation if needed, or just let CSS transition handle it
                 requestAnimationFrame(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
@@ -596,11 +592,9 @@ include 'src/header.php';
             }
         });
 
-        // Update Results Count for Screen Reader
         const resultsMsg = document.getElementById('results-count');
         if (resultsMsg) resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
 
-        // Show/Hide "No Results" graphic
         const noResults = document.getElementById('no-results');
         const grid = document.getElementById('level-grid');
 

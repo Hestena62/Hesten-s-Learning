@@ -10,7 +10,6 @@ include '../src/header.php';
 ?>
 
 <!-- Level A Specific Sub-Nav (Sticky Tabs) -->
-<!-- Uses z-40 to stay below header but above content -->
 <div class="sticky top-0 z-30 bg-base-bg/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
     <div class="container mx-auto px-4">
         <div class="flex overflow-x-auto py-3 gap-2 no-scrollbar" role="tablist" aria-label="Subject navigation tabs">
@@ -81,6 +80,11 @@ include '../src/header.php';
             <!-- Topic Card A -->
             <article class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow relative">
+                    <!-- Progress Bar for this Card -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%" id="progress-topic-a"></div>
+                    </div>
+
                     <!-- TTS Button -->
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
@@ -96,18 +100,31 @@ include '../src/header.php';
                         Learn to identify identical objects and match things that go together.
                     </p>
 
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 1:</strong> Identify identical objects.</span>
+                    <!-- Interactive Lesson List -->
+                    <ul class="space-y-3 mb-6 lesson-list">
+                        <li>
+                            <button onclick="toggleLesson('topic-a-1', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 1:</strong> Identify identical objects.</span>
+                            </button>
                         </li>
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 2–3:</strong> Match 2 objects that are the same.</span>
+                        <li>
+                            <button onclick="toggleLesson('topic-a-2', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 2–3:</strong> Match 2 objects that are the same.</span>
+                            </button>
                         </li>
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 4:</strong> Match 2 objects that are used together.</span>
+                        <li>
+                            <button onclick="toggleLesson('topic-a-3', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 4:</strong> Match 2 objects that are used together.</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -134,6 +151,11 @@ include '../src/header.php';
             <!-- Topic Card B -->
             <article class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow relative">
+                    <!-- Progress Bar for this Card -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%" id="progress-topic-b"></div>
+                    </div>
+
                     <!-- TTS Button -->
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
@@ -149,18 +171,30 @@ include '../src/header.php';
                         Understand attributes and how to sort items into groups.
                     </p>
 
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 5:</strong> Make one group with a given attribute.</span>
+                    <ul class="space-y-3 mb-6 lesson-list">
+                        <li>
+                            <button onclick="toggleLesson('topic-b-1', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 5:</strong> Make one group with a given attribute.</span>
+                            </button>
                         </li>
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 6:</strong> Sort into two groups.</span>
+                        <li>
+                            <button onclick="toggleLesson('topic-b-2', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 6:</strong> Sort into two groups.</span>
+                            </button>
                         </li>
-                        <li class="flex items-start gap-3 text-sm text-text-default">
-                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                            <span><strong>Lesson 7:</strong> Sort the same group in two ways.</span>
+                        <li>
+                            <button onclick="toggleLesson('topic-b-3', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 7:</strong> Sort the same group in two ways.</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -222,6 +256,9 @@ include '../src/header.php';
 
 </main>
 
+<!-- Confetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <!-- PAGE SPECIFIC SCRIPTS -->
 <script>
     // Tab Switching Logic
@@ -233,14 +270,14 @@ include '../src/header.php';
         // 2. Deactivate all buttons
         const buttons = document.querySelectorAll('.tab-button');
         buttons.forEach(btn => {
-            btn.classList.remove('active', 'bg-gray-200', 'dark:bg-gray-700'); // Clean cleanup
+            btn.classList.remove('active', 'bg-gray-200', 'dark:bg-gray-700');
             btn.setAttribute('aria-selected', 'false');
 
-            // Remove specific color classes (Reset to default secondary text)
+            // Reset to default secondary text
             btn.classList.add('text-text-secondary');
             btn.classList.remove('text-white', 'shadow-md');
 
-            // Remove specific bg colors based on ID
+            // Remove specific bg colors
             btn.classList.remove('bg-primary', 'bg-pink-600', 'bg-green-600', 'bg-orange-500');
         });
 
@@ -264,8 +301,97 @@ include '../src/header.php';
         }
     }
 
-    // AI Placeholder Logic (Simulated for Demo)
-    // NOTE: In a real app, this would call your backend which calls Gemini
+    // --- Granular Lesson Tracking Logic ---
+    let completedLessons = [];
+
+    document.addEventListener("DOMContentLoaded", function() {
+        loadLessonProgress();
+
+        // Initialize UI
+        document.querySelectorAll('.lesson-btn').forEach(btn => {
+            const id = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+            updateLessonBtnUI(btn, completedLessons.includes(id));
+        });
+        updateTopicProgress('topic-a');
+        updateTopicProgress('topic-b');
+    });
+
+    function loadLessonProgress() {
+        try {
+            const stored = localStorage.getItem('hl_completed_lessons_granular');
+            if (stored) completedLessons = JSON.parse(stored);
+        } catch (e) {}
+    }
+
+    function toggleLesson(lessonId, btn) {
+        const index = completedLessons.indexOf(lessonId);
+        let isComplete = false;
+
+        if (index > -1) {
+            completedLessons.splice(index, 1);
+            isComplete = false;
+        } else {
+            completedLessons.push(lessonId);
+            isComplete = true;
+            // Small burst of confetti for lesson completion
+            confetti({
+                particleCount: 30,
+                spread: 50,
+                origin: {
+                    y: 0.8
+                },
+                colors: ['#22c55e', '#ffffff'] // Green and white
+            });
+        }
+
+        localStorage.setItem('hl_completed_lessons_granular', JSON.stringify(completedLessons));
+        updateLessonBtnUI(btn, isComplete);
+
+        // Update bar
+        const topicId = lessonId.split('-').slice(0, 2).join('-'); // topic-a
+        updateTopicProgress(topicId);
+    }
+
+    function updateLessonBtnUI(btn, isComplete) {
+        const checkIcon = btn.querySelector('.check-icon');
+        const textSpan = btn.querySelector('span');
+
+        if (isComplete) {
+            btn.setAttribute('aria-pressed', 'true');
+            checkIcon.classList.remove('text-transparent', 'border-gray-300', 'dark:border-gray-500');
+            checkIcon.classList.add('bg-green-500', 'border-green-500', 'text-white');
+            textSpan.classList.add('line-through', 'text-text-secondary', 'opacity-60');
+            textSpan.classList.remove('text-text-default');
+        } else {
+            btn.setAttribute('aria-pressed', 'false');
+            checkIcon.classList.add('text-transparent', 'border-gray-300', 'dark:border-gray-500');
+            checkIcon.classList.remove('bg-green-500', 'border-green-500', 'text-white');
+            textSpan.classList.remove('line-through', 'text-text-secondary', 'opacity-60');
+            textSpan.classList.add('text-text-default');
+        }
+    }
+
+    function updateTopicProgress(topicPrefix) {
+        // Count how many buttons in this topic (by checking onclick string)
+        const topicBtns = Array.from(document.querySelectorAll('.lesson-btn')).filter(b =>
+            b.getAttribute('onclick').includes(topicPrefix)
+        );
+        const total = topicBtns.length;
+        if (total === 0) return;
+
+        const completed = topicBtns.filter(b => {
+            const id = b.getAttribute('onclick').match(/'([^']+)'/)[1];
+            return completedLessons.includes(id);
+        }).length;
+
+        const pct = Math.round((completed / total) * 100);
+
+        // Find progress bar
+        const bar = document.getElementById(`progress-${topicPrefix}`);
+        if (bar) bar.style.width = `${pct}%`;
+    }
+
+    // AI Placeholder Logic
     document.addEventListener("DOMContentLoaded", function() {
         const aiButtons = document.querySelectorAll('.explain-button, .activity-button, .story-button');
 
@@ -276,14 +402,10 @@ include '../src/header.php';
                 const type = this.classList.contains('explain-button') ? 'Explanation' :
                     this.classList.contains('activity-button') ? 'Activity' : 'Story';
 
-                // Reset UI
                 outputDiv.classList.remove('hidden');
                 outputDiv.innerHTML = `<div class="flex items-center gap-2"><div class="loader"></div> Generating ${type}...</div>`;
-
-                // Simulate delay
                 await new Promise(r => setTimeout(r, 1000));
 
-                // Simulated Response
                 outputDiv.innerHTML = `
                     <div class="flex justify-between items-start mb-2">
                         <strong class="text-primary">${type}: ${topic}</strong>
@@ -295,7 +417,6 @@ include '../src/header.php';
         });
     });
 
-    // Simple Loader CSS for the script above (in case global CSS doesn't have it)
     const style = document.createElement('style');
     style.innerHTML = `
         .loader {
@@ -307,7 +428,6 @@ include '../src/header.php';
             display: inline-block;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Hide scrollbar for tab container */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     `;

@@ -584,8 +584,19 @@
         </div>
       </div>
 
+      <a href="/settings.php" id="more-settings-link"
+        class="w-full block py-2 rounded-lg mt-4 transition-colors duration-200 focus:outline-none"
+        aria-label="More accessibility settings"
+        style="background-color: var(--color-content-bg); color: var(--color-text-default); border: 1px solid var(--color-card-bg);"
+        onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--color-base-bg') || this.style.backgroundColor;"
+        onmouseout="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--color-content-bg') || this.style.backgroundColor;"
+        onfocus="this.style.boxShadow='0 0 0 4px rgba(0,0,0,0.08)';"
+        onblur="this.style.boxShadow='none';">
+        More Settings
+      </a>
+
       <button id="reset-a11y-settings"
-        class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg mt-4 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        class="w-full bg-red-600 text-white py-2 rounded-lg mt-2 hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500">
         Reset All Settings
       </button>
     </div>
