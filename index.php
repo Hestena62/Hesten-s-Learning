@@ -28,7 +28,7 @@ include 'src/header.php';
 ?>
 
 <!-- Confetti Library for Gamification -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="/src/canvas-confetti-1.9.4/package/dist/confetti.browser.js"></script>
 
 <!-- Hero Section with Glassmorphism -->
 <header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-16 pb-16 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-12">

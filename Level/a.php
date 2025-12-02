@@ -128,24 +128,6 @@ include '../src/header.php';
                         </li>
                     </ul>
                 </div>
-
-                <!-- AI Interaction Footer -->
-                <div class="bg-base-bg p-4 border-t border-gray-100 dark:border-gray-700 grid grid-cols-3 gap-2">
-                    <button class="explain-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-primary text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="Matching Identical Objects for Pre-K">
-                        <i class="fas fa-lightbulb mr-1"></i> Explain
-                    </button>
-                    <button class="activity-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="Matching Objects Activity">
-                        <i class="fas fa-gamepad mr-1"></i> Activity
-                    </button>
-                    <button class="story-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-orange-500 text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="A story about finding matching socks">
-                        <i class="fas fa-book-open mr-1"></i> Story
-                    </button>
-                </div>
-                <!-- AI Output Area -->
-                <div class="ai-output hidden bg-yellow-50 dark:bg-gray-900 p-4 text-sm text-text-default border-t border-yellow-200 dark:border-gray-700 animate-fade-in-up"></div>
             </article>
 
             <!-- Topic Card B -->
@@ -199,23 +181,6 @@ include '../src/header.php';
                     </ul>
                 </div>
 
-                <!-- AI Interaction Footer -->
-                <div class="bg-base-bg p-4 border-t border-gray-100 dark:border-gray-700 grid grid-cols-3 gap-2">
-                    <button class="explain-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-primary text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="Sorting by color and shape for Pre-K">
-                        <i class="fas fa-lightbulb mr-1"></i> Explain
-                    </button>
-                    <button class="activity-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="Sorting toys activity">
-                        <i class="fas fa-gamepad mr-1"></i> Activity
-                    </button>
-                    <button class="story-button py-2 px-2 rounded-lg bg-white dark:bg-gray-800 text-orange-500 text-xs font-bold shadow-sm hover:shadow hover:-translate-y-0.5 transition-all border border-gray-200 dark:border-gray-600"
-                        data-topic="The bear who sorted his berries">
-                        <i class="fas fa-book-open mr-1"></i> Story
-                    </button>
-                </div>
-                <!-- AI Output Area -->
-                <div class="ai-output hidden bg-yellow-50 dark:bg-gray-900 p-4 text-sm text-text-default border-t border-yellow-200 dark:border-gray-700 animate-fade-in-up"></div>
             </article>
 
         </div>
