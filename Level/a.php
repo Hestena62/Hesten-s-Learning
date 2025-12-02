@@ -180,7 +180,6 @@ include '../src/header.php';
                         </li>
                     </ul>
                 </div>
-
             </article>
 
         </div>

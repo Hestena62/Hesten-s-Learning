@@ -22,8 +22,11 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- File linking all the needed libraries -->
+   <script src="/src/all-lib.php"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 
   <!-- Google Fonts: Lexend (Reading), Comic Neue (Dyslexia alternative), Merriweather (Serif) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
