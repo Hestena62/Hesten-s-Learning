@@ -360,7 +360,7 @@
                         <a href="/learning.php" class="<?php echo navClass('learning.php', $current_page); ?>">
                             <i class="fas fa-book mr-1"></i> Learning
                         </a>
-                        <a href="/assessment.html" class="<?php echo navClass('assessment.html', $current_page); ?>">
+                        <a href="/assessment.php" class="<?php echo navClass('assessment.php', $current_page); ?>">
                             <i class="fas fa-tasks mr-1"></i> Assessment
                         </a>
                     </div>
