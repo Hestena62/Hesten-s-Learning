@@ -4,6 +4,22 @@
   include 'src/header.php';
 ?>
 
+<div id="dev-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-content-bg rounded-2xl shadow-2xl p-8 max-w-md mx-4 border border-gray-200 dark:border-gray-700">
+        <div class="text-center">
+            <i class="fas fa-tools text-5xl text-yellow-500 mb-4 block"></i>
+            <h2 class="text-2xl font-bold text-text-default mb-3">Page Under Development</h2>
+            <p class="text-text-secondary mb-6 leading-relaxed">
+                This page is still in development. Some features may not work as expected. Please report any issues you encounter.
+            </p>
+            <button onclick="document.getElementById('dev-modal').remove()" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-xl transition-colors w-full">
+                Got it, let's continue
+            </button>
+        </div>
+    </div>
+</div>
+
+
 <main id="main-content" class="container mx-auto px-4 py-12 mb-12">
     
     <header class="mb-10 text-center md:text-left">

@@ -102,7 +102,7 @@ $currentYear = date("Y");
                 class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/settings.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
           </li>
