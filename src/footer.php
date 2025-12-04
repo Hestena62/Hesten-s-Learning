@@ -19,7 +19,7 @@ $currentYear = date("Y");
       <p class="text-sm opacity-90">
         Empowering students with learning disabilities through personalized
         learning experiences.
-        <a href="/about.html"
+        <a href="/mission.php"
           class="text-accent underline hover:text-white ml-1 focus:outline-none focus:ring-2 focus:ring-white">Learn
           more</a>
       </p>
@@ -42,12 +42,12 @@ $currentYear = date("Y");
                 class="fas fa-flask mr-2" aria-hidden="true"></i>Research</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/standard.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-chart-line mr-2" aria-hidden="true"></i>Standards</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/help-center.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-question-circle mr-2" aria-hidden="true"></i>Help Center</a>
           </li>
@@ -62,7 +62,7 @@ $currentYear = date("Y");
       <nav aria-labelledby="support-heading">
         <ul class="space-y-2">
           <li>
-            <a href="/contact.html"
+            <a href="/contact.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-envelope mr-2" aria-hidden="true"></i>Contact Us</a>
           </li>
@@ -92,12 +92,12 @@ $currentYear = date("Y");
       <nav aria-labelledby="legal-heading">
         <ul class="space-y-2">
           <li>
-            <a href="#"
+            <a href="/privacy.html"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/terms.html"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
           </li>
@@ -107,7 +107,7 @@ $currentYear = date("Y");
                 class="fas fa-universal-access mr-2" aria-hidden="true"></i>Accessibility</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/about-us.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-info-circle mr-2" aria-hidden="true"></i>About Us</a>
           </li>
