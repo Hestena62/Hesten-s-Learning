@@ -6,10 +6,19 @@
 // Define variables that are only used in the footer
 $currentYear = date("Y");
 ?>
+
+<!-- Scroll to Top Button -->
+<!-- Placed at bottom-24 to sit above the Accessibility Toggle (which is at bottom-6) -->
+<button id="scroll-to-top"
+  class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-primary text-white rounded-full shadow-xl hover:bg-secondary hover:scale-110 focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform translate-y-20 opacity-0 flex items-center justify-center print:hidden"
+  aria-label="Scroll to top of page">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 <!-- Footer -->
 <!-- Gradient is now controlled by theme variables -->
 <footer
-  class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-10 px-4 rounded-t-xl shadow-lg transition-colors duration-300">
+  class="bg-gradient-to-r from-footer-bg-from to-footer-bg-to text-white py-10 px-4 rounded-t-xl shadow-lg transition-colors duration-300 mt-auto">
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
     <!-- About -->
     <div>
@@ -72,12 +81,12 @@ $currentYear = date("Y");
                 class="fas fa-home mr-2" aria-hidden="true"></i>For Students</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/parents.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-users mr-2" aria-hidden="true"></i>For Parents</a>
           </li>
           <li>
-            <a href="#"
+            <a href="/teachers.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>For Teachers</a>
           </li>
@@ -92,12 +101,12 @@ $currentYear = date("Y");
       <nav aria-labelledby="legal-heading">
         <ul class="space-y-2">
           <li>
-            <a href="/privacy.html"
+            <a href="/privacy-policy.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-shield-alt mr-2" aria-hidden="true"></i>Privacy Policy</a>
           </li>
           <li>
-            <a href="/terms.html"
+            <a href="/terms-of-use.php"
               class="hover:underline hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-white rounded"><i
                 class="fas fa-file-contract mr-2" aria-hidden="true"></i>Terms of Use</a>
           </li>
@@ -117,7 +126,7 @@ $currentYear = date("Y");
   </div>
   <div class="mt-10 border-t border-accent pt-6 text-center text-sm opacity-90">
     <p>
-      &copy; <span id="year"><?php echo $currentYear; ?></span> <?php echo $pageTitle; ?>. All rights reserved.
+      &copy; <span id="year"><?php echo $currentYear; ?></span> <?php echo isset($pageTitle) ? $pageTitle : "Hesten's Learning"; ?>. All rights reserved.
       <span class="mx-2" aria-hidden="true">|</span>
       Made with <i class="fas fa-heart text-red-400" aria-label="love"></i> for education
     </p>
@@ -126,7 +135,7 @@ $currentYear = date("Y");
         class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten's
         Learning</a>
       by
-      <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="http://hestena62.com/about-me.html"
+      <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="/about-me.php"
         class="text-accent underline hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded">Hesten
         Allison</a>
       is licensed under
@@ -164,14 +173,10 @@ $currentYear = date("Y");
 
 </footer>
 
-<!-- REPLACED MODALS with new theme-aware and focus-trapping versions -->
-
-<!-- Message Box Modal -->
-<div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
+<!-- Global Modals (Message & Confirmation) -->
+<div id="message-box" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden items-center justify-center z-[100]"
   role="alertdialog" aria-modal="true" aria-labelledby="message-title">
-  <!-- bg-content-bg makes this theme-aware -->
-  <div
-    class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
+  <div class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300 border border-gray-200 dark:border-gray-700">
     <h4 id="message-title" class="text-xl font-bold mb-4 text-primary">Notification</h4>
     <p id="message-text" class="mb-6 text-text-default">This is a general message.</p>
     <button id="message-ok-button"
@@ -181,12 +186,9 @@ $currentYear = date("Y");
   </div>
 </div>
 
-<!-- Confirmation Modal -->
-<div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-[100]"
+<div id="confirmation-modal" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden items-center justify-center z-[100]"
   role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
-  <!-- bg-content-bg makes this theme-aware -->
-  <div
-    class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300">
+  <div class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center transform scale-100 transition-transform duration-300 border border-gray-200 dark:border-gray-700">
     <h4 id="confirmation-title" class="text-xl font-bold mb-4 text-red-500">Confirm Action</h4>
     <p id="confirmation-text" class="mb-6 text-text-default">Are you sure you want to proceed?</p>
     <div class="flex justify-center space-x-4">
@@ -202,9 +204,28 @@ $currentYear = date("Y");
   </div>
 </div>
 
-<!-- REPLACED SCRIPT with new comprehensive script -->
 <script>
-  // --- GLOBAL MODAL FUNCTIONS (New versions with focus trap) ---
+  // --- SCROLL TO TOP LOGIC ---
+  const scrollTopBtn = document.getElementById("scroll-to-top");
+  if (scrollTopBtn) {
+    window.addEventListener("scroll", () => {
+      // Show button after scrolling down 300px
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.remove("translate-y-20", "opacity-0");
+      } else {
+        scrollTopBtn.classList.add("translate-y-20", "opacity-0");
+      }
+    });
+
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+
+  // --- GLOBAL MODAL FUNCTIONS ---
   const messageBox = document.getElementById("message-box");
   const messageText = document.getElementById("message-text");
   const messageOkButton = document.getElementById("message-ok-button");
@@ -213,11 +234,8 @@ $currentYear = date("Y");
   const confirmYesButton = document.getElementById("confirm-yes-button");
   const confirmNoButton = document.getElementById("confirm-no-button");
 
-  // Helper to manage focus for accessibility when modals are open
   let lastFocusedElement = null;
 
-  // A11Y: Function to handle focus trap in modals
-  // [FIX] Updated function to properly add/remove its event listener
   function trapFocus(modalElement) {
     const focusableElements = modalElement.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -227,12 +245,8 @@ $currentYear = date("Y");
     const firstFocusableElement = focusableElements[0];
     const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-    // [FIX] Define a named handler to add/remove
     const handleFocusTrap = function(e) {
-      if (e.key !== 'Tab') {
-        return;
-      }
-
+      if (e.key !== 'Tab') return;
       if (e.shiftKey) { // Shift + Tab
         if (document.activeElement === firstFocusableElement) {
           lastFocusableElement.focus();
@@ -246,15 +260,11 @@ $currentYear = date("Y");
       }
     };
 
-    // [FIX] Store the handler on the element so we can remove it later
     modalElement._handleFocusTrap = handleFocusTrap;
     modalElement.addEventListener('keydown', modalElement._handleFocusTrap);
-
-    // Focus the first element
     firstFocusableElement.focus();
   }
 
-  // [FIX] Helper to remove the focus trap listener
   function removeTrapFocus(modalElement) {
     if (modalElement && modalElement._handleFocusTrap) {
       modalElement.removeEventListener('keydown', modalElement._handleFocusTrap);
@@ -262,56 +272,54 @@ $currentYear = date("Y");
     }
   }
 
-
-  function showMessageBox(message) {
+  window.showMessageBox = function(message) {
     if (!messageBox || !messageText || !messageOkButton) return;
-
-    lastFocusedElement = document.activeElement; // Store focus
+    lastFocusedElement = document.activeElement;
     messageText.textContent = message;
     messageBox.classList.remove("hidden");
     messageBox.style.display = 'flex';
-
-    // A11Y: Focus the OK button and trap focus
     trapFocus(messageBox);
 
     messageOkButton.onclick = () => {
       messageBox.classList.add("hidden");
       messageBox.style.display = 'none';
-      removeTrapFocus(messageBox); // [FIX] Remove listener
-      if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
+      removeTrapFocus(messageBox);
+      if (lastFocusedElement) lastFocusedElement.focus();
     };
   }
 
-  function showConfirmationModal(message, onConfirm) {
-    if (!confirmationModal || !confirmationText || !confirmYesButton || !confirmNoButton) return;
-
-    lastFocusedElement = document.activeElement; // Store focus
+  window.showConfirmationModal = function(message, onConfirm) {
+    if (!confirmationModal) return;
+    lastFocusedElement = document.activeElement;
     confirmationText.textContent = message;
     confirmationModal.classList.remove("hidden");
     confirmationModal.style.display = 'flex';
-
-    // A11Y: Focus the "No" button by default and trap focus
     trapFocus(confirmationModal);
+    
+    // Focus NO button by default for safety
     if (confirmNoButton) confirmNoButton.focus();
 
-    const handleConfirmation = (result) => {
+    const closeConfirm = () => {
       confirmationModal.classList.add("hidden");
       confirmationModal.style.display = 'none';
-      removeTrapFocus(confirmationModal); // [FIX] Remove listener
-      if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
-      onConfirm(result);
+      removeTrapFocus(confirmationModal);
+      if (lastFocusedElement) lastFocusedElement.focus();
     };
 
-    confirmYesButton.onclick = () => handleConfirmation(true);
-    confirmNoButton.onclick = () => handleConfirmation(false);
+    confirmYesButton.onclick = () => {
+      closeConfirm();
+      onConfirm(true);
+    };
+    confirmNoButton.onclick = () => {
+      closeConfirm();
+      onConfirm(false);
+    };
   }
 
-  // --- UI Interactions (Navigation, Dropdown, Announcement) ---
-
-  // Mobile Navigation Toggle
+  // --- UI Interactions ---
+  // Mobile Nav
   const navToggle = document.getElementById("nav-toggle");
   const navContent = document.getElementById("nav-content");
-
   if (navToggle && navContent) {
     navToggle.addEventListener("click", function() {
       const isHidden = navContent.classList.toggle("hidden");
@@ -320,230 +328,144 @@ $currentYear = date("Y");
     });
   }
 
-  // Profile Dropdown Toggle
-  const profileMenuButton = document.getElementById("profile-menu-button");
-  const profileDropdown = document.getElementById("profile-dropdown");
+  // Accessibility Panel Logic (if elements exist)
+  const a11yPanel = document.getElementById('a11y-settings-panel');
+  const a11yToggleButton = document.getElementById('a11y-toggle-button');
+  const a11yCloseButton = document.getElementById('a11y-close-button');
 
-  if (profileMenuButton && profileDropdown) {
-    profileMenuButton.addEventListener("click", function(event) {
-      event.stopPropagation();
-      const isHidden = profileDropdown.classList.toggle("hidden");
-      this.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+  if (a11yPanel && a11yToggleButton) {
+    a11yToggleButton.addEventListener('click', () => {
+      a11yPanel.classList.remove('translate-x-full');
+      a11yPanel.setAttribute('aria-hidden', 'false');
+      // Small delay to allow transition before trapping focus
+      setTimeout(() => trapFocus(a11yPanel), 100);
+    });
+
+    const closeA11y = () => {
+      a11yPanel.classList.add('translate-x-full');
+      a11yPanel.setAttribute('aria-hidden', 'true');
+      removeTrapFocus(a11yPanel);
+      a11yToggleButton.focus();
+    };
+
+    if (a11yCloseButton) a11yCloseButton.addEventListener('click', closeA11y);
+    
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
+        closeA11y();
+      }
     });
   }
 
-  document.addEventListener("click", function(event) {
-    if (profileMenuButton && profileDropdown && !profileMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-      profileDropdown.classList.add("hidden");
-      profileMenuButton.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  // Announcement Bar Close
+  // Announcement Bar
   const closeAnnouncementBtn = document.getElementById("close-announcement");
   const announcementBar = document.getElementById("announcement-bar");
   if (closeAnnouncementBtn && announcementBar) {
     closeAnnouncementBtn.addEventListener("click", function() {
       announcementBar.style.display = "none";
+      // Optional: Save to session storage so it doesn't pop up again this session
+      try { sessionStorage.setItem('hl_announcement_dismissed', 'true'); } catch(e){}
     });
   }
-
-
-  // --- ADVANCED ACCESSIBILITY PANEL LOGIC ---
-
-  const a11yPanel = document.getElementById('a11y-settings-panel');
-  const a11yToggleButton = document.getElementById('a11y-toggle-button');
-  const a11yCloseButton = document.getElementById('a11y-close-button');
-
-  if (a11yPanel && a11yToggleButton && a11yCloseButton) {
-    // Panel open/close
-    a11yToggleButton.addEventListener('click', () => {
-      a11yPanel.classList.remove('translate-x-full');
-      a11yPanel.setAttribute('aria-hidden', 'false');
-      trapFocus(a11yPanel);
-    });
-
-    a11yCloseButton.addEventListener('click', () => {
-      a11yPanel.classList.add('translate-x-full');
-      a11yPanel.setAttribute('aria-hidden', 'true');
-      removeTrapFocus(a11yPanel); // [FIX] Remove listener
-      a11yToggleButton.focus();
-    });
-
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !a11yPanel.classList.contains('translate-x-full')) {
-        a11yPanel.classList.add('translate-x-full');
-        a11yPanel.setAttribute('aria-hidden', 'true');
-        removeTrapFocus(a11yPanel); // [FIX] Remove listener
-        a11yToggleButton.focus();
-      }
-    });
-  }
-
 
   // --- ACCESSIBILITY SETTINGS CONTROLS ---
-
-  // Function to apply active style to the selected font button
   function updateFontButtonUI(selectedFont) {
     const fontSelectors = document.querySelectorAll('.font-selector');
     fontSelectors.forEach(btn => {
-      // Use the font family string from settings, which might contain quotes
       const selectedFontName = selectedFont.replace(/"/g, '');
-      if (btn.dataset.font.replace(/"/g, '') === selectedFontName) {
+      const btnFontName = btn.dataset.font.replace(/"/g, '');
+      if (btnFontName === selectedFontName) {
         btn.classList.add('bg-primary', 'text-white', 'border-primary');
-        btn.classList.remove('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600');
+        btn.classList.remove('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white');
       } else {
         btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-        btn.classList.add('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white', 'hover:bg-gray-100', 'dark:hover:bg-gray-600');
+        btn.classList.add('bg-white', 'text-gray-800', 'dark:bg-gray-700', 'dark:text-white');
       }
     });
   }
 
   // Theme Buttons
-  document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({
-    ...currentSettings,
-    theme: 'light'
-  }));
-  document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({
-    ...currentSettings,
-    theme: 'dark'
-  }));
-  document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({
-    ...currentSettings,
-    theme: 'high-contrast'
-  }));
+  document.getElementById('theme-light')?.addEventListener('click', () => saveSettings({...currentSettings, theme: 'light'}));
+  document.getElementById('theme-dark')?.addEventListener('click', () => saveSettings({...currentSettings, theme: 'dark'}));
+  document.getElementById('theme-contrast')?.addEventListener('click', () => saveSettings({...currentSettings, theme: 'high-contrast'}));
 
-  // Font Selection Logic
+  // Font Selection
   const fontButtonsContainer = document.getElementById('font-selection-buttons');
   if (fontButtonsContainer) {
-    // Initialize UI on load
-    // currentSettings.fontFamily will be either 'Inter', 'Open Dyslexic', or 'Roboto Mono'
-    // If currentSettings.fontFamily is not present (e.g., old settings), default to 'Inter'
+    // Init UI
     updateFontButtonUI(currentSettings.fontFamily || 'Inter');
-
     fontButtonsContainer.querySelectorAll('.font-selector').forEach(button => {
       button.addEventListener('click', (e) => {
-        // [FIX] Use currentTarget to ensure we get the button's dataset, even if child element clicked
         const newFont = e.currentTarget.dataset.font;
-        // Save font family. Note: we save the clean string, the header applies quotes if necessary.
-        saveSettings({
-          ...currentSettings,
-          fontFamily: newFont
-        });
-        // Update buttons visually
+        saveSettings({...currentSettings, fontFamily: newFont});
         updateFontButtonUI(newFont);
       });
     });
   }
 
-  // --- REMOVED: Dyslexia Font Toggle logic ---
-  // The previous dyslexiaToggle element and its listener are removed.
-
-  // Reduced Motion Toggle
+  // Reduced Motion
   const motionToggle = document.getElementById('toggle-reduced-motion');
   if (motionToggle) {
     motionToggle.checked = currentSettings.reducedMotion;
-    motionToggle.setAttribute('aria-checked', currentSettings.reducedMotion);
     motionToggle.addEventListener('change', (e) => {
-      e.target.setAttribute('aria-checked', e.target.checked);
-      saveSettings({
-        ...currentSettings,
-        reducedMotion: e.target.checked
-      });
+      saveSettings({...currentSettings, reducedMotion: e.target.checked});
     });
   }
 
-  // Font Size Slider
+  // Font Size
   const fontSizeSlider = document.getElementById('font-size-slider');
   const fontSizeValue = document.getElementById('font-size-value');
   if (fontSizeSlider && fontSizeValue) {
     fontSizeSlider.value = currentSettings.fontSize;
     fontSizeValue.textContent = Math.round(currentSettings.fontSize * 100);
-
     fontSizeSlider.addEventListener('input', (e) => {
       const value = parseFloat(e.target.value);
       fontSizeValue.textContent = Math.round(value * 100);
-      // Apply immediately for visual feedback
       document.documentElement.style.setProperty('--site-font-size', `${value}rem`);
     });
-    // Save on release
-    fontSizeSlider.addEventListener('change', (e) => {
-      saveSettings({
-        ...currentSettings,
-        fontSize: parseFloat(e.target.value)
-      });
-    });
+    fontSizeSlider.addEventListener('change', (e) => saveSettings({...currentSettings, fontSize: parseFloat(e.target.value)}));
   }
 
-  // Line Height Slider
+  // Line Height
   const lineHeightSlider = document.getElementById('line-height-slider');
   const lineHeightValue = document.getElementById('line-height-value');
   if (lineHeightSlider && lineHeightValue) {
     lineHeightSlider.value = currentSettings.lineHeight;
     lineHeightValue.textContent = currentSettings.lineHeight.toFixed(1);
-
     lineHeightSlider.addEventListener('input', (e) => {
       const value = parseFloat(e.target.value);
       lineHeightValue.textContent = value.toFixed(1);
-      // Apply immediately for visual feedback
       document.documentElement.style.setProperty('--site-line-height', value);
     });
-    // Save on release
-    lineHeightSlider.addEventListener('change', (e) => {
-      saveSettings({
-        ...currentSettings,
-        lineHeight: parseFloat(e.target.value)
-      });
-    });
+    lineHeightSlider.addEventListener('change', (e) => saveSettings({...currentSettings, lineHeight: parseFloat(e.target.value)}));
   }
 
-  // Reading Mask Logic
+  // Reading Mask
   const readingMaskToggle = document.getElementById('toggle-reading-mask');
   const readingMask = document.getElementById('reading-mask');
   const readingGuide = document.getElementById('reading-guide');
   let isDragging = false;
 
   if (readingMaskToggle && readingMask && readingGuide) {
-    readingMaskToggle.checked = false; // Mask is not persistent across sessions for usability
-    readingMaskToggle.setAttribute('aria-checked', 'false');
-
+    readingMaskToggle.checked = false; 
     readingMaskToggle.addEventListener('change', (e) => {
-      e.target.setAttribute('aria-checked', e.target.checked);
-      if (e.target.checked) {
-        readingMask.classList.remove('hidden');
-      } else {
-        readingMask.classList.add('hidden');
-      }
+      if (e.target.checked) readingMask.classList.remove('hidden');
+      else readingMask.classList.add('hidden');
     });
 
-    // Draggable reading guide logic (Touch and Mouse)
-    const startDrag = (e) => {
-      isDragging = true;
-      readingGuide.style.cursor = 'grabbing';
-      e.preventDefault();
-    };
-
+    const startDrag = (e) => { isDragging = true; readingGuide.style.cursor = 'grabbing'; e.preventDefault(); };
+    const stopDrag = () => { isDragging = false; readingGuide.style.cursor = 'ns-resize'; };
     const dragGuide = (clientY) => {
       if (!isDragging) return;
-      // Calculate new top percentage based on mouse/touch position
       let newTop = (clientY / window.innerHeight) * 100;
-      // Clamp value to prevent dragging outside of visible area (10% to 90%)
       newTop = Math.max(10, Math.min(90, newTop));
       readingGuide.style.top = `${newTop}%`;
     };
 
-    const stopDrag = () => {
-      isDragging = false;
-      readingGuide.style.cursor = 'pointer';
-    };
-
-    // Mouse Events
     readingGuide.addEventListener('mousedown', startDrag);
     document.addEventListener('mousemove', (e) => dragGuide(e.clientY));
     document.addEventListener('mouseup', stopDrag);
-
-    // Touch Events
     readingGuide.addEventListener('touchstart', (e) => startDrag(e.touches[0]));
     document.addEventListener('touchmove', (e) => dragGuide(e.touches[0].clientY));
     document.addEventListener('touchend', stopDrag);
@@ -554,40 +476,12 @@ $currentYear = date("Y");
   if (resetA11yBtn) {
     resetA11yBtn.addEventListener('click', () => {
       localStorage.removeItem(STORAGE_KEY);
-
-      // NOTE: We MUST reload the settings after clearing, as 'currentSettings' is now stale
-      // Assuming defaultSettings in header.php now uses 'fontFamily: "Inter"'
-      currentSettings = defaultSettings; // Reset the live state
-      saveSettings({
-        ...defaultSettings
-      }); // Save and apply defaults
-
-      // Update UI elements to reflect reset
-      if (fontSizeSlider) fontSizeSlider.value = defaultSettings.fontSize;
-      if (fontSizeValue) fontSizeValue.textContent = Math.round(defaultSettings.fontSize * 100);
-      if (lineHeightSlider) lineHeightSlider.value = defaultSettings.lineHeight;
-      if (lineHeightValue) lineHeightValue.textContent = defaultSettings.lineHeight.toFixed(1);
-
-      // Update font selection UI
-      updateFontButtonUI(defaultSettings.fontFamily || 'Inter');
-
-      if (motionToggle) {
-        motionToggle.checked = defaultSettings.reducedMotion;
-        motionToggle.setAttribute('aria-checked', defaultSettings.reducedMotion);
-      }
-
-      // Force reset of non-persistent mask
-      if (readingMaskToggle) {
-        readingMaskToggle.checked = false;
-        readingMaskToggle.setAttribute('aria-checked', 'false');
-      }
-      if (readingMask) readingMask.classList.add('hidden');
-
-      showMessageBox("Settings have been reset to default values.");
+      currentSettings = defaultSettings;
+      saveSettings({...defaultSettings});
+      location.reload(); 
     });
   }
 </script>
 
 </body>
-
 </html>

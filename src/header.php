@@ -12,11 +12,9 @@
     <meta property="og:title" content="<?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?>" />
     <meta property="og:description" content="<?php echo isset($pageDescription) ? htmlspecialchars($pageDescription) : 'Personalized, accessible learning for everyone.'; ?>" />
     <meta property="og:image" content="https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" />
-    <meta property="og:url" content="https://hestena62.com" />
+    <meta property="og:url" content="https://hestena62.com" />    
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?></title>
 
     <!-- Structured Data (JSON-LD) for SEO -->
     <script type="application/ld+json">
@@ -34,7 +32,7 @@
     }
     </script>
 
-    <!-- Tailwind CSS (CDN for ease of use, consider compiling for production) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- File linking all the needed libraries -->
@@ -43,10 +41,12 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Google Fonts: Lexend (Reading), Comic Neue (Dyslexia alternative), Merriweather (Serif) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lexend:wght@300;400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?></title>
 
     <script>
         // --- Tailwind Configuration with Dynamic CSS Variables ---
@@ -98,7 +98,6 @@
         };
 
         // --- Critical Accessibility/Theme Initialization ---
-        // This runs immediately to prevent "Flash of Unstyled Content" (FOUC)
         const defaultSettings = {
             theme: 'light',
             fontSize: 1.0,
@@ -113,8 +112,6 @@
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
                 const loadedSettings = stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-                
-                // Cleanup legacy keys
                 if (loadedSettings.dyslexiaFont !== undefined) {
                     loadedSettings.fontFamily = loadedSettings.dyslexiaFont ? 'Open Dyslexic' : 'Inter';
                     delete loadedSettings.dyslexiaFont;
@@ -169,7 +166,13 @@
         @font-face { font-family: 'Roboto Mono'; src: url('/font/Roboto_Mono/static/RobotoMono-Regular.ttf') format('truetype'); font-display: swap; }
 
         body {
+            /* Fallback background */
             background-color: var(--color-base-bg);
+            /* Rich Gradient Background */
+            background-image: var(--site-bg-gradient);
+            background-attachment: fixed;
+            background-size: cover;
+            
             color: var(--color-text-default);
             font-size: var(--site-font-size, 1rem);
             line-height: var(--site-line-height, 1.6);
@@ -184,37 +187,43 @@
             --color-header-bg: #1F2937; --color-footer-bg-from: #4F46E5; --color-footer-bg-to: #6366F1;
             --color-link: #4F46E5; --color-card-bg: #FFFFFF;
             --color-base-bg: #F3F4F6; --color-content-bg: #FFFFFF;
-            --color-text-default: #1F2937; --color-text-secondary: #374151;
+            --color-text-default: #1F2937; --color-text-secondary: #4B5563;
             --border-radius-base: 0.75rem;
+            
+            /* Enhanced Light Mode Gradient: Very subtle multi-color mesh for vibrancy */
+            --site-bg-gradient: linear-gradient(120deg, #fdfbf7 0%, #f0fdfa 50%, #eff6ff 100%);
         }
 
         .dark {
-            --color-primary: #6366F1; --color-secondary: #818CF8; --color-accent: #A5B4FC;
-            --color-header-bg: #2D3748; --color-footer-bg-from: #4c51bf; --color-footer-bg-to: #5a67d8;
-            --color-link: #9f7aea; --color-card-bg: #2D3748;
-            --color-base-bg: #1A202C; --color-content-bg: #2D3748;
-            --color-text-default: #E2E8F0; --color-text-secondary: #E5E7EB;
+            --color-primary: #818CF8; --color-secondary: #A5B4FC; --color-accent: #C7D2FE;
+            --color-header-bg: #111827; --color-footer-bg-from: #312e81; --color-footer-bg-to: #4338ca;
+            --color-link: #A5B4FC; --color-card-bg: #1F2937;
+            --color-base-bg: #111827; --color-content-bg: #1F2937;
+            --color-text-default: #F3F4F6; --color-text-secondary: #D1D5DB;
             --border-radius-base: 0.75rem;
+            
+            /* Enhanced Dark Mode Gradient: Deep Slate to Midnight Blue */
+            --site-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
         }
 
         .high-contrast {
             --color-primary: #FFFF00; --color-secondary: #00FFFF; --color-accent: #00FFFF;
-            --color-header-bg: #111111; --color-footer-bg-from: #111111; --color-footer-bg-to: #111111;
-            --color-link: #FFFF00; --color-card-bg: #333333;
-            --color-base-bg: #000000; --color-content-bg: #333333;
+            --color-header-bg: #000000; --color-footer-bg-from: #000000; --color-footer-bg-to: #000000;
+            --color-link: #FFFF00; --color-card-bg: #000000;
+            --color-base-bg: #000000; --color-content-bg: #000000;
             --color-text-default: #FFFF00; --color-text-secondary: #FFFFFF;
             --border-radius-base: 0;
+            --site-bg-gradient: none; /* No gradient for high contrast */
         }
 
         /* High Contrast Specific Overrides */
         .high-contrast a { color: var(--color-link) !important; text-decoration: underline; }
         .high-contrast .bg-primary { background-color: #000000 !important; border: 2px solid #FFFF00 !important; color: #FFFF00 !important; }
+        .high-contrast .bg-content-bg { border: 2px solid #FFFFFF; }
         
         /* Accessibility Tools */
         .reduced-motion * { transition-duration: 0.01s !important; animation-duration: 0.01s !important; scroll-behavior: auto !important; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border-width: 0; }
-        
-        /* Focus Outline for Accessibility */
         :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
 
         /* Reading Guides */
@@ -235,7 +244,7 @@
 </head>
 
 <body class="antialiased font-sans">
-    <!-- Skip to Content Link (Critical for Accessibility) -->
+    <!-- Skip to Content Link -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-white focus:text-primary focus:font-bold focus:rounded-lg focus:shadow-xl">
         Skip to main content
     </a>
@@ -267,9 +276,9 @@
             <div>
                 <h3 class="text-sm font-medium mb-2 text-text-default">Contrast & Theme</h3>
                 <div class="flex space-x-2">
-                    <button id="theme-light" class="flex-1 py-2 rounded-lg border hover:bg-gray-100" aria-label="Light Mode"><i class="fas fa-sun"></i> Light</button>
-                    <button id="theme-dark" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:bg-gray-700 dark:text-white" aria-label="Dark Mode"><i class="fas fa-moon"></i> Dark</button>
-                    <button id="theme-contrast" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 font-bold" aria-label="High Contrast"><i class="fas fa-low-vision"></i> High</button>
+                    <button id="theme-light" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700 dark:text-gray-200" aria-label="Light Mode"><i class="fas fa-sun"></i> Light</button>
+                    <button id="theme-dark" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-500" aria-label="Dark Mode"><i class="fas fa-moon"></i> Dark</button>
+                    <button id="theme-contrast" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 font-bold dark:border-gray-600 dark:text-gray-200" aria-label="High Contrast"><i class="fas fa-low-vision"></i> High</button>
                 </div>
             </div>
 

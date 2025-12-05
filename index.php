@@ -1,8 +1,8 @@
 <?php
 // --- PHP Page Variables ---
 $pageTitle = "Hesten's Learning";
-$pageDescription = "Hesten's Learning - Empowering students with learning disabilities through personalized learning experiences.";
-$pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, social studies";
+$pageDescription = "Empowering students with learning disabilities through personalized, accessible learning experiences in Math, ELA, and Science.";
+$pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, accessible education";
 $pageAuthor = "Hesten's Learning";
 
 // --- Dynamic Content Array ---
@@ -24,254 +24,198 @@ $learningLevels = [
     ['id' => 'test-section', 'category' => 'extra', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes, review extra materials, and challenge yourself.', 'link' => '/test', 'icon' => 'fas fa-star']
 ];
 
+// --- Theme Mapping ---
+// Maps categories to Tailwind Colors for distinct visual identity
+$themeMap = [
+    'elem' => [
+        'border' => 'border-teal-400 dark:border-teal-500', 
+        'icon_bg' => 'bg-teal-100 dark:bg-teal-900', 
+        'icon_text' => 'text-teal-600 dark:text-teal-300',
+        'hover_border' => 'hover:border-teal-500',
+        'button_hover' => 'hover:bg-teal-500 hover:text-white',
+        'accent' => 'text-teal-600 dark:text-teal-400'
+    ],
+    'middle' => [
+        'border' => 'border-amber-400 dark:border-amber-500', 
+        'icon_bg' => 'bg-amber-100 dark:bg-amber-900', 
+        'icon_text' => 'text-amber-600 dark:text-amber-300',
+        'hover_border' => 'hover:border-amber-500',
+        'button_hover' => 'hover:bg-amber-500 hover:text-white',
+        'accent' => 'text-amber-600 dark:text-amber-400'
+    ],
+    'high' => [
+        'border' => 'border-rose-400 dark:border-rose-500', 
+        'icon_bg' => 'bg-rose-100 dark:bg-rose-900', 
+        'icon_text' => 'text-rose-600 dark:text-rose-300',
+        'hover_border' => 'hover:border-rose-500',
+        'button_hover' => 'hover:bg-rose-500 hover:text-white',
+        'accent' => 'text-rose-600 dark:text-rose-400'
+    ],
+    'extra' => [
+        'border' => 'border-violet-400 dark:border-violet-500', 
+        'icon_bg' => 'bg-violet-100 dark:bg-violet-900', 
+        'icon_text' => 'text-violet-600 dark:text-violet-300',
+        'hover_border' => 'hover:border-violet-500',
+        'button_hover' => 'hover:bg-violet-500 hover:text-white',
+        'accent' => 'text-violet-600 dark:text-violet-400'
+    ]
+];
+
 include 'src/header.php';
 ?>
 
-<!-- Confetti Library for Gamification -->
-<script src="/src/canvas-confetti-1.9.4/package/dist/confetti.browser.js"></script>
+<!-- Confetti Library (Deferred) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" defer></script>
 
-<!-- Hero Section with Glassmorphism -->
-<header class="relative bg-gradient-to-br from-footer-bg-from to-footer-bg-to text-white pt-16 pb-16 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-12">
-    <!-- Decorative Animated Background Icons -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
-        <i class="fas fa-shapes absolute top-10 left-10 text-8xl animate-pulse text-white/50"></i>
-        <i class="fas fa-calculator absolute bottom-1/4 right-10 text-[10rem] text-white/30 rotate-12"></i>
-        <i class="fas fa-book absolute top-20 right-1/3 text-7xl text-white/40 -rotate-12"></i>
-        <i class="fas fa-atom absolute bottom-10 left-1/4 text-8xl text-white/40 animate-wiggle" style="animation-duration: 4s;"></i>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
+<!-- Hero Section with Enhanced Gradient Overlay -->
+<div class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+    <!-- Background Decor -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <i class="fas fa-shapes absolute top-10 left-10 text-8xl text-white/10 animate-pulse"></i>
+        <i class="fas fa-calculator absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12"></i>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl mix-blend-overlay"></div>
     </div>
 
     <div class="relative z-10 max-w-5xl mx-auto text-center">
-        <!-- Content Container -->
-        <div class="backdrop-blur-sm bg-white/10 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
-            <span class="inline-block py-1 px-3 rounded-full bg-accent/20 border border-accent/50 text-blue-50 text-sm font-bold mb-4 tracking-wide uppercase">
+        <div class="backdrop-blur-md bg-white/10 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
+            <span class="inline-block py-1 px-4 rounded-full bg-black/20 text-white text-xs font-bold mb-6 tracking-wide uppercase border border-white/20 shadow-sm">
                 Accessible Education for All
             </span>
-            <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-md">
-                Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Limits</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-lg text-white">
+                Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-200">Limits</span>
             </h1>
-            <p class="text-xl md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light">
-                Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white">how you learn</span>.
+            <p class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">
+                Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white border-b-2 border-teal-300/50">how you learn</span>.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#main-content"
-                    class="group bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2 relative overflow-hidden">
-                    <span class="relative z-10">Start Learning</span>
-                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                    <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform relative z-10"></i>
+                <a href="#level-grid" class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
+                    <span>Start Learning</span>
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
                 </a>
-                <a href="about.php"
-                    class="bg-transparent border-2 border-white/40 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
+                <a href="/about.php" class="bg-transparent border-2 border-white/50 text-white font-bold py-4 px-10 rounded-full transition-colors hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
                     Learn More
                 </a>
             </div>
         </div>
 
-        <!-- Quick Stats Bar -->
-        <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center animate-fade-in-up delay-200">
-            <!-- UPDATED: Connected to Real Progress Logic -->
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1 flex justify-center items-center">
-                    <span id="user-progress-stat">0</span><span>%</span>
-                </div>
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 text-center" aria-label="Site Statistics">
+            <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
+                <div class="text-3xl font-bold text-teal-300 mb-1 flex justify-center"><span id="user-progress-stat">0</span>%</div>
                 <div class="text-sm text-blue-100">Your Progress</div>
             </div>
-
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1"><?php echo count($learningLevels); ?></div>
+            <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
+                <div class="text-3xl font-bold text-amber-300 mb-1"><?php echo count($learningLevels); ?></div>
                 <div class="text-sm text-blue-100">Grade Levels</div>
             </div>
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1">Free</div>
-                <div class="text-sm text-blue-100">To Use</div>
+            <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
+                <div class="text-3xl font-bold text-rose-300 mb-1"><i class="fas fa-check"></i></div>
+                <div class="text-sm text-blue-100">Free to Use</div>
             </div>
-            <div class="p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
-                <div class="text-3xl font-bold text-accent mb-1 flex justify-center items-center">
-                    <span class="stat-counter" data-target="100">0</span><span>%</span>
-                </div>
+            <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
+                <div class="text-3xl font-bold text-violet-300 mb-1"><i class="fas fa-lock"></i></div>
                 <div class="text-sm text-blue-100">Private & Secure</div>
             </div>
         </div>
     </div>
-</header>
+</div>
 
-<!-- Features Section -->
-<section class="container mx-auto px-4 mb-24" aria-labelledby="features-heading">
-    <div class="text-center mb-12">
-        <h2 id="features-heading" class="text-3xl md:text-4xl font-bold text-text-default mb-4">Why Choose Hesten's Learning?</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto">We combine modern technology with proven educational strategies to create a platform where everyone succeeds.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
-                <i class="fas fa-universal-access"></i>
-            </div>
-            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Accessibility First</h3>
-            <p class="text-text-secondary leading-relaxed text-center">Built from the ground up with dyslexia-friendly fonts, reading guides, and high-contrast modes for all learners.</p>
-        </article>
-        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-2xl -rotate-3 group-hover:-rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
-                <i class="fas fa-road"></i>
-            </div>
-            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Personalized Paths</h3>
-            <p class="text-text-secondary leading-relaxed text-center">Learn at your own pace with curriculum tailored to specific grade level needs and individual abilities.</p>
-        </article>
-        <article class="group p-8 rounded-2xl bg-content-bg shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/20">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3 class="text-xl font-bold text-text-default mb-3 text-center">Comprehensive</h3>
-            <p class="text-text-secondary leading-relaxed text-center">Complete coverage of Math, ELA, Science, and Social Studies from Pre-K through Grade 12.</p>
-        </article>
-    </div>
-</section>
-
-<!-- How It Works Section -->
-<section class="container mx-auto px-4 mb-24">
-    <div class="bg-base-bg rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-700">
-        <div class="text-center mb-12">
-            <span class="text-primary font-bold tracking-wider uppercase text-sm">Getting Started</span>
-            <h2 class="text-3xl font-bold text-text-default mt-2">Your Learning Journey</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-300 dark:bg-gray-600 -z-10" aria-hidden="true"></div>
-
-            <div class="text-center relative">
-                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
-                    <span class="text-3xl font-bold text-primary">1</span>
-                </div>
-                <h3 class="text-xl font-bold text-text-default mb-2">Select Grade</h3>
-                <p class="text-text-secondary text-sm px-4">Choose your current grade level from the options below.</p>
-            </div>
-
-            <div class="text-center relative">
-                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
-                    <span class="text-3xl font-bold text-primary">2</span>
-                </div>
-                <h3 class="text-xl font-bold text-text-default mb-2">Choose Topic</h3>
-                <p class="text-text-secondary text-sm px-4">Pick a subject you want to practice or explore new skills.</p>
-            </div>
-
-            <div class="text-center relative">
-                <div class="w-24 h-24 bg-white dark:bg-gray-800 rounded-full border-4 border-primary flex items-center justify-center mx-auto mb-6 shadow-lg z-10 relative">
-                    <span class="text-3xl font-bold text-primary">3</span>
-                </div>
-                <h3 class="text-xl font-bold text-text-default mb-2">Start Learning</h3>
-                <p class="text-text-secondary text-sm px-4">Engage with interactive lessons designed for you.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Learning Levels Grid -->
+<!-- Main Content Area -->
 <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
 
-    <!-- NEW: Continue Learning Banner (Dynamic) -->
-    <div id="resume-banner" class="hidden mb-10 bg-gradient-to-r from-primary to-secondary rounded-2xl p-6 shadow-lg text-white transform hover:scale-[1.01] transition-transform cursor-pointer animate-fade-in-up">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">
+    <!-- Resume Learning Banner (Dynamic) -->
+    <div id="resume-banner" class="hidden mb-12 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-1 shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer group">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 h-full border border-white/10">
+            <div class="flex items-center gap-4 text-white">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner">
                     <i class="fas fa-play"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold">Welcome Back!</h3>
-                    <p class="text-blue-100">Ready to continue with <span id="next-level-name" class="font-bold text-white underline"></span>?</p>
+                    <h2 class="text-xl font-bold">Welcome Back!</h2>
+                    <p class="text-blue-50">Ready to continue with <span id="next-level-name" class="font-bold underline text-white decoration-amber-400 decoration-2"></span>?</p>
                 </div>
             </div>
-            <button class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-md">
+            <button class="bg-white text-teal-700 px-8 py-3 rounded-full font-bold hover:bg-teal-50 transition-colors shadow-md focus:ring-4 focus:ring-white/50">
                 Resume Learning
             </button>
         </div>
     </div>
 
-    <!-- Controls Bar -->
-    <div class="bg-content-bg p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 mb-10 sticky top-4 z-20 backdrop-blur-md bg-opacity-95">
+    <!-- Filter & Search Controls -->
+    <div class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-4 z-30 transition-colors duration-300">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="w-full md:w-auto">
-                <h2 id="learning-levels-heading" class="text-3xl font-bold text-text-default flex items-center gap-3">
-                    <span class="w-2 h-8 bg-primary rounded-full"></span>
-                    Select Your Grade
-                </h2>
+            <div class="flex items-center gap-3">
+                <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm" aria-hidden="true"></span>
+                <h2 id="learning-levels-heading" class="text-2xl font-bold text-text-default">Select Your Grade</h2>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
-                <!-- Search Input with Clear Button -->
+                <!-- Search -->
                 <div class="relative w-full sm:w-64">
-                    <label for="level-search" class="sr-only">Search grades or topics (Press '/' to focus)</label>
-                    <input type="text" id="level-search" placeholder="Search grades... (/)"
-                        class="w-full pl-10 pr-10 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-transparent transition-all focus:w-full sm:focus:w-72 shadow-sm focus:shadow-md">
-                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-
-                    <!-- Clear Button -->
-                    <button id="clear-search" onclick="resetFilters()"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none"
-                        aria-label="Clear search">
+                    <label for="level-search" class="sr-only">Filter grades</label>
+                    <input type="text" id="level-search" placeholder="Filter grades..."
+                        class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm">
+                    <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+                    <button id="clear-search" onclick="resetFilters()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none" aria-label="Clear filter">
                         <i class="fas fa-times-circle"></i>
                     </button>
                 </div>
 
-                <!-- Filter Buttons -->
-                <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter content">
-                    <button type="button" onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-primary text-white transition-all shadow-sm" aria-pressed="true" data-filter="all">All</button>
-                    <button type="button" onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="elem">Elementary</button>
-                    <button type="button" onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="middle">Middle</button>
-                    <button type="button" onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-pressed="false" data-filter="high">High School</button>
+                <!-- Categories -->
+                <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
+                    <button onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 transition-all shadow-sm ring-offset-2 focus:ring-2" aria-pressed="true" data-filter="all">All</button>
+                    <!-- Color-Coded Filter Buttons -->
+                    <button onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-900/30 dark:text-teal-300 dark:hover:bg-teal-900/50 transition-all border border-transparent hover:border-teal-200" aria-pressed="false" data-filter="elem">Elem</button>
+                    <button onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50 transition-all border border-transparent hover:border-amber-200" aria-pressed="false" data-filter="middle">Middle</button>
+                    <button onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50 transition-all border border-transparent hover:border-rose-200" aria-pressed="false" data-filter="high">High</button>
                 </div>
             </div>
         </div>
-        <!-- Live Region for Screen Readers -->
-        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">
-            Showing all levels
-        </div>
+        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">Showing all levels</div>
     </div>
 
+    <!-- Grid -->
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
-        <?php
-        $delay = 0.1;
-        foreach ($learningLevels as $level):
+        <?php foreach ($learningLevels as $index => $level): 
+            $theme = isset($themeMap[$level['category']]) ? $themeMap[$level['category']] : $themeMap['elem'];
         ?>
-            <article class="level-card group h-full animate-fade-in-up"
-                style="animation-delay: <?php echo $delay; ?>s;"
+            <article class="level-card group relative flex flex-col h-full"
                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
                 data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>"
                 data-id="<?php echo htmlspecialchars($level['id']); ?>"
-                data-link="<?php echo htmlspecialchars($level['link']); ?>"> <!-- Added data-link for banner logic -->
-
-                <div class="bg-content-bg h-full rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.2)] border-t-8 border-primary p-8 flex flex-col relative overflow-hidden ring-1 ring-black/5 dark:ring-white/10 dark:hover:shadow-[0_20px_50px_rgba(29,_78,_216,_0.3)]">
-
-                    <!-- Floating Icon Background -->
-                    <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 group-hover:opacity-10 transition-opacity text-primary pointer-events-none rotate-12">
+                data-link="<?php echo htmlspecialchars($level['link']); ?>">
+                
+                <!-- Card Container with Dynamic Border Color -->
+                <div class="bg-content-bg h-full rounded-2xl shadow-lg border-t-8 <?php echo $theme['border']; ?> border-l border-r border-b border-gray-100 dark:border-gray-700 hover:border-transparent <?php echo $theme['hover_border']; ?> transition-all duration-300 p-8 flex flex-col overflow-hidden hover:shadow-2xl hover:-translate-y-1">
+                    
+                    <!-- Decorative Icon Background (Faded) -->
+                    <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 transform rotate-12 group-hover:scale-110 transition-transform duration-500 pointer-events-none <?php echo $theme['accent']; ?>">
                         <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                     </div>
 
-                    <!-- TTS Button -->
-                    <button type="button"
-                        class="tts-toggle absolute top-4 left-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all z-20 focus:outline-none focus:ring-2 focus:ring-primary"
-                        onclick="toggleSpeech(this)"
-                        data-title="<?php echo htmlspecialchars($level['title']); ?>"
-                        data-desc="<?php echo htmlspecialchars($level['description']); ?>"
-                        aria-label="Read <?php echo htmlspecialchars($level['title']); ?> aloud">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
+                    <!-- Actions Top Right -->
+                    <div class="absolute top-4 right-4 flex gap-2 z-20">
+                         <!-- TTS -->
+                        <button type="button" class="w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                            onclick="toggleSpeech(this, '<?php echo htmlspecialchars(addslashes($level['title'])); ?>', '<?php echo htmlspecialchars(addslashes($level['description'])); ?>')"
+                            aria-label="Listen to description">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <!-- Mark Complete -->
+                        <button type="button" class="completion-toggle w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-green-600 hover:bg-green-100 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
+                            onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
+                            aria-label="Mark as complete">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
 
-                    <!-- Completion Toggle Button -->
-                    <button type="button"
-                        class="completion-toggle absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg border-2 border-gray-200 dark:border-gray-600 text-gray-300 flex items-center justify-center hover:border-green-500 hover:text-green-500 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-green-400"
-                        onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
-                        aria-label="Mark <?php echo htmlspecialchars($level['title']); ?> as complete">
-                        <i class="fas fa-check"></i>
-                    </button>
-
-                    <!-- Header -->
-                    <div class="flex items-center gap-4 mb-6 relative z-10">
-                        <div class="w-14 h-14 shrink-0 bg-base-bg rounded-xl shadow-inner flex items-center justify-center text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <!-- Content Header with Dynamic Icon Colors -->
+                    <div class="flex items-center gap-4 mb-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-inner transition-colors <?php echo $theme['icon_bg'] . ' ' . $theme['icon_text']; ?>">
                             <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                         </div>
-
-                        <h3 class="text-2xl font-bold text-text-default group-hover:text-primary transition-colors" id="<?php echo htmlspecialchars($level['id']); ?>">
+                        <h3 class="text-xl font-bold text-text-default group-hover:text-current transition-colors <?php echo $theme['accent']; ?>">
                             <?php echo htmlspecialchars($level['title']); ?>
                         </h3>
                     </div>
@@ -280,272 +224,200 @@ include 'src/header.php';
                         <?php echo htmlspecialchars($level['description']); ?>
                     </p>
 
-                    <a href="<?php echo htmlspecialchars($level['link']); ?>"
-                        class="relative z-10 w-full inline-flex justify-between items-center bg-base-bg text-text-default py-4 px-6 rounded-xl font-bold border border-transparent hover:border-primary hover:text-primary hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 focus:ring-4 focus:ring-primary/40 focus:outline-none group-focus:ring-4 shadow-sm"
-                        aria-labelledby="<?php echo htmlspecialchars($level['id']); ?>">
+                    <a href="<?php echo htmlspecialchars($level['link']); ?>" class="mt-auto relative z-10 w-full flex justify-between items-center bg-base-bg text-text-default font-bold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-current/30 group-focus:ring-4 <?php echo $theme['button_hover']; ?>">
                         <span>Explore Skills</span>
-                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </a>
-
                 </div>
             </article>
-        <?php
-            $delay += 0.05;
-        endforeach;
-        ?>
+        <?php endforeach; ?>
     </section>
 
-    <!-- No Results Message -->
-    <div id="no-results" class="hidden text-center py-20">
-        <div class="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-gray-400">
-            <i class="fas fa-search"></i>
+    <!-- Empty State -->
+    <div id="no-results" class="hidden text-center py-24 px-4">
+        <div class="inline-block p-6 rounded-full bg-base-bg mb-4">
+            <i class="fas fa-search text-4xl text-gray-300"></i>
         </div>
-        <h3 class="text-xl font-bold text-text-default">No levels found</h3>
-        <p class="text-text-secondary">Try adjusting your search or category filter.</p>
-        <button onclick="resetFilters()" type="button" class="mt-4 text-primary font-bold hover:underline">Clear Filters</button>
+        <h3 class="text-xl font-bold text-text-default mb-2">No levels found</h3>
+        <p class="text-text-secondary mb-6">We couldn't find anything matching your search.</p>
+        <button onclick="resetFilters()" class="text-primary font-bold hover:underline">Clear Search & Filters</button>
     </div>
 
 </main>
 
-<section class="container mx-auto px-4 py-20 max-w-4xl">
-    <h2 class="text-3xl font-bold text-center text-text-default mb-10">Frequently Asked Questions</h2>
-    <div class="space-y-4">
-        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                Is Hesten's Learning really free?
-                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
-            </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">Yes! All core curriculum content from Pre-K to Grade 12, and beyond is completely free.</div>
-        </details>
-        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                Do I need an account?
-                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
-            </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">No account is required. Your progress is saved locally in your browser to protect your privacy.</div>
-        </details>
-        <details class="group bg-content-bg rounded-xl border border-gray-200 dark:border-gray-700 open:shadow-lg transition-all duration-300">
-            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-lg text-text-default list-none focus:ring-2 focus:ring-primary focus:outline-none rounded-xl">
-                Does it work on tablets?
-                <span class="transition-transform group-open:rotate-180 text-primary"><i class="fas fa-chevron-down"></i></span>
-            </summary>
-            <div class="px-6 pb-6 text-text-secondary leading-relaxed">Absolutely. The platform is fully responsive for mobile, tablet, and desktop.</div>
-        </details>
-    </div>
-</section>
-
 <script>
-    // --- State ---
+    // --- Application Logic ---
     let currentCategory = 'all';
     let currentSearch = '';
     let completedLevels = [];
-    let currentTTSBtn = null;
+    let currentUtterance = null;
+    let searchTimeout = null;
 
-    // Order of levels for "Next Level" logic
-    const levelOrder = [
-        <?php foreach ($learningLevels as $lvl) {
-            echo "'" . $lvl['id'] . "',";
-        } ?>
-    ];
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById('level-search');
-        if (searchInput) {
-            searchInput.addEventListener('input', applyFilters);
-        }
-
-        // Shortcut: Press '/' to focus search
-        document.addEventListener('keydown', function(e) {
-            if (e.key === '/' && document.activeElement !== searchInput) {
-                e.preventDefault();
-                searchInput.focus();
-            }
-        });
-
-        initStatsCounter();
+    // Load progress on init
+    document.addEventListener("DOMContentLoaded", () => {
         loadProgress();
         checkResumeLearning();
+        
+        // Setup Search Debounce
+        document.getElementById('level-search')?.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => applyFilters(), 250); // Wait 250ms before filtering
+        });
     });
 
-    // --- TTS Logic ---
-    function toggleSpeech(btn) {
-        if (event) event.stopPropagation();
-        if (currentTTSBtn === btn && window.speechSynthesis.speaking) {
-            window.speechSynthesis.cancel();
-            resetTTSUI(btn);
-            currentTTSBtn = null;
-            return;
-        }
-        window.speechSynthesis.cancel();
-        if (currentTTSBtn) resetTTSUI(currentTTSBtn);
-
-        const title = btn.getAttribute('data-title');
-        const desc = btn.getAttribute('data-desc');
-        const textToRead = `${title}. ${desc}`;
-        const utterance = new SpeechSynthesisUtterance(textToRead);
-
-        utterance.onend = () => {
-            resetTTSUI(btn);
-            currentTTSBtn = null;
-        };
-        utterance.onerror = () => {
-            resetTTSUI(btn);
-            currentTTSBtn = null;
-        };
-
-        btn.innerHTML = '<i class="fas fa-stop"></i>';
-        btn.classList.add('bg-primary', 'text-white', 'animate-pulse', 'border-primary');
-        btn.classList.remove('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
-        currentTTSBtn = btn;
-        window.speechSynthesis.speak(utterance);
-    }
-
-    function resetTTSUI(btn) {
-        if (!btn) return;
-        btn.innerHTML = '<i class="fas fa-volume-up"></i>';
-        btn.classList.remove('bg-primary', 'text-white', 'animate-pulse', 'border-primary');
-        btn.classList.add('bg-base-bg', 'text-gray-400', 'border-gray-200', 'dark:border-gray-600');
-    }
-
-    // --- Progress & Gamification Logic ---
+    // --- Progress System ---
     function loadProgress() {
         try {
             const stored = localStorage.getItem('hl_completed_levels');
             if (stored) completedLevels = JSON.parse(stored);
-        } catch (e) {}
+        } catch(e) {}
         updateProgressUI();
-    }
-
-    function toggleCompletion(levelId, btnElement) {
-        if (event) event.stopPropagation();
-        const index = completedLevels.indexOf(levelId);
-
-        if (index > -1) {
-            completedLevels.splice(index, 1);
-        } else {
-            completedLevels.push(levelId);
-            // TRIGGER CONFETTI
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: {
-                    y: 0.6
-                }
-            });
-        }
-        saveProgress();
-        updateProgressUI();
-        checkResumeLearning();
     }
 
     function saveProgress() {
         localStorage.setItem('hl_completed_levels', JSON.stringify(completedLevels));
     }
 
-    function updateProgressUI() {
-        const buttons = document.querySelectorAll('.completion-toggle');
-        buttons.forEach(btn => {
-            const card = btn.closest('.level-card');
-            const id = card.getAttribute('data-id');
+    function toggleCompletion(id, btn) {
+        const index = completedLevels.indexOf(id);
+        if (index > -1) {
+            completedLevels.splice(index, 1);
+        } else {
+            completedLevels.push(id);
+            // Trigger Confetti if available
+            if (typeof confetti === 'function') {
+                const rect = btn.getBoundingClientRect();
+                confetti({
+                    particleCount: 60,
+                    spread: 60,
+                    origin: { x: rect.left / window.innerWidth, y: rect.top / window.innerHeight }
+                });
+            }
+        }
+        saveProgress();
+        updateProgressUI();
+        checkResumeLearning();
+    }
 
-            if (completedLevels.includes(id)) {
-                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
-                btn.classList.remove('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
+    function updateProgressUI() {
+        // Update Buttons
+        document.querySelectorAll('.completion-toggle').forEach(btn => {
+            const id = btn.closest('.level-card').dataset.id;
+            const isComplete = completedLevels.includes(id);
+            
+            if (isComplete) {
+                btn.classList.add('bg-green-500', 'text-white', 'border-transparent');
+                btn.classList.remove('bg-base-bg', 'text-text-secondary');
                 btn.setAttribute('aria-pressed', 'true');
-                card.querySelector('.bg-content-bg').classList.add('ring-2', 'ring-green-400');
+                btn.closest('.level-card').querySelector('.bg-content-bg').classList.add('ring-2', 'ring-green-400');
             } else {
-                btn.classList.remove('bg-green-100', 'border-green-500', 'text-green-600', 'dark:bg-green-900', 'dark:text-green-300');
-                btn.classList.add('bg-base-bg', 'border-gray-200', 'text-gray-300', 'dark:border-gray-600');
+                btn.classList.remove('bg-green-500', 'text-white', 'border-transparent');
+                btn.classList.add('bg-base-bg', 'text-text-secondary');
                 btn.setAttribute('aria-pressed', 'false');
-                card.querySelector('.bg-content-bg').classList.remove('ring-2', 'ring-green-400');
+                btn.closest('.level-card').querySelector('.bg-content-bg').classList.remove('ring-2', 'ring-green-400');
             }
         });
 
-        const totalLevels = document.querySelectorAll('.level-card').length;
-        const percentage = totalLevels > 0 ? Math.round((completedLevels.length / totalLevels) * 100) : 0;
+        // Update Stats
+        const total = document.querySelectorAll('.level-card').length;
+        const count = completedLevels.length;
+        const pct = total ? Math.round((count/total)*100) : 0;
         const statEl = document.getElementById('user-progress-stat');
-        if (statEl) statEl.innerText = percentage;
+        if (statEl) statEl.textContent = pct;
     }
 
-    // --- "Smart" Banner Logic ---
+    // --- Resume Banner ---
     function checkResumeLearning() {
         const banner = document.getElementById('resume-banner');
+        if (!banner) return;
+        
         if (completedLevels.length === 0) {
             banner.classList.add('hidden');
             return;
         }
 
-        // Find the first level that is NOT complete
-        let nextLevelId = null;
-        for (let i = 0; i < levelOrder.length; i++) {
-            if (!completedLevels.includes(levelOrder[i])) {
-                nextLevelId = levelOrder[i];
-                break;
-            }
-        }
+        const cards = Array.from(document.querySelectorAll('.level-card'));
+        const nextLevel = cards.find(card => !completedLevels.includes(card.dataset.id));
 
-        if (nextLevelId) {
-            // Find data for this level from the DOM
-            const card = document.querySelector(`.level-card[data-id="${nextLevelId}"]`);
-            if (card) {
-                const title = card.getAttribute('data-title');
-                const link = card.getAttribute('data-link');
-
-                document.getElementById('next-level-name').textContent = title.charAt(0).toUpperCase() + title.slice(1);
-                banner.querySelector('button').onclick = () => window.location.href = link;
-                banner.onclick = () => window.location.href = link;
-                banner.classList.remove('hidden');
-            }
-        } else {
-            // All levels done!
-            banner.innerHTML = '<div class="text-center w-full"><h3 class="text-xl font-bold">🎉 Incredible! You completed everything! 🎉</h3></div>';
+        if (nextLevel) {
+            const title = nextLevel.dataset.title;
+            const link = nextLevel.dataset.link;
+            document.getElementById('next-level-name').textContent = title.charAt(0).toUpperCase() + title.slice(1);
+            
+            // Make whole banner clickable
+            banner.onclick = () => window.location.href = link;
             banner.classList.remove('hidden');
+        } else {
+            banner.classList.add('hidden'); // Or show "All Done" message
         }
     }
 
-    // --- Stats Counter ---
-    function initStatsCounter() {
-        const stats = document.querySelectorAll('.stat-counter');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseInt(el.getAttribute('data-target'));
-                    let start = 0;
-                    const duration = 2000;
-                    const startTime = performance.now();
+    // --- TTS ---
+    function toggleSpeech(btn, title, desc) {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            if (btn.classList.contains('speaking')) {
+                btn.classList.remove('speaking', 'text-primary', 'animate-pulse');
+                btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                return;
+            }
+        }
 
-                    const updateCounter = (currentTime) => {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const easeOut = 1 - Math.pow(1 - progress, 3);
-                        el.innerText = Math.floor(easeOut * target);
-                        if (progress < 1) requestAnimationFrame(updateCounter);
-                        else el.innerText = target;
-                    };
-                    requestAnimationFrame(updateCounter);
-                    observer.unobserve(el);
-                }
-            });
-        }, {
-            threshold: 0.5
+        // Reset all buttons
+        document.querySelectorAll('.speaking').forEach(b => {
+            b.classList.remove('speaking', 'text-primary', 'animate-pulse');
+            b.innerHTML = '<i class="fas fa-volume-up"></i>';
         });
-        stats.forEach(stat => observer.observe(stat));
+
+        const text = `${title}. ${desc}`;
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        utterance.onend = () => {
+            btn.classList.remove('speaking', 'text-primary', 'animate-pulse');
+            btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        };
+
+        btn.classList.add('speaking', 'text-primary', 'animate-pulse');
+        btn.innerHTML = '<i class="fas fa-stop"></i>';
+        window.speechSynthesis.speak(utterance);
     }
 
-    // --- Filters ---
-    function setCategory(category) {
-        currentCategory = category;
-        const buttons = document.querySelectorAll('.filter-btn');
-        buttons.forEach(btn => {
-            const isMatch = btn.dataset.filter === category;
-            if (isMatch) {
-                btn.classList.add('bg-primary', 'text-white');
-                btn.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+    // --- Filtering ---
+    function setCategory(cat) {
+        currentCategory = cat;
+        // Update Buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            if(btn.dataset.filter === cat) {
+                // If it's the "All" button
+                if(cat === 'all') {
+                     btn.classList.add('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
+                } else if(cat === 'elem') {
+                     btn.classList.add('bg-teal-500', 'text-white', 'border-transparent');
+                     btn.classList.remove('text-teal-700', 'bg-teal-50');
+                } else if(cat === 'middle') {
+                     btn.classList.add('bg-amber-500', 'text-white', 'border-transparent');
+                     btn.classList.remove('text-amber-700', 'bg-amber-50');
+                } else if(cat === 'high') {
+                     btn.classList.add('bg-rose-500', 'text-white', 'border-transparent');
+                     btn.classList.remove('text-rose-700', 'bg-rose-50');
+                }
                 btn.setAttribute('aria-pressed', 'true');
             } else {
-                btn.classList.remove('bg-primary', 'text-white');
-                btn.classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+                // Reset to inactive state based on type
+                if(btn.dataset.filter === 'all') {
+                     btn.classList.remove('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
+                     // Add inactive style for "All"
+                     btn.classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-300');
+                } else if(btn.dataset.filter === 'elem') {
+                     btn.classList.remove('bg-teal-500', 'text-white', 'border-transparent');
+                     btn.classList.add('text-teal-700', 'bg-teal-50', 'dark:text-teal-300', 'dark:bg-teal-900/30');
+                } else if(btn.dataset.filter === 'middle') {
+                     btn.classList.remove('bg-amber-500', 'text-white', 'border-transparent');
+                     btn.classList.add('text-amber-700', 'bg-amber-50', 'dark:text-amber-300', 'dark:bg-amber-900/30');
+                } else if(btn.dataset.filter === 'high') {
+                     btn.classList.remove('bg-rose-500', 'text-white', 'border-transparent');
+                     btn.classList.add('text-rose-700', 'bg-rose-50', 'dark:text-rose-300', 'dark:bg-rose-900/30');
+                }
                 btn.setAttribute('aria-pressed', 'false');
             }
         });
@@ -553,57 +425,45 @@ include 'src/header.php';
     }
 
     function resetFilters() {
-        const searchInput = document.getElementById('level-search');
-        if (searchInput) searchInput.value = '';
-        currentSearch = '';
+        document.getElementById('level-search').value = '';
         setCategory('all');
     }
 
     function applyFilters() {
-        const searchInput = document.getElementById('level-search');
-        if (searchInput) currentSearch = searchInput.value.toLowerCase().trim();
-
-        // Show/Hide Clear Button
+        const input = document.getElementById('level-search');
+        const term = input.value.toLowerCase().trim();
         const clearBtn = document.getElementById('clear-search');
-        if (currentSearch.length > 0) clearBtn.classList.remove('hidden');
+        
+        if (term) clearBtn.classList.remove('hidden');
         else clearBtn.classList.add('hidden');
 
         const cards = document.querySelectorAll('.level-card');
-        let visibleCount = 0;
+        let visible = 0;
 
         cards.forEach(card => {
-            const cardCat = card.dataset.category;
-            const cardTitle = card.dataset.title || '';
-            const cardDesc = card.dataset.desc || '';
-            const catMatch = (currentCategory === 'all' || cardCat === currentCategory);
-            const searchMatch = (currentSearch === '' || cardTitle.includes(currentSearch) || cardDesc.includes(currentSearch));
+            const matchesCat = currentCategory === 'all' || card.dataset.category === currentCategory;
+            const matchesSearch = !term || card.dataset.title.includes(term) || card.dataset.desc.includes(term);
 
-            if (catMatch && searchMatch) {
+            if (matchesCat && matchesSearch) {
                 card.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                });
-                visibleCount++;
+                visible++;
             } else {
                 card.classList.add('hidden');
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
             }
         });
 
-        const resultsMsg = document.getElementById('results-count');
-        if (resultsMsg) resultsMsg.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
-
-        const noResults = document.getElementById('no-results');
         const grid = document.getElementById('level-grid');
-
-        if (visibleCount === 0) {
-            if (noResults) noResults.classList.remove('hidden');
-            if (grid) grid.classList.add('hidden');
+        const noResults = document.getElementById('no-results');
+        const countMsg = document.getElementById('results-count');
+        
+        if (visible === 0) {
+            grid.classList.add('hidden');
+            noResults.classList.remove('hidden');
+            countMsg.textContent = 'No results found';
         } else {
-            if (noResults) noResults.classList.add('hidden');
-            if (grid) grid.classList.remove('hidden');
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            countMsg.textContent = `Showing ${visible} result${visible!==1?'s':''}`;
         }
     }
 </script>
