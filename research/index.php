@@ -14,7 +14,7 @@
   // --- 1. INCLUDE HEADER ---
   // This file contains the DOCTYPE, <head>, and main navigation <header>
   // It uses all the $page... variables defined above
-  include 'src/header.php';
+  include '../src/header.php';
 ?>
 
 <!--
@@ -165,5 +165,5 @@
   // --- 5. INCLUDE FOOTER ---
   // This file contains the <footer>, all global modals,
   // global JavaScript, and closes the </body> and </html> tags.
-  include 'src/footer.php';
+  include '../src/footer.php';
 ?>
