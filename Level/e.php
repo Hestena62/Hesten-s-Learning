@@ -459,7 +459,7 @@ include '../src/header.php';
         if (bar) bar.style.width = `${pct}%`;
     }
 
-    // --- Modal Logic ---
+    // --- Modal & Game Logic ---
     const modalData = {
         curriculum: {
             title: '<i class="fas fa-lightbulb text-yellow-500"></i> Curriculum Guide: Level E',
@@ -506,14 +506,16 @@ include '../src/header.php';
             title: '<i class="fas fa-gamepad text-green-600"></i> Interactive Games',
             content: `
                 <div class="grid grid-cols-2 gap-3">
-                    <a href="#" class="block p-4 rounded-xl bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-center transition-colors">
+                    <button onclick="launchGame('shapeSorter')" class="block p-4 rounded-xl bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40 text-center transition-colors border border-green-100 dark:border-green-800">
                         <i class="fas fa-shapes text-3xl text-green-500 mb-2"></i>
                         <div class="text-sm font-bold text-text-default">Shape Sorter</div>
-                    </a>
-                    <a href="#" class="block p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-center transition-colors">
+                        <span class="text-xs text-text-secondary">Play Now</span>
+                    </button>
+                    <button onclick="launchGame('numberJump')" class="block p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-center transition-colors border border-blue-100 dark:border-blue-800">
                         <i class="fas fa-sort-numeric-down text-3xl text-blue-500 mb-2"></i>
                         <div class="text-sm font-bold text-text-default">Number Jump</div>
-                    </a>
+                         <span class="text-xs text-text-secondary">Play Now</span>
+                    </button>
                 </div>
             `
         },
@@ -552,7 +554,6 @@ include '../src/header.php';
             titleEl.innerHTML = data.title;
             contentEl.innerHTML = data.content;
             modal.classList.remove('hidden');
-            // Prevent body scroll
             document.body.style.overflow = 'hidden';
         }
     }
@@ -560,35 +561,178 @@ include '../src/header.php';
     function closeResourceModal() {
         const modal = document.getElementById('resource-modal');
         modal.classList.add('hidden');
-        // Restore body scroll
         document.body.style.overflow = '';
     }
+    
+    // --- Game Logic ---
 
-    // AI Placeholder Logic
-    document.addEventListener("DOMContentLoaded", function() {
-        const aiButtons = document.querySelectorAll('.explain-button, .activity-button, .story-button');
+    // Simple Launchpad
+    function launchGame(gameType) {
+        const titleEl = document.getElementById('modal-title');
+        const contentEl = document.getElementById('modal-content');
+        
+        if (gameType === 'shapeSorter') {
+            titleEl.innerHTML = '<i class="fas fa-shapes text-green-500"></i> Shape Sorter';
+            contentEl.innerHTML = `
+                <div class="game-area text-center select-none">
+                  <p class="mb-4 text-text-secondary">Tap a shape, then tap the matching outline!</p>
+                  
+                  <!-- Slots -->
+                  <div class="flex justify-center gap-4 mb-8">
+                     <div onclick="selectSlot('circle')" class="game-slot border-4 border-dashed border-gray-300 dark:border-gray-600 rounded-full w-20 h-20 flex items-center justify-center text-gray-300 dark:text-gray-600" id="slot-circle"><i class="fas fa-circle text-2xl opacity-50"></i></div>
+                     <div onclick="selectSlot('square')" class="game-slot border-4 border-dashed border-gray-300 dark:border-gray-600 rounded-lg w-20 h-20 flex items-center justify-center text-gray-300 dark:text-gray-600" id="slot-square"><i class="fas fa-square text-2xl opacity-50"></i></div>
+                     <div onclick="selectSlot('triangle')" class="game-slot border-4 border-dashed border-gray-300 dark:border-gray-600 w-20 h-20 flex items-center justify-center text-gray-300 dark:text-gray-600" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background-color: transparent;" id="slot-triangle"><i class="fas fa-play -rotate-90 text-xl opacity-50"></i></div>
+                  </div>
 
-        aiButtons.forEach(btn => {
-            btn.addEventListener('click', async function() {
-                const outputDiv = this.closest('article').querySelector('.ai-output');
-                const topic = this.getAttribute('data-topic');
-                const type = this.classList.contains('explain-button') ? 'Explanation' :
-                    this.classList.contains('activity-button') ? 'Activity' : 'Story';
+                  <!-- Shapes -->
+                  <div class="flex justify-center gap-4" id="shapes-container">
+                     <div onclick="selectShape('circle')" class="game-shape bg-red-500 w-20 h-20 rounded-full cursor-pointer hover:scale-110 transition-transform shadow-md" id="shape-circle"></div>
+                     <div onclick="selectShape('square')" class="game-shape bg-blue-500 w-20 h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform shadow-md" id="shape-square"></div>
+                     <div onclick="selectShape('triangle')" class="game-shape bg-yellow-500 w-20 h-20 cursor-pointer hover:scale-110 transition-transform shadow-md" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);" id="shape-triangle"></div>
+                  </div>
 
-                outputDiv.classList.remove('hidden');
-                outputDiv.innerHTML = `<div class="flex items-center gap-2"><div class="loader"></div> Generating ${type}...</div>`;
-                await new Promise(r => setTimeout(r, 1000));
+                  <div id="game-message" class="mt-6 font-bold text-lg min-h-[28px] text-text-default"></div>
+                  
+                  <button onclick="openResourceModal('games')" class="mt-6 text-sm text-gray-500 hover:text-gray-700 underline">Back to Games Menu</button>
+                </div>
+            `;
+            // Reset selection state
+            window.selectedShape = null;
+        } else if (gameType === 'numberJump') {
+             titleEl.innerHTML = '<i class="fas fa-sort-numeric-down text-blue-500"></i> Number Jump';
+             contentEl.innerHTML = `
+                <div class="game-area text-center select-none">
+                  <p class="mb-4 text-text-default text-lg">Find number: <span id="target-num" class="font-bold text-primary text-4xl mx-2">1</span></p>
+                  
+                  <div class="grid grid-cols-3 gap-3 max-w-xs mx-auto" id="number-grid">
+                     <!-- Generated JS -->
+                  </div>
 
-                outputDiv.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <strong class="text-primary">${type}: ${topic}</strong>
-                        <button onclick="this.closest('.ai-output').classList.add('hidden')" class="text-xs text-red-500 hover:underline">Close</button>
-                    </div>
-                    <p class="leading-relaxed">This is a simulated AI response for <strong>${topic}</strong>. Connect the actual Gemini API to the backend to generate dynamic content suitable for Pre-K students.</p>
-                `;
-            });
+                  <div id="nj-message" class="mt-6 font-bold text-lg min-h-[28px] text-text-default"></div>
+                  <button onclick="openResourceModal('games')" class="mt-6 text-sm text-gray-500 hover:text-gray-700 underline">Back to Games Menu</button>
+                </div>
+            `;
+            initNumberJump();
+        }
+    }
+
+    // --- Shape Sorter Functions ---
+    window.selectedShape = null;
+
+    window.selectShape = function(shape) {
+        // Reset previous
+        document.querySelectorAll('.game-shape').forEach(el => el.classList.remove('ring-4', 'ring-offset-2', 'ring-primary'));
+        
+        // Set new
+        window.selectedShape = shape;
+        document.getElementById(`shape-${shape}`).classList.add('ring-4', 'ring-offset-2', 'ring-primary');
+        document.getElementById('game-message').innerText = "Now tap the matching outline!";
+        document.getElementById('game-message').className = "mt-6 font-bold text-lg min-h-[28px] text-primary";
+    }
+
+    window.selectSlot = function(slot) {
+        if (!window.selectedShape) {
+            document.getElementById('game-message').innerText = "Tap a colored shape first!";
+             document.getElementById('game-message').className = "mt-6 font-bold text-lg min-h-[28px] text-red-500";
+            return;
+        }
+
+        if (window.selectedShape === slot) {
+            // Success
+            const shapeEl = document.getElementById(`shape-${window.selectedShape}`);
+            const slotEl = document.getElementById(`slot-${slot}`);
+            
+            // Visual move (simple hide and fill)
+            shapeEl.classList.add('invisible');
+            slotEl.classList.remove('border-dashed', 'text-gray-300', 'dark:text-gray-600');
+            slotEl.innerHTML = ''; // Remove icon
+            
+            // Color fill
+            if(slot === 'circle') slotEl.classList.add('bg-red-500', 'border-red-500');
+            if(slot === 'square') slotEl.classList.add('bg-blue-500', 'border-blue-500');
+            if(slot === 'triangle') {
+                 slotEl.style.backgroundColor = '#eab308'; // yellow-500
+                 slotEl.style.borderColor = 'transparent';
+            }
+
+            document.getElementById('game-message').innerText = "Great Job!";
+            document.getElementById('game-message').className = "mt-6 font-bold text-lg min-h-[28px] text-green-500";
+            confetti({ particleCount: 20, spread: 40, origin: { y: 0.7 } });
+            
+            // Reset selection
+            window.selectedShape = null;
+
+            // Check Win
+            if (document.querySelectorAll('.game-shape.invisible').length === 3) {
+                 document.getElementById('game-message').innerText = "You matched them all!";
+                 confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+
+        } else {
+            // Fail
+            document.getElementById('game-message').innerText = "Oops! Try again.";
+            document.getElementById('game-message').className = "mt-6 font-bold text-lg min-h-[28px] text-red-500";
+            // Shake animation
+            const shapeEl = document.getElementById(`shape-${window.selectedShape}`);
+            shapeEl.classList.add('animate-shake');
+            setTimeout(() => shapeEl.classList.remove('animate-shake'), 500);
+        }
+    }
+
+    // --- Number Jump Functions ---
+    window.njTarget = 1;
+
+    window.initNumberJump = function() {
+        window.njTarget = 1;
+        const grid = document.getElementById('number-grid');
+        grid.innerHTML = '';
+        
+        // Create numbers 1-5 and fill rest with distractors or just 1-5 scrambled?
+        // Let's do 1-9 scrambled for slightly harder difficulty, but ask for 1-5 order.
+        let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        // Shuffle
+        numbers.sort(() => Math.random() - 0.5);
+
+        numbers.forEach(num => {
+            const btn = document.createElement('button');
+            btn.className = "w-full aspect-square rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-600 text-2xl font-bold text-text-default hover:bg-gray-100 dark:hover:bg-gray-700 transition-all shadow-sm active:scale-95";
+            btn.innerText = num;
+            btn.onclick = () => checkNumber(num, btn);
+            grid.appendChild(btn);
         });
-    });
+    }
+
+    window.checkNumber = function(num, btn) {
+        const msg = document.getElementById('nj-message');
+        const targetDisplay = document.getElementById('target-num');
+
+        if (num === window.njTarget) {
+            // Correct
+            btn.classList.remove('bg-white', 'dark:bg-gray-800', 'border-gray-200');
+            btn.classList.add('bg-green-500', 'text-white', 'border-green-500', 'scale-110');
+            
+            if (window.njTarget === 5) {
+                msg.innerText = "You found all numbers!";
+                msg.className = "mt-6 font-bold text-lg min-h-[28px] text-green-500";
+                targetDisplay.innerText = "Done!";
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } else {
+                window.njTarget++;
+                targetDisplay.innerText = window.njTarget;
+                msg.innerText = "Correct! Find the next number.";
+                msg.className = "mt-6 font-bold text-lg min-h-[28px] text-green-500";
+            }
+        } else if (num < window.njTarget) {
+             // Already found
+        } else {
+            // Wrong
+            msg.innerText = "Not that one! Look for " + window.njTarget;
+            msg.className = "mt-6 font-bold text-lg min-h-[28px] text-red-500";
+            btn.classList.add('bg-red-100', 'dark:bg-red-900/50');
+            setTimeout(() => btn.classList.remove('bg-red-100', 'dark:bg-red-900/50'), 300);
+        }
+    }
+
 
     const style = document.createElement('style');
     style.innerHTML = `
@@ -603,6 +747,13 @@ include '../src/header.php';
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .animate-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
     `;
     document.head.appendChild(style);
 </script>
