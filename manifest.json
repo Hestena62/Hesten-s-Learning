@@ -1,0 +1,23 @@
+{
+  "name": "Hesten's Learning",
+  "short_name": "Hesten's",
+  "start_url": "/index.php",
+  "display": "standalone",
+  "background_color": "#F3F4F6",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
