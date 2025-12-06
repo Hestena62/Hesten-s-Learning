@@ -177,7 +177,7 @@ include '../../src/header.php';
         </button>
       </div>
 
-      <!-- Export Tools -->
+      <!-- Export Tools
       <div class="flex flex-wrap items-center gap-2 order-1 sm:order-2">
         <button id="shareBtn" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Copy Text">
           <i class="fas fa-copy"></i> <span class="text-sm font-medium ml-1">Copy</span>
@@ -187,7 +187,8 @@ include '../../src/header.php';
         <button id="pdfBtn" class="px-3 py-1.5 text-xs font-bold bg-content-bg border border-slate-300 dark:border-slate-600 text-text-default rounded hover:bg-primary hover:text-white hover:border-primary transition-all">PDF</button>
         <button id="htmlBtn" class="px-3 py-1.5 text-xs font-bold bg-content-bg border border-slate-300 dark:border-slate-600 text-text-default rounded hover:bg-primary hover:text-white hover:border-primary transition-all">HTML</button>
         <button id="mdBtn" class="px-3 py-1.5 text-xs font-bold bg-content-bg border border-slate-300 dark:border-slate-600 text-text-default rounded hover:bg-primary hover:text-white hover:border-primary transition-all">MD</button>
-      </div>
+      </div>  -->
+
     </div>
   </div>
 </div>
