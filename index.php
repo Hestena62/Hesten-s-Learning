@@ -1,9 +1,9 @@
 <?php
 // --- PHP Page Variables ---
-$pageTitle = "Hesten's Learning";
+$pageTitle       = "Hesten's Learning";
 $pageDescription = "Empowering students with learning disabilities through personalized, accessible learning experiences in Math, ELA, and Science.";
-$pageKeywords = "learning disabilities, personalized education, online learning, math, ELA, science, accessible education";
-$pageAuthor = "Hesten's Learning";
+$pageKeywords    = "learning disabilities, personalized education, online learning, math, ELA, science, accessible education";
+$pageAuthor      = "Hesten's Learning";
 
 // --- Dynamic Content Array ---
 $learningLevels = [
@@ -28,32 +28,32 @@ $learningLevels = [
 // Maps categories to Tailwind Colors for distinct visual identity
 $themeMap = [
     'elem' => [
-        'border' => 'border-teal-400 dark:border-teal-500', 
-        'icon_bg' => 'bg-teal-100 dark:bg-teal-900', 
+        'border' => 'border-teal-400 dark:border-teal-500',
+        'icon_bg' => 'bg-teal-100 dark:bg-teal-900',
         'icon_text' => 'text-teal-600 dark:text-teal-300',
         'hover_border' => 'hover:border-teal-500',
         'button_hover' => 'hover:bg-teal-500 hover:text-white',
         'accent' => 'text-teal-600 dark:text-teal-400'
     ],
     'middle' => [
-        'border' => 'border-amber-400 dark:border-amber-500', 
-        'icon_bg' => 'bg-amber-100 dark:bg-amber-900', 
+        'border' => 'border-amber-400 dark:border-amber-500',
+        'icon_bg' => 'bg-amber-100 dark:bg-amber-900',
         'icon_text' => 'text-amber-600 dark:text-amber-300',
         'hover_border' => 'hover:border-amber-500',
         'button_hover' => 'hover:bg-amber-500 hover:text-white',
         'accent' => 'text-amber-600 dark:text-amber-400'
     ],
     'high' => [
-        'border' => 'border-rose-400 dark:border-rose-500', 
-        'icon_bg' => 'bg-rose-100 dark:bg-rose-900', 
+        'border' => 'border-rose-400 dark:border-rose-500',
+        'icon_bg' => 'bg-rose-100 dark:bg-rose-900',
         'icon_text' => 'text-rose-600 dark:text-rose-300',
         'hover_border' => 'hover:border-rose-500',
         'button_hover' => 'hover:bg-rose-500 hover:text-white',
         'accent' => 'text-rose-600 dark:text-rose-400'
     ],
     'extra' => [
-        'border' => 'border-violet-400 dark:border-violet-500', 
-        'icon_bg' => 'bg-violet-100 dark:bg-violet-900', 
+        'border' => 'border-violet-400 dark:border-violet-500',
+        'icon_bg' => 'bg-violet-100 dark:bg-violet-900',
         'icon_text' => 'text-violet-600 dark:text-violet-300',
         'hover_border' => 'hover:border-violet-500',
         'button_hover' => 'hover:bg-violet-500 hover:text-white',
@@ -68,31 +68,41 @@ include 'src/header.php';
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" defer></script>
 
 <!-- Hero Section with Enhanced Gradient Overlay -->
-<div class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+<div
+    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
     <!-- Background Decor -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl text-white/10 animate-pulse"></i>
         <i class="fas fa-calculator absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12"></i>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl mix-blend-overlay"></div>
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl mix-blend-overlay">
+        </div>
     </div>
 
     <div class="relative z-10 max-w-5xl mx-auto text-center">
-        <div class="backdrop-blur-md bg-white/10 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
-            <span class="inline-block py-1 px-4 rounded-full bg-black/20 text-white text-xs font-bold mb-6 tracking-wide uppercase border border-white/20 shadow-sm">
+        <div
+            class="backdrop-blur-md bg-white/10 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
+            <span
+                class="inline-block py-1 px-4 rounded-full bg-black/20 text-white text-xs font-bold mb-6 tracking-wide uppercase border border-white/20 shadow-sm">
                 Accessible Education for All
             </span>
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-lg text-white">
-                Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-200">Limits</span>
+                Learning Without <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-200">Limits</span>
             </h1>
-            <p class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">
-                Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white border-b-2 border-teal-300/50">how you learn</span>.
+            <p
+                class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">
+                Empowering every student with personalized, accessible, and engaging educational experiences designed
+                for <span class="font-bold text-white border-b-2 border-teal-300/50">how you learn</span>.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#level-grid" class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
+                <a href="#level-grid"
+                    class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
                     <span>Start Learning</span>
                     <i class="fas fa-arrow-down" aria-hidden="true"></i>
                 </a>
-                <a href="/about.php" class="bg-transparent border-2 border-white/50 text-white font-bold py-4 px-10 rounded-full transition-colors hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
+                <a href="/about.php"
+                    class="bg-transparent border-2 border-white/50 text-white font-bold py-4 px-10 rounded-full transition-colors hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
                     Learn More
                 </a>
             </div>
@@ -101,7 +111,8 @@ include 'src/header.php';
         <!-- Stats Bar -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 text-center" aria-label="Site Statistics">
             <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
-                <div class="text-3xl font-bold text-teal-300 mb-1 flex justify-center"><span id="user-progress-stat">0</span>%</div>
+                <div class="text-3xl font-bold text-teal-300 mb-1 flex justify-center"><span
+                        id="user-progress-stat">0</span>%</div>
                 <div class="text-sm text-blue-100">Your Progress</div>
             </div>
             <div class="p-4 rounded-xl bg-black/20 backdrop-blur border border-white/10 shadow-lg">
@@ -124,28 +135,35 @@ include 'src/header.php';
 <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
 
     <!-- Resume Learning Banner (Dynamic) -->
-    <div id="resume-banner" class="hidden mb-12 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-1 shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer group">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 h-full border border-white/10">
+    <div id="resume-banner"
+        class="hidden mb-12 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-1 shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer group">
+        <div
+            class="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 h-full border border-white/10">
             <div class="flex items-center gap-4 text-white">
-                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                <div
+                    class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner">
                     <i class="fas fa-play"></i>
                 </div>
                 <div>
                     <h2 class="text-xl font-bold">Welcome Back!</h2>
-                    <p class="text-blue-50">Ready to continue with <span id="next-level-name" class="font-bold underline text-white decoration-amber-400 decoration-2"></span>?</p>
+                    <p class="text-blue-50">Ready to continue with <span id="next-level-name"
+                            class="font-bold underline text-white decoration-amber-400 decoration-2"></span>?</p>
                 </div>
             </div>
-            <button class="bg-white text-teal-700 px-8 py-3 rounded-full font-bold hover:bg-teal-50 transition-colors shadow-md focus:ring-4 focus:ring-white/50">
+            <button
+                class="bg-white text-teal-700 px-8 py-3 rounded-full font-bold hover:bg-teal-50 transition-colors shadow-md focus:ring-4 focus:ring-white/50">
                 Resume Learning
             </button>
         </div>
     </div>
 
     <!-- Filter & Search Controls -->
-    <div class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-4 z-30 transition-colors duration-300">
+    <div
+        class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-4 z-30 transition-colors duration-300">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
-                <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm" aria-hidden="true"></span>
+                <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm"
+                    aria-hidden="true"></span>
                 <h2 id="learning-levels-heading" class="text-2xl font-bold text-text-default">Select Your Grade</h2>
             </div>
 
@@ -155,55 +173,72 @@ include 'src/header.php';
                     <label for="level-search" class="sr-only">Filter grades</label>
                     <input type="text" id="level-search" placeholder="Filter grades..."
                         class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm">
-                    <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
-                    <button id="clear-search" onclick="resetFilters()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none" aria-label="Clear filter">
+                    <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        aria-hidden="true"></i>
+                    <button id="clear-search" onclick="resetFilters()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none"
+                        aria-label="Clear filter">
                         <i class="fas fa-times-circle"></i>
                     </button>
                 </div>
 
                 <!-- Categories -->
                 <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
-                    <button onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 transition-all shadow-sm ring-offset-2 focus:ring-2" aria-pressed="true" data-filter="all">All</button>
+                    <button onclick="setCategory('all')"
+                        class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 transition-all shadow-sm ring-offset-2 focus:ring-2"
+                        aria-pressed="true" data-filter="all">All</button>
                     <!-- Color-Coded Filter Buttons -->
-                    <button onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-900/30 dark:text-teal-300 dark:hover:bg-teal-900/50 transition-all border border-transparent hover:border-teal-200" aria-pressed="false" data-filter="elem">Elem</button>
-                    <button onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50 transition-all border border-transparent hover:border-amber-200" aria-pressed="false" data-filter="middle">Middle</button>
-                    <button onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50 transition-all border border-transparent hover:border-rose-200" aria-pressed="false" data-filter="high">High</button>
+                    <button onclick="setCategory('elem')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-900/30 dark:text-teal-300 dark:hover:bg-teal-900/50 transition-all border border-transparent hover:border-teal-200"
+                        aria-pressed="false" data-filter="elem">Elem</button>
+                    <button onclick="setCategory('middle')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50 transition-all border border-transparent hover:border-amber-200"
+                        aria-pressed="false" data-filter="middle">Middle</button>
+                    <button onclick="setCategory('high')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50 transition-all border border-transparent hover:border-rose-200"
+                        aria-pressed="false" data-filter="high">High</button>
                 </div>
             </div>
         </div>
-        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">Showing all levels</div>
+        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">Showing all
+            levels</div>
     </div>
 
     <!-- Grid -->
-    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-labelledby="learning-levels-heading">
-        <?php foreach ($learningLevels as $index => $level): 
+    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        aria-labelledby="learning-levels-heading">
+        <?php foreach ($learningLevels as $index => $level) :
             $theme = isset($themeMap[$level['category']]) ? $themeMap[$level['category']] : $themeMap['elem'];
-        ?>
+            ?>
             <article class="level-card group relative flex flex-col h-full"
                 data-category="<?php echo htmlspecialchars($level['category']); ?>"
                 data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
                 data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>"
                 data-id="<?php echo htmlspecialchars($level['id']); ?>"
                 data-link="<?php echo htmlspecialchars($level['link']); ?>">
-                
+
                 <!-- Card Container with Dynamic Border Color -->
-                <div class="bg-content-bg h-full rounded-2xl shadow-lg border-t-8 <?php echo $theme['border']; ?> border-l border-r border-b border-gray-100 dark:border-gray-700 hover:border-transparent <?php echo $theme['hover_border']; ?> transition-all duration-300 p-8 flex flex-col overflow-hidden hover:shadow-2xl hover:-translate-y-1">
-                    
+                <div
+                    class="bg-content-bg h-full rounded-2xl shadow-lg border-t-8 <?php echo $theme['border']; ?> border-l border-r border-b border-gray-100 dark:border-gray-700 hover:border-transparent <?php echo $theme['hover_border']; ?> transition-all duration-300 p-8 flex flex-col overflow-hidden hover:shadow-2xl hover:-translate-y-1">
+
                     <!-- Decorative Icon Background (Faded) -->
-                    <div class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 transform rotate-12 group-hover:scale-110 transition-transform duration-500 pointer-events-none <?php echo $theme['accent']; ?>">
+                    <div
+                        class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 transform rotate-12 group-hover:scale-110 transition-transform duration-500 pointer-events-none <?php echo $theme['accent']; ?>">
                         <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                     </div>
 
                     <!-- Actions Top Right -->
                     <div class="absolute top-4 right-4 flex gap-2 z-20">
-                         <!-- TTS -->
-                        <button type="button" class="w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                        <!-- TTS -->
+                        <button type="button"
+                            class="w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                             onclick="toggleSpeech(this, '<?php echo htmlspecialchars(addslashes($level['title'])); ?>', '<?php echo htmlspecialchars(addslashes($level['description'])); ?>')"
                             aria-label="Listen to description">
                             <i class="fas fa-volume-up"></i>
                         </button>
                         <!-- Mark Complete -->
-                        <button type="button" class="completion-toggle w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-green-600 hover:bg-green-100 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
+                        <button type="button"
+                            class="completion-toggle w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-green-600 hover:bg-green-100 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
                             onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
                             aria-label="Mark as complete">
                             <i class="fas fa-check"></i>
@@ -212,10 +247,12 @@ include 'src/header.php';
 
                     <!-- Content Header with Dynamic Icon Colors -->
                     <div class="flex items-center gap-4 mb-4 relative z-10">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-inner transition-colors <?php echo $theme['icon_bg'] . ' ' . $theme['icon_text']; ?>">
+                        <div
+                            class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-inner transition-colors <?php echo $theme['icon_bg'] . ' ' . $theme['icon_text']; ?>">
                             <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-text-default group-hover:text-current transition-colors <?php echo $theme['accent']; ?>">
+                        <h3
+                            class="text-xl font-bold text-text-default group-hover:text-current transition-colors <?php echo $theme['accent']; ?>">
                             <?php echo htmlspecialchars($level['title']); ?>
                         </h3>
                     </div>
@@ -224,7 +261,8 @@ include 'src/header.php';
                         <?php echo htmlspecialchars($level['description']); ?>
                     </p>
 
-                    <a href="<?php echo htmlspecialchars($level['link']); ?>" class="mt-auto relative z-10 w-full flex justify-between items-center bg-base-bg text-text-default font-bold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-current/30 group-focus:ring-4 <?php echo $theme['button_hover']; ?>">
+                    <a href="<?php echo htmlspecialchars($level['link']); ?>"
+                        class="mt-auto relative z-10 w-full flex justify-between items-center bg-base-bg text-text-default font-bold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-current/30 group-focus:ring-4 <?php echo $theme['button_hover']; ?>">
                         <span>Explore Skills</span>
                         <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </a>
@@ -257,7 +295,7 @@ include 'src/header.php';
     document.addEventListener("DOMContentLoaded", () => {
         loadProgress();
         checkResumeLearning();
-        
+
         // Setup Search Debounce
         document.getElementById('level-search')?.addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
@@ -270,7 +308,7 @@ include 'src/header.php';
         try {
             const stored = localStorage.getItem('hl_completed_levels');
             if (stored) completedLevels = JSON.parse(stored);
-        } catch(e) {}
+        } catch (e) { }
         updateProgressUI();
     }
 
@@ -304,7 +342,7 @@ include 'src/header.php';
         document.querySelectorAll('.completion-toggle').forEach(btn => {
             const id = btn.closest('.level-card').dataset.id;
             const isComplete = completedLevels.includes(id);
-            
+
             if (isComplete) {
                 btn.classList.add('bg-green-500', 'text-white', 'border-transparent');
                 btn.classList.remove('bg-base-bg', 'text-text-secondary');
@@ -321,7 +359,7 @@ include 'src/header.php';
         // Update Stats
         const total = document.querySelectorAll('.level-card').length;
         const count = completedLevels.length;
-        const pct = total ? Math.round((count/total)*100) : 0;
+        const pct = total ? Math.round((count / total) * 100) : 0;
         const statEl = document.getElementById('user-progress-stat');
         if (statEl) statEl.textContent = pct;
     }
@@ -330,7 +368,7 @@ include 'src/header.php';
     function checkResumeLearning() {
         const banner = document.getElementById('resume-banner');
         if (!banner) return;
-        
+
         if (completedLevels.length === 0) {
             banner.classList.add('hidden');
             return;
@@ -343,7 +381,7 @@ include 'src/header.php';
             const title = nextLevel.dataset.title;
             const link = nextLevel.dataset.link;
             document.getElementById('next-level-name').textContent = title.charAt(0).toUpperCase() + title.slice(1);
-            
+
             // Make whole banner clickable
             banner.onclick = () => window.location.href = link;
             banner.classList.remove('hidden');
@@ -371,7 +409,7 @@ include 'src/header.php';
 
         const text = `${title}. ${desc}`;
         const utterance = new SpeechSynthesisUtterance(text);
-        
+
         utterance.onend = () => {
             btn.classList.remove('speaking', 'text-primary', 'animate-pulse');
             btn.innerHTML = '<i class="fas fa-volume-up"></i>';
@@ -387,36 +425,36 @@ include 'src/header.php';
         currentCategory = cat;
         // Update Buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
-            if(btn.dataset.filter === cat) {
+            if (btn.dataset.filter === cat) {
                 // If it's the "All" button
-                if(cat === 'all') {
-                     btn.classList.add('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
-                } else if(cat === 'elem') {
-                     btn.classList.add('bg-teal-500', 'text-white', 'border-transparent');
-                     btn.classList.remove('text-teal-700', 'bg-teal-50');
-                } else if(cat === 'middle') {
-                     btn.classList.add('bg-amber-500', 'text-white', 'border-transparent');
-                     btn.classList.remove('text-amber-700', 'bg-amber-50');
-                } else if(cat === 'high') {
-                     btn.classList.add('bg-rose-500', 'text-white', 'border-transparent');
-                     btn.classList.remove('text-rose-700', 'bg-rose-50');
+                if (cat === 'all') {
+                    btn.classList.add('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
+                } else if (cat === 'elem') {
+                    btn.classList.add('bg-teal-500', 'text-white', 'border-transparent');
+                    btn.classList.remove('text-teal-700', 'bg-teal-50');
+                } else if (cat === 'middle') {
+                    btn.classList.add('bg-amber-500', 'text-white', 'border-transparent');
+                    btn.classList.remove('text-amber-700', 'bg-amber-50');
+                } else if (cat === 'high') {
+                    btn.classList.add('bg-rose-500', 'text-white', 'border-transparent');
+                    btn.classList.remove('text-rose-700', 'bg-rose-50');
                 }
                 btn.setAttribute('aria-pressed', 'true');
             } else {
                 // Reset to inactive state based on type
-                if(btn.dataset.filter === 'all') {
-                     btn.classList.remove('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
-                     // Add inactive style for "All"
-                     btn.classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-300');
-                } else if(btn.dataset.filter === 'elem') {
-                     btn.classList.remove('bg-teal-500', 'text-white', 'border-transparent');
-                     btn.classList.add('text-teal-700', 'bg-teal-50', 'dark:text-teal-300', 'dark:bg-teal-900/30');
-                } else if(btn.dataset.filter === 'middle') {
-                     btn.classList.remove('bg-amber-500', 'text-white', 'border-transparent');
-                     btn.classList.add('text-amber-700', 'bg-amber-50', 'dark:text-amber-300', 'dark:bg-amber-900/30');
-                } else if(btn.dataset.filter === 'high') {
-                     btn.classList.remove('bg-rose-500', 'text-white', 'border-transparent');
-                     btn.classList.add('text-rose-700', 'bg-rose-50', 'dark:text-rose-300', 'dark:bg-rose-900/30');
+                if (btn.dataset.filter === 'all') {
+                    btn.classList.remove('bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900');
+                    // Add inactive style for "All"
+                    btn.classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-300');
+                } else if (btn.dataset.filter === 'elem') {
+                    btn.classList.remove('bg-teal-500', 'text-white', 'border-transparent');
+                    btn.classList.add('text-teal-700', 'bg-teal-50', 'dark:text-teal-300', 'dark:bg-teal-900/30');
+                } else if (btn.dataset.filter === 'middle') {
+                    btn.classList.remove('bg-amber-500', 'text-white', 'border-transparent');
+                    btn.classList.add('text-amber-700', 'bg-amber-50', 'dark:text-amber-300', 'dark:bg-amber-900/30');
+                } else if (btn.dataset.filter === 'high') {
+                    btn.classList.remove('bg-rose-500', 'text-white', 'border-transparent');
+                    btn.classList.add('text-rose-700', 'bg-rose-50', 'dark:text-rose-300', 'dark:bg-rose-900/30');
                 }
                 btn.setAttribute('aria-pressed', 'false');
             }
@@ -433,7 +471,7 @@ include 'src/header.php';
         const input = document.getElementById('level-search');
         const term = input.value.toLowerCase().trim();
         const clearBtn = document.getElementById('clear-search');
-        
+
         if (term) clearBtn.classList.remove('hidden');
         else clearBtn.classList.add('hidden');
 
@@ -455,7 +493,7 @@ include 'src/header.php';
         const grid = document.getElementById('level-grid');
         const noResults = document.getElementById('no-results');
         const countMsg = document.getElementById('results-count');
-        
+
         if (visible === 0) {
             grid.classList.add('hidden');
             noResults.classList.remove('hidden');
@@ -463,7 +501,7 @@ include 'src/header.php';
         } else {
             grid.classList.remove('hidden');
             noResults.classList.add('hidden');
-            countMsg.textContent = `Showing ${visible} result${visible!==1?'s':''}`;
+            countMsg.textContent = `Showing ${visible} result${visible !== 1 ? 's' : ''}`;
         }
     }
 </script>

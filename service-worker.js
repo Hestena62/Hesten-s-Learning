@@ -1,12 +1,43 @@
 const CACHE_NAME = 'hestens-learning-v1';
 const ASSETS_TO_CACHE = [
+
+  // Main Directory Files A-Z
   '/',
+  '/about-me.php',
+  '/about-us.php',
+  '/assessment.php',
+  '/contact.php',
+  '/curriculum.php',
+  '/games.html',
+  '/help-center.php',
   '/index.php',
   '/manifest.json',
+  '/mission.php',
+  '/parents.php',
+  '/privacy-policy.php',
+  '/search.php',
+  '/service-worker.js',
+  '/settings.php',
+  '/standard.php',
+  '/students.php',
+  '/teachers.php', // Link is teachers.html
+  '/terms-of-use.php',
+
+  // Images
   '/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png',
-  // Add other critical local scripts/styles here if they exist, e.g.:
-  // '/css/style.css', 
-  // '/js/app.js'
+
+  // CSS
+  '/src/style.css',
+  '/src/w3.css',
+
+  // JavaScript
+  '/JS/assessment-core.js',
+  '/JS/questionGenerator.js',
+
+  // SRC Files
+  '/src/footer.php',
+  '/src/header.php',
+
 ];
 
 // Install Event: Caches critical assets immediately
@@ -57,17 +88,17 @@ self.addEventListener('fetch', (event) => {
           });
         })
     );
-  } 
+  }
   // 2. For images, fonts, and static assets, use Cache First, then Network
   else {
     event.respondWith(
       caches.match(event.request).then((response) => {
         return response || fetch(event.request).then((networkResponse) => {
-            return caches.open(CACHE_NAME).then((cache) => {
-                // Cache new assets dynamically as they are fetched
-                cache.put(event.request, networkResponse.clone());
-                return networkResponse;
-            });
+          return caches.open(CACHE_NAME).then((cache) => {
+            // Cache new assets dynamically as they are fetched
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         });
       })
     );
