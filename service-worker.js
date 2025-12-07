@@ -8,7 +8,7 @@ const ASSETS_TO_CACHE = [
   '/assessment.php',
   '/contact.php',
   '/curriculum.php',
-  '/games.html',
+  '/games.php',
   '/help-center.php',
   '/index.php',
   '/manifest.json',
@@ -20,7 +20,7 @@ const ASSETS_TO_CACHE = [
   '/settings.php',
   '/standard.php',
   '/students.php',
-  '/teachers.php', // Link is teachers.html
+  '/teachers.php', // Link is teachers.php
   '/terms-of-use.php',
 
   // Images
@@ -104,3 +104,4 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+

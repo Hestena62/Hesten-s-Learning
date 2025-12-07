@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" class="scroll-smooth scroll-pt-24">
+<html lang="en-US">
 
 <head>
     <meta charset="UTF-8" />
@@ -29,34 +29,20 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Hesten's Learning",
-      "url": "https://hestena62.com",
-      "logo": "https://hestena62.com/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png",
-      "description": "Empowering students with learning disabilities through personalized learning experiences.",
-      "sameAs": [
-        "https://twitter.com/hestenslearning",
-        "https://facebook.com/hestenslearning"
-      ]
-    }
-    </script>
+
+    <!-- Optimized Resource Loading -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- File linking all the needed libraries -->
-    <script src="/src/all-lib.php"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lexend:wght@300;400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
         rel="stylesheet">
@@ -114,6 +100,10 @@
                             '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
                             '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: { /* New smooth float animation */
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
                         },
                         bounceShort: {
                             '0%, 100%': { transform: 'translateY(0)' },
@@ -399,7 +389,7 @@
     </style>
 </head>
 
-<body class="antialiased font-sans overflow-x-hidden">
+<body class="antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
     <!-- Skip to Content Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-white focus:text-primary focus:font-bold focus:rounded-lg focus:shadow-xl">
@@ -423,7 +413,7 @@
 
     <!-- ACCESSIBILITY SETTINGS PANEL -->
     <div id="a11y-settings-panel"
-        class="fixed top-0 right-0 h-full w-80 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l-4 border-primary"
+        class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l border-white/20 ring-1 ring-black/5"
         role="dialog" aria-modal="true" aria-label="Accessibility Settings" aria-hidden="true">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-primary">Accessibility</h2>
@@ -563,6 +553,9 @@
                         </a>
                         <a href="/assessment.php" class="<?php echo navClass('assessment.php', $current_page); ?>">
                             <i class="fas fa-tasks mr-1"></i> Assessment
+                        </a>
+                        <a href="/assistant.php" class="<?php echo navClass('assistant.php', $current_page); ?>">
+                            <i class="fas fa-robot mr-1"></i> Assistant
                         </a>
                     </div>
 

@@ -1,6 +1,6 @@
 <?php
 // Page-Specific Metadata
-$pageTitle       = "4th Grade Level F | Hesten's Learning";
+$pageTitle       = "5th Grade Level G | Hesten's Learning";
 $pageDescription = "Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners.";
 $pageKeywords    = "Pre-K, math, language arts, science, social studies, early learning";
 $pageAuthor      = "Hesten's Learning";
@@ -50,7 +50,7 @@ include '../src/header.php';
     <div class="container mx-auto text-center relative z-10">
         <span
             class="inline-block py-1 px-3 rounded-full bg-white/20 border border-white/30 text-xs font-bold mb-4 tracking-wide uppercase backdrop-blur-md">
-            4th Grade Curriculum
+            5th Grade Curriculum
         </span>
         <!-- Main Content Area -->
         <main id="main-content" class="container mx-auto px-4 pb-24 min-h-[60vh] scroll-mt-32" tabindex="-1">

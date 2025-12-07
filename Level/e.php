@@ -296,7 +296,7 @@ include '../src/header.php';
             </button>
 
             <!-- Quiz Card -->
-            <a href="/assessment/grade3.php"
+            <a href="../assessment/index.php?grade=3"
                 class="group text-left bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all border border-gray-100 dark:border-gray-700 hover:-translate-y-1 block">
                 <div
                     class="w-full h-40 rounded-2xl bg-blue-100 dark:bg-blue-900/30 mb-6 flex items-center justify-center overflow-hidden relative">

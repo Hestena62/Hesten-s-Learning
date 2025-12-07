@@ -1,16 +1,17 @@
 <?php
 // Page-Specific Metadata
-$pageTitle = "Pre-K Level A | Hesten's Learning";
+$pageTitle       = "Pre-K Level A | Hesten's Learning";
 $pageDescription = "Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners.";
-$pageKeywords = "Pre-K, math, language arts, science, social studies, early learning";
-$pageAuthor = "Hesten's Learning";
+$pageKeywords    = "Pre-K, math, language arts, science, social studies, early learning";
+$pageAuthor      = "Hesten's Learning";
 
 // Include Global Header (Adjust path if necessary)
 include '../src/header.php';
 ?>
 
 <!-- Level A Specific Sub-Nav (Sticky Tabs) -->
-<div class="sticky top-0 z-30 bg-base-bg/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+<div
+    class="sticky top-0 z-30 bg-base-bg/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
     <div class="container mx-auto px-4">
         <div class="flex overflow-x-auto py-3 gap-2 no-scrollbar" role="tablist" aria-label="Subject navigation tabs">
             <button onclick="switchTab('math')" id="tab-math"
@@ -42,19 +43,25 @@ include '../src/header.php';
     <!-- Abstract Background Shapes -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
         <i class="fas fa-shapes absolute top-10 left-10 text-9xl animate-pulse"></i>
-        <i class="fas fa-star absolute bottom-10 right-10 text-8xl animate-spin-slow" style="animation-duration: 12s;"></i>
+        <i class="fas fa-star absolute bottom-10 right-10 text-8xl animate-spin-slow"
+            style="animation-duration: 12s;"></i>
     </div>
 
     <div class="container mx-auto text-center relative z-10">
-        <span class="inline-block py-1 px-3 rounded-full bg-white/20 border border-white/30 text-xs font-bold mb-4 tracking-wide uppercase backdrop-blur-md">
+        <span
+            class="inline-block py-1 px-3 rounded-full bg-white/20 border border-white/30 text-xs font-bold mb-4 tracking-wide uppercase backdrop-blur-md">
             Pre-K Curriculum
         </span>
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md">
             Level <span class="text-yellow-300">A</span>
         </h1>
-        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed">
+        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed mb-8">
             Start your journey here. Master counting, identifying objects, and exploring the world around you.
         </p>
+        <a href="../assessment/index.php?grade=Pre-K"
+            class="inline-block px-8 py-3 bg-yellow-400 text-blue-900 font-bold rounded-full hover:bg-yellow-300 transition-colors shadow-lg transform hover:-translate-y-1">
+            <i class="fas fa-star mr-2"></i> Take Pre-K Assessment
+        </a>
     </div>
 </header>
 
@@ -78,18 +85,19 @@ include '../src/header.php';
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             <!-- Topic Card A -->
-            <article class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow relative">
                     <!-- Progress Bar for this Card -->
                     <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
-                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%" id="progress-topic-a"></div>
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                            id="progress-topic-a"></div>
                     </div>
 
                     <!-- TTS Button -->
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
-                        onclick="toggleSpeech(this)"
-                        data-title="Topic A: Matching Objects"
+                        onclick="toggleSpeech(this)" data-title="Topic A: Matching Objects"
                         data-desc="Learn to identify identical objects and match things that go together."
                         aria-label="Read description aloud">
                         <i class="fas fa-volume-up"></i>
@@ -103,27 +111,39 @@ include '../src/header.php';
                     <!-- Interactive Lesson List -->
                     <ul class="space-y-3 mb-6 lesson-list">
                         <li>
-                            <button onclick="toggleLesson('topic-a-1', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-a-1', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 1:</strong> Identify identical objects.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        1:</strong> Identify identical objects.</span>
                             </button>
                         </li>
                         <li>
-                            <button onclick="toggleLesson('topic-a-2', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-a-2', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 2–3:</strong> Match 2 objects that are the same.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        2–3:</strong> Match 2 objects that are the same.</span>
                             </button>
                         </li>
                         <li>
-                            <button onclick="toggleLesson('topic-a-3', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-a-3', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 4:</strong> Match 2 objects that are used together.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        4:</strong> Match 2 objects that are used together.</span>
                             </button>
                         </li>
                     </ul>
@@ -131,18 +151,19 @@ include '../src/header.php';
             </article>
 
             <!-- Topic Card B -->
-            <article class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow relative">
                     <!-- Progress Bar for this Card -->
                     <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
-                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%" id="progress-topic-b"></div>
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                            id="progress-topic-b"></div>
                     </div>
 
                     <!-- TTS Button -->
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
-                        onclick="toggleSpeech(this)"
-                        data-title="Topic B: Sorting"
+                        onclick="toggleSpeech(this)" data-title="Topic B: Sorting"
                         data-desc="Understand attributes and how to sort items into groups."
                         aria-label="Read description aloud">
                         <i class="fas fa-volume-up"></i>
@@ -155,27 +176,39 @@ include '../src/header.php';
 
                     <ul class="space-y-3 mb-6 lesson-list">
                         <li>
-                            <button onclick="toggleLesson('topic-b-1', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-b-1', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 5:</strong> Make one group with a given attribute.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        5:</strong> Make one group with a given attribute.</span>
                             </button>
                         </li>
                         <li>
-                            <button onclick="toggleLesson('topic-b-2', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-b-2', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 6:</strong> Sort into two groups.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        6:</strong> Sort into two groups.</span>
                             </button>
                         </li>
                         <li>
-                            <button onclick="toggleLesson('topic-b-3', this)" class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary" aria-pressed="false">
-                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                            <button onclick="toggleLesson('topic-b-3', this)"
+                                class="lesson-btn w-full text-left flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-base-bg transition-colors group focus:outline-none focus:ring-2 focus:ring-primary"
+                                aria-pressed="false">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
                                 </div>
-                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson 7:</strong> Sort the same group in two ways.</span>
+                                <span class="text-text-default group-hover:text-primary transition-colors"><strong>Lesson
+                                        7:</strong> Sort the same group in two ways.</span>
                             </button>
                         </li>
                     </ul>
@@ -187,8 +220,10 @@ include '../src/header.php';
 
     <!-- LANGUAGE ARTS SECTION (Placeholder) -->
     <section id="content-ela" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
-            <div class="w-20 h-20 bg-pink-100 dark:bg-pink-900 rounded-full flex items-center justify-center text-pink-500 text-3xl mb-4">
+        <div
+            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
+            <div
+                class="w-20 h-20 bg-pink-100 dark:bg-pink-900 rounded-full flex items-center justify-center text-pink-500 text-3xl mb-4">
                 <i class="fas fa-pencil-alt"></i>
             </div>
             <h2 class="text-2xl font-bold text-text-default">Language Arts</h2>
@@ -198,8 +233,10 @@ include '../src/header.php';
 
     <!-- SCIENCE SECTION (Placeholder) -->
     <section id="content-science" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
-            <div class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-500 text-3xl mb-4">
+        <div
+            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
+            <div
+                class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-500 text-3xl mb-4">
                 <i class="fas fa-leaf"></i>
             </div>
             <h2 class="text-2xl font-bold text-text-default">Science</h2>
@@ -209,8 +246,10 @@ include '../src/header.php';
 
     <!-- SOCIAL STUDIES SECTION (Placeholder) -->
     <section id="content-social" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
-            <div class="w-20 h-20 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center text-orange-500 text-3xl mb-4">
+        <div
+            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
+            <div
+                class="w-20 h-20 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center text-orange-500 text-3xl mb-4">
                 <i class="fas fa-users"></i>
             </div>
             <h2 class="text-2xl font-bold text-text-default">Social Studies</h2>
@@ -268,7 +307,7 @@ include '../src/header.php';
     // --- Granular Lesson Tracking Logic ---
     let completedLessons = [];
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         loadLessonProgress();
 
         // Initialize UI
@@ -284,7 +323,7 @@ include '../src/header.php';
         try {
             const stored = localStorage.getItem('hl_completed_lessons_granular');
             if (stored) completedLessons = JSON.parse(stored);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     function toggleLesson(lessonId, btn) {
@@ -356,11 +395,11 @@ include '../src/header.php';
     }
 
     // AI Placeholder Logic
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const aiButtons = document.querySelectorAll('.explain-button, .activity-button, .story-button');
 
         aiButtons.forEach(btn => {
-            btn.addEventListener('click', async function() {
+            btn.addEventListener('click', async function () {
                 const outputDiv = this.closest('article').querySelector('.ai-output');
                 const topic = this.getAttribute('data-topic');
                 const type = this.classList.contains('explain-button') ? 'Explanation' :

@@ -75,7 +75,7 @@ include 'src/header.php';
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl text-white/10 animate-pulse"></i>
         <i class="fas fa-calculator absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12"></i>
         <div
-            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl mix-blend-overlay">
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] mix-blend-overlay animate-pulse">
         </div>
     </div>
 
@@ -88,7 +88,7 @@ include 'src/header.php';
             </span>
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-lg text-white">
                 Learning Without <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-200">Limits</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-100 drop-shadow-sm">Limits</span>
             </h1>
             <p
                 class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">

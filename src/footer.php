@@ -16,14 +16,15 @@ $currentYear = date("Y");
 </button>
 
 <!-- Footer -->
-<footer class="mt-auto bg-slate-900 text-slate-300 relative overflow-hidden font-sans border-t border-slate-800/50">
+<footer
+  class="mt-auto bg-slate-900 text-slate-300 relative overflow-hidden font-sans border-t border-slate-800/50 w-full">
 
   <!-- Decorative Elements -->
   <div
     class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-[0_0_20px_rgba(79,70,229,0.5)]">
   </div>
   <div
-    class="absolute -top-[400px] -right-[400px] w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none">
+    class="absolute -top-[400px] -right-[400px] w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none overflow-hidden">
   </div>
   <div
     class="absolute bottom-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none">
@@ -51,22 +52,18 @@ $currentYear = date("Y");
           experiences meant for everyone.
         </p>
         <div class="flex gap-3 pt-2">
-          <!-- Social Placeholders -->
-          <a href="#"
-            class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all duration-300 group"
-            aria-label="Twitter">
-            <i class="fab fa-twitter text-lg group-hover:scale-110 transition-transform"></i>
-          </a>
-          <a href="#"
-            class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-blue-800 hover:text-white hover:border-blue-700 transition-all duration-300 group"
-            aria-label="Facebook">
-            <i class="fab fa-facebook-f text-lg group-hover:scale-110 transition-transform"></i>
-          </a>
-          <a href="#"
-            class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white hover:border-pink-500 transition-all duration-300 group"
-            aria-label="Instagram">
-            <i class="fab fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
-          </a>
+          <!-- Social placeholders hidden until active -->
+          <!--
+             <a href="#" class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all duration-300 group" aria-label="Twitter">
+                <i class="fab fa-twitter text-lg group-hover:scale-110 transition-transform"></i>
+             </a>
+             <a href="#" class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-blue-800 hover:text-white hover:border-blue-700 transition-all duration-300 group" aria-label="Facebook">
+                <i class="fab fa-facebook-f text-lg group-hover:scale-110 transition-transform"></i>
+             </a>
+             <a href="#" class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white hover:border-pink-500 transition-all duration-300 group" aria-label="Instagram">
+                <i class="fab fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
+             </a>
+             -->
           <a href="mailto:admin@hestena62.com"
             class="w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white hover:border-emerald-500 transition-all duration-300 group"
             aria-label="Email Us">
@@ -94,7 +91,7 @@ $currentYear = date("Y");
               class="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 group"><span
                 class="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-blue-400 transition-colors"></span>
               Standards</a></li>
-          <li><a href="/games.html"
+          <li><a href="/games.php"
               class="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 group"><span
                 class="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-blue-400 transition-colors"></span>
               Games</a></li>
@@ -238,9 +235,9 @@ $currentYear = date("Y");
     window.addEventListener("scroll", () => {
       // Show button after scrolling down 300px
       if (window.scrollY > 300) {
-        scrollTopBtn.classList.remove("translate-y-24", "opacity-0");
+        scrollTopBtn.classList.remove("translate-y-20", "opacity-0");
       } else {
-        scrollTopBtn.classList.add("translate-y-24", "opacity-0");
+        scrollTopBtn.classList.add("translate-y-20", "opacity-0");
       }
     });
 
