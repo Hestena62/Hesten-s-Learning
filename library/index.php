@@ -1,36 +1,30 @@
 <?php
 // --- Page-Specific Variables ---
-// These variables will be used by header.php
-$pageTitle = 'Hesten\'s Learning Library';
-$pageDescription = 'Browse your personal collection of digital books in a Netflix-style interface.';
-$pageKeywords = 'library, books, epub, pdf, digital library, collection';
-$pageAuthor = 'Hesten\'s Learning'; // Or your site name
-$welcomeMessage = "Welcome to Hesten\ 's Learning Library";
-
-// --- TYPO FIX ---
-// Changed "leashure" to "leisure"
+$pageTitle        = 'Hesten\'s Learning Library';
+$pageDescription  = 'Browse your personal collection of digital books in a Netflix-style interface.';
+$pageKeywords     = 'library, books, epub, pdf, digital library, collection';
+$pageAuthor       = 'Hesten\'s Learning';
+$welcomeMessage   = "Welcome to Hesten's Learning Library";
 $welcomeParagraph = "Please take a look around and read at your leisure.";
 
 // --- Book Data Array ---
-// In a real application, you would fetch this data from your database.
 $categories = [
     "Recently Added" => [
         [
-            "id" => "midnight-library", // <-- FUTURE IMPROVEMENT: Add a unique ID
+            "id" => "midnight-library",
             "title" => "The Midnight Library",
             "author" => "Matt Haig",
             "isbn" => "978-0735211292",
             "date" => "2020-09-29",
             "img" => "https://placehold.co/300x450/7c3aed/white?text=The+Midnight\nLibrary",
-            "description" => "Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. To see how things would be if you had made other choices... Would you have done anything different, if you had the chance to undo your regrets?",
+            "description" => "Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
-            // --- NEW FIELDS ---
             "txt-link" => "#",
             "mobi-link" => "#",
             "word-link" => "#",
-            "lexile" => "850L" // Example Lexile
+            "lexile" => "850L"
         ],
         [
             "id" => "dune",
@@ -39,15 +33,14 @@ $categories = [
             "isbn" => "978-0441172719",
             "date" => "1965-08-01",
             "img" => "https://placehold.co/300x450/e89f33/black?text=Dune",
-            "description" => "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the 'spice' melange, a drug capable of extending life and enhancing consciousness. A stunning blend of adventure and mysticism, environmentalism, and politics.",
+            "description" => "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
-            // --- NEW FIELDS ---
             "txt-link" => "#",
             "mobi-link" => "#",
             "word-link" => "#",
-            "lexile" => "1080L" // Example Lexile
+            "lexile" => "1080L"
         ],
         [
             "id" => "atomic-habits",
@@ -56,101 +49,15 @@ $categories = [
             "isbn" => "978-0735211292",
             "date" => "2018-10-16",
             "img" => "https://placehold.co/300x450/3498db/white?text=Atomic\nHabits",
-            "description" => "An easy and proven way to build good habits and break bad ones. James Clear, an expert on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
+            "description" => "An easy and proven way to build good habits and break bad ones. James Clear reveals practical strategies that will teach you exactly how to form good habits.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
-            // --- NEW FIELDS ---
             "txt-link" => "#",
             "mobi-link" => "#",
             "word-link" => "#",
-            "lexile" => "1100L" // Example Lexile
-        ],
-        [
-            "id" => "project-hail-mary",
-            "title" => "Project Hail Mary",
-            "author" => "Andy Weir",
-            "isbn" => "978-0593135204",
-            "date" => "2021-05-04",
-            "img" => "https://placehold.co/300x450/f39c12/black?text=Project+Hail+Mary",
-            "description" => "A lone astronaut. An impossible mission. An ally he never expected. Ryland Grace is the sole survivor on a desperate, last-chance mission—and if he fails, humanity and the earth itself will perish.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            // --- NEW FIELDS ---
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "990L" // Example Lexile
-        ],
-        [
-            "id" => "placeholder-1",
-            "title" => "Placeholder Book 1",
-            "author" => "Author 1",
-            "isbn" => "123-456",
-            "date" => "2023-01-01",
-            "img" => "https://placehold.co/300x450/2ecc71/black?text=Book+One",
-            "description" => "Description for placeholder book 1.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            // --- NEW FIELDS ---
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "" // Example empty
-        ],
-        [
-            "id" => "placeholder-2",
-            "title" => "Placeholder Book 2",
-            "author" => "Author 2",
-            "isbn" => "123-457",
-            "date" => "2023-02-01",
-            "img" => "https://placehold.co/300x450/e74c3c/white?text=Book+Two",
-            "description" => "Description for placeholder book 2.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            // --- NEW FIELDS ---
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "Grades 4-6" // Example grade level
-        ],
-        [
-            "id" => "placeholder-3",
-            "title" => "Placeholder Book 3",
-            "author" => "Author 3",
-            "isbn" => "123-458",
-            "date" => "2023-03-01",
-            "img" => "https://placehold.co/300x450/9b59b6/white?text=Book+Three",
-            "description" => "Description for placeholder book 3.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            // --- NEW FIELDS ---
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => ""
-        ],
-        [
-            "id" => "placeholder-4",
-            "title" => "Placeholder Book 4",
-            "author" => "Author 4",
-            "isbn" => "123-459",
-            "date" => "2023-04-01",
-            "img" => "https://placehold.co/300x450/1abc9c/black?text=Book+Four",
-            "description" => "Description for placeholder book 4.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            // --- NEW FIELDS ---
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "800L"
-        ],
+            "lexile" => "1100L"
+        ]
     ],
     "Classic Fiction" => [
         [
@@ -161,14 +68,13 @@ $categories = [
             "date" => "1949-06-08",
             "img" => "https://m.media-amazon.com/images/I/71wANojhEKL._AC_UF1000,1000_QL80_.jpg",
             "fallback-img" => "https://placehold.co/300x450/c0392b/white?text=1984",
-            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party,' who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.",
+            "description" => "A dystopian social science fiction novel and cautionary tale. The story follows the life of Winston Smith, a low-ranking member of 'the Party'.",
             "pdf-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20Goerge%20Orwell.pdf",
             "epub-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.epub",
             "read-online-link" => "/library/read/1984.php",
-            // --- NEW FIELDS (Updated from description) ---
-            "txt-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.txt", // Add your link here
-            "mobi-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.mobi", // Add your link here
-            "word-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.docx", // Add your link here
+            "txt-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.txt",
+            "mobi-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.mobi",
+            "word-link" => "https://cdn.hestena62.com/library/Nineteen%20eighty-four%20-%20George%20Orwell.docx",
             "lexile" => "1090L"
         ],
         [
@@ -178,17 +84,15 @@ $categories = [
             "isbn" => "978-0061120084",
             "date" => "1960-07-11",
             "img" => "https://placehold.co/300x450/ecf0f1/black?text=To+Kill+a\nMockingbird",
-            "description" => "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. To Kill A Mockingbird became both an instant bestseller and a critical success when it was first published in 1960. It went on to win the Pulitzer Prize in 1961.",
+            "description" => "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
-            // --- NEW FIELDS ---
             "txt-link" => "#",
             "mobi-link" => "#",
             "word-link" => "#",
-            "lexile" => "870L" // Example Lexile
-        ],
-        // ... other books with unique IDs ...
+            "lexile" => "870L"
+        ]
     ],
     "Science Fiction" => [
         [
@@ -198,7 +102,7 @@ $categories = [
             "isbn" => "978-0812550702",
             "date" => "1985-01-15",
             "img" => "https://placehold.co/300x450/2980b9/white?text=Ender's+Game",
-            "description" => "In order to develop a secure defense against a hostile alien race's next attack, government agencies breed child geniuses and train them as soldiers. A brilliant young boy, Andrew 'Ender' Wiggin lives with his kind but distant parents, his sadistic brother Peter, and the person he loves more than anyone else, his sister Valentine. Peter and Valentine were candidates for the soldier-training program but didn't make the cut—young Ender is the Wiggin drafted to the orbiting Battle School for rigorous military training.",
+            "description" => "In order to develop a secure defense against a hostile alien race's next attack, government agencies breed child geniuses and train them as soldiers.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
@@ -206,39 +110,7 @@ $categories = [
             "mobi-link" => "#",
             "word-link" => "#",
             "lexile" => "780L"
-        ],
-        [
-            "id" => "neuromancer",
-            "title" => "Neuromancer",
-            "author" => "William Gibson",
-            "isbn" => "978-0441569595",
-            "date" => "1984-07-01",
-            "img" => "https://placehold.co/300x450/95a5a6/white?text=Neuromancer",
-            "description" => "The sky above the port was the color of television, tuned to a dead channel. Case was the sharpest data-thief in the matrix, until he crossed the wrong people and they crippled his nervous system, locking him out of cyberspace. Now a new employer has recruited him for a last-chance run against an unthinkably powerful artificial intelligence. With a mirror-eyed street samurai and a dead man's personality construct, he's up against a surreal world of corporate espionage and high-tech lowlifes.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "910L"
-        ],
-        [
-            "id" => "snow-crash",
-            "title" => "Snow Crash",
-            "author" => "Neal Stephenson",
-            "isbn" => "978-0553380958",
-            "date" => "1992-06-01",
-            "img" => "https://placehold.co/300x450/bdc3c7/black?text=Snow+Crash",
-            "description" => "In reality, Hiro Protagonist delivers pizza for Uncle Enzo’s CosoNostra Pizza Inc., but in the Metaverse he’s a warrior prince. Plunging headlong into the enigma of a new computer virus that’s striking down hackers everywhere, he races along the neon-lit streets on a search-and-destroy mission for the shadowy virtual villain threatening to bring about infocalypse.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "1030L"
-        ],
+        ]
     ],
     "Fantasy" => [
         [
@@ -248,7 +120,7 @@ $categories = [
             "isbn" => "978-0345339683",
             "date" => "1937-09-21",
             "img" => "https://placehold.co/300x450/27ae60/white?text=The+Hobbit",
-            "description" => "A great modern classic and the prelude to The Lord of the Rings. Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure. They have launched a plot to raid the treasure hoard guarded by Smaug the Magnificent, a large and very dangerous dragon.",
+            "description" => "A great modern classic and the prelude to The Lord of the Rings. Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life.",
             "pdf-link" => "#",
             "epub-link" => "#",
             "read-online-link" => "#",
@@ -256,449 +128,306 @@ $categories = [
             "mobi-link" => "#",
             "word-link" => "#",
             "lexile" => "1000L"
-        ],
-        [
-            "id" => "the-name-of-the-wind",
-            "title" => "The Name of the Wind",
-            "author" => "Patrick Rothfuss",
-            "isbn" => "978-0756404741",
-            "date" => "2007-03-27",
-            "img" => "https://placehold.co/300x450/e67e22/white?text=The+Name+of+the+Wind",
-            "description" => "Told in Kvothe's own voice, this is the tale of the magically gifted young man who grows to be the most notorious wizard his world has ever seen. The intimate narrative of his childhood in a troupe of traveling players, his years spent as a near-feral orphan in a crime-ridden city, his daringly brazen yet successful bid to enter a legendary school of magic, and his life as a fugitive after the murder of a noble are illuminated in this unforgettable story that takes readers deep into the mind of a living legend.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "1090L"
-        ],
-        [
-            "id" => "the-colour-of-magic",
-            "title" => "The Colour of Magic",
-            "author" => "Terry Pratchett",
-            "isbn" => "978-0062225672",
-            "date" => "1983-11-24",
-            "img" => "https://placehold.co/300x450/f1c40f/black?text=The+Colour+of+Magic",
-            "description" => "On a world supported on the back of a giant turtle (sex unknown), a gleeful, explosive, wickedly eccentric expedition sets out. There's an avaricious but inept wizard, a naive tourist whose luggage moves on hundreds of dear little legs, dragons who only exist if you believe in them, and of course THE EDGE of the planet.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "960L"
-        ],
-    ],
-    "Non-Fiction" => [
-        [
-            "id" => "sapiens",
-            "title" => "Sapiens: A Brief History of Humankind",
-            "author" => "Yuval Noah Harari",
-            "isbn" => "978-0062316097",
-            "date" => "2015-02-10",
-            "img" => "https://placehold.co/300x450/8e44ad/white?text=Sapiens",
-            "description" => "One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there is only one—homo sapiens. What happened to the others? And what may happen to us? Most books about the history of humanity pursue either a historical or a biological approach, but Dr. Yuval Noah Harari breaks the mold with this highly original book that begins about 70,000 years ago with the appearance of modern cognition.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "1070L"
-        ],
-        [
-            "id" => "a-brief-history-of-time",
-            "title" => "A Brief History of Time",
-            "author" => "Stephen Hawking",
-            "isbn" => "978-0553380163",
-            "date" => "1988-04-01",
-            "img" => "https://placehold.co/300x450/34495e/white?text=A+Brief+History+of+Time",
-            "description" => "A landmark volume in science writing by one of the great minds of our time, Stephen Hawking’s book explores such profound questions as: How did the universe begin—and what made its start possible? Does time always flow forward? Is the universe unending—or are there boundaries? Are there other dimensions in space? What will happen when it all ends? Told in language we all can understand, A Brief History of Time plunges into the exotic realms of black holes and quarks, of antimatter and \"arrows of time,\" of the big bang and a bigger God—where the possibilities are wondrous and unexpected.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "1290L"
-        ],
-        [
-            "id" => "cosmos",
-            "title" => "Cosmos",
-            "author" => "Carl Sagan",
-            "isbn" => "978-0345539434",
-            "date" => "1980-10-12",
-            "img" => "https://placehold.co/300x450/16a085/white?text=Cosmos",
-            "description" => "Cosmos is one of the bestselling science books of all time. In clear-eyed prose, Sagan reveals a jewel-like blue world inhabited by a life form that is just beginning to discover its own identity and to venture into the vast ocean of space. Featuring a new Introduction by Ann Druyan, full color illustrations, and a new Foreword by Neil deGrasse Tyson, Cosmos retraces the fourteen billion years of cosmic evolution that have transformed matter into consciousness, exploring such topics as the origin of life, the human brain, Egyptian hieroglyphics, spacecraft missions, the death of the Sun, the evolution of galaxies, and the forces and individuals who helped to shape modern science.",
-            "pdf-link" => "#",
-            "epub-link" => "#",
-            "read-online-link" => "#",
-            "txt-link" => "#",
-            "mobi-link" => "#",
-            "word-link" => "#",
-            "lexile" => "1280L"
-        ],
-    ],
-    
-    // ... other categories ...
+        ]
+    ]
 ];
 
-// --- Include Header ---
-// This file contains the <head>, <body> tag, and navigation
-require_once 'src/header.php';
+// Include Global Header (Root)
+include '../src/header.php';
 ?>
 
-<!-- 
-    --- Page-Specific Styles ---
-    IMPROVEMENT: Consider moving this to an external CSS file (e.g., /css/library.css)
-    and including it in header.php for better organization.
--->
-<style>
-    /* Customize scrollbars for a cleaner look */
-    .book-row::-webkit-scrollbar {
-        height: 8px;
-    }
-    .book-row::-webkit-scrollbar-track {
-        /* Use theme-aware colors */
-        background: var(--color-content-bg, #2d3748); 
-        border-radius: 10px;
-    }
-    .book-row::-webkit-scrollbar-thumb {
-        background: var(--color-secondary, #4a5568);
-        border-radius: 10px;
-    }
-    .book-row::-webkit-scrollbar-thumb:hover {
-        background: var(--color-primary, #718096);
-    }
-
-    /* Book cover styles */
-    .book-cover {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .book-cover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-    
-    /* Modal fade-in */
-    .modal-fade {
-        transition: opacity 0.3s ease;
-    }
-
-    /* --- IMPROVEMENT: Hide download buttons if they are disabled --- */
-    .download-link[href="#"],
-    .download-link[href=""] {
-        display: none;
-    }
-
-    /* --- NEW: Hide Lexile info if it's empty --- */
-    #modal-lexile-container:empty {
-        display: none;
-    }
-</style>
-
-<!-- 
-    --- Work in Progress Popup ---
-    This is a one-time popup for the library page.
--->
-<div id="work-in-progress-popup" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden" role="dialog"
-    aria-modal="true" aria-labelledby="wip-popup-title">
-    <!-- content-bg makes this modal theme-aware -->
-    <div class="bg-content-bg rounded-xl shadow-2xl p-8 max-w-lg w-full text-center relative mx-4">
-      <h2 id="wip-popup-title" class="text-2xl font-bold mb-4 text-primary">A Note from Hesten</h2>
-      <!-- text-text-default makes this modal theme-aware -->
-      <p class="mb-6 text-text-default text-lg">
-        Please enjoy the books with images, as I am adding books one at a time.
-      </p>
-      <button id="close-wip-popup"
-        class="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-secondary transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        aria-label="Close this note">
-        Got it!
-      </button>
+<!-- HERO BACKGROUND -->
+<div class="fixed inset-0 -z-10 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900">
+    <div
+        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 animate-pulse">
+    </div>
+    <div class="absolute top-[-10%] left-[20%] w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-blob"></div>
+    <div
+        class="absolute bottom-[-10%] right-[20%] w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-blob animation-delay-2000">
     </div>
 </div>
 
-<!-- 
-    --- Main Page Content ---
-    This is the unique content for the library page.
--->
-<div class="container mx-auto px-4 py-8">
+<main id="main-content" class="min-h-screen relative z-10 font-sans pb-20">
 
-    <?php
-    // --- Dynamic Category & Book Rendering ---
-    // Loop through each Category
-    foreach ($categories as $categoryName => $books) :
-    ?>
-        
-        <!-- Category Section -->
-        <section class="mb-12">
-            <!-- Category Title, using theme-aware text color -->
-            <h2 class="text-2xl font-semibold mb-4 text-text-secondary"><?php echo htmlspecialchars($categoryName); ?></h2>
-            
-            <!-- Book Row -->
-            <div class="book-row flex space-x-4 overflow-x-auto pb-4">
-                
-                <?php
-                // Loop through each Book in the Category
-                foreach ($books as $book) :
-                ?>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-12 text-center px-4">
+        <div class="animate-fade-in-up">
+            <div
+                class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-md mb-6 border border-white/20 shadow-xl">
+                <i class="fas fa-book-reader text-4xl text-blue-300"></i>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-md">
+                The <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">Library</span>
+            </h1>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                <?php echo $welcomeParagraph; ?>
+            </p>
+        </div>
 
-                    <!-- 
-                        Book Item
-                        ---
-                        Pass all book data as data- attributes
-                    -->
-                    <div class="flex-shrink-0 cursor-pointer group" 
-                         onclick="openModal(this)"
-                         data-title="<?php echo htmlspecialchars($book['title']); ?>"
-                         data-author="<?php echo htmlspecialchars($book['author']); ?>"
-                         data-isbn="<?php echo htmlspecialchars($book['isbn']); ?>"
-                         data-date="<?php echo htmlspecialchars($book['date']); ?>"
-                         data-img="<?php echo htmlspecialchars($book['img']); ?>"
-                         data-description="<?php echo htmlspecialchars($book['description']); ?>"
-                         data-pdf-link="<?php echo htmlspecialchars($book['pdf-link']); ?>"
-                         data-epub-link="<?php echo htmlspecialchars($book['epub-link']); ?>"
-                         data-read-online-link="<?php echo htmlspecialchars($book['read-online-link'] ?? '#'); ?>"
-                         
-                         <?php // --- NEW DATA ATTRIBUTES --- ?>
-                         data-txt-link="<?php echo htmlspecialchars($book['txt-link'] ?? '#'); ?>"
-                         data-mobi-link="<?php echo htmlspecialchars($book['mobi-link'] ?? '#'); ?>"
-                         data-word-link="<?php echo htmlspecialchars($book['word-link'] ?? '#'); ?>"
-                         data-lexile="<?php echo htmlspecialchars($book['lexile'] ?? ''); ?>"
-                         >
-                        
-                        <img src="<?php echo htmlspecialchars($book['img']); ?>" 
-                             alt="<?php echo htmlspecialchars($book['title']); ?>"
-                             class="book-cover w-40 h-60 md:w-48 md:h-72 object-cover rounded-lg"
-                             onerror="this.onerror=null; this.src='<?php echo isset($book['fallback-img']) ? htmlspecialchars($book['fallback-img']) : 'https://placehold.co/300x450/6b7280/white?text=Image+Not+Found'; ?>';">
-                    </div>
+        <!-- Real-time Search -->
+        <div class="mt-12 max-w-xl mx-auto relative group animate-fade-in-up" style="animation-delay: 0.1s;">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-20 group-hover:opacity-30 blur-lg transition duration-300">
+            </div>
+            <div
+                class="relative flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl">
+                <i class="fas fa-search text-white/50 ml-4 text-lg"></i>
+                <input type="text" id="library-search" placeholder="Search title, author, or ISBN..."
+                    class="w-full bg-transparent border-none text-white placeholder-blue-200/50 px-4 py-3 focus:ring-0 focus:outline-none text-lg">
+            </div>
+        </div>
+    </section>
 
-                <?php endforeach; // End book loop ?>
+    <!-- Library Content -->
+    <div class="container mx-auto px-4 md:px-8 space-y-16">
 
-            </div> <!-- End book-row -->
-        </section> <!-- End Category Section -->
-
-    <?php endforeach; // End category loop ?>
-
-</div>
-
-
-
-<div id="bookModal" class="modal-fade hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4 opacity-0" onclick="closeModal()">
-    
-    <!-- Use bg-content-bg for theme-aware background -->
-    <div class="bg-content-bg rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-        <!-- Modal Content -->
-        <div class="flex flex-col md:flex-row">
-            <!-- Book Cover -->
-            <img id="modal-img" src="https://placehold.co/300x450" alt="Book Cover" class="w-full md:w-1/3 h-auto object-cover rounded-l-lg">
-            
-            <!-- Book Details -->
-            <div class="p-6 md:p-8 flex-1">
-                <div class="flex justify-between items-start mb-2">
-                    <!-- Use text-text-default for theme-aware text -->
-                    <h2 id="modal-title" class="text-3xl font-bold text-text-default">Book Title</h2>
-                    <button onclick="closeModal()" class="text-text-secondary hover:text-text-default text-3xl font-bold">&times;</button>
-                </div>
-                
-                <!-- Use text-primary for theme-aware accent color -->
-                <p id="modal-author" class="text-lg text-primary mb-4">by Author Name</p>
-                
-                <!-- Use text-text-secondary for theme-aware body text -->
-                <p id="modal-description" class="text-text-secondary mb-6 leading-relaxed">Book description goes here.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-text-default">Book Info</h3>
-                <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-text-secondary mb-6">
-                    <div>
-                        <strong class="text-text-default">ISBN:</strong>
-                        <span id="modal-isbn">000-0000000000</span>
-                    </div>
-                    <div>
-                        <strong class="text-text-default">Published:</strong>
-                        <span id="modal-date">YYYY-MM-DD</span>
-                    </div>
-                    
-                    <!-- --- NEW LEXILE/GRADE LEVEL SECTION --- -->
-                    <!-- This div will be hidden by CSS if it's empty -->
-                    <div class="col-span-2" id="modal-lexile-container">
-                        <strong class="text-text-default">Reading Level:</strong>
-                        <span id="modal-lexile"></span>
-                    </div>
+        <?php foreach ($categories as $categoryName => $books) : ?>
+            <section class="library-category animate-fade-in-up">
+                <div class="flex items-center gap-4 mb-8">
+                    <h2 class="text-2xl font-bold text-white border-l-4 border-blue-400 pl-4">
+                        <?php echo htmlspecialchars($categoryName); ?></h2>
+                    <div class="h-px bg-white/10 flex-grow"></div>
                 </div>
 
-                <h3 class="text-xl font-semibold mb-3 text-text-default">Downloads</h3>
-                <div class="flex flex-wrap gap-4">
-                    
-                    <a id="modal-read-online-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        Read Online
-                    </a>
-                    
-                    <!-- PDF Button (Styled with red) -->
-                    <a id="modal-pdf-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        PDF
-                    </a>
-                    <!-- ePub Button (Styled with blue) -->
-                    <a id="modal-epub-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
-                        Epub
-                    </a>
+                <!-- Horizontal Scroll Container -->
+                <div class="flex overflow-x-auto gap-6 pb-8 pt-2 scrollbar-hide snap-x">
+                    <?php foreach ($books as $book) : ?>
+                        <!-- Book Card -->
+                        <div class="book-card flex-shrink-0 w-48 md:w-56 snap-start group cursor-pointer relative"
+                            onclick="openModal(this)" data-title="<?php echo htmlspecialchars($book['title']); ?>"
+                            data-author="<?php echo htmlspecialchars($book['author']); ?>"
+                            data-isbn="<?php echo htmlspecialchars($book['isbn']); ?>"
+                            data-date="<?php echo htmlspecialchars($book['date']); ?>"
+                            data-img="<?php echo htmlspecialchars($book['img']); ?>"
+                            data-description="<?php echo htmlspecialchars($book['description']); ?>"
+                            data-pdf-link="<?php echo htmlspecialchars($book['pdf-link']); ?>"
+                            data-epub-link="<?php echo htmlspecialchars($book['epub-link']); ?>"
+                            data-read-online-link="<?php echo htmlspecialchars($book['read-online-link'] ?? '#'); ?>"
+                            data-txt-link="<?php echo htmlspecialchars($book['txt-link'] ?? '#'); ?>"
+                            data-mobi-link="<?php echo htmlspecialchars($book['mobi-link'] ?? '#'); ?>"
+                            data-word-link="<?php echo htmlspecialchars($book['word-link'] ?? '#'); ?>"
+                            data-lexile="<?php echo htmlspecialchars($book['lexile'] ?? ''); ?>">
 
-                    <!-- --- NEW DOWNLOAD BUTTONS --- -->
-                    
-                    <!-- TXT Button (Styled with gray) -->
-                    <a id="modal-txt-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        TXT
-                    </a>
-                    
-                    <!-- MOBI Button (Styled with orange) -->
-                    <a id="modal-mobi-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
-                        MOBI
-                    </a>
+                            <!-- Cover Image Wrapper -->
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:-translate-y-2 border border-white/10">
+                                <img src="<?php echo htmlspecialchars($book['img']); ?>"
+                                    alt="<?php echo htmlspecialchars($book['title']); ?>" class="w-full h-full object-cover"
+                                    onerror="this.onerror=null; this.src='<?php echo isset($book['fallback-img']) ? htmlspecialchars($book['fallback-img']) : 'https://placehold.co/300x450/6b7280/white?text=Image+Not+Found'; ?>';">
 
-                    <!-- Word Button (Styled with dark blue) -->
-                    <a id="modal-word-link" href="#" class="download-link inline-flex items-center px-6 py-3 bg-blue-800 hover:bg-blue-900 text-white font-semibold rounded-lg transition duration-200 shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4v16m4-16v16"></path></svg>
-                        Word
-                    </a>
+                                <!-- Hover Overlay -->
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                    <span class="text-white text-xs font-bold uppercase tracking-wider mb-1"><i
+                                            class="fas fa-book-open mr-1"></i> View Details</span>
+                                </div>
+                            </div>
 
+                            <!-- Info (Below Card) -->
+                            <div class="mt-4 text-center">
+                                <h3 class="text-white font-bold text-lg leading-tight truncate px-1 book-title">
+                                    <?php echo htmlspecialchars($book['title']); ?></h3>
+                                <p class="text-blue-200/70 text-sm mt-1 book-author">
+                                    <?php echo htmlspecialchars($book['author']); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+        <?php endforeach; ?>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-20">
+            <i class="fas fa-search mb-4 text-4xl text-white/20"></i>
+            <h3 class="text-xl font-bold text-white/50">No books found matching your search.</h3>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Book Modal -->
+<div id="bookModal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+    onclick="closeModal()">
+    <div class="bg-slate-900 border border-white/20 rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4 relative flex flex-col md:flex-row overflow-hidden"
+        onclick="event.stopPropagation()">
+
+        <!-- Close Button -->
+        <button onclick="closeModal()"
+            class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Book Cover Side -->
+        <div class="w-full md:w-1/3 relative h-64 md:h-auto">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 z-10"></div>
+            <img id="modal-img" src="" alt="Book Cover" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Details Side -->
+        <div class="w-full md:w-2/3 p-8 md:p-10 flex flex-col">
+            <div class="mb-6">
+                <h2 id="modal-title" class="text-3xl md:text-4xl font-black text-white mb-2 leading-tight"></h2>
+                <p id="modal-author" class="text-xl text-blue-400 font-medium"></p>
+            </div>
+
+            <div
+                class="grid grid-cols-2 gap-4 mb-6 text-sm text-slate-400 bg-white/5 p-4 rounded-xl border border-white/5">
+                <div>
+                    <span class="block text-xs uppercase tracking-wider opacity-50 mb-1">Published</span>
+                    <span id="modal-date" class="text-white font-mono"></span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-wider opacity-50 mb-1">ISBN</span>
+                    <span id="modal-isbn" class="text-white font-mono"></span>
+                </div>
+                <div id="modal-lexile-container" class="col-span-2 border-t border-white/10 pt-3 mt-1">
+                    <span class="block text-xs uppercase tracking-wider opacity-50 mb-1">Lexile / Reading Level</span>
+                    <span id="modal-lexile" class="text-emerald-400 font-bold"></span>
+                </div>
+            </div>
+
+            <div class="flex-grow">
+                <p id="modal-description" class="text-slate-300 leading-relaxed text-lg"></p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4">
+                <a id="modal-read-online-link" href="#"
+                    class="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white py-3 px-6 rounded-xl font-bold text-center shadow-lg hover:shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <i class="fas fa-book-open"></i> Read Online
+                </a>
+
+                <div class="flex gap-2">
+                    <a id="modal-pdf-link" href="#"
+                        class="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl border border-white/10 transition-colors tooltip-btn"
+                        title="Download PDF">
+                        <i class="fas fa-file-pdf text-red-400"></i>
+                    </a>
+                    <a id="modal-epub-link" href="#"
+                        class="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl border border-white/10 transition-colors tooltip-btn"
+                        title="Download ePUB">
+                        <i class="fas fa-book text-blue-400"></i>
+                    </a>
+                    <a id="modal-mobi-link" href="#"
+                        class="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl border border-white/10 transition-colors tooltip-btn"
+                        title="Download MOBI">
+                        <i class="fas fa-tablet-alt text-orange-400"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 
-    --- Page-Specific JavaScript ---
-    IMPROVEMENT: Consider moving these scripts to an external JS file (e.g., /js/library.js)
-    and including it in footer.php for better organization.
--->
 <script>
-// --- WIP Popup Script ---
-document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById("work-in-progress-popup");
-    const closeBtn = document.getElementById("close-wip-popup");
-    const POPUP_STORAGE_KEY = 'hl_library_wip_dismissed';
+    // --- Live Search Logic ---
+    const searchInput = document.getElementById('library-search');
+    const bookCards = document.querySelectorAll('.book-card');
+    const categories = document.querySelectorAll('.library-category');
+    const noResults = document.getElementById('no-results');
 
-    if (popup && closeBtn) {
-        // Check if popup was already dismissed
-        try {
-            if (localStorage.getItem(POPUP_STORAGE_KEY) === 'true') {
-                popup.classList.add("hidden");
-                return; // Don't show it
-            }
-        } catch (e) {
-            console.warn("Could not read from localStorage", e);
-        }
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        let visibleCount = 0;
 
-        // If not dismissed, show it
-        popup.classList.remove("hidden");
+        categories.forEach(category => {
+            let hasVisibleBook = false;
+            const books = category.querySelectorAll('.book-card');
 
-        // Attach listener to close button
-        closeBtn.addEventListener("click", function () {
-            popup.classList.add("hidden");
-            // Save dismissed state
-            try {
-                localStorage.setItem(POPUP_STORAGE_KEY, 'true');
-            } catch (e) {
-                console.warn("Could not write to localStorage", e);
+            books.forEach(book => {
+                const title = book.querySelector('.book-title').textContent.toLowerCase();
+                const author = book.querySelector('.book-author').textContent.toLowerCase();
+                // We can also search data attributes if needed
+                if (title.includes(term) || author.includes(term)) {
+                    book.style.display = 'block';
+                    hasVisibleBook = true;
+                    visibleCount++;
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+
+            // Hide empty categories
+            if (hasVisibleBook) {
+                category.style.display = 'block';
+            } else {
+                category.style.display = 'none';
             }
         });
-        
-        // Auto-focus the close button for accessibility
-        closeBtn.focus();
-    }
-});
 
-// --- Book Modal Script ---
-(function() {
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    });
+
+    // --- Modal Logic ---
     const modal = document.getElementById('bookModal');
-    if (!modal) return; // Guard clause if modal isn't on the page
-
-    // Get modal elements once
     const modalTitle = document.getElementById('modal-title');
     const modalAuthor = document.getElementById('modal-author');
     const modalDescription = document.getElementById('modal-description');
     const modalIsbn = document.getElementById('modal-isbn');
     const modalDate = document.getElementById('modal-date');
     const modalImg = document.getElementById('modal-img');
+    const modalReadOnlineLink = document.getElementById('modal-read-online-link');
     const modalPdfLink = document.getElementById('modal-pdf-link');
     const modalEpubLink = document.getElementById('modal-epub-link');
-    const modalReadOnlineLink = document.getElementById('modal-read-online-link');
-    
-    // --- NEW MODAL ELEMENTS ---
-    const modalLexileContainer = document.getElementById('modal-lexile-container');
-    const modalLexile = document.getElementById('modal-lexile');
-    const modalTxtLink = document.getElementById('modal-txt-link');
     const modalMobiLink = document.getElementById('modal-mobi-link');
-    const modalWordLink = document.getElementById('modal-word-link');
+    const modalLexile = document.getElementById('modal-lexile');
+    const modalLexileContainer = document.getElementById('modal-lexile-container');
 
-
-    // Make functions available globally
-    window.openModal = function(element) {
-        // Get all data from the clicked element
+    window.openModal = function (element) {
         const data = element.dataset;
 
-        // Populate the modal fields
         modalTitle.textContent = data.title;
-        modalAuthor.textContent = 'by '.concat(data.author);
+        modalAuthor.textContent = data.author;
         modalDescription.textContent = data.description;
         modalIsbn.textContent = data.isbn;
         modalDate.textContent = data.date;
         modalImg.src = data.img;
-        
-        // Set href for links
-        modalPdfLink.href = data.pdfLink;
-        modalEpubLink.href = data.epubLink;
-        modalReadOnlineLink.href = data.readOnlineLink;
 
-        // --- POPULATE NEW FIELDS ---
-        modalTxtLink.href = data.txtLink;
-        modalMobiLink.href = data.mobiLink;
-        modalWordLink.href = data.wordLink;
+        // Links
+        setupLink(modalReadOnlineLink, data.readOnlineLink);
+        setupLink(modalPdfLink, data.pdfLink);
+        setupLink(modalEpubLink, data.epubLink);
+        setupLink(modalMobiLink, data.mobiLink);
 
-        // Populate Lexile/Grade level
+        // Lexile
         if (data.lexile) {
             modalLexile.textContent = data.lexile;
-            // Ensure container is visible (it's hidden by CSS if empty)
-            modalLexileContainer.style.display = 'block'; 
+            modalLexileContainer.style.display = 'block';
         } else {
-            modalLexile.textContent = '';
-            // Hide container
             modalLexileContainer.style.display = 'none';
         }
 
-        // Show the modal with a fade-in effect
         modal.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.remove('opacity-0');
-        }, 10); // Short delay to allow CSS transition to apply
+        // Small delay for fade in
+        setTimeout(() => modal.classList.remove('opacity-0'), 10);
     }
 
-    window.closeModal = function() {
-        // Fade-out effect
-        modal.classList.add('opacity-0');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300); // Must match the transition duration
-    }
-
-    // Close modal if escape key is pressed
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-            closeModal();
+    function setupLink(el, url) {
+        if (!url || url === '#') {
+            el.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+            el.href = '#';
+        } else {
+            el.classList.remove('opacity-50', 'pointer-events-none', 'grayscale');
+            el.href = url;
         }
+    }
+
+    window.closeModal = function () {
+        modal.classList.add('opacity-0');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
     });
-})();
 </script>
 
-<?php
-// --- Include Footer ---
-// This file contains the footer, global modals, and closing </body>/</html> tags
-require_once 'src/footer.php';
-?>
+<?php include '../src/footer.php'; ?>
