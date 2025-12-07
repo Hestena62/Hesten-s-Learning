@@ -296,18 +296,21 @@ include '../src/header.php';
             </button>
 
             <!-- Quiz Card -->
-            <button
-                class="group text-left bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all border border-gray-100 dark:border-gray-700 hover:-translate-y-1 opacity-75 cursor-not-allowed">
+            <a href="/assessment/grade3.php"
+                class="group text-left bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all border border-gray-100 dark:border-gray-700 hover:-translate-y-1 block">
                 <div
-                    class="w-full h-40 rounded-2xl bg-blue-100 dark:bg-blue-900/30 mb-6 flex items-center justify-center">
-                    <i class="fas fa-clipboard-question text-6xl text-blue-500"></i>
+                    class="w-full h-40 rounded-2xl bg-blue-100 dark:bg-blue-900/30 mb-6 flex items-center justify-center overflow-hidden relative">
+                    <i
+                        class="fas fa-clipboard-question text-6xl text-blue-500 group-hover:scale-110 transition-transform"></i>
+                    <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Module Quiz</h3>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Coming Soon: Test your knowledge.</p>
-                <div class="flex items-center text-gray-400 font-bold text-sm">
-                    Locked <i class="fas fa-lock ml-2"></i>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Test your knowledge with this module quiz!</p>
+                <div class="flex items-center text-blue-600 font-bold text-sm">
+                    Start Quiz <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </div>
-            </button>
+            </a>
         </div>
     </section>
 
