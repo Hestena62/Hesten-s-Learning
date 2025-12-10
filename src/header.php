@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="<?php echo isset($pageDescription) ? htmlspecialchars($pageDescription) : 'Empowering students with learning disabilities.'; ?>" />
+    <meta name="description"
+        content="Empowering students with learning disabilities through personalized, accessible learning experiences in Math, ELA, and Science." />
+    <meta name="keywords"
+        content="learning disabilities, personalized education, online learning, math, ELA, science, accessible education" />
+    <meta name="author" content="Hesten's Learning" />
+
+    <!-- PWA & Mobile Meta Tags -->
     <meta name="theme-color" content="#4F46E5" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hesten's">
 
-    <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Hesten\'s Learning'; ?></title>
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Hesten's Learning" />
+    <meta property="og:description" content="Personalized, accessible learning for everyone." />
+    <meta property="og:type" content="website" />
 
-    <!-- Tailwind & Libraries -->
+    <title>Hesten's Learning</title>
+
+    <!-- 1. Resource Hints for Speed -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+    <!-- 2. Optimized Font Loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@400;600;700&family=Cookie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /></noscript>
+
+    <!-- 3. Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lexend:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -24,352 +44,282 @@
                     fontFamily: {
                         sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
                         dyslexic: ['"Open Dyslexic"', 'sans-serif'],
-                        lexend: ['"Lexend"', 'sans-serif'],
+                        mono: ['"Roboto Mono"', 'monospace'],
+                        handwriting: ['"Cookie"', 'cursive'],
                     },
                     colors: {
-                        primary: 'var(--color-primary)',
-                        secondary: 'var(--color-secondary)',
-                        'base-bg': 'var(--color-base-bg)',
-                        'content-bg': 'var(--color-content-bg)',
-                        'text-default': 'var(--color-text-default)',
-                        'text-muted': 'var(--color-text-muted)',
-                        'border-color': 'var(--color-border)',
+                        'primary': 'var(--color-primary, #1D4ED8)',
+                        'secondary': 'var(--color-secondary, #3B82F6)',
+                        'accent': 'var(--color-accent, #60A5FA)',
+                        'base-bg': 'var(--color-base-bg, #F9FAFB)',
+                        'content-bg': 'var(--color-content-bg, #FFFFFF)',
+                        'text-default': 'var(--color-text-default, #1F2937)',
+                        'text-secondary': 'var(--color-text-secondary, #6B7280)',
+                        'header-bg': 'var(--color-header-bg)',
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'bounce-short': 'bounceShort 1s ease-in-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        bounceShort: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
-                }
-            }
+                },
+            },
         };
-
-        // --- A11y & Storage Logic ---
-        const defaultSettings = { 
-            theme: 'light', 
-            fontSize: 1.0, 
-            lineHeight: 1.6, 
-            fontFamily: 'Inter', 
-            reducedMotion: false,
-            soundEnabled: true 
-        };
-        const STORAGE_KEY = 'hl_accessibility_settings';
-
-        function loadSettings() {
-            try { return { ...defaultSettings, ...JSON.parse(localStorage.getItem(STORAGE_KEY)) }; } catch (e) { return defaultSettings; }
-        }
-
-        function saveSettings(settings) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-            applySettings(settings);
-            currentSettings = settings;
-        }
-
-        function applySettings(settings) {
-            const root = document.documentElement;
-            
-            // Text Size
-            root.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
-            
-            // Line Height
-            root.style.setProperty('--site-line-height', settings.lineHeight);
-            
-            // Font Family
-            let fontName = settings.fontFamily || 'Inter';
-            if (fontName === 'Open Dyslexic') fontName = '"Open Dyslexic"';
-            else if (fontName === 'Lexend') fontName = '"Lexend"';
-            root.style.setProperty('--site-font-family', fontName);
-
-            // Theme
-            document.body.classList.remove('light', 'dark', 'high-contrast');
-            document.body.classList.add(settings.theme);
-            
-            // Reduced Motion
-            if (settings.reducedMotion) document.body.classList.add('reduced-motion');
-            else document.body.classList.remove('reduced-motion');
-
-            // UI Updates (Sync inputs with state)
-            const soundToggle = document.getElementById('toggle-sound');
-            if(soundToggle) soundToggle.checked = settings.soundEnabled;
-            
-            const motionToggle = document.getElementById('toggle-reduced-motion');
-            if(motionToggle) motionToggle.checked = settings.reducedMotion;
-
-            const fontBtns = document.querySelectorAll('.font-btn');
-            fontBtns.forEach(btn => {
-                if(btn.dataset.font === settings.fontFamily) {
-                    btn.classList.add('ring-2', 'ring-primary', 'bg-gray-100', 'dark:bg-gray-700');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-primary', 'bg-gray-100', 'dark:bg-gray-700');
-                }
-            });
-        }
-
-        let currentSettings = loadSettings();
     </script>
 
     <style>
-        /* Fonts */
-        @font-face { font-family: 'Open Dyslexic'; src: url('/font/OpenDyslexic/OpenDyslexic-Regular.otf'); font-display: swap; }
-        @font-face { font-family: 'Inter'; src: url('/font/Inter/static/Inter_18pt-Regular.ttf'); font-display: swap; }
+        /* Base Styles & Variables */
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('https://cdn.jsdelivr.net/npm/opendyslexic@2.1.0-beta1/charis-sil-modified/OpenDyslexic-Regular.woff') format('woff');
+            font-display: swap;
+        }
+
+        /* CRITICAL FIX: Prevent Horizontal Scroll caused by off-canvas elements */
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
 
         body {
             background-color: var(--color-base-bg);
+            background-image: var(--site-bg-gradient);
+            background-attachment: scroll; 
+            background-size: cover;
             color: var(--color-text-default);
             font-size: var(--site-font-size, 1rem);
             line-height: var(--site-line-height, 1.6);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
             font-family: var(--site-font-family, "Inter", sans-serif);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Redundant safety */
+            opacity: 0; 
+            animation: pageReveal 0.5s ease-out forwards;
         }
+
+        @keyframes pageReveal { to { opacity: 1; } }
 
         /* Themes */
         .light {
-            --color-primary: #2563EB; --color-secondary: #4F46E5;
-            --color-base-bg: #F3F4F6; --color-content-bg: #FFFFFF;
-            --color-text-default: #111827; --color-text-muted: #4B5563;
-            --color-border: #E5E7EB;
+            --color-primary: #4F46E5;
+            --color-secondary: #6366F1;
+            --color-accent: #818CF8;
+            --color-header-bg: #1F2937;
+            --color-link: #4F46E5;
+            --color-base-bg: #F3F4F6;
+            --color-content-bg: #FFFFFF;
+            --color-text-default: #1F2937;
+            --color-text-secondary: #4B5563;
+            --site-bg-gradient: linear-gradient(120deg, #fdfbf7 0%, #f0fdfa 50%, #eff6ff 100%);
         }
+
         .dark {
-            --color-primary: #60A5FA; --color-secondary: #818CF8;
-            --color-base-bg: #0F172A; --color-content-bg: #1E293B;
-            --color-text-default: #F8FAFC; --color-text-muted: #94A3B8;
-            --color-border: #334155;
+            --color-primary: #818CF8;
+            --color-secondary: #A5B4FC;
+            --color-accent: #C7D2FE;
+            --color-header-bg: #111827;
+            --color-base-bg: #111827;
+            --color-content-bg: #1F2937;
+            --color-text-default: #F3F4F6;
+            --color-text-secondary: #D1D5DB;
+            --site-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
         }
+
         .high-contrast {
-            --color-primary: #FFFF00; --color-secondary: #00FFFF;
-            --color-base-bg: #000000; --color-content-bg: #000000;
-            --color-text-default: #FFFFFF; --color-text-muted: #FFFFFF;
-            --color-border: #FFFFFF;
+            --color-primary: #FFFF00;
+            --color-secondary: #00FFFF;
+            --color-accent: #00FFFF;
+            --color-header-bg: #000000;
+            --color-base-bg: #000000;
+            --color-content-bg: #000000;
+            --color-text-default: #FFFF00;
+            --color-text-secondary: #FFFFFF;
+            --site-bg-gradient: none;
         }
+
+        /* Focus Mode Overrides */
+        body.focus-mode header, 
+        body.focus-mode #announcement-bar, 
+        body.focus-mode footer,
+        body.focus-mode #resume-banner {
+            display: none !important;
+        }
+        body.focus-mode #main-content {
+            margin-top: 2rem;
+        }
+
+        /* High Contrast Specifics */
+        .high-contrast a { color: var(--color-link) !important; text-decoration: underline; }
+        .high-contrast .bg-primary { background-color: #000000 !important; border: 2px solid #FFFF00 !important; color: #FFFF00 !important; }
+        .high-contrast .level-card { border: 2px solid white; }
 
         /* Utilities */
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border-width: 0; }
+        :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
         
-        #reading-guide { position: fixed; width: 100%; height: 60px; background: rgba(255, 255, 0, 0.15); border-top: 2px solid yellow; border-bottom: 2px solid yellow; pointer-events: none; z-index: 9999; display: none; }
-        .reduced-motion * { animation: none !important; transition: none !important; }
-        
-        /* Nav Link Active State */
-        .nav-link.active { color: var(--color-primary); font-weight: 700; background-color: rgba(37, 99, 235, 0.1); }
-        
-        /* Custom Range Slider */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: var(--color-primary);
-            cursor: pointer;
-            margin-top: -6px;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #cbd5e1;
-            border-radius: 2px;
-        }
-        .dark input[type=range]::-webkit-slider-runnable-track {
-            background: #475569;
-        }
+        /* Reading Guide */
+        #reading-mask { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); pointer-events: none; z-index: 50; }
+        #reading-guide { position: absolute; width: 100%; height: 2.5rem; background: rgba(255, 255, 255, 0.1); border-top: 2px solid var(--color-base-bg); border-bottom: 2px solid var(--color-base-bg); cursor: ns-resize; pointer-events: auto; }
+
+        /* Loader */
+        #initial-loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; justify-content: center; items-center: center; transition: opacity 0.5s; }
+        .dark #initial-loader { background: #111827; }
+        .loader-spinner { width: 48px; height: 48px; border: 5px solid #4F46E5; border-bottom-color: transparent; border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotation 1s linear infinite; }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--color-base-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 5px; }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
-    <script>applySettings(currentSettings);</script>
-    <div id="reading-guide"></div>
 
-    <!-- A11y Toggle -->
-    <button id="a11y-toggle-button" class="fixed bottom-6 right-6 z-50 p-4 bg-primary text-white rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-white/50" aria-label="Accessibility Settings">
-        <i class="fas fa-universal-access text-2xl"></i>
-    </button>
+<body class="light antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
 
-    <!-- Full Accessibility Panel -->
-    <div id="a11y-settings-panel" class="fixed top-0 right-0 h-full w-80 md:w-96 bg-content-bg shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto border-l border-border-color flex flex-col" role="dialog" aria-modal="true" aria-label="Accessibility Settings">
+    <!-- Fixed Tools Container -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+        <!-- Scroll Top -->
+        <button id="scroll-to-top" class="w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center" aria-label="Scroll to top" type="button">
+            <i class="fas fa-arrow-up"></i>
+        </button>
         
-        <!-- Panel Header -->
-        <div class="flex justify-between items-center p-6 border-b border-border-color bg-base-bg sticky top-0 z-10">
-            <h2 class="text-xl font-bold text-text-default flex items-center gap-2">
-                <i class="fas fa-universal-access text-primary"></i> Accessibility
-            </h2>
-            <button id="a11y-close-button" class="text-text-muted hover:text-text-default p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-        </div>
-        
-        <div class="p-6 space-y-8 flex-grow">
-            
-            <!-- Section: Theme -->
-            <div>
-                <h3 class="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">Contrast & Theme</h3>
-                <div class="flex gap-2">
-                    <button onclick="saveSettings({...currentSettings, theme: 'light'})" class="flex-1 py-3 px-2 border border-border-color rounded-lg hover:bg-gray-100 text-gray-800 text-sm font-medium transition-colors flex flex-col items-center gap-1">
-                        <i class="fas fa-sun text-lg"></i> Light
-                    </button>
-                    <button onclick="saveSettings({...currentSettings, theme: 'dark'})" class="flex-1 py-3 px-2 border border-border-color rounded-lg hover:bg-gray-800 text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 text-sm font-medium transition-colors flex flex-col items-center gap-1">
-                        <i class="fas fa-moon text-lg"></i> Dark
-                    </button>
-                    <button onclick="saveSettings({...currentSettings, theme: 'high-contrast'})" class="flex-1 py-3 px-2 border-2 border-black bg-white text-black text-sm font-bold transition-colors flex flex-col items-center gap-1">
-                        <i class="fas fa-adjust text-lg"></i> Contrast
-                    </button>
-                </div>
+        <!-- Scratchpad Toggle -->
+        <button id="scratchpad-toggle" class="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Quick Notes" aria-expanded="false" aria-controls="scratchpad-panel" type="button">
+            <i class="fas fa-sticky-note text-xl"></i>
+        </button>
+
+        <!-- A11y Toggle -->
+        <button id="a11y-toggle-button" class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Accessibility Settings" aria-expanded="false" aria-controls="a11y-settings-panel" type="button">
+            <i class="fas fa-universal-access text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Scratchpad Panel -->
+    <div id="scratchpad-panel" class="fixed bottom-24 right-6 w-80 bg-yellow-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-yellow-400 dark:border-indigo-500 origin-bottom-right" role="dialog" aria-labelledby="scratchpad-title">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+                <h3 id="scratchpad-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-pen-fancy text-yellow-600 dark:text-yellow-400"></i> Quick Notes
+                </h3>
+                <button id="scratchpad-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Notes" type="button"><i class="fas fa-times"></i></button>
             </div>
-
-            <!-- Section: Font Style -->
-            <div>
-                <h3 class="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">Font Style</h3>
-                <div class="space-y-2">
-                    <button data-font="Inter" onclick="saveSettings({...currentSettings, fontFamily: 'Inter'})" class="font-btn w-full text-left px-4 py-3 border border-border-color rounded-lg hover:bg-base-bg text-text-default transition-all flex items-center justify-between group">
-                        <span class="font-sans">Standard (Inter)</span>
-                        <i class="fas fa-check opacity-0 group-[.ring-2]:opacity-100 text-primary"></i>
-                    </button>
-                    <button data-font="Open Dyslexic" onclick="saveSettings({...currentSettings, fontFamily: 'Open Dyslexic'})" class="font-btn w-full text-left px-4 py-3 border border-border-color rounded-lg hover:bg-base-bg text-text-default transition-all flex items-center justify-between group" style="font-family: 'Open Dyslexic'">
-                        <span>Dyslexic Friendly</span>
-                        <i class="fas fa-check opacity-0 group-[.ring-2]:opacity-100 text-primary"></i>
-                    </button>
-                    <button data-font="Lexend" onclick="saveSettings({...currentSettings, fontFamily: 'Lexend'})" class="font-btn w-full text-left px-4 py-3 border border-border-color rounded-lg hover:bg-base-bg text-text-default transition-all flex items-center justify-between group" style="font-family: 'Lexend'">
-                        <span>High Legibility (Lexend)</span>
-                        <i class="fas fa-check opacity-0 group-[.ring-2]:opacity-100 text-primary"></i>
-                    </button>
-                </div>
+            <textarea id="quick-notes-area" class="w-full h-48 p-3 bg-white dark:bg-gray-700 rounded-lg border-0 shadow-inner resize-none focus:ring-2 focus:ring-yellow-400 text-sm leading-relaxed text-gray-700 dark:text-gray-200" placeholder="Type your thoughts here... they save automatically!"></textarea>
+            <div class="mt-2 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+                <span id="scratchpad-status" aria-live="polite">Saved</span>
+                <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
             </div>
-
-            <!-- Section: Sizing -->
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <h3 class="text-xs font-bold text-text-muted uppercase tracking-wider">Text Size</h3>
-                        <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded" id="font-size-display">100%</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-font text-xs text-text-muted"></i>
-                        <input type="range" min="0.8" max="1.5" step="0.1" value="1.0" class="w-full h-2 rounded-lg appearance-none cursor-pointer" oninput="saveSettings({...currentSettings, fontSize: this.value}); document.getElementById('font-size-display').innerText = Math.round(this.value * 100) + '%'">
-                        <i class="fas fa-font text-lg text-text-default"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <h3 class="text-xs font-bold text-text-muted uppercase tracking-wider">Line Spacing</h3>
-                        <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded" id="line-height-display">1.6</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-align-justify text-xs text-text-muted"></i>
-                        <input type="range" min="1.3" max="2.2" step="0.1" value="1.6" class="w-full h-2 rounded-lg appearance-none cursor-pointer" oninput="saveSettings({...currentSettings, lineHeight: this.value}); document.getElementById('line-height-display').innerText = this.value">
-                        <i class="fas fa-align-justify text-lg text-text-default"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section: Tools -->
-            <div>
-                <h3 class="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">Tools & Preferences</h3>
-                <div class="space-y-3">
-                    <label class="flex items-center justify-between p-3 border border-border-color rounded-lg hover:bg-base-bg cursor-pointer group">
-                        <span class="text-sm font-medium text-text-default flex items-center gap-2">
-                            <i class="fas fa-ruler-horizontal text-primary"></i> Reading Guide
-                        </span>
-                        <input type="checkbox" id="toggle-reading-guide" class="accent-primary w-5 h-5" onchange="document.getElementById('reading-guide').style.display = this.checked ? 'block' : 'none'">
-                    </label>
-                    
-                    <label class="flex items-center justify-between p-3 border border-border-color rounded-lg hover:bg-base-bg cursor-pointer group">
-                        <span class="text-sm font-medium text-text-default flex items-center gap-2">
-                            <i class="fas fa-film text-primary"></i> Reduce Motion
-                        </span>
-                        <input type="checkbox" id="toggle-reduced-motion" class="accent-primary w-5 h-5" onchange="saveSettings({...currentSettings, reducedMotion: this.checked})">
-                    </label>
-
-                    <label class="flex items-center justify-between p-3 border border-border-color rounded-lg hover:bg-base-bg cursor-pointer group">
-                        <span class="text-sm font-medium text-text-default flex items-center gap-2">
-                            <i class="fas fa-volume-up text-primary"></i> Sound Effects
-                        </span>
-                        <input type="checkbox" id="toggle-sound" class="accent-primary w-5 h-5" onchange="saveSettings({...currentSettings, soundEnabled: this.checked})">
-                    </label>
-                </div>
-            </div>
-
-            <!-- Reset -->
-            <button onclick="saveSettings(defaultSettings); location.reload();" class="w-full bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40 py-3 rounded-lg font-bold text-sm transition-colors flex items-center justify-center gap-2 mt-4">
-                <i class="fas fa-undo"></i> Reset to Defaults
-            </button>
         </div>
     </div>
 
-    <!-- Nav -->
-    <header class="bg-white dark:bg-gray-900 border-b border-border-color sticky top-0 z-30 shadow-sm backdrop-blur-md bg-opacity-90">
+    <!-- Accessibility Panel -->
+    <div id="a11y-settings-panel" class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l border-white/20 ring-1 ring-black/5" role="dialog" aria-modal="true" aria-labelledby="a11y-title">
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="a11y-title" class="text-xl font-bold text-primary">Accessibility</h2>
+            <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2 rounded-full" aria-label="Close settings" type="button"><i class="fas fa-times text-lg"></i></button>
+        </div>
+        <div class="space-y-6">
+            <!-- Focus Mode -->
+            <div class="bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
+                <div class="flex items-center justify-between">
+                    <label for="toggle-focus-mode" class="text-sm font-bold text-indigo-900 dark:text-indigo-200 flex items-center gap-2">
+                        <i class="fas fa-eye-slash"></i> Focus Mode
+                    </label>
+                    <input type="checkbox" id="toggle-focus-mode" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-indigo-600 transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
+                </div>
+                <p class="text-xs text-indigo-700 dark:text-indigo-300 mt-1">Hides menu, footer, and banners.</p>
+            </div>
+
+            <fieldset>
+                <legend class="text-sm font-medium mb-2 text-text-default">Contrast & Theme</legend>
+                <div class="flex space-x-2">
+                    <button id="theme-light" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700 dark:text-gray-200" type="button"><i class="fas fa-sun"></i> Light</button>
+                    <button id="theme-dark" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-500" type="button"><i class="fas fa-moon"></i> Dark</button>
+                    <button id="theme-contrast" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 font-bold dark:border-gray-600 dark:text-gray-200" type="button"><i class="fas fa-low-vision"></i> High</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend class="text-sm font-medium mb-2 text-text-default">Font Style</legend>
+                <div id="font-selection-buttons" class="grid grid-cols-1 gap-2">
+                    <button type="button" data-font="Inter" class="font-selector py-2 px-3 rounded border text-left text-sm bg-primary text-white">Standard (Inter)</button>
+                    <button type="button" data-font="Open Dyslexic" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Open Dyslexic';">Dyslexic Friendly</button>
+                    <button type="button" data-font="Lexend" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Lexend';">Lexend (High Legibility)</button>
+                </div>
+            </fieldset>
+
+            <div>
+                <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span id="font-size-value">100</span>%)</label>
+                <input type="range" id="font-size-slider" min="0.8" max="1.5" step="0.1" value="1.0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <label for="toggle-reading-mask" class="text-sm font-medium text-text-default">Reading Guide</label>
+                    <input type="checkbox" id="toggle-reading-mask" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-primary transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
+                </div>
+            </div>
+            <button id="reset-a11y-settings" class="w-full bg-red-100 text-red-700 hover:bg-red-200 py-2 rounded-lg mt-4 text-sm font-bold transition-colors" type="button">Reset Settings</button>
+        </div>
+    </div>
+
+    <!-- Reading Mask -->
+    <div id="reading-mask" class="hidden">
+        <div id="reading-guide" style="top: 30%"></div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div id="announcement-bar" class="bg-primary text-white text-center py-2 px-8 relative transition-colors duration-300 shadow-md z-40" role="status">
+        <p class="text-sm font-medium"><i class="fas fa-hammer mr-2"></i> Work in Progress: We are updating sections daily.</p>
+        <button id="close-announcement" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full" aria-label="Close announcement" type="button"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-header-bg shadow-lg sticky top-0 z-40 transition-colors duration-300 backdrop-blur-sm bg-opacity-95">
         <div class="container mx-auto px-4 py-3">
-            <nav class="flex items-center justify-between flex-wrap">
-                <a href="/" class="flex items-center gap-3 text-text-default group">
-                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:rotate-12 transition-transform">H</div>
-                    <span class="font-bold text-lg tracking-tight">Hesten's Learning</span>
+            <nav class="flex items-center justify-between flex-wrap" aria-label="Main Navigation">
+                <!-- Logo -->
+                <a class="flex items-center flex-shrink-0 text-white mr-6 rounded-lg p-1" href="#">
+                    <div class="h-10 w-10 mr-3 border-2 border-white/20 rounded-full flex items-center justify-center bg-indigo-500 font-bold text-xl">H</div>
+                    <span class="font-bold text-xl tracking-tight">Hesten's Learning</span>
                 </a>
 
-                <button id="nav-toggle" class="lg:hidden px-3 py-2 border rounded text-text-muted border-border-color">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <!-- Mobile Menu Button -->
+                <div class="block lg:hidden">
+                    <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white" aria-label="Toggle Menu" type="button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
 
-                <div id="nav-content" class="w-full lg:w-auto lg:flex hidden items-center gap-6 mt-4 lg:mt-0">
-                    <div class="flex flex-col lg:flex-row gap-2 text-sm font-medium">
-                        <?php 
-                        $cur = basename($_SERVER['PHP_SELF']);
-                        $linkClasses = "nav-link px-3 py-2 rounded-md transition-colors text-text-muted hover:text-primary hover:bg-base-bg";
-                        ?>
-                        <a href="/" class="<?php echo $linkClasses . ($cur == 'index.php' ? ' active' : ''); ?>">Home</a>
-                        <a href="/learning.php" class="<?php echo $linkClasses . ($cur == 'learning.php' ? ' active' : ''); ?>">Learning</a>
-                        <a href="/assessment.php" class="<?php echo $linkClasses . ($cur == 'assessment.php' ? ' active' : ''); ?>">Assessment</a>
-                        <a href="/assistant.php" class="<?php echo $linkClasses . ($cur == 'assistant.php' ? ' active' : ''); ?>">Assistant</a>
+                <!-- Nav Links -->
+                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300" id="nav-content">
+                    <div class="text-sm lg:flex-grow">
+                        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md bg-white/10 text-white font-bold"><i class="fas fa-home mr-1"></i> Home</a>
+                        <a href="#level-grid" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-book mr-1"></i> Learning</a>
+                        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-tasks mr-1"></i> Assessment</a>
                     </div>
-                    
-                    <form action="/search.php" method="GET" class="relative">
-                        <input type="text" name="q" placeholder="Search..." class="bg-base-bg border border-border-color text-text-default text-sm rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary outline-none w-full lg:w-48 transition-all focus:w-64">
-                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-xs"></i>
-                    </form>
+                    <!-- Search -->
+                    <div class="relative mt-4 lg:mt-0">
+                        <form id="search-form" onsubmit="event.preventDefault();" role="search">
+                            <label for="global-search-input" class="sr-only">Search</label>
+                            <div class="relative group">
+                                <input type="text" id="global-search-input" placeholder="Search site..." class="bg-gray-700/50 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary w-48 focus:w-64 transition-all placeholder-gray-400 border border-transparent" />
+                                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-white"></i>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </nav>
         </div>
     </header>
-
-    <script>
-        // Panel Toggle Logic
-        const panel = document.getElementById('a11y-settings-panel');
-        const toggleBtn = document.getElementById('a11y-toggle-button');
-        const closeBtn = document.getElementById('a11y-close-button');
-
-        function openPanel() {
-            panel.classList.remove('translate-x-full');
-            panel.setAttribute('aria-hidden', 'false');
-            closeBtn.focus();
-        }
-
-        function closePanel() {
-            panel.classList.add('translate-x-full');
-            panel.setAttribute('aria-hidden', 'true');
-            toggleBtn.focus();
-        }
-
-        toggleBtn.addEventListener('click', openPanel);
-        closeBtn.addEventListener('click', closePanel);
-
-        // Close on Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !panel.classList.contains('translate-x-full')) {
-                closePanel();
-            }
-        });
-
-        // Initialize sliders
-        document.querySelector('input[type=range][max="1.5"]').value = currentSettings.fontSize;
-        document.querySelector('input[type=range][max="2.2"]').value = currentSettings.lineHeight;
-        document.getElementById('font-size-display').innerText = Math.round(currentSettings.fontSize * 100) + '%';
-        document.getElementById('line-height-display').innerText = currentSettings.lineHeight;
-    </script>

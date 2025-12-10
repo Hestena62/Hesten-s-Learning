@@ -188,6 +188,14 @@
 
 <body class="light antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
 
+    <!-- Loading Screen -->
+    <div id="initial-loader">
+        <span class="loader-spinner"></span>
+    </div>
+
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-white focus:text-primary focus:font-bold focus:rounded-lg focus:shadow-xl">Skip to main content</a>
+
     <!-- Fixed Tools Container -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
         <!-- Scroll Top -->
@@ -290,8 +298,8 @@
         <div class="container mx-auto px-4 py-3">
             <nav class="flex items-center justify-between flex-wrap" aria-label="Main Navigation">
                 <!-- Logo -->
-                <a class="flex items-center flex-shrink-0 text-white mr-6 rounded-lg p-1" href="/">
-                    <img src="/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png" alt="Hesten's Learning Logo" class="h-10 w-10 mr-3 rounded-full object-cover">
+                <a class="flex items-center flex-shrink-0 text-white mr-6 rounded-lg p-1" href="#">
+                    <div class="h-10 w-10 mr-3 border-2 border-white/20 rounded-full flex items-center justify-center bg-indigo-500 font-bold text-xl">H</div>
                     <span class="font-bold text-xl tracking-tight">Hesten's Learning</span>
                 </a>
 
@@ -526,28 +534,6 @@
         </div>
     </footer>
 
-    <!-- QUIZ MODAL (New Feature) -->
-    <div id="quiz-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-[100]" role="dialog" aria-labelledby="quiz-title" aria-modal="true">
-        <div class="bg-content-bg rounded-2xl shadow-2xl p-8 max-w-lg w-full transform scale-100 transition-all border border-gray-200 dark:border-gray-700 relative">
-            <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white" onclick="closeQuiz()" type="button" aria-label="Close Quiz"><i class="fas fa-times text-xl"></i></button>
-            
-            <div id="quiz-content">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xl"><i class="fas fa-brain"></i></div>
-                    <h3 id="quiz-title" class="text-2xl font-bold text-text-default">Knowledge Check</h3>
-                </div>
-                
-                <p id="quiz-question" class="text-lg text-text-default mb-6 font-medium">Question goes here...</p>
-                
-                <div id="quiz-options" class="grid grid-cols-1 gap-3 mb-6">
-                    <!-- Options injected here -->
-                </div>
-
-                <div id="quiz-feedback" class="hidden rounded-lg p-4 mb-4 text-sm font-bold text-center" aria-live="polite"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Global Modals -->
     <div id="message-box" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden items-center justify-center z-[100]" role="alertdialog" aria-modal="true" aria-labelledby="message-title">
         <div class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center border border-gray-200 dark:border-gray-700">
@@ -566,7 +552,7 @@
     <script>
         // --- DATA ---
         const learningLevels = [
-            {id: 'pre-k', category: 'elem', title: 'Pre-K', description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.', link: '#', icon: 'fas fa-shapes'},
+            {id: 'pre-k', category: 'elem', title: 'Pre-K', description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.', link: '/Level/a.php', icon: 'fas fa-shapes'},
             {id: 'kindergarten', category: 'elem', title: 'Kindergarten', description: 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', link: '#', icon: 'fas fa-puzzle-piece'},
             {id: 'grade-1', category: 'elem', title: 'Grade 1', description: 'Adding, subtracting, sentence formation. Developing independence.', link: '#', icon: 'fas fa-pencil-alt'},
             {id: 'grade-2', category: 'elem', title: 'Grade 2', description: 'Basic multiplication, reading fluency. Expanding foundational knowledge.', link: '#', icon: 'fas fa-book-open'},
@@ -588,24 +574,6 @@
             'middle': { border: 'border-amber-400 dark:border-amber-500', icon_bg: 'bg-amber-100 dark:bg-amber-900', icon_text: 'text-amber-600 dark:text-amber-300', hover: 'hover:border-amber-500', btn: 'hover:bg-amber-500 hover:text-white', accent: 'text-amber-600 dark:text-amber-400' },
             'high': { border: 'border-rose-400 dark:border-rose-500', icon_bg: 'bg-rose-100 dark:bg-rose-900', icon_text: 'text-rose-600 dark:text-rose-300', hover: 'hover:border-rose-500', btn: 'hover:bg-rose-500 hover:text-white', accent: 'text-rose-600 dark:text-rose-400' },
             'extra': { border: 'border-violet-400 dark:border-violet-500', icon_bg: 'bg-violet-100 dark:bg-violet-900', icon_text: 'text-violet-600 dark:text-violet-300', hover: 'hover:border-violet-500', btn: 'hover:bg-violet-500 hover:text-white', accent: 'text-violet-600 dark:text-violet-400' }
-        };
-
-        const quizzes = {
-            'pre-k': { q: "Which shape has 3 sides?", a: ["Circle", "Triangle", "Square"], correct: 1 },
-            'kindergarten': { q: "What letter comes after B?", a: ["A", "C", "D"], correct: 1 },
-            'grade-1': { q: "What is 5 + 3?", a: ["7", "8", "9"], correct: 1 },
-            'grade-2': { q: "Which word rhymes with 'Cat'?", a: ["Dog", "Hat", "Bird"], correct: 1 },
-            'grade-3': { q: "What is 3 x 4?", a: ["7", "12", "15"], correct: 1 },
-            'grade-4': { q: "What is 20 divided by 4?", a: ["4", "5", "6"], correct: 1 },
-            'grade-5': { q: "Which is a decimal?", a: ["1/2", "0.5", "5"], correct: 1 },
-            'grade-6': { q: "The Earth is a...", a: ["Planet", "Star", "Moon"], correct: 0 },
-            'grade-7': { q: "What do plants need for photosynthesis?", a: ["Sugar", "Sunlight", "Rocks"], correct: 1 },
-            'grade-8': { q: "Solve for x: 2x = 10", a: ["2", "5", "10"], correct: 1 },
-            'grade-9': { q: "What is H2O?", a: ["Salt", "Water", "Air"], correct: 1 },
-            'grade-10': { q: "Who wrote Romeo and Juliet?", a: ["Shakespeare", "Dickens", "Twain"], correct: 0 },
-            'grade-11': { q: "What is the atomic number of Carbon?", a: ["6", "12", "14"], correct: 0 },
-            'grade-12': { q: "Derivative of x^2 is...", a: ["x", "2x", "x^3"], correct: 1 },
-            'test-section': { q: "Ready to test?", a: ["No", "Yes", "Maybe"], correct: 1 }
         };
 
         // --- STATE ---
@@ -704,67 +672,6 @@
             }
         }
 
-        // --- LMS QUIZ SYSTEM ---
-        let currentQuizLevel = null;
-
-        function startLevel(levelId) {
-            currentQuizLevel = levelId;
-            const quiz = quizzes[levelId] || quizzes['pre-k'];
-            const modal = document.getElementById('quiz-modal');
-            const questionEl = document.getElementById('quiz-question');
-            const optionsEl = document.getElementById('quiz-options');
-            const feedbackEl = document.getElementById('quiz-feedback');
-            
-            questionEl.textContent = quiz.q;
-            optionsEl.innerHTML = '';
-            feedbackEl.classList.add('hidden');
-            feedbackEl.className = 'hidden rounded-lg p-4 mb-4 text-sm font-bold text-center';
-
-            quiz.a.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-primary hover:text-white transition-all font-medium focus:ring-2 focus:ring-primary focus:outline-none";
-                btn.textContent = opt;
-                btn.onclick = () => checkAnswer(idx, quiz.correct, btn);
-                optionsEl.appendChild(btn);
-            });
-
-            lastFocusedElement = document.activeElement;
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-            setTimeout(() => optionsEl.querySelector('button')?.focus(), 100);
-        }
-
-        function checkAnswer(selected, correct, btn) {
-            const feedbackEl = document.getElementById('quiz-feedback');
-            feedbackEl.classList.remove('hidden');
-            
-            if (selected === correct) {
-                btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
-                feedbackEl.textContent = "Correct! Level Completed.";
-                feedbackEl.classList.add('bg-green-100', 'text-green-700');
-                
-                if (!completedLevels.includes(currentQuizLevel)) {
-                    completedLevels.push(currentQuizLevel);
-                    localStorage.setItem('hl_completed_levels', JSON.stringify(completedLevels));
-                    updateProgressUI();
-                    checkResumeLearning();
-                    triggerConfetti({ y: 0.6 });
-                }
-                setTimeout(closeQuiz, 1500);
-            } else {
-                btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
-                feedbackEl.textContent = "Try again!";
-                feedbackEl.classList.add('bg-red-100', 'text-red-700');
-            }
-        }
-
-        function closeQuiz() {
-            const modal = document.getElementById('quiz-modal');
-            modal.classList.add('hidden');
-            modal.style.display = 'none';
-            if (lastFocusedElement) lastFocusedElement.focus();
-        }
-
         // --- RENDER GRID ---
         function renderGrid() {
             const grid = document.getElementById('level-grid');
@@ -814,10 +721,11 @@
 
                         <p class="text-text-secondary mb-8 flex-grow leading-relaxed relative z-10">${level.description}</p>
 
-                        <button onclick="startLevel('${level.id}')" class="mt-auto relative z-10 w-full flex justify-between items-center bg-base-bg text-text-default font-bold py-3 px-6 rounded-xl transition-all duration-300 group-focus:ring-4 ${theme.btn}" type="button">
+                        <!-- UPDATED: Reverted to Direct Link -->
+                        <a href="${level.link}" class="mt-auto relative z-10 w-full flex justify-between items-center bg-base-bg text-text-default font-bold py-3 px-6 rounded-xl transition-all duration-300 group-focus:ring-4 ${theme.btn}">
                             <span>Explore Skills</span>
                             <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
