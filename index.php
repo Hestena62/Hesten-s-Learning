@@ -108,7 +108,7 @@
     <script>
         // --- DATA ---
         const learningLevels = [
-            {id: 'pre-k', category: 'elem', title: 'Pre-K', description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.', link: '#', icon: 'fas fa-shapes'},
+            {id: 'pre-k', category: 'elem', title: 'Pre-K', description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.', link: '/Level/a.php', icon: 'fas fa-shapes'},
             {id: 'kindergarten', category: 'elem', title: 'Kindergarten', description: 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', link: '#', icon: 'fas fa-puzzle-piece'},
             {id: 'grade-1', category: 'elem', title: 'Grade 1', description: 'Adding, subtracting, sentence formation. Developing independence.', link: '#', icon: 'fas fa-pencil-alt'},
             {id: 'grade-2', category: 'elem', title: 'Grade 2', description: 'Basic multiplication, reading fluency. Expanding foundational knowledge.', link: '#', icon: 'fas fa-book-open'},
