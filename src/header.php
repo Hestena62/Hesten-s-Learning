@@ -281,7 +281,7 @@
 
     <!-- Announcement Bar -->
     <div id="announcement-bar" class="bg-primary text-white text-center py-2 px-8 relative transition-colors duration-300 shadow-md z-40" role="status">
-        <p class="text-sm font-medium"><i class="fas fa-hammer mr-2"></i> Work in Progress: We are updating sections daily.</p>
+        <p class="text-sm font-medium"><i class="fas fa-hammer mr-2"></i> Work in Progress: We are updating sections daily. Check <a class="underline" href="https://github.com/Hestena62/Hesten-s-Learning">GitHub</a> for updates.</p>
         <button id="close-announcement" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full" aria-label="Close announcement" type="button"><i class="fas fa-times"></i></button>
     </div>
 
