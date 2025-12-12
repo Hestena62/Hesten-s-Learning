@@ -4,9 +4,6 @@ $pageDescription = "Customize your learning experience with advanced accessibili
 include 'src/header.php';
 ?>
 
-
-
-
 <main id="main-content" class="container mx-auto px-4 py-12 mb-12">
 
     <header class="mb-10 text-center md:text-left">
@@ -159,7 +156,7 @@ include 'src/header.php';
                         </button>
                         <button onclick="updateSetting('fontFamily', 'Open Dyslexic')"
                             class="font-btn p-3 border rounded text-left hover:bg-base-bg data-[active=true]:ring-2 data-[active=true]:ring-primary data-[active=true]:bg-blue-50 dark:data-[active=true]:bg-blue-900/20"
-                            data-font="Open Dyslexic" style="font-family: 'OpenDyslexic', sans-serif">
+                            data-font="Open Dyslexic" style="font-family: 'Open Dyslexic', sans-serif">
                             <span class="font-bold block">Open Dyslexic</span>
                             <span class="text-xs text-text-secondary">Weighted bottoms for dyslexia.</span>
                         </button>
@@ -351,7 +348,7 @@ include 'src/header.php';
     // --- SETTINGS PAGE LOGIC ---
 
     function updateSetting(key, value) {
-        // Get fresh copy from localStorage or memory
+        // Get fresh copy from localStorage or memory (global function from header)
         const settings = loadSettings();
 
         // Update specific key
@@ -388,13 +385,13 @@ include 'src/header.php';
 
         // Update Sliders
         if (document.getElementById('saturation-slider')) {
-            document.getElementById('saturation-slider').value = settings.saturation;
-            document.getElementById('saturation-display').innerText = settings.saturation;
+            document.getElementById('saturation-slider').value = settings.saturation || 100;
+            document.getElementById('saturation-display').innerText = settings.saturation || 100;
         }
         if (document.getElementById('size-slider')) document.getElementById('size-slider').value = settings.fontSize;
         if (document.getElementById('line-slider')) document.getElementById('line-slider').value = settings.lineHeight;
-        if (document.getElementById('letter-slider')) document.getElementById('letter-slider').value = settings.letterSpacing;
-        if (document.getElementById('word-slider')) document.getElementById('word-slider').value = settings.wordSpacing;
+        if (document.getElementById('letter-slider')) document.getElementById('letter-slider').value = settings.letterSpacing || 0;
+        if (document.getElementById('word-slider')) document.getElementById('word-slider').value = settings.wordSpacing || 0;
 
         // Update Toggles
         if (document.getElementById('mask-toggle')) document.getElementById('mask-toggle').checked = settings.readingMask;
@@ -406,6 +403,7 @@ include 'src/header.php';
 
     function resetSettings() {
         if (confirm('Are you sure you want to reset all accessibility settings to default?')) {
+            // defaultSettings is global from header.php
             saveSettings(defaultSettings);
             window.location.reload();
         }
