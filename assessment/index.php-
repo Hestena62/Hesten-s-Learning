@@ -1,26 +1,88 @@
 <?php
-// Dynamic Title based on GET parameter
-$gradeParam = isset($_GET['grade']) ? $_GET['grade'] : 'Third Grade';
-
-// Map friendly URLs or IDs to display names if needed
-$gradeMap = [
-    'pre-k' => 'Pre-K',
-    'k' => 'Kindergarten',
-    '1' => 'First Grade',
-    '2' => 'Second Grade',
-    '3' => 'Third Grade',
-    '4' => 'Fourth Grade',
-    '5' => 'Fifth Grade'
+// === GRADE CONFIGURATION ===
+$gradeConfig = [
+    'pre-k' => ['label' => 'Pre-K',        'link' => '/Level/a.php'],
+    'k'     => ['label' => 'Kindergarten', 'link' => '/Level/b.php'],
+    '1'     => ['label' => 'First Grade',  'link' => '/Level/c.php'],
+    '2'     => ['label' => 'Second Grade', 'link' => '/Level/d.php'],
+    '3'     => ['label' => 'Third Grade',  'link' => '/Level/e.php'],
+    '4'     => ['label' => 'Fourth Grade', 'link' => '/Level/f.php'],
+    '5'     => ['label' => 'Fifth Grade',  'link' => '/Level/g.php'],
 ];
 
-// Normalize key
-$gradeKey  = strtolower($gradeParam);
-$gradeName = isset($gradeMap[$gradeKey]) ? $gradeMap[$gradeKey] : $gradeParam;
+// === GET PARAMETER ===
+$grade = isset($_GET['grade']) ? $_GET['grade'] : null;
 
+// If no grade parameter, try to detect from URL or default
+if ($grade === null) {
+    $grade = '3'; // default
+}
+
+$grade = strtolower(trim($grade));
+
+// === ALIASES (so ?grade=prek, ?grade=5th, ?grade=first etc. all work)
+$alias = [
+    'prek' => 'pre-k',
+    'pre k' => 'pre-k',
+    'prekindergarten' => 'pre-k',
+    'kindergarten' => 'k',
+    'kinder' => 'k',
+    '1st' => '1',
+    'first' => '1',
+    '2nd' => '2',
+    'second' => '2',
+    '3rd' => '3',
+    'third' => '3',
+    '4th' => '4',
+    'fourth' => '4',
+    '5th' => '5',
+    'fifth' => '5',
+];
+
+$grade = isset($alias[$grade]) ? $alias[$grade] : $grade;
+
+// === FIND THE REAL KEY ===
+$currentKey = '3'; // safe default
+foreach ($gradeConfig as $key => $info) {
+    $cleanLabel = str_replace([' ', '-'], '', strtolower($info['label']));
+    $cleanInput = str_replace([' ', '-'], '', $grade);
+    if ($key === $grade || strtolower($info['label']) === $grade || $cleanLabel === $cleanInput) {
+        $currentKey = $key;
+        break;
+    }
+}
+
+// === FINAL VALUES ===
+$gradeName = $gradeConfig[$currentKey]['label'];
+$levelLink = $gradeConfig[$currentKey]['link'];
+
+// === PREV / NEXT (perfect order) ===
+$order = ['pre-k', 'k', '1', '2', '3', '4', '5'];
+$pos   = array_search($currentKey, $order);
+
+$prevBtn = ($pos > 0) ? [
+    'url'   => '?grade=' . $order[$pos - 1],
+    'label' => $gradeConfig[$order[$pos - 1]]['label']
+] : null;
+
+$nextBtn = ($pos < 6) ? [
+    'url'   => '?grade=' . $order[$pos + 1],
+    'label' => $gradeConfig[$order[$pos + 1]]['label']
+] : null;
+
+// Page title & description
 $pageTitle       = "$gradeName Assessment | Hesten's Learning";
 $pageDescription = "Practice your $gradeName skills in Math, Reading, Science, and Social Studies.";
+
 include '../src/header.php';
 ?>
+
+<!-- DEBUG INFO (remove after testing) -->
+<div style="display:none;" id="debug-info">
+    GET grade: <?php echo isset($_GET['grade']) ? htmlspecialchars($_GET['grade']) : 'NOT SET'; ?><br>
+    Current Key: <?php echo htmlspecialchars($currentKey); ?><br>
+    Grade Name: <?php echo htmlspecialchars($gradeName); ?>
+</div>
 
 <header
     class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 px-4 text-center rounded-b-lg shadow-xl mb-8">
@@ -29,42 +91,53 @@ include '../src/header.php';
             class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold tracking-wider uppercase mb-4">
             <i class="fas fa-star text-yellow-300"></i> Assessment
         </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4 dropdown-shadow">
-            <?php echo $gradeName; ?> Knowledge Check
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow">
+            <?php echo htmlspecialchars($gradeName); ?> Knowledge Check
         </h1>
-        <p class="text-lg opacity-90 max-w-2xl mx-auto">
+        <p class="text-lg opacity-90 max-w-2xl mx-auto mb-8">
             Test your skills across all major subjects.
         </p>
 
-        <?php
-        // Back link logic
-        $levelLink = '/Level/e.php'; // Default
-        if (strpos($gradeName, 'Pre-K') !== false)
-            $levelLink = '/Level/a.php';
-        if (strpos($gradeName, 'Kindergarten') !== false)
-            $levelLink = '/Level/b.php';
-        if (strpos($gradeName, 'First') !== false)
-            $levelLink = '/Level/c.php';
-        if (strpos($gradeName, 'Second') !== false)
-            $levelLink = '/Level/d.php';
-        if (strpos($gradeName, 'Third') !== false)
-            $levelLink = '/Level/e.php';
-        if (strpos($gradeName, 'Fourth') !== false)
-            $levelLink = '/Level/f.php';
-        if (strpos($gradeName, 'Fifth') !== false)
-            $levelLink = '/Level/g.php';
-        ?>
+        <!-- Navigation Group -->
+        <div class="flex flex-wrap justify-center items-center gap-4">
 
-        <a href="<?php echo $levelLink; ?>"
-            class="inline-block mt-6 px-6 py-2 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg">
-            <i class="fas fa-arrow-left mr-2"></i> Return to Curriculum
-        </a>
+            <!-- Previous Button -->
+            <?php if ($prevBtn): ?>
+                <a href="<?php echo htmlspecialchars($prevBtn['url']); ?>" title="Go to <?php echo htmlspecialchars($prevBtn['label']); ?>"
+                    class="group flex items-center px-4 py-2 bg-blue-800/40 hover:bg-blue-800 text-blue-100 rounded-full font-semibold transition-all border border-blue-400/30">
+                    <i class="fas fa-chevron-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                    <?php echo htmlspecialchars($prevBtn['label']); ?>
+                </a>
+            <?php else: ?>
+                <!-- Spacer to keep center alignment if button is missing -->
+                <div class="hidden md:block w-32"></div>
+            <?php endif; ?>
+
+            <!-- Main Curriculum Link -->
+            <a href="<?php echo htmlspecialchars($levelLink); ?>"
+                class="px-6 py-2 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg flex items-center">
+                <i class="fas fa-th mr-2"></i> Return to Curriculum
+            </a>
+
+            <!-- Next Button -->
+            <?php if ($nextBtn): ?>
+                <a href="<?php echo htmlspecialchars($nextBtn['url']); ?>" title="Go to <?php echo htmlspecialchars($nextBtn['label']); ?>"
+                    class="group flex items-center px-4 py-2 bg-blue-800/40 hover:bg-blue-800 text-blue-100 rounded-full font-semibold transition-all border border-blue-400/30">
+                    <?php echo htmlspecialchars($nextBtn['label']); ?>
+                    <i class="fas fa-chevron-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            <?php else: ?>
+                <div class="hidden md:block w-32"></div>
+            <?php endif; ?>
+
+        </div>
     </div>
 </header>
 
 <div class="container mx-auto px-4 pb-12">
-    <!-- Hidden inputs for logic to find -->
-    <input type="hidden" id="force-grade" value="<?php echo $gradeName; ?>">
+    <!-- Hidden inputs for JavaScript -->
+    <input type="hidden" id="force-grade" value="<?php echo htmlspecialchars($gradeName); ?>">
+    <input type="hidden" id="grade-key" value="<?php echo htmlspecialchars($currentKey); ?>">
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
@@ -78,7 +151,7 @@ include '../src/header.php';
                         <div>
                             <span
                                 class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 dark:bg-blue-900 dark:text-blue-200">
-                                Global Score
+                                Current Score
                             </span>
                         </div>
                         <div class="text-right">
@@ -162,7 +235,7 @@ include '../src/header.php';
                 </div>
 
                 <!-- Feedback Area -->
-                <div id="feedback-area" class="min-h-[60px] p-4 rounded-lg hidden mb-6 animate-fade-in-up">
+                <div id="feedback-area" class="min-h-[60px] p-4 rounded-lg hidden mb-6 animate-fade-in-up transition-all duration-300">
                     <div class="flex items-start gap-3">
                         <div id="feedback-icon" class="text-2xl mt-1"></div>
                         <div>
@@ -186,7 +259,7 @@ include '../src/header.php';
 
                 <!-- Hint Modal (Inline) -->
                 <div id="hintText"
-                    class="hidden mt-4 bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 text-sm">
+                    class="hidden mt-4 bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 text-sm transition-all">
                     <strong>Hint:</strong> <span id="hint-content"></span>
                 </div>
 
@@ -195,14 +268,22 @@ include '../src/header.php';
     </div>
 </div>
 
-<script src="../JS/questionGenerator.js"></script>
+<script src="/JS/entrence-quiz.js"></script>
 <script>
+    // Debug: Log what we're receiving
+    console.log('Grade from PHP:', document.getElementById('force-grade').value);
+    console.log('Grade key from PHP:', document.getElementById('grade-key').value);
+    console.log('URL:', window.location.href);
+
     // Initialize with the dynamic grade name
     document.addEventListener('DOMContentLoaded', () => {
-        // Read the PHP-injected grade name from the hidden input or variable
         const gradeName = document.getElementById('force-grade').value;
+        console.log('Initializing with grade:', gradeName);
+
         if (typeof loadQuestions === 'function') {
             loadQuestions(gradeName);
+        } else {
+            console.error('loadQuestions function not found!');
         }
     });
 
@@ -211,18 +292,25 @@ include '../src/header.php';
     function filterQuestions(subject) {
         currentSubjectFilter = subject;
         const gradeName = document.getElementById('force-grade').value;
-        loadQuestions(gradeName, subject);
+
+        console.log('Filtering questions for:', gradeName, 'Subject:', subject);
+
+        if (typeof loadQuestions === 'function') {
+            loadQuestions(gradeName, subject);
+        }
 
         // Reset UI
         document.getElementById('feedback-area').classList.add('hidden');
         document.getElementById('next-btn').classList.add('hidden');
     }
 
-    // Hint wrapper
     function nextQuestionAdapter() {
-        loadCurrentQuestion();
+        if (typeof loadCurrentQuestion === 'function') {
+            loadCurrentQuestion();
+        }
     }
 
+    // Feedback observer
     const observer = new MutationObserver((mutations) => {
         const fb = document.getElementById('feedback');
         if (fb && fb.textContent.trim() !== "") {
@@ -249,9 +337,14 @@ include '../src/header.php';
 
     document.addEventListener('DOMContentLoaded', () => {
         const fb = document.getElementById('feedback');
-        if (fb) observer.observe(fb, { childList: true, subtree: true, characterData: true });
+        if (fb) {
+            observer.observe(fb, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+        }
     });
-
 </script>
 
 <?php include '../src/footer.php'; ?>
