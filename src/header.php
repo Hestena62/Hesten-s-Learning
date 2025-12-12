@@ -32,7 +32,9 @@
     <!-- 2. Optimized Font Loading -->
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@400;600;700&family=Cookie&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /></noscript>
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </noscript>
 
     <!-- 3. Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -64,12 +66,22 @@
                     },
                     keyframes: {
                         fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(10px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
                         },
                         bounceShort: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
                         }
                     }
                 },
@@ -94,7 +106,7 @@
         body {
             background-color: var(--color-base-bg);
             background-image: var(--site-bg-gradient);
-            background-attachment: scroll; 
+            background-attachment: scroll;
             background-size: cover;
             color: var(--color-text-default);
             font-size: var(--site-font-size, 1rem);
@@ -104,12 +116,17 @@
             font-family: var(--site-font-family, "Inter", sans-serif);
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Redundant safety */
-            opacity: 0; 
+            overflow-x: hidden;
+            /* Redundant safety */
+            opacity: 0;
             animation: pageReveal 0.5s ease-out forwards;
         }
 
-        @keyframes pageReveal { to { opacity: 1; } }
+        @keyframes pageReveal {
+            to {
+                opacity: 1;
+            }
+        }
 
         /* Themes */
         .light {
@@ -150,39 +167,120 @@
         }
 
         /* Focus Mode Overrides */
-        body.focus-mode header, 
-        body.focus-mode #announcement-bar, 
+        body.focus-mode header,
+        body.focus-mode #announcement-bar,
         body.focus-mode footer,
         body.focus-mode #resume-banner {
             display: none !important;
         }
+
         body.focus-mode #main-content {
             margin-top: 2rem;
         }
 
         /* High Contrast Specifics */
-        .high-contrast a { color: var(--color-link) !important; text-decoration: underline; }
-        .high-contrast .bg-primary { background-color: #000000 !important; border: 2px solid #FFFF00 !important; color: #FFFF00 !important; }
-        .high-contrast .level-card { border: 2px solid white; }
+        .high-contrast a {
+            color: var(--color-link) !important;
+            text-decoration: underline;
+        }
+
+        .high-contrast .bg-primary {
+            background-color: #000000 !important;
+            border: 2px solid #FFFF00 !important;
+            color: #FFFF00 !important;
+        }
+
+        .high-contrast .level-card {
+            border: 2px solid white;
+        }
 
         /* Utilities */
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border-width: 0; }
-        :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
-        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border-width: 0;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
         /* Reading Guide */
-        #reading-mask { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); pointer-events: none; z-index: 50; }
-        #reading-guide { position: absolute; width: 100%; height: 2.5rem; background: rgba(255, 255, 255, 0.1); border-top: 2px solid var(--color-base-bg); border-bottom: 2px solid var(--color-base-bg); cursor: ns-resize; pointer-events: auto; }
+        #reading-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        #reading-guide {
+            position: absolute;
+            width: 100%;
+            height: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--color-base-bg);
+            border-bottom: 2px solid var(--color-base-bg);
+            cursor: ns-resize;
+            pointer-events: auto;
+        }
 
         /* Loader */
-        #initial-loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; justify-content: center; items-center: center; transition: opacity 0.5s; }
-        .dark #initial-loader { background: #111827; }
-        .loader-spinner { width: 48px; height: 48px; border: 5px solid #4F46E5; border-bottom-color: transparent; border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotation 1s linear infinite; }
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #initial-loader {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s;
+        }
+
+        .dark #initial-loader {
+            background: #111827;
+        }
+
+        .loader-spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #4F46E5;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--color-base-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 5px; }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-base-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -194,7 +292,7 @@
         <button id="scroll-to-top" class="w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center" aria-label="Scroll to top" type="button">
             <i class="fas fa-arrow-up"></i>
         </button>
-        
+
         <!-- Scratchpad Toggle -->
         <button id="scratchpad-toggle" class="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Quick Notes" aria-expanded="false" aria-controls="scratchpad-panel" type="button">
             <i class="fas fa-sticky-note text-xl"></i>
