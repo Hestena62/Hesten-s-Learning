@@ -81,7 +81,7 @@
         /* Base Styles & Variables */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('https://cdn.jsdelivr.net/npm/opendyslexic@2.1.0-beta1/charis-sil-modified/OpenDyslexic-Regular.woff') format('woff');
+            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
             font-display: swap;
         }
 
@@ -305,9 +305,9 @@
                 <!-- Nav Links -->
                 <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300" id="nav-content">
                     <div class="text-sm lg:flex-grow">
-                        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md bg-white/10 text-white font-bold"><i class="fas fa-home mr-1"></i> Home</a>
-                        <a href="#level-grid" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-book mr-1"></i> Learning</a>
-                        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-tasks mr-1"></i> Assessment</a>
+                        <a href="/" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md bg-white/10 text-white font-bold"><i class="fas fa-home mr-1"></i> Home</a>
+                        <a href="/learning.php" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-book mr-1"></i> Learning</a>
+                        <a href="/assessment" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-tasks mr-1"></i> Assessment</a>
                     </div>
                     <!-- Search -->
                     <div class="relative mt-4 lg:mt-0">
