@@ -58,7 +58,7 @@ include '../src/header.php';
         <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed mb-8">
             Start your journey here. Master counting, identifying objects, and exploring the world around you.
         </p>
-        <a href="../assessment/index.php?grade=Pre-K"
+        <a href="../assessment/index.html?grade=Pre-K"
             class="inline-block px-8 py-3 bg-yellow-400 text-blue-900 font-bold rounded-full hover:bg-yellow-300 transition-colors shadow-lg transform hover:-translate-y-1">
             <i class="fas fa-star mr-2"></i> Take Pre-K Assessment
         </a>

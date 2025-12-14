@@ -1079,9 +1079,124 @@
 
     <script src="/JS/entrence-quiz.js"></script>
     <script>
-      // Debug: Log what we're receiving
-      // Note: The main logic above handles the initial loadQuestions call,
-      // but we keep the helper functions here.
+      // ==========================================
+      // CUSTOM LOGIC: Download Results Feature
+      // ==========================================
+      
+      // Store user results as they answer
+      window.quizResultsData = [];
+
+      // 1. Hook into loadQuestions to reset data on start/restart
+      if (typeof loadQuestions === 'function') {
+          const originalLoadQuestions = loadQuestions;
+          loadQuestions = function(gradeName, subjectFilter) {
+              window.quizResultsData = [];
+              originalLoadQuestions(gradeName, subjectFilter);
+          };
+      }
+
+      // 2. Hook into checkAnswer to capture data per question
+      if (typeof checkAnswer === 'function') {
+          const originalCheckAnswer = checkAnswer;
+          checkAnswer = function(selected, correct, btnElement) {
+              try {
+                  // Capture current question data before index increments
+                  if (typeof currentQuestions !== 'undefined' && typeof currentQuestionIndex !== 'undefined') {
+                      const q = currentQuestions[currentQuestionIndex];
+                      if (q) {
+                          window.quizResultsData.push({
+                              question: q.question,
+                              selected: selected,
+                              correct: correct,
+                              isCorrect: selected === correct,
+                              timestamp: new Date().toLocaleTimeString()
+                          });
+                      }
+                  }
+              } catch (e) {
+                  console.error("Error logging answer for report:", e);
+              }
+              // Call original function
+              originalCheckAnswer(selected, correct, btnElement);
+          };
+      }
+
+      // 3. Hook into finishQuiz to inject the Download Button
+      if (typeof finishQuiz === 'function') {
+          const originalFinishQuiz = finishQuiz;
+          finishQuiz = function() {
+              originalFinishQuiz(); // Let original rendering happen
+              
+              // Wait for DOM update then inject button
+              setTimeout(() => {
+                  const container = document.getElementById('options');
+                  // Find the container div created by original finishQuiz
+                  const resultDiv = container ? container.querySelector('div.text-center') : null;
+                  
+                  if (resultDiv) {
+                      // Create Download Button
+                      const downloadBtn = document.createElement('button');
+                      downloadBtn.className = "bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition mt-4 md:ml-4 block md:inline-block w-full md:w-auto shadow-lg shadow-green-500/30";
+                      downloadBtn.innerHTML = '<i class="fas fa-file-download mr-2"></i> Download Results';
+                      downloadBtn.onclick = generateAndDownloadText;
+                      
+                      // Append to the result card
+                      resultDiv.appendChild(downloadBtn);
+                  }
+              }, 100);
+          };
+      }
+
+      // 4. Function to generate TXT file and trigger download
+      function generateAndDownloadText() {
+          const grade = document.getElementById('header-grade-name')?.textContent || "Assessment";
+          let content = `HESTEN'S LEARNING - ASSESSMENT REPORT\n`;
+          content += `Subject Level: ${grade}\n`;
+          content += `Date: ${new Date().toLocaleString()}\n`;
+          content += `=================================================\n\n`;
+
+          let scoreCount = 0;
+          
+          if (window.quizResultsData.length === 0) {
+              content += "No questions were answered.\n";
+          } else {
+              window.quizResultsData.forEach((item, idx) => {
+                  content += `Q${idx + 1}: ${item.question}\n`;
+                  content += `   Your Answer:    ${item.selected}\n`;
+                  if (!item.isCorrect) {
+                    content += `   Correct Answer: ${item.correct}\n`;
+                  }
+                  content += `   Result:         ${item.isCorrect ? "[ CORRECT ]" : "[ INCORRECT ]"}\n`;
+                  content += `-------------------------------------------------\n`;
+                  if (item.isCorrect) scoreCount++;
+              });
+          }
+
+          const percentage = window.quizResultsData.length > 0 
+              ? Math.round((scoreCount / window.quizResultsData.length) * 100) 
+              : 0;
+              
+          content += `\nSUMMARY:\n`;
+          content += `Total Questions: ${window.quizResultsData.length}\n`;
+          content += `Correct Answers: ${scoreCount}\n`;
+          content += `Final Score:     ${percentage}%\n`;
+
+          // Create blob and link
+          const blob = new Blob([content], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          // Filename: Assessment_Result_YYYY-MM-DD.txt
+          a.download = `Assessment_Result_${new Date().toISOString().slice(0,10)}.txt`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+      }
+
+      // ==========================================
+      // END CUSTOM LOGIC
+      // ==========================================
 
       let currentSubjectFilter = "All";
 

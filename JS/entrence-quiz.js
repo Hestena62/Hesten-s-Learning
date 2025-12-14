@@ -49,6 +49,17 @@ const questionBank = [
     { grade: "Pre-K", subject: "Social Studies", question: "Who teaches you?", options: ["Teacher", "Cat", "Baby", "Tree"], answer: "Teacher", hint: "At school." },
     { grade: "Pre-K", subject: "Social Studies", question: "A friend is someone who?", options: ["Plays with you", "Yells at you", "Takes your toys", "Hits you"], answer: "Plays with you", hint: "Is nice." },
     { grade: "Pre-K", subject: "Social Studies", question: "What do we do in a library?", options: ["Yell", "Run", "Read quietly", "Eat dinner"], answer: "Read quietly", hint: "Shhh." },
+    { grade: "Pre-K", subject: "Social Studies", question: "What do we do with trash?", options: ["Throw in trash can", "Eat it", "Put in pocket", "Throw on floor"], answer: "Throw in trash can", hint: "Clean up." },
+    { grade: "Pre-K", subject: "Science", question: "Which animal says 'Quack'?", options: ["Duck", "Dog", "Cat", "Lion"], answer: "Duck", hint: "Swims in ponds." },
+    { grade: "Pre-K", subject: "Math", question: "Which is a circle?", options: ["Coin", "Book", "Door", "Ruler"], answer: "Coin", hint: "Round." },
+    { grade: "Pre-K", subject: "Math", question: "How many legs does a spider have?", options: ["2", "4", "8", "6"], answer: "8", hint: "Itsy bitsy." },
+    { grade: "Pre-K", subject: "Math", question: "Which is number 5?", options: ["5", "2", "3", "1"], answer: "5", hint: "High five." },
+    { grade: "Pre-K", subject: "Language Arts", question: "Apple starts with?", options: ["A", "B", "C", "D"], answer: "A", hint: "Ah-ah." },
+    { grade: "Pre-K", subject: "Language Arts", question: "Rhyme with 'Hat'?", options: ["Cat", "Dog", "Pig", "Cow"], answer: "Cat", hint: "Meow." },
+    { grade: "Pre-K", subject: "Science", question: "What is wet?", options: ["Water", "Sand", "Rock", "Wood"], answer: "Water", hint: "Rain." },
+    { grade: "Pre-K", subject: "Science", question: "Where does a fish live?", options: ["Water", "Tree", "Nest", "House"], answer: "Water", hint: "Ocean or river." },
+    { grade: "Pre-K", subject: "Social Studies", question: "Stop sign color?", options: ["Red", "Green", "Blue", "Black"], answer: "Red", hint: "Danger." },
+    { grade: "Pre-K", subject: "Social Studies", question: "Police drive?", options: ["Police Car", "Bus", "Train", "Bike"], answer: "Police Car", hint: "Sirens." },
 
     // ==================== KINDERGARTEN ====================
     // Existing
@@ -91,6 +102,17 @@ const questionBank = [
     { grade: "Kindergarten", subject: "Social Studies", question: "A globe is a map of?", options: ["Earth", "Mars", "School", "Town"], answer: "Earth", hint: "World." },
     { grade: "Kindergarten", subject: "Social Studies", question: "We buy food at?", options: ["Library", "Grocery Store", "Park", "School"], answer: "Grocery Store", hint: "Market." },
     { grade: "Kindergarten", subject: "Social Studies", question: "Birthday celebrates?", options: ["Age", "Height", "Weight", "School"], answer: "Age", hint: "Born day." },
+    { grade: "Kindergarten", subject: "Language Arts", question: "Opposite of 'Happy'?", options: ["Sad", "Fun", "Fast", "Up"], answer: "Sad", hint: "Crying." },
+    { grade: "Kindergarten", subject: "Math", question: "How many toes on one foot?", options: ["5", "10", "1", "2"], answer: "5", hint: "Count them." },
+    { grade: "Kindergarten", subject: "Science", question: "What color is the sky on a sunny day?", options: ["Blue", "Green", "Purple", "Red"], answer: "Blue", hint: "Look up." },
+    { grade: "Kindergarten", subject: "Math", question: "Which is a triangle?", options: ["Slice of pizza", "Box", "Ball", "Egg"], answer: "Slice of pizza", hint: "3 sides." },
+    { grade: "Kindergarten", subject: "Math", question: "5 + 0 = ?", options: ["5", "0", "50", "10"], answer: "5", hint: "Adding nothing." },
+    { grade: "Kindergarten", subject: "Language Arts", question: "First letter of 'Zebra'?", options: ["Z", "A", "B", "C"], answer: "Z", hint: "Last letter." },
+    { grade: "Kindergarten", subject: "Language Arts", question: "Action word?", options: ["Jump", "Blue", "Cat", "Tree"], answer: "Jump", hint: "Move your body." },
+    { grade: "Kindergarten", subject: "Science", question: "Snow is?", options: ["Cold", "Hot", "Warm", "Dry"], answer: "Cold", hint: "Winter." },
+    { grade: "Kindergarten", subject: "Science", question: "Cows give us?", options: ["Milk", "Juice", "Soda", "Water"], answer: "Milk", hint: "White drink." },
+    { grade: "Kindergarten", subject: "Social Studies", question: "Fire trucks are?", options: ["Red", "Blue", "Green", "Purple"], answer: "Red", hint: "Bright color." },
+    { grade: "Kindergarten", subject: "Social Studies", question: "In school we?", options: ["Learn", "Sleep", "Fight", "Scream"], answer: "Learn", hint: "Study." },
 
     // ==================== 1ST GRADE ====================
     // Existing
@@ -133,6 +155,17 @@ const questionBank = [
     { grade: "First Grade", subject: "Social Studies", question: "Past is?", options: ["Now", "Tomorrow", "Long ago", "Soon"], answer: "Long ago", hint: "History." },
     { grade: "First Grade", subject: "Social Studies", question: "Mayor leads a?", options: ["Country", "State", "City", "School"], answer: "City", hint: "Town." },
     { grade: "First Grade", subject: "Social Studies", question: "Globe shape?", options: ["Flat", "Square", "Round", "Triangle"], answer: "Round", hint: "Sphere." },
+    { grade: "First Grade", subject: "Math", question: "10 - 5 = ?", options: ["5", "15", "10", "2"], answer: "5", hint: "Half of 10." },
+    { grade: "First Grade", subject: "Social Studies", question: "Where does the President live?", options: ["White House", "School", "Library", "Space"], answer: "White House", hint: "Washington DC." },
+    { grade: "First Grade", subject: "Science", question: "What comes after winter?", options: ["Spring", "Summer", "Fall", "Night"], answer: "Spring", hint: "Flowers bloom." },
+    { grade: "First Grade", subject: "Math", question: "Clock shows?", options: ["Time", "Weight", "Length", "Speed"], answer: "Time", hint: "Tick tock." },
+    { grade: "First Grade", subject: "Math", question: "Sides on a square?", options: ["4", "3", "5", "6"], answer: "4", hint: "Box." },
+    { grade: "First Grade", subject: "Language Arts", question: "Verb in 'Birds fly'?", options: ["Fly", "Birds", "In", "On"], answer: "Fly", hint: "Action." },
+    { grade: "First Grade", subject: "Language Arts", question: "Antonym for 'Fast'?", options: ["Slow", "Quick", "Run", "Go"], answer: "Slow", hint: "Turtle." },
+    { grade: "First Grade", subject: "Science", question: "Humans need?", options: ["Food/Water", "Candy", "Toys", "TV"], answer: "Food/Water", hint: "Survival." },
+    { grade: "First Grade", subject: "Science", question: "Which is a liquid?", options: ["Milk", "Ice", "Rock", "Wood"], answer: "Milk", hint: "Pour it." },
+    { grade: "First Grade", subject: "Social Studies", question: "Traffic light 'Red' means?", options: ["Stop", "Go", "Fast", "Turn"], answer: "Stop", hint: "Danger." },
+    { grade: "First Grade", subject: "Social Studies", question: "A neighborhood is?", options: ["Where people live", "A school", "A park", "A store"], answer: "Where people live", hint: "Houses." },
 
     // ==================== 2ND GRADE ====================
     // Existing
@@ -175,6 +208,17 @@ const questionBank = [
     { grade: "Second Grade", subject: "Social Studies", question: "Goods are?", options: ["Things you buy", "Helping people", "Trash", "Air"], answer: "Things you buy", hint: "Toys, food." },
     { grade: "Second Grade", subject: "Social Studies", question: "Services are?", options: ["Things", "Jobs people do", "Food", "Toys"], answer: "Jobs people do", hint: "Haircut, doctor." },
     { grade: "Second Grade", subject: "Social Studies", question: "Statue of Liberty is in?", options: ["Paris", "New York", "London", "China"], answer: "New York", hint: "Harbor." },
+    { grade: "Second Grade", subject: "Language Arts", question: "Plural of 'Mouse'?", options: ["Mice", "Mouses", "Mouse", "Meeses"], answer: "Mice", hint: "Irregular." },
+    { grade: "Second Grade", subject: "Math", question: "Value of a quarter?", options: ["25 cents", "10 cents", "5 cents", "1 cent"], answer: "25 cents", hint: "Big coin." },
+    { grade: "Second Grade", subject: "Science", question: "What do lungs do?", options: ["Breathe", "Pump blood", "Digest food", "Think"], answer: "Breathe", hint: "Air." },
+    { grade: "Second Grade", subject: "Math", question: "1 hour = ? minutes", options: ["60", "30", "100", "10"], answer: "60", hint: "Clock." },
+    { grade: "Second Grade", subject: "Math", question: "Identify cylinder", options: ["Soda Can", "Ball", "Box", "Cone"], answer: "Soda Can", hint: "Round tube." },
+    { grade: "Second Grade", subject: "Language Arts", question: "Proper Noun?", options: ["Texas", "state", "city", "town"], answer: "Texas", hint: "Name of place." },
+    { grade: "Second Grade", subject: "Language Arts", question: "Contraction for 'Do not'?", options: ["Don't", "Dont", "Do'nt", "Dnt"], answer: "Don't", hint: "Apostrophe." },
+    { grade: "Second Grade", subject: "Science", question: "Predator eats?", options: ["Prey", "Plants", "Rocks", "Dirt"], answer: "Prey", hint: "Hunter." },
+    { grade: "Second Grade", subject: "Science", question: "Wind is moving?", options: ["Air", "Water", "Dirt", "Fire"], answer: "Air", hint: "Breeze." },
+    { grade: "Second Grade", subject: "Social Studies", question: "Vote means?", options: ["Choose", "Run", "Sleep", "Eat"], answer: "Choose", hint: "Election." },
+    { grade: "Second Grade", subject: "Social Studies", question: "Taxes pay for?", options: ["Schools/Roads", "Candy", "Toys", "Movies"], answer: "Schools/Roads", hint: "Public things." },
 
     // ==================== 3RD GRADE ====================
     // Existing
@@ -217,6 +261,17 @@ const questionBank = [
     { grade: "Third Grade", subject: "Social Studies", question: "Cardinal directions?", options: ["Up Down", "NSEW", "Left Right", "AB"], answer: "NSEW", hint: "Compass." },
     { grade: "Third Grade", subject: "Social Studies", question: "Money paid to government?", options: ["Taxes", "Tips", "Gifts", "Salary"], answer: "Taxes", hint: "Required." },
     { grade: "Third Grade", subject: "Social Studies", question: "Document with laws?", options: ["Constitution", "Letter", "Book", "Map"], answer: "Constitution", hint: "We the People." },
+    { grade: "Third Grade", subject: "Math", question: "8 x 8 = ?", options: ["64", "56", "72", "60"], answer: "64", hint: "Square." },
+    { grade: "Third Grade", subject: "Social Studies", question: "Who discovered America (traditionally)?", options: ["Columbus", "Washington", "Lincoln", "King"], answer: "Columbus", hint: "1492." },
+    { grade: "Third Grade", subject: "Science", question: "Solid to Liquid is?", options: ["Melting", "Freezing", "Boiling", "Gas"], answer: "Melting", hint: "Ice to Water." },
+    { grade: "Third Grade", subject: "Math", question: "9 x 3 = ?", options: ["27", "12", "18", "30"], answer: "27", hint: "Triple 9." },
+    { grade: "Third Grade", subject: "Math", question: "Odd number?", options: ["9", "4", "2", "8"], answer: "9", hint: "Not divisible by 2." },
+    { grade: "Third Grade", subject: "Language Arts", question: "Prefix 'Un-'?", options: ["Not", "Again", "Before", "After"], answer: "Not", hint: "Undo." },
+    { grade: "Third Grade", subject: "Language Arts", question: "Root word of 'Walking'?", options: ["Walk", "King", "All", "Wall"], answer: "Walk", hint: "Action." },
+    { grade: "Third Grade", subject: "Science", question: "Main source of energy?", options: ["Sun", "Moon", "Earth", "Mars"], answer: "Sun", hint: "Light." },
+    { grade: "Third Grade", subject: "Science", question: "Habitat for fish?", options: ["Aquatic", "Desert", "Forest", "Tundra"], answer: "Aquatic", hint: "Water." },
+    { grade: "Third Grade", subject: "Social Studies", question: "Liberty Bell location?", options: ["Philadelphia", "New York", "Boston", "DC"], answer: "Philadelphia", hint: "Crack." },
+    { grade: "Third Grade", subject: "Social Studies", question: "Martin Luther King Jr?", options: ["Civil Rights", "President", "King", "Doctor"], answer: "Civil Rights", hint: "Equality." },
 
     // ==================== 4TH GRADE ====================
     // Existing
@@ -259,6 +314,17 @@ const questionBank = [
     { grade: "Fourth Grade", subject: "Social Studies", question: "National Anthem?", options: ["Star Spangled Banner", "America Beautiful", "Yankee Doodle", "Pop Song"], answer: "Star Spangled Banner", hint: "Oh say can you see." },
     { grade: "Fourth Grade", subject: "Social Studies", question: "Capital of state?", options: ["Main city of state", "Washington DC", "Biggest city", "Oldest city"], answer: "Main city of state", hint: "Govt seat." },
     { grade: "Fourth Grade", subject: "Social Studies", question: "Immigrant is?", options: ["Person moving to new country", "Tourist", "Soldier", "King"], answer: "Person moving to new country", hint: "Ellis Island." },
+    { grade: "Fourth Grade", subject: "Language Arts", question: "What is a stanza?", options: ["Part of a poem", "A sentence", "A book", "A word"], answer: "Part of a poem", hint: "Group of lines." },
+    { grade: "Fourth Grade", subject: "Math", question: "Perimeter of square with side 5?", options: ["20", "25", "10", "15"], answer: "20", hint: "4 sides." },
+    { grade: "Fourth Grade", subject: "Science", question: "Planet closest to Sun?", options: ["Mercury", "Venus", "Earth", "Mars"], answer: "Mercury", hint: "Hot." },
+    { grade: "Fourth Grade", subject: "Math", question: "Area of square (side 4)?", options: ["16", "8", "12", "20"], answer: "16", hint: "4x4." },
+    { grade: "Fourth Grade", subject: "Math", question: "Degrees in circle?", options: ["360", "180", "90", "100"], answer: "360", hint: "Full turn." },
+    { grade: "Fourth Grade", subject: "Language Arts", question: "Suffix '-less'?", options: ["Without", "Full", "More", "Not"], answer: "Without", hint: "Homeless." },
+    { grade: "Fourth Grade", subject: "Language Arts", question: "Synonym for 'Big'?", options: ["Large", "Small", "Tiny", "Short"], answer: "Large", hint: "Huge." },
+    { grade: "Fourth Grade", subject: "Science", question: "Precipitation types?", options: ["Rain/Snow", "Wind", "Cloud", "Sun"], answer: "Rain/Snow", hint: "Falls from sky." },
+    { grade: "Fourth Grade", subject: "Science", question: "Friction creates?", options: ["Heat", "Cold", "Wind", "Water"], answer: "Heat", hint: "Rub hands." },
+    { grade: "Fourth Grade", subject: "Social Studies", question: "Number of continents?", options: ["7", "5", "10", "4"], answer: "7", hint: "Big land masses." },
+    { grade: "Fourth Grade", subject: "Social Studies", question: "Ocean on West Coast US?", options: ["Pacific", "Atlantic", "Indian", "Arctic"], answer: "Pacific", hint: "California." },
 
     // ==================== 5TH GRADE ====================
     // Existing
@@ -301,6 +367,17 @@ const questionBank = [
     { grade: "Fifth Grade", subject: "Social Studies", question: "Constitution replaced?", options: ["Articles of Confederation", "Bill of Rights", "Magna Carta", "Bible"], answer: "Articles of Confederation", hint: "First attempt." },
     { grade: "Fifth Grade", subject: "Social Studies", question: "Lewis and Clark explored?", options: ["West (Louisiana Purchase)", "North Pole", "South America", "Moon"], answer: "West (Louisiana Purchase)", hint: "Sacagawea." },
     { grade: "Fifth Grade", subject: "Social Studies", question: "Amendment banning slavery?", options: ["13th", "1st", "2nd", "10th"], answer: "13th", hint: "Civil War end." },
+    { grade: "Fifth Grade", subject: "Math", question: "1/2 + 1/2 = ?", options: ["1", "1/4", "2", "0"], answer: "1", hint: "Whole." },
+    { grade: "Fifth Grade", subject: "Social Studies", question: "First War of US?", options: ["Revolutionary War", "Civil War", "WWI", "WWII"], answer: "Revolutionary War", hint: "Against Britain." },
+    { grade: "Fifth Grade", subject: "Science", question: "H2O is?", options: ["Water", "Air", "Salt", "Gold"], answer: "Water", hint: "Drink." },
+    { grade: "Fifth Grade", subject: "Math", question: "Diameter is?", options: ["2 x Radius", "Radius", "Half Radius", "Circle"], answer: "2 x Radius", hint: "Across center." },
+    { grade: "Fifth Grade", subject: "Math", question: "Coordinate Plane inputs?", options: ["(x,y)", "(y,x)", "x", "y"], answer: "(x,y)", hint: "Ordered pair." },
+    { grade: "Fifth Grade", subject: "Language Arts", question: "Idiom example?", options: ["It's raining cats and dogs", "The sky is blue", "I am happy", "Dogs bark"], answer: "It's raining cats and dogs", hint: "Not literal." },
+    { grade: "Fifth Grade", subject: "Language Arts", question: "First Person pronoun?", options: ["We", "They", "He", "She"], answer: "We", hint: "Us." },
+    { grade: "Fifth Grade", subject: "Science", question: "Conducts Heat well?", options: ["Metal", "Foam", "Wood", "Plastic"], answer: "Metal", hint: "Pan." },
+    { grade: "Fifth Grade", subject: "Science", question: "Solar System center?", options: ["Sun", "Earth", "Moon", "Mars"], answer: "Sun", hint: "Star." },
+    { grade: "Fifth Grade", subject: "Social Studies", question: "Boston Tea Party?", options: ["Protest", "Party", "Dance", "Dinner"], answer: "Protest", hint: "Taxation without representation." },
+    { grade: "Fifth Grade", subject: "Social Studies", question: "Checks and Balances?", options: ["Limits Govt Power", "Money", "Banking", "War"], answer: "Limits Govt Power", hint: "3 Branches." },
 
     // ==================== 6TH GRADE ====================
     // Existing
@@ -346,6 +423,17 @@ const questionBank = [
     { grade: "Sixth Grade", subject: "Social Studies", question: "Confucius was from?", options: ["China", "India", "Greece", "Rome"], answer: "China", hint: "Philosopher." },
     { grade: "Sixth Grade", subject: "Social Studies", question: "Alexander the Great?", options: ["Greek Conqueror", "Roman Emperor", "Egyptian King", "US President"], answer: "Greek Conqueror", hint: "Empire." },
     { grade: "Sixth Grade", subject: "Social Studies", question: "Julius Caesar ruled?", options: ["Rome", "Greece", "Egypt", "China"], answer: "Rome", hint: "Et tu, Brute?" },
+    { grade: "Sixth Grade", subject: "Math", question: "Solve 2x = 10", options: ["5", "20", "8", "6"], answer: "5", hint: "Divide." },
+    { grade: "Sixth Grade", subject: "Language Arts", question: "Simile uses?", options: ["Like or As", "Is or Are", "Was", "None"], answer: "Like or As", hint: "Comparison." },
+    { grade: "Sixth Grade", subject: "Science", question: "Center of atom?", options: ["Nucleus", "Electron", "Shell", "Orbit"], answer: "Nucleus", hint: "Protons here." },
+    { grade: "Sixth Grade", subject: "Math", question: "GFC of 12 and 18?", options: ["6", "3", "2", "9"], answer: "6", hint: "Highest divider." },
+    { grade: "Sixth Grade", subject: "Math", question: "Volume of rect prism?", options: ["L x W x H", "L x W", "L + W", "Base x Height"], answer: "L x W x H", hint: "3D space." },
+    { grade: "Sixth Grade", subject: "Language Arts", question: "Tone is?", options: ["Author's attitude", "Reader's feeling", "Volume", "Sound"], answer: "Author's attitude", hint: "Writer's mood." },
+    { grade: "Sixth Grade", subject: "Language Arts", question: "Dialogue uses?", options: ["Quotation marks", "Commas", "Periods", "Slashes"], answer: "Quotation marks", hint: "Talking." },
+    { grade: "Sixth Grade", subject: "Science", question: "Abiotic factor?", options: ["Water", "Plant", "Animal", "Bacteria"], answer: "Water", hint: "Non-living." },
+    { grade: "Sixth Grade", subject: "Science", question: "Herbivore eats?", options: ["Plants", "Meat", "Both", "Dirt"], answer: "Plants", hint: "Vegetarian." },
+    { grade: "Sixth Grade", subject: "Social Studies", question: "Democracy means?", options: ["People rule", "King rules", "Army rules", "None"], answer: "People rule", hint: "Vote." },
+    { grade: "Sixth Grade", subject: "Social Studies", question: "Great Wall of China built for?", options: ["Protection", "Decoration", "Housing", "Road"], answer: "Protection", hint: "Keep out invaders." },
 
     // ==================== 7TH GRADE ====================
     // Existing
@@ -391,6 +479,17 @@ const questionBank = [
     { grade: "Seventh Grade", subject: "Social Studies", question: "Reformation started by?", options: ["Martin Luther", "Pope", "King Henry", "Columbus"], answer: "Martin Luther", hint: "95 Theses." },
     { grade: "Seventh Grade", subject: "Social Studies", question: "Aztecs lived in?", options: ["Mexico", "Peru", "USA", "Canada"], answer: "Mexico", hint: "Tenochtitlan." },
     { grade: "Seventh Grade", subject: "Social Studies", question: "Incas lived in?", options: ["Andes/Peru", "Mexico", "Europe", "Asia"], answer: "Andes/Peru", hint: "Machu Picchu." },
+    { grade: "Seventh Grade", subject: "Math", question: "-10 + 5 ?", options: ["-5", "5", "-15", "10"], answer: "-5", hint: "Negative." },
+    { grade: "Seventh Grade", subject: "Social Studies", question: "Democracy starts in?", options: ["Greece", "Rome", "Egypt", "China"], answer: "Greece", hint: "Athens." },
+    { grade: "Seventh Grade", subject: "Science", question: "Mitochondria is?", options: ["Powerhouse", "Brain", "Skin", "Wall"], answer: "Powerhouse", hint: "Energy." },
+    { grade: "Seventh Grade", subject: "Math", question: "Vertical angles are?", options: ["Equal", "Complementary", "Supplementary", "Adjacment"], answer: "Equal", hint: "Opposite." },
+    { grade: "Seventh Grade", subject: "Math", question: "-8 x -2 = ?", options: ["16", "-16", "-10", "6"], answer: "16", hint: "Negative x Negative = Positive." },
+    { grade: "Seventh Grade", subject: "Language Arts", question: "Omniscient POV?", options: ["All-knowing", "Limited", "First Person", "Objective"], answer: "All-knowing", hint: "God-like." },
+    { grade: "Seventh Grade", subject: "Language Arts", question: "Soliloquy?", options: ["Speech alone", "Dialogue", "Argument", "Song"], answer: "Speech alone", hint: "Solo." },
+    { grade: "Seventh Grade", subject: "Science", question: "Atmosphere layer w/ weather?", options: ["Troposphere", "Stratosphere", "Mesosphere", "Exosphere"], answer: "Troposphere", hint: "Lowest." },
+    { grade: "Seventh Grade", subject: "Science", question: "Newton's 1st Law?", options: ["Inertia", "Gravity", "Action", "Force"], answer: "Inertia", hint: "Rest stays rest." },
+    { grade: "Seventh Grade", subject: "Social Studies", question: "Renaissance Art focused on?", options: ["Realism/Humanism", "Abstract", "Gods only", "Nature"], answer: "Realism/Humanism", hint: "Da Vinci." },
+    { grade: "Seventh Grade", subject: "Social Studies", question: "Scientific Revolution?", options: ["Logic/Reason", "Church", "Magic", "War"], answer: "Logic/Reason", hint: "Galileo." },
 
     // ==================== 8TH GRADE ====================
     // Existing
@@ -436,6 +535,17 @@ const questionBank = [
     { grade: "Eighth Grade", subject: "Social Studies", question: "Gettysburg Address by?", options: ["Lincoln", "Washington", "Grant", "Lee"], answer: "Lincoln", hint: "Civil War speech." },
     { grade: "Eighth Grade", subject: "Social Studies", question: "Emancipation Proclamation?", options: ["Freed slaves in South", "Ended war", "Taxed tea", "Bought land"], answer: "Freed slaves in South", hint: "Lincoln." },
     { grade: "Eighth Grade", subject: "Social Studies", question: "Reconstruction was?", options: ["Rebuilding after Civil War", "Building walls", "War", "New laws"], answer: "Rebuilding after Civil War", hint: "Post-1865." },
+    { grade: "Eighth Grade", subject: "Math", question: "Slope of horizontal line?", options: ["0", "Undefined", "1", "Infinity"], answer: "0", hint: "Flat." },
+    { grade: "Eighth Grade", subject: "Language Arts", question: "Irony?", options: ["Unexpected", "Funny", "Sad", "Rhyme"], answer: "Unexpected", hint: "Opposite." },
+    { grade: "Eighth Grade", subject: "Science", question: "Newton's 1st Law?", options: ["Inertia", "Gravity", "Action", "Force"], answer: "Inertia", hint: "Rest stays at rest." },
+    { grade: "Eighth Grade", subject: "Math", question: "Pythagorean Theorem?", options: ["a²+b²=c²", "E=mc²", "y=mx+b", "F=ma"], answer: "a²+b²=c²", hint: "Right Triangle." },
+    { grade: "Eighth Grade", subject: "Math", question: "Irrational Number?", options: ["π", "4", "1/2", "0"], answer: "π", hint: "Non-repeating decimal." },
+    { grade: "Eighth Grade", subject: "Language Arts", question: "Active Voice?", options: ["Subject acts", "Subject receives", "Passive", "None"], answer: "Subject acts", hint: "I did it." },
+    { grade: "Eighth Grade", subject: "Language Arts", question: "Hook in essay?", options: ["Grabs attention", "Conclusion", "Thesis", "Evidence"], answer: "Grabs attention", hint: "Start." },
+    { grade: "Eighth Grade", subject: "Science", question: "Density formula?", options: ["Mass/Volume", "Mass x Volume", "Volume/Mass", "Weight"], answer: "Mass/Volume", hint: "Float or sink." },
+    { grade: "Eighth Grade", subject: "Science", question: "Potential Energy max at?", options: ["Highest point", "Lowest point", "Middle", "End"], answer: "Highest point", hint: "Height." },
+    { grade: "Eighth Grade", subject: "Social Studies", question: "Articles of Confederation?", options: ["Weak/First Govt", "Strong", "King", "British"], answer: "Weak/First Govt", hint: "Before Constitution." },
+    { grade: "Eighth Grade", subject: "Social Studies", question: "Industrial Revolution effect?", options: ["Urbanization", "Farming", "War", "Peace"], answer: "Urbanization", hint: "Factories." },
 
     // ==================== 9TH GRADE ====================
     // Existing
@@ -481,6 +591,17 @@ const questionBank = [
     { grade: "Ninth Grade", subject: "Social Studies", question: "Latitude lines run?", options: ["East-West", "North-South", "Up-Down", "Diagonal"], answer: "East-West", hint: "Ladder." },
     { grade: "Ninth Grade", subject: "Social Studies", question: "Longitude lines run?", options: ["North-South", "East-West", "Flat", "Round"], answer: "North-South", hint: "Pole to Pole." },
     { grade: "Ninth Grade", subject: "Social Studies", question: "Push Factor?", options: ["Reason to leave", "Reason to stay", "Gravity", "Wind"], answer: "Reason to leave", hint: "Migration." },
+    { grade: "Ninth Grade", subject: "Math", question: "Quadratic Formula starts?", options: ["-b", "b", "2a", "c"], answer: "-b", hint: "Negative boy." },
+    { grade: "Ninth Grade", subject: "Social Studies", question: "Cold War?", options: ["USA vs USSR", "USA vs UK", "North vs South", "East vs West"], answer: "USA vs USSR", hint: "Communism." },
+    { grade: "Ninth Grade", subject: "Science", question: "DNA shape?", options: ["Double Helix", "Circle", "Line", "Square"], answer: "Double Helix", hint: "Twisted ladder." },
+    { grade: "Ninth Grade", subject: "Math", question: "Line of Symmetry?", options: ["Mirrors graph", "Cuts x-axis", "Touch y-axis", "Slope"], answer: "Mirrors graph", hint: "Parabola middle." },
+    { grade: "Ninth Grade", subject: "Math", question: "Inequality flip sign when?", options: ["Mult/Div by negative", "Add", "Subtract", "Never"], answer: "Mult/Div by negative", hint: "Opposite." },
+    { grade: "Ninth Grade", subject: "Language Arts", question: "Iambic Pentameter?", options: ["10 syllables", "Rhyme", "Prose", "Story"], answer: "10 syllables", hint: "Shakespeare." },
+    { grade: "Ninth Grade", subject: "Language Arts", question: "Sonnet lines?", options: ["14", "12", "10", "8"], answer: "14", hint: "Poem length." },
+    { grade: "Ninth Grade", subject: "Science", question: "Mitosis results in?", options: ["2 Identical Cells", "4 Different", "1 Cell", "Dead Cell"], answer: "2 Identical Cells", hint: "Clones." },
+    { grade: "Ninth Grade", subject: "Science", question: "Protein made by?", options: ["Ribosome", "Nucleus", "Mitochondria", "Wall"], answer: "Ribosome", hint: "Factory." },
+    { grade: "Ninth Grade", subject: "Social Studies", question: "Triangular Trade?", options: ["Slaves/Goods route", "Triangle shape", "Asia", "Europe only"], answer: "Slaves/Goods route", hint: "Atlantic." },
+    { grade: "Ninth Grade", subject: "Social Studies", question: "Enlightenment idea?", options: ["Reason/Rights", "Religion", "War", "King"], answer: "Reason/Rights", hint: "Locke/Rousseau." },
 
     // ==================== 10TH GRADE ====================
     // Existing
@@ -526,6 +647,17 @@ const questionBank = [
     { grade: "Tenth Grade", subject: "Social Studies", question: "Fascism leader Italy?", options: ["Mussolini", "Hitler", "Stalin", "Franco"], answer: "Mussolini", hint: "Il Duce." },
     { grade: "Tenth Grade", subject: "Social Studies", question: "D-Day invasion?", options: ["Normandy", "Berlin", "Tokyo", "Rome"], answer: "Normandy", hint: "France 1944." },
     { grade: "Tenth Grade", subject: "Social Studies", question: "Gandhi used?", options: ["Non-violence", "War", "Money", "Fear"], answer: "Non-violence", hint: "India independence." },
+    { grade: "Tenth Grade", subject: "Math", question: "SOH CAH TOA?", options: ["Trigonometry", "Algebra", "Calculus", "Geometry"], answer: "Trigonometry", hint: "Sin Cos Tan." },
+    { grade: "Tenth Grade", subject: "Language Arts", question: "Romeo and Juliet city?", options: ["Verona", "Rome", "Paris", "London"], answer: "Verona", hint: "Italy." },
+    { grade: "Tenth Grade", subject: "Science", question: "Au is?", options: ["Gold", "Silver", "Copper", "Iron"], answer: "Gold", hint: "Golden." },
+    { grade: "Tenth Grade", subject: "Math", question: "Cosine ratio?", options: ["Adj/Hyp", "Opp/Hyp", "Opp/Adj", "Hyp/Adj"], answer: "Adj/Hyp", hint: "CAH." },
+    { grade: "Tenth Grade", subject: "Math", question: "Circle Equation?", options: ["(x-h)²+(y-k)²=r²", "y=mx+b", "ax²+bx+c", "F=ma"], answer: "(x-h)²+(y-k)²=r²", hint: "Radius/Center." },
+    { grade: "Tenth Grade", subject: "Language Arts", question: "Dante's Inferno about?", options: ["Hell", "Heaven", "Earth", "Space"], answer: "Hell", hint: "Circles." },
+    { grade: "Tenth Grade", subject: "Language Arts", question: "Machiavelli wrote?", options: ["The Prince", "Bible", "Hamlet", "Odyssey"], answer: "The Prince", hint: "Power." },
+    { grade: "Tenth Grade", subject: "Science", question: "Covalent Bond?", options: ["Shares electrons", "Steals", "Weak", "Magnetic"], answer: "Shares electrons", hint: "Co-operate." },
+    { grade: "Tenth Grade", subject: "Science", question: "Endothermic reaction?", options: ["Absorbs heat", "Releases heat", "Explodes", "Freezes"], answer: "Absorbs heat", hint: "Gets cold." },
+    { grade: "Tenth Grade", subject: "Social Studies", question: "French Revolution start?", options: ["1789", "1776", "1812", "1900"], answer: "1789", hint: "Bastille." },
+    { grade: "Tenth Grade", subject: "Social Studies", question: "Napoleon was?", options: ["French Emperor", "English King", "German", "Russian"], answer: "French Emperor", hint: "Short?" },
 
     // ==================== 11TH GRADE ====================
     // Existing
@@ -571,6 +703,17 @@ const questionBank = [
     { grade: "Eleventh Grade", subject: "Social Studies", question: "Brown v Board?", options: ["Ended segregation", "Ended slavery", "Abortion", "Guns"], answer: "Ended segregation", hint: "Schools." },
     { grade: "Eleventh Grade", subject: "Social Studies", question: "Cuban Missile Crisis?", options: ["JFK vs USSR", "WWI", "Civil War", "Vietnam"], answer: "JFK vs USSR", hint: "Nuclear brink." },
     { grade: "Eleventh Grade", subject: "Social Studies", question: "Watergate Scandal?", options: ["Nixon", "Clinton", "Bush", "Reagan"], answer: "Nixon", hint: "Resignation." },
+    { grade: "Eleventh Grade", subject: "Math", question: "Log base 10 of 1000?", options: ["3", "2", "10", "100"], answer: "3", hint: "10x10x10." },
+    { grade: "Eleventh Grade", subject: "Social Studies", question: "Stock Market Crash year?", options: ["1929", "1900", "2000", "1865"], answer: "1929", hint: "Depression." },
+    { grade: "Eleventh Grade", subject: "Science", question: "Speed of Light symbol?", options: ["c", "v", "s", "l"], answer: "c", hint: "E=mc2." },
+    { grade: "Eleventh Grade", subject: "Math", question: "Rad of 180 deg?", options: ["π", "2π", "π/2", "0"], answer: "π", hint: "Half circle." },
+    { grade: "Eleventh Grade", subject: "Math", question: "log(xy) = ?", options: ["log(x)+log(y)", "log(x)-log(y)", "xlog(y)", "y"], answer: "log(x)+log(y)", hint: "Product rule." },
+    { grade: "Eleventh Grade", subject: "Language Arts", question: "Great Gatsby narrator?", options: ["Nick", "Gatsby", "Daisy", "Tom"], answer: "Nick", hint: "Neighbor." },
+    { grade: "Eleventh Grade", subject: "Language Arts", question: "Scarlet Letter symbol?", options: ["A", "B", "C", "D"], answer: "A", hint: "Adultery." },
+    { grade: "Eleventh Grade", subject: "Science", question: "Newton (Unit) measures?", options: ["Force", "Mass", "Energy", "Time"], answer: "Force", hint: "N." },
+    { grade: "Eleventh Grade", subject: "Science", question: "Refraction is?", options: ["Bending of light", "Bouncing", "Stopping", "Absorbing"], answer: "Bending of light", hint: "Lens." },
+    { grade: "Eleventh Grade", subject: "Social Studies", question: "NATO purpose?", options: ["Defense Alliance", "Trade", "War", "Science"], answer: "Defense Alliance", hint: "North Atlantic." },
+    { grade: "Eleventh Grade", subject: "Social Studies", question: "Vietnam War era?", options: ["1960s-70s", "1940s", "1990s", "1800s"], answer: "1960s-70s", hint: "Protests." },
 
     // ==================== 12TH GRADE ====================
     // Existing
@@ -613,6 +756,17 @@ const questionBank = [
     { grade: "Twelfth Grade", subject: "Science", question: "Supernova is?", options: ["Exploding star", "New planet", "Comet", "Black hole"], answer: "Exploding star", hint: "End of life." },
     { grade: "Twelfth Grade", subject: "Social Studies", question: "Opportunity Cost?", options: ["Value of next best choice", "Price", "Tax", "Debt"], answer: "Value of next best choice", hint: "Trade-off." },
     { grade: "Twelfth Grade", subject: "Social Studies", question: "Inflation is?", options: ["Rising prices", "Falling prices", "More jobs", "Less money"], answer: "Rising prices", hint: "Dollar buys less." },
+    { grade: "Twelfth Grade", subject: "Math", question: "Derivative of constant?", options: ["0", "1", "Undefined", "Infinity"], answer: "0", hint: "No change." },
+    { grade: "Twelfth Grade", subject: "Language Arts", question: "1984 Author?", options: ["Orwell", "Huxley", "Bradbury", "Twain"], answer: "Orwell", hint: "George." },
+    { grade: "Twelfth Grade", subject: "Science", question: "Entropy?", options: ["Disorder", "Order", "Energy", "Heat"], answer: "Disorder", hint: "Mess." },
+    { grade: "Twelfth Grade", subject: "Math", question: "Limit sinx/x -> 0?", options: ["1", "0", "infinity", "undefined"], answer: "1", hint: "Special limit." },
+    { grade: "Twelfth Grade", subject: "Math", question: "d/dx e^x?", options: ["e^x", "xe^x-1", "lnx", "1"], answer: "e^x", hint: "Itself." },
+    { grade: "Twelfth Grade", subject: "Language Arts", question: "Beowulf is?", options: ["Epic Poem", "Novel", "Song", "Play"], answer: "Epic Poem", hint: "Old English." },
+    { grade: "Twelfth Grade", subject: "Language Arts", question: "Canterbury Tales author?", options: ["Chaucer", "Shakespeare", "Milton", "Homer"], answer: "Chaucer", hint: "Pilgrims." },
+    { grade: "Twelfth Grade", subject: "Science", question: "Big Bang Theory?", options: ["Origin of Universe", "Black Hole", "Star Death", "Planet"], answer: "Origin of Universe", hint: "Expansion." },
+    { grade: "Twelfth Grade", subject: "Science", question: "Half-life?", options: ["Decay time", "Life length", "Game", "Biology"], answer: "Decay time", hint: "Radioactive." },
+    { grade: "Twelfth Grade", subject: "Social Studies", question: "Fiscal Policy?", options: ["Taxing/Spending", "Money Supply", "War", "Laws"], answer: "Taxing/Spending", hint: "Budget." },
+    { grade: "Twelfth Grade", subject: "Social Studies", question: "Monetary Policy?", options: ["Interest Rates/Money", "Taxes", "Laws", "Trade"], answer: "Interest Rates/Money", hint: "Fed." },
 ];
 
 /**
