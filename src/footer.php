@@ -145,6 +145,8 @@
         // A11y Focus
         setupPanelFocus('scratchpad-toggle', 'scratchpad-panel', 'scratchpad-close');
         setupPanelFocus('a11y-toggle-button', 'a11y-settings-panel', 'a11y-close-button');
+        setupPanelFocus('timer-toggle', 'timer-panel', 'timer-close');
+        setupPanelFocus('citation-toggle', 'citation-panel', 'citation-close'); // NEW
 
         // Quick Notes Auto-save (Global Feature)
         document.getElementById('quick-notes-area')?.addEventListener('input', (e) => {
@@ -153,6 +155,13 @@
             status.textContent = "Saving...";
             setTimeout(() => status.textContent = "Saved", 1000);
         });
+
+        // --- NEW FEATURES INIT ---
+        initNotesExport();
+        initTTS();
+        initTimer();
+        initCitationGenerator();
+        initPrintView();
     });
 
     // --- UTILS ---
@@ -185,6 +194,197 @@
         };
         trigger.onclick = toggle;
         if (close) close.onclick = toggle;
+    }
+
+    // --- PRINTABLE VIEW ---
+    function initPrintView() {
+        const btn = document.getElementById('print-view-toggle');
+        if (btn) {
+            btn.onclick = () => window.print();
+        }
+    }
+
+    // --- CITATION GENERATOR ---
+    function initCitationGenerator() {
+        const autoFillBtn = document.getElementById('cite-auto-fill');
+        const genApaBtn = document.getElementById('cite-generate-apa');
+        const genMlaBtn = document.getElementById('cite-generate-mla');
+        const copyBtn = document.getElementById('cite-copy');
+        const resultArea = document.getElementById('cite-result');
+        const titleInput = document.getElementById('cite-title');
+        const urlInput = document.getElementById('cite-url');
+
+        if (!autoFillBtn) return;
+
+        autoFillBtn.onclick = () => {
+            titleInput.value = document.title;
+            urlInput.value = window.location.href;
+        };
+
+        const getDetails = () => ({
+            title: titleInput.value.trim() || 'Untitled Page',
+            url: urlInput.value.trim() || window.location.href,
+            date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+            year: new Date().getFullYear()
+        });
+
+        genApaBtn.onclick = () => {
+            const d = getDetails();
+            resultArea.value = `Hesten's Learning. (${d.year}). ${d.title}. Retrieved ${d.date}, from ${d.url}`;
+        };
+
+        genMlaBtn.onclick = () => {
+            const d = getDetails();
+            resultArea.value = `" ${d.title}." Hesten's Learning, ${d.year}, ${d.url}. Accessed ${d.date}.`;
+        };
+
+        copyBtn.onclick = () => {
+            if (!resultArea.value) return;
+            resultArea.select();
+            document.execCommand('copy');
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => copyBtn.innerHTML = originalIcon, 1500);
+        };
+    }
+
+    // --- NOTES EXPORT LOGIC ---
+    function initNotesExport() {
+        const downloadBtn = document.getElementById('download-notes');
+        const textArea = document.getElementById('quick-notes-area');
+
+        if (downloadBtn && textArea) {
+            downloadBtn.addEventListener('click', () => {
+                const text = textArea.value;
+                if (!text.trim()) {
+                    window.showMessageBox("Your scratchpad is empty!");
+                    return;
+                }
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `hestens-notes-${new Date().toISOString().slice(0, 10)}.txt`;
+                document.body.appendChild(a); // Required for Firefox
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+    }
+
+    // --- TEXT TO SPEECH LOGIC ---
+    function initTTS() {
+        const playBtn = document.getElementById('tts-play');
+        const stopBtn = document.getElementById('tts-stop');
+        let utterance = null;
+
+        if (playBtn) {
+            playBtn.addEventListener('click', () => {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+
+                // Try to find the main content, otherwise fallback to body
+                const content = document.querySelector('main') || document.getElementById('main-content') || document.body;
+                
+                // Clone node to clean up scripts/styles without affecting page
+                const clone = content.cloneNode(true);
+                const scripts = clone.querySelectorAll('script, style, noscript, .sr-only');
+                scripts.forEach(s => s.remove());
+                
+                const text = clone.innerText;
+
+                if (!text.trim()) {
+                    window.showMessageBox("No readable text found on this page.");
+                    return;
+                }
+
+                utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.9; // Slightly slower for better comprehension
+                window.speechSynthesis.speak(utterance);
+                
+                playBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Speaking...';
+                
+                utterance.onend = () => {
+                     playBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Read Page';
+                };
+            });
+        }
+
+        if (stopBtn) {
+            stopBtn.addEventListener('click', () => {
+                window.speechSynthesis.cancel();
+                if(playBtn) playBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Read Page';
+            });
+        }
+    }
+
+    // --- FOCUS TIMER LOGIC ---
+    let timerInterval;
+    let timeLeft = 1500; // 25 minutes default
+
+    function initTimer() {
+        const display = document.getElementById('timer-display');
+        const startBtn = document.getElementById('timer-start');
+        const resetBtn = document.getElementById('timer-reset');
+        
+        if (!display || !startBtn) return;
+
+        window.setTimer = function(minutes) {
+            clearInterval(timerInterval);
+            timeLeft = minutes * 60;
+            updateTimerDisplay();
+            startBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Start';
+            startBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+            startBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+        };
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        startBtn.onclick = () => {
+            if (timerInterval) {
+                // If running, stop it
+                clearInterval(timerInterval);
+                timerInterval = null;
+                startBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Resume';
+                startBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                startBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                // Start
+                startBtn.innerHTML = '<i class="fas fa-pause mr-1"></i> Pause';
+                startBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                startBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        startBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Start';
+                        startBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                        startBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                        window.showMessageBox("Time is up! Great focus session.");
+                        triggerConfetti();
+                    }
+                }, 1000);
+            }
+        };
+
+        resetBtn.onclick = () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeLeft = 1500;
+            updateTimerDisplay();
+            startBtn.innerHTML = '<i class="fas fa-play mr-1"></i> Start';
+            startBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+            startBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+        };
     }
 
     // Consolidated Confetti Logic (Safe Loading)
@@ -246,7 +446,8 @@
         fontSize: 1.0,
         lineHeight: 1.6,
         fontFamily: 'Inter',
-        focusMode: false
+        focusMode: false,
+        teacherMode: false // New Setting
     };
     const STORAGE_KEY = 'hl_accessibility_settings';
     let currentSettings = defaultSettings;
@@ -272,8 +473,11 @@
     function applySettings(settings) {
         document.documentElement.style.setProperty('--site-font-size', `${settings.fontSize}rem`);
         document.documentElement.style.setProperty('--site-line-height', settings.lineHeight);
+        
         let fontName = settings.fontFamily;
-        if (fontName.includes(' ') || fontName === 'Open Dyslexic') fontName = `"${fontName}"`;
+        if (fontName === 'Open Dyslexic' && !fontName.includes('"')) {
+            fontName = `"${fontName}"`;
+        }
         document.documentElement.style.setProperty('--site-font-family', fontName);
 
         document.body.classList.remove('light', 'dark', 'high-contrast');
@@ -282,6 +486,10 @@
         // Focus Mode
         if (settings.focusMode) document.body.classList.add('focus-mode');
         else document.body.classList.remove('focus-mode');
+
+        // Teacher Mode
+        if (settings.teacherMode) document.body.classList.add('teacher-mode');
+        else document.body.classList.remove('teacher-mode');
     }
 
     function initSettingsUI() {
@@ -304,6 +512,16 @@
             focusToggle.onchange = (e) => saveSettings({
                 ...currentSettings,
                 focusMode: e.target.checked
+            });
+        }
+
+        // Teacher Mode Toggle Listener
+        const teacherToggle = document.getElementById('toggle-teacher-mode');
+        if (teacherToggle) {
+            teacherToggle.checked = currentSettings.teacherMode;
+            teacherToggle.onchange = (e) => saveSettings({
+                ...currentSettings,
+                teacherMode: e.target.checked
             });
         }
 

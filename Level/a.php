@@ -147,6 +147,27 @@ include '../src/header.php';
                             </button>
                         </li>
                     </ul>
+
+                    <!-- TEACHER RESOURCES (Hidden by default) -->
+                    <div class="teacher-only mt-4 pt-4 border-t border-dashed border-yellow-500/50">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-wider">
+                                <i class="fas fa-chalkboard-teacher mr-1"></i> Teacher Resources
+                            </h4>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
+                                <i class="fas fa-file-alt"></i> Lesson Plan (PDF)
+                            </button>
+                            <button class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
+                                <i class="fas fa-key"></i> Answer Key
+                            </button>
+                            <button class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
+                                <i class="fas fa-list-ol"></i> Standards
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </article>
 
@@ -212,6 +233,24 @@ include '../src/header.php';
                             </button>
                         </li>
                     </ul>
+
+                    <!-- TEACHER RESOURCES (Hidden by default) -->
+                    <div class="teacher-only mt-4 pt-4 border-t border-dashed border-yellow-500/50">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-wider">
+                                <i class="fas fa-chalkboard-teacher mr-1"></i> Teacher Resources
+                            </h4>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
+                                <i class="fas fa-file-alt"></i> Lesson Plan (PDF)
+                            </button>
+                            <button class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
+                                <i class="fas fa-key"></i> Answer Key
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </article>
 
@@ -307,7 +346,7 @@ include '../src/header.php';
     // --- Granular Lesson Tracking Logic ---
     let completedLessons = [];
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         loadLessonProgress();
 
         // Initialize UI
@@ -323,7 +362,7 @@ include '../src/header.php';
         try {
             const stored = localStorage.getItem('hl_completed_lessons_granular');
             if (stored) completedLessons = JSON.parse(stored);
-        } catch (e) { }
+        } catch (e) {}
     }
 
     function toggleLesson(lessonId, btn) {
@@ -395,11 +434,11 @@ include '../src/header.php';
     }
 
     // AI Placeholder Logic
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const aiButtons = document.querySelectorAll('.explain-button, .activity-button, .story-button');
 
         aiButtons.forEach(btn => {
-            btn.addEventListener('click', async function () {
+            btn.addEventListener('click', async function() {
                 const outputDiv = this.closest('article').querySelector('.ai-output');
                 const topic = this.getAttribute('data-topic');
                 const type = this.classList.contains('explain-button') ? 'Explanation' :

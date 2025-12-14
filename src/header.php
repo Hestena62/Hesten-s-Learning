@@ -91,9 +91,40 @@
 
     <style>
         /* Base Styles & Variables */
+        
+        /* 1. Open Dyslexic - Regular */
         @font-face {
             font-family: 'Open Dyslexic';
             src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* 2. Open Dyslexic - Bold */
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Bold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* 3. Open Dyslexic - Italic */
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Italic.otf') format('opentype');
+            font-weight: normal;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        /* 4. Open Dyslexic - Bold Italic */
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-BoldItalic.otf') format('opentype');
+            font-weight: bold;
+            font-style: italic;
             font-display: swap;
         }
 
@@ -120,6 +151,75 @@
             /* Redundant safety */
             opacity: 0;
             animation: pageReveal 0.5s ease-out forwards;
+        }
+
+        /* TEACHER MODE STYLES */
+        .teacher-only {
+            display: none;
+        }
+        
+        body.teacher-mode .teacher-only {
+            display: block;
+            border: 2px dashed #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            background-color: rgba(254, 243, 199, 0.5);
+            position: relative;
+        }
+        .dark body.teacher-mode .teacher-only {
+            background-color: rgba(120, 53, 15, 0.2);
+            border-color: #d97706;
+        }
+        body.teacher-mode .teacher-only::before {
+            content: 'Teacher Mode Only';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #f59e0b;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                opacity: 1 !important;
+            }
+            /* Hide non-printable elements */
+            #fixed-tools-container, 
+            header, 
+            footer, 
+            #announcement-bar, 
+            #a11y-settings-panel, 
+            #scratchpad-panel, 
+            #timer-panel, 
+            #citation-panel,
+            #reading-mask {
+                display: none !important;
+            }
+            
+            /* Reset layout */
+            #main-content, .container {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Ensure links are readable */
+            a { text-decoration: underline !important; color: black !important; }
+            a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 0.8em; }
+            
+            /* Break pages nicely */
+            h1, h2 { page-break-before: auto; }
+            p, blockquote { page-break-inside: avoid; }
         }
 
         @keyframes pageReveal {
@@ -287,10 +387,25 @@
 <body class="light antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
 
     <!-- Fixed Tools Container -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+    <div id="fixed-tools-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
         <!-- Scroll Top -->
         <button id="scroll-to-top" class="w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center" aria-label="Scroll to top" type="button">
             <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Printable View (NEW) -->
+        <button id="print-view-toggle" class="w-12 h-12 bg-gray-600 text-white rounded-full shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Print Page" type="button">
+            <i class="fas fa-print"></i>
+        </button>
+
+        <!-- Citation Generator Toggle (NEW) -->
+        <button id="citation-toggle" class="w-14 h-14 bg-pink-600 text-white rounded-full shadow-2xl hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Citation Generator" aria-expanded="false" aria-controls="citation-panel" type="button">
+            <i class="fas fa-quote-right text-xl"></i>
+        </button>
+
+        <!-- Focus Timer Toggle -->
+        <button id="timer-toggle" class="w-14 h-14 bg-green-600 text-white rounded-full shadow-2xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Focus Timer" aria-expanded="false" aria-controls="timer-panel" type="button">
+            <i class="fas fa-stopwatch text-xl"></i>
         </button>
 
         <!-- Scratchpad Toggle -->
@@ -302,6 +417,66 @@
         <button id="a11y-toggle-button" class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Accessibility Settings" aria-expanded="false" aria-controls="a11y-settings-panel" type="button">
             <i class="fas fa-universal-access text-2xl"></i>
         </button>
+    </div>
+
+    <!-- Citation Panel (NEW) -->
+    <div id="citation-panel" class="fixed bottom-24 right-6 w-80 bg-pink-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-pink-500 origin-bottom-right" role="dialog" aria-labelledby="citation-title">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="citation-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-quote-left text-pink-600"></i> Cite This Page
+                </h3>
+                <button id="citation-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Citation Tool" type="button"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="flex gap-2">
+                    <button id="cite-auto-fill" class="flex-1 bg-pink-100 text-pink-700 hover:bg-pink-200 py-1.5 rounded text-xs font-bold transition-colors">Auto-Fill Metadata</button>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Page Title</label>
+                    <input type="text" id="cite-title" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Page Title">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">URL</label>
+                    <input type="text" id="cite-url" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="https://...">
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button id="cite-generate-apa" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded text-xs font-bold">Gen APA</button>
+                    <button id="cite-generate-mla" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded text-xs font-bold">Gen MLA</button>
+                </div>
+
+                <div class="relative">
+                    <textarea id="cite-result" readonly class="w-full h-20 p-2 text-xs bg-white dark:bg-gray-900 border rounded resize-none font-mono text-gray-600 dark:text-gray-300" placeholder="Citation will appear here..."></textarea>
+                    <button id="cite-copy" class="absolute bottom-2 right-2 bg-pink-600 text-white p-1.5 rounded shadow hover:bg-pink-700 text-xs" title="Copy to Clipboard"><i class="fas fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Panel -->
+    <div id="timer-panel" class="fixed bottom-24 right-6 w-64 bg-green-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-green-500 origin-bottom-right" role="dialog" aria-labelledby="timer-title">
+        <div class="p-4 text-center">
+            <div class="flex justify-between items-center mb-2">
+                <h3 id="timer-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-clock text-green-600"></i> Focus Timer
+                </h3>
+                <button id="timer-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Timer" type="button"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="text-4xl font-mono font-bold text-gray-800 dark:text-white mb-4 tracking-wider" id="timer-display">25:00</div>
+            <div class="flex justify-center gap-2">
+                <button id="timer-start" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm"><i class="fas fa-play mr-1"></i> Start</button>
+                <button id="timer-reset" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 font-bold text-sm dark:bg-gray-600 dark:text-gray-200"><i class="fas fa-redo"></i></button>
+            </div>
+            <div class="mt-3 flex justify-around text-xs text-gray-500 font-bold">
+                <button onclick="setTimer(25)" class="hover:text-green-600">25m</button>
+                <button onclick="setTimer(10)" class="hover:text-green-600">10m</button>
+                <button onclick="setTimer(5)" class="hover:text-green-600">5m</button>
+            </div>
+        </div>
     </div>
 
     <!-- Scratchpad Panel -->
@@ -316,7 +491,11 @@
             <textarea id="quick-notes-area" class="w-full h-48 p-3 bg-white dark:bg-gray-700 rounded-lg border-0 shadow-inner resize-none focus:ring-2 focus:ring-yellow-400 text-sm leading-relaxed text-gray-700 dark:text-gray-200" placeholder="Type your thoughts here... they save automatically!"></textarea>
             <div class="mt-2 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
                 <span id="scratchpad-status" aria-live="polite">Saved</span>
-                <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
+                <div class="flex gap-2">
+                     <button id="download-notes" class="hover:text-indigo-500 font-bold flex items-center gap-1" type="button"><i class="fas fa-download"></i> Save</button>
+                     <span class="text-gray-300">|</span>
+                     <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
+                </div>
             </div>
         </div>
     </div>
@@ -328,6 +507,19 @@
             <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2 rounded-full" aria-label="Close settings" type="button"><i class="fas fa-times text-lg"></i></button>
         </div>
         <div class="space-y-6">
+            
+             <!-- Text to Speech -->
+             <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                <label class="text-sm font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2 mb-2">
+                    <i class="fas fa-volume-up"></i> Read Aloud
+                </label>
+                <div class="flex gap-2">
+                    <button id="tts-play" class="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 text-sm font-bold"><i class="fas fa-play mr-1"></i> Read Page</button>
+                    <button id="tts-stop" class="w-10 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-white"><i class="fas fa-stop"></i></button>
+                </div>
+                <p class="text-xs text-blue-700 dark:text-blue-300 mt-2">Reads main content aloud.</p>
+            </div>
+
             <!-- Focus Mode -->
             <div class="bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
                 <div class="flex items-center justify-between">
@@ -337,6 +529,17 @@
                     <input type="checkbox" id="toggle-focus-mode" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-indigo-600 transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
                 </div>
                 <p class="text-xs text-indigo-700 dark:text-indigo-300 mt-1">Hides menu, footer, and banners.</p>
+            </div>
+
+            <!-- Teacher Mode (NEW) -->
+            <div class="bg-orange-50 dark:bg-orange-900/30 p-4 rounded-lg border border-orange-100 dark:border-orange-800">
+                <div class="flex items-center justify-between">
+                    <label for="toggle-teacher-mode" class="text-sm font-bold text-orange-900 dark:text-orange-200 flex items-center gap-2">
+                        <i class="fas fa-chalkboard-teacher"></i> Teacher View
+                    </label>
+                    <input type="checkbox" id="toggle-teacher-mode" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-orange-600 transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
+                </div>
+                <p class="text-xs text-orange-700 dark:text-orange-300 mt-1">Reveals lesson plans & keys.</p>
             </div>
 
             <fieldset>
