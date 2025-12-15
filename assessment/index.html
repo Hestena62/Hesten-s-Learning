@@ -534,11 +534,17 @@
 
   <!-- QUIZ CONTENT (Hidden if no grade selected) -->
   <header id="quiz-header"
-    class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 px-4 text-center rounded-b-lg shadow-xl mb-8">
+    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10 text-center">
 
-    <div class="container mx-auto">
+    <!-- Abstract Background Shapes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <i class="fas fa-tasks absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
+      <i class="fas fa-check-circle absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
+    </div>
+
+    <div class="container mx-auto relative z-10">
       <div
-        class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold tracking-wider uppercase mb-4">
+        class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-white/10 border border-white/20 text-xs font-bold tracking-wider uppercase mb-4 backdrop-blur-md shadow-sm">
         <i class="fas fa-star text-yellow-300"></i> Assessment
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow">

@@ -18,11 +18,30 @@ include 'src/header.php';
 <!-- The content below starts the main page wrapper. -->
 <!-- ==================================================================== -->
 
-<main class="container mx-auto p-4 lg:p-8 min-h-[70vh] bg-content-bg shadow-xl rounded-base-rounded mt-4 lg:mt-8 mb-8">
-    <header class="mb-8 p-4 border-b border-text-secondary/20">
-        <!-- Using text-primary for the main heading as defined in the theme variables -->
-        <h1 class="text-4xl font-extrabold text-primary">About Us</h1>
-    </header>
+<!-- Hero Section -->
+<div
+    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+    <!-- Abstract Background Shapes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <i class="fas fa-info-circle absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
+        <i class="fas fa-users absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+        <span
+            class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-sm font-bold mb-4 uppercase tracking-wider backdrop-blur-md shadow-sm">
+            Our Story
+        </span>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md">
+            About Us
+        </h1>
+        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed">
+            Empowering students with personalized education.
+        </p>
+    </div>
+</div>
+
+<main class="container mx-auto p-4 lg:p-8 min-h-[70vh] bg-content-bg shadow-xl rounded-base-rounded mb-8">
 
     <!-- Applying Tailwind classes from the header's custom config -->
     <div class="space-y-10 p-4">

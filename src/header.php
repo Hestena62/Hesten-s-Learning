@@ -27,6 +27,7 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- 2. Optimized Font Loading -->
@@ -44,7 +45,9 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ["var(--site-font-family, 'Inter')", "sans-serif"],
+                        // The var() needs to be the first item. 
+                        // If the variable is "Open Dyslexic", Tailwind generates: font-family: "Open Dyslexic", ui-sans-serif, ...
+                        sans: ["var(--site-font-family, 'Inter')", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
                         dyslexic: ['"Open Dyslexic"', 'sans-serif'],
                         mono: ['"Roboto Mono"', 'monospace'],
                         handwriting: ['"Cookie"', 'cursive'],
@@ -91,11 +94,16 @@
 
     <style>
         /* Base Styles & Variables */
-        
+
+        /* FIX: Using jsDelivr for stable OpenDyslexic hosting.
+           These paths point directly to the npm package content.
+        */
+
         /* 1. Open Dyslexic - Regular */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.woff2') format('woff2'),
+                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -104,7 +112,8 @@
         /* 2. Open Dyslexic - Bold */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Bold.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.woff2') format('woff2'),
+                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');
             font-weight: bold;
             font-style: normal;
             font-display: swap;
@@ -113,7 +122,8 @@
         /* 3. Open Dyslexic - Italic */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-Italic.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.woff2') format('woff2'),
+                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.otf') format('opentype');
             font-weight: normal;
             font-style: italic;
             font-display: swap;
@@ -122,7 +132,8 @@
         /* 4. Open Dyslexic - Bold Italic */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('/font/OpenDyslexic/font/OpenDyslexic/OpenDyslexic-BoldItalic.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-BoldItalic.woff2') format('woff2'),
+                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-BoldItalic.otf') format('opentype');
             font-weight: bold;
             font-style: italic;
             font-display: swap;
@@ -142,9 +153,10 @@
             color: var(--color-text-default);
             font-size: var(--site-font-size, 1rem);
             line-height: var(--site-line-height, 1.6);
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, font-family 0.3s;
             min-height: 100vh;
-            font-family: var(--site-font-family, "Inter", sans-serif);
+            /* Default fallback if variable fails */
+            font-family: var(--site-font-family, 'Inter'), sans-serif;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
@@ -157,7 +169,7 @@
         .teacher-only {
             display: none;
         }
-        
+
         body.teacher-mode .teacher-only {
             display: block;
             border: 2px dashed #f59e0b;
@@ -167,10 +179,12 @@
             background-color: rgba(254, 243, 199, 0.5);
             position: relative;
         }
+
         .dark body.teacher-mode .teacher-only {
             background-color: rgba(120, 53, 15, 0.2);
             border-color: #d97706;
         }
+
         body.teacher-mode .teacher-only::before {
             content: 'Teacher Mode Only';
             position: absolute;
@@ -192,21 +206,23 @@
                 color: black !important;
                 opacity: 1 !important;
             }
+
             /* Hide non-printable elements */
-            #fixed-tools-container, 
-            header, 
-            footer, 
-            #announcement-bar, 
-            #a11y-settings-panel, 
-            #scratchpad-panel, 
-            #timer-panel, 
+            #fixed-tools-container,
+            header,
+            footer,
+            #announcement-bar,
+            #a11y-settings-panel,
+            #scratchpad-panel,
+            #timer-panel,
             #citation-panel,
             #reading-mask {
                 display: none !important;
             }
-            
+
             /* Reset layout */
-            #main-content, .container {
+            #main-content,
+            .container {
                 width: 100% !important;
                 max-width: none !important;
                 margin: 0 !important;
@@ -214,12 +230,26 @@
             }
 
             /* Ensure links are readable */
-            a { text-decoration: underline !important; color: black !important; }
-            a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 0.8em; }
-            
+            a {
+                text-decoration: underline !important;
+                color: black !important;
+            }
+
+            a[href^="http"]:after {
+                content: " (" attr(href) ")";
+                font-size: 0.8em;
+            }
+
             /* Break pages nicely */
-            h1, h2 { page-break-before: auto; }
-            p, blockquote { page-break-inside: avoid; }
+            h1,
+            h2 {
+                page-break-before: auto;
+            }
+
+            p,
+            blockquote {
+                page-break-inside: avoid;
+            }
         }
 
         @keyframes pageReveal {
@@ -428,17 +458,17 @@
                 </h3>
                 <button id="citation-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Citation Tool" type="button"><i class="fas fa-times"></i></button>
             </div>
-            
+
             <div class="space-y-3">
                 <div class="flex gap-2">
                     <button id="cite-auto-fill" class="flex-1 bg-pink-100 text-pink-700 hover:bg-pink-200 py-1.5 rounded text-xs font-bold transition-colors">Auto-Fill Metadata</button>
                 </div>
-                
+
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Page Title</label>
                     <input type="text" id="cite-title" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Page Title">
                 </div>
-                
+
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">URL</label>
                     <input type="text" id="cite-url" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="https://...">
@@ -492,9 +522,9 @@
             <div class="mt-2 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
                 <span id="scratchpad-status" aria-live="polite">Saved</span>
                 <div class="flex gap-2">
-                     <button id="download-notes" class="hover:text-indigo-500 font-bold flex items-center gap-1" type="button"><i class="fas fa-download"></i> Save</button>
-                     <span class="text-gray-300">|</span>
-                     <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
+                    <button id="download-notes" class="hover:text-indigo-500 font-bold flex items-center gap-1" type="button"><i class="fas fa-download"></i> Save</button>
+                    <span class="text-gray-300">|</span>
+                    <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
                 </div>
             </div>
         </div>
@@ -507,9 +537,9 @@
             <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2 rounded-full" aria-label="Close settings" type="button"><i class="fas fa-times text-lg"></i></button>
         </div>
         <div class="space-y-6">
-            
-             <!-- Text to Speech -->
-             <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+
+            <!-- Text to Speech -->
+            <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
                 <label class="text-sm font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2 mb-2">
                     <i class="fas fa-volume-up"></i> Read Aloud
                 </label>
@@ -554,9 +584,9 @@
             <fieldset>
                 <legend class="text-sm font-medium mb-2 text-text-default">Font Style</legend>
                 <div id="font-selection-buttons" class="grid grid-cols-1 gap-2">
-                    <button type="button" data-font="Inter" class="font-selector py-2 px-3 rounded border text-left text-sm bg-primary text-white">Standard (Inter)</button>
-                    <button type="button" data-font="Open Dyslexic" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Open Dyslexic';">Dyslexic Friendly</button>
-                    <button type="button" data-font="Lexend" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Lexend';">Lexend (High Legibility)</button>
+                    <button type="button" data-font="Inter" class="font-selector py-2 px-3 rounded border text-left text-sm bg-primary text-white" style="font-family: 'Inter', sans-serif;">Standard (Inter)</button>
+                    <button type="button" data-font="Open Dyslexic" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Open Dyslexic', sans-serif;">Dyslexic Friendly</button>
+                    <button type="button" data-font="Lexend" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Lexend', sans-serif;">Lexend (High Legibility)</button>
                 </div>
             </fieldset>
 

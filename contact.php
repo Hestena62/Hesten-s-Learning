@@ -42,7 +42,7 @@ include 'src/header.php';
 
 <!-- Hero Section -->
 <div
-    class="relative bg-gradient-to-br from-primary to-purple-900 text-white pt-24 pb-32 px-4 mb-12 shadow-xl overflow-hidden rounded-b-[4rem]">
+    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
     <!-- Animated Background -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
         <i class="fas fa-paper-plane absolute top-20 right-20 text-9xl animate-pulse text-white/30"></i>

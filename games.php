@@ -41,16 +41,30 @@ include 'src/header.php';
 <main id="main-content" class="flex-grow">
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary to-secondary text-white py-16 text-center">
-        <div class="max-w-4xl mx-auto px-6">
-            <h1 class="text-4xl lg:text-6xl font-black mb-4"><i class="fas fa-gamepad mr-3"></i>Accessible Game Zone
-            </h1>
-            <p class="text-xl opacity-90 mb-8">Play, learn, and grow with games designed for everyone. Keyboard
-                friendly, screen reader optimized, and stress-free.</p>
+    <!-- Hero Section -->
+    <div
+        class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <i class="fas fa-gamepad absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
+            <i
+                class="fas fa-puzzle-piece absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
+        </div>
 
-            <div class="bg-white/10 backdrop-blur-md rounded-lg p-4 inline-block text-left text-sm">
-                <p class="font-bold mb-2"><i class="fas fa-universal-access mr-2"></i>Accessibility Features:</p>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-4xl lg:text-6xl font-black mb-4 tracking-tight drop-shadow-md">
+                Accessible Game Zone
+            </h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed mb-8">
+                Play, learn, and grow with games designed for everyone. Keyboard friendly, screen reader optimized, and
+                stress-free.
+            </p>
+
+            <div
+                class="bg-white/10 backdrop-blur-md rounded-xl p-6 inline-block text-left text-sm border border-white/20 shadow-lg">
+                <p class="font-bold mb-3 text-lg"><i class="fas fa-universal-access mr-2"></i>Accessibility Features:
+                </p>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
                     <li><i class="fas fa-check text-green-300 mr-2"></i>Full Keyboard Support</li>
                     <li><i class="fas fa-check text-green-300 mr-2"></i>Screen Reader Announcements</li>
                     <li><i class="fas fa-check text-green-300 mr-2"></i>No Timers / Stress Free</li>
@@ -58,7 +72,7 @@ include 'src/header.php';
                 </ul>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Game Selector -->
     <section class="max-w-7xl mx-auto px-4 py-12">

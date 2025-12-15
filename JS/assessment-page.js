@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         10: { label: "Tenth Grade", link: "/Level/l.php", icon: "fa-microscope", color: "bg-red-600" },
         11: { label: "Eleventh Grade", link: "/Level/m.php", icon: "fa-brain", color: "bg-rose-600" },
         12: { label: "Twelfth Grade", link: "/Level/n.php", icon: "fa-graduation-cap", color: "bg-slate-700" },
+        ap: { label: "Advanced Placement", link: "#", icon: "fa-university", color: "bg-indigo-900" },
     };
 
     // === GET PARAMETER ===
@@ -136,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const levelLink = gradeConfig[currentKey].link;
 
     // === PREV / NEXT (perfect order) ===
-    const order = ["pre-k", "k", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    const order = ["pre-k", "k", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "ap"];
     const pos = order.indexOf(currentKey);
 
     // === DOM UPDATES ===
@@ -181,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 6. Next Button
     const nextBtn = document.getElementById("btn-next");
     const nextSpacer = document.getElementById("spacer-next");
-    if (pos < 13) { // 13 is index of 12th grade
+    if (pos < order.length - 1) { // Dynamic end check
         const nextKey = order[pos + 1];
         nextBtn.href = `?grade=${nextKey}`;
         nextBtn.title = `Go to ${gradeConfig[nextKey].label}`;

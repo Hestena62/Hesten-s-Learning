@@ -1,215 +1,63 @@
-// State Management
-let currentQuestions = [];
-let currentQuestionIndex = 0;
-let score = 0;
-let streak = 0;
-let userAnswers = [];
+// Hesten's Learning - AP Content Expansion
+// This file injects Advanced Placement (AP) questions into the shared questionBank.
 
-// Expanded Database of Questions
-const questionBank = [
-// ==================== PRE-K ====================
-    // Existing
-    { grade: "Pre-K", subject: "Math", question: "Which number comes after 2?", options: ["1", "3", "4", "5"], answer: "3", hint: "Count: 1, 2, ..." },
-];
+(function () {
+    const apContent = [
+        // ==================== AP MATH (Calculus, Statistics) ====================
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Calc] What is the limit of (sin x)/x as x approaches 0?", options: ["0", "1", "Infinity", "Undefined"], answer: "1", hint: "Fundamental trig limit." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Calc] The derivative of f(x) = e^x is?", options: ["e^x", "xe^(x-1)", "ln(x)", "1"], answer: "e^x", hint: "It is its own derivative." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Calc] If f'(x) > 0, then f(x) is?", options: ["Increasing", "Decreasing", "Concave Up", "Concave Down"], answer: "Increasing", hint: "Positive slope." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Calc] What is the integral of 1/x dx?", options: ["ln|x| + C", "-1/x^2", "e^x", "1"], answer: "ln|x| + C", hint: "Reverse of derivative of ln(x)." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Calc] The Mean Value Theorem strictly applies to functions that are?", options: ["Continuous & Differentiable", "Only Continuous", "Only Differentiable", "Integrable"], answer: "Continuous & Differentiable", hint: "Smooth and connected." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Stats] What does a correlation coefficient (r) of 0.9 imply?", options: ["Strong positive linear relationship", "Weak positive", "Strong negative", "No correlation"], answer: "Strong positive linear relationship", hint: "Close to 1." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Stats] In a normal distribution, what % is within 1 SD?", options: ["68%", "95%", "99.7%", "50%"], answer: "68%", hint: "Empirical Rule." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Stats] Type I error is?", options: ["Rejecting a true null", "Failing to reject false null", "Calculation error", "Sampling error"], answer: "Rejecting a true null", hint: "False positive." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Stats] The median is resistant to?", options: ["Outliers", "Sample size", "Mean", "Range"], answer: "Outliers", hint: "Extreme values don't pull it." },
+        { grade: "Advanced Placement", subject: "Math", question: "[AP Macroecon] GDP includes?", options: ["Final goods/services produced domestically", "Used goods", "Illegal sales", "Imports"], answer: "Final goods/services produced domestically", hint: "Gross Domestic Product." },
 
+        // ==================== AP SCIENCE (Biology, Chemistry, Physics) ====================
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Bio] Which organelle is the site of cellular respiration?", options: ["Mitochondria", "Chloroplast", "Ribosome", "Nucleus"], answer: "Mitochondria", hint: "Powerhouse of the cell." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Bio] DNA replication is?", options: ["Semi-conservative", "Conservative", "Dispersive", "Random"], answer: "Semi-conservative", hint: "Start with one old strand." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Bio] The final electron acceptor in the ETC?", options: ["Oxygen", "Carbon", "Water", "NADPH"], answer: "Oxygen", hint: "Allows us to breathe." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Chem] According to VSEPR, CH4 has what shape?", options: ["Tetrahedral", "Linear", "Bent", "Trigonal planar"], answer: "Tetrahedral", hint: "4 bonds, no lone pairs." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Chem] An acid is a proton ___?", options: ["Donor", "Acceptor", "Creator", "Destroyer"], answer: "Donor", hint: "Bronsted-Lowry." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Chem] PV = nRT is the?", options: ["Ideal Gas Law", "Boyle's Law", "Charles's Law", "Rate Law"], answer: "Ideal Gas Law", hint: "Equation of state." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Physics] Kinetic energy is conserved in?", options: ["Elastic collisions", "Inelastic collisions", "All collisions", "Explosions"], answer: "Elastic collisions", hint: "Bouncy." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Physics] Correct unit for Power?", options: ["Watt", "Joule", "Newton", "Volt"], answer: "Watt", hint: "J/s." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Physics] Newton's Second Law?", options: ["F = ma", "F = mv", "E = mc^2", "v = d/t"], answer: "F = ma", hint: "Force law." },
+        { grade: "Advanced Placement", subject: "Science", question: "[AP Env Sci] Which gas is a major greenhouse gas?", options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Argon"], answer: "Carbon Dioxide", hint: "Global warming." },
 
+        // ==================== AP SOCIAL STUDIES (History, Gov, Econ) ====================
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP US Gov] The 'Supreme Law of the Land' is?", options: ["The Constitution", "Declaration of Independence", "Biblical Law", "State Law"], answer: "The Constitution", hint: "Article VI." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP US Gov] Marbury v. Madison established?", options: ["Judicial Review", "Privacy", "Free Speech", "Gun Rights"], answer: "Judicial Review", hint: "Court power." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP US Gov] How many Senators per state?", options: ["2", "Based on population", "1", "4"], answer: "2", hint: "Equal representation." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP US Hist] The Reconstruction Era followed?", options: ["The Civil War", "WWI", "Revolutionary War", "Cold War"], answer: "The Civil War", hint: "Rebuilding the South." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP US Hist] The 19th Amendment granted?", options: ["Women's Suffrage", "End of Slavery", "Income Tax", "Prohibition"], answer: "Women's Suffrage", hint: "Votes for women." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP World] The Columbian Exchange involved?", options: ["Transfer of goods/diseases", "Silk Road trade", "Asian isolation", "African colonization"], answer: "Transfer of goods/diseases", hint: "Old World <-> New World." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP World] Feudalism was dominant in?", options: ["Medieval Europe", "Ancient Rome", "Modern USA", "Industrial China"], answer: "Medieval Europe", hint: "Lords and serfs." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP Euro] The French Revolution started in?", options: ["1789", "1492", "1914", "1848"], answer: "1789", hint: "Bastille." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP Microecon] Supply curve usually slopes?", options: ["Upward", "Downward", "Vertical", "Horizontal"], answer: "Upward", hint: "Higher price, more supply." },
+        { grade: "Advanced Placement", subject: "Social Studies", question: "[AP Psych] Who founded Psychoanalysis?", options: ["Sigmund Freud", "B.F. Skinner", "Pavlov", "Maslow"], answer: "Sigmund Freud", hint: "Unconscious mind." },
 
+        // ==================== AP LANGUAGE ARTS (Lang, Lit) ====================
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lang] Ethos appeals to?", options: ["Credibility/Ethics", "Emotion", "Logic", "Time"], answer: "Credibility/Ethics", hint: "Trust the speaker." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lang] A 'straw man' argument is a?", options: ["Logical Fallacy", "Building technique", "Strong point", "Fact"], answer: "Logical Fallacy", hint: "Misrepresenting opponent." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lang] Diction refers to?", options: ["Word Choice", "Sentence Structure", "Tone", "Rhythm"], answer: "Word Choice", hint: "Vocabulary." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lang] Syntax refers to?", options: ["Sentence Structure", "Word Choice", "Meaning", "Sound"], answer: "Sentence Structure", hint: "Order of words." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] A 14-line poem is a?", options: ["Sonnet", "Haiku", "Limerick", "Epic"], answer: "Sonnet", hint: "Shakespearean." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] Hamlet's 'To be or not to be' is a?", options: ["Soliloquy", "Dialogue", "Sonnet", "Letter"], answer: "Soliloquy", hint: "Speaking thoughts aloud." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] 'In medias res' means?", options: ["In the middle of things", "At the end", "From the start", "With foreshadowing"], answer: "In the middle of things", hint: "Epic convention." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] Irony where the audience knows more than characters?", options: ["Dramatic Irony", "Verbal Irony", "Situational Irony", "Sarcasm"], answer: "Dramatic Irony", hint: "Tragedy." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] The repetition of initial consonant sounds?", options: ["Alliteration", "Assonance", "Metaphor", "Simile"], answer: "Alliteration", hint: "Sally sells seashells." },
+        { grade: "Advanced Placement", subject: "Language Arts", question: "[AP Lit] A story with a hidden moral meaning?", options: ["Allegory", "Biography", "Memoir", "Essay"], answer: "Allegory", hint: "Animal Farm." },
+    ];
 
-/**
- * Initializes the quiz based on grade and subject filters
- * @param {string} gradeName - The grade level (e.g., 'Third Grade')
- * @param {string} subjectFilter - The subject (e.g., 'Math', 'All')
- */
-function loadQuestions(gradeName, subjectFilter = 'All') {
-    // Reset State
-    currentQuestionIndex = 0;
-    score = 0;
-    userAnswers = [];
-
-    // Normalize inputs
-    const gName = gradeName.trim();
-
-    // Filter logic
-    currentQuestions = questionBank.filter(q => {
-        const gradeMatch = q.grade === gName;
-        const subjectMatch = subjectFilter === 'All' || q.subject === subjectFilter;
-        return gradeMatch && subjectMatch;
-    });
-
-    // Shuffle questions for variety
-    currentQuestions.sort(() => Math.random() - 0.5);
-
-    // Initial UI Update
-    updateProgressBar(0);
-    document.getElementById('question-count').innerHTML = `1<span class="text-xl text-gray-400 font-medium">/${currentQuestions.length}</span>`;
-
-    // Reset Feedback UI via inline observer triggers
-    const feedbackEl = document.getElementById('feedback');
-    if (feedbackEl) feedbackEl.textContent = "";
-
-    document.getElementById('next-btn').classList.add('hidden');
-    document.getElementById('hintText').classList.add('hidden');
-
-    // Load first question
-    if (currentQuestions.length > 0) {
-        loadCurrentQuestion();
+    // Safely inject into the global questionBank (defined in p-12.js)
+    if (typeof questionBank !== 'undefined' && Array.isArray(questionBank)) {
+        console.log("Hesten's Learning: Injecting AP Content...");
+        questionBank.push(...apContent);
     } else {
-        document.getElementById('question').textContent = "No questions found for this category yet!";
-        document.getElementById('options').innerHTML = "";
+        console.warn("Hesten's Learning: questionBank not found. AP content initialized standalone.");
+        window.questionBank = apContent;
     }
-}
-
-/**
- * Renders the current question and options to the DOM
- */
-function loadCurrentQuestion() {
-    if (currentQuestionIndex >= currentQuestions.length) {
-        finishQuiz();
-        return;
-    }
-
-    const q = currentQuestions[currentQuestionIndex];
-
-    // Update Question Text
-    document.getElementById('question').textContent = q.question;
-
-    // Update Counter
-    document.getElementById('question-count').innerHTML = `${currentQuestionIndex + 1}<span class="text-xl text-gray-400 font-medium">/${currentQuestions.length}</span>`;
-
-    // Setup Hint
-    document.getElementById('hint-content').textContent = q.hint;
-    document.getElementById('hintText').classList.add('hidden');
-
-    // Reset Feedback/Next Button
-    document.getElementById('feedback').textContent = "";
-    document.getElementById('next-btn').classList.add('hidden');
-    document.getElementById('next-btn').disabled = true;
-
-    // Render Options
-    const optionsContainer = document.getElementById('options');
-    optionsContainer.innerHTML = ''; // Clear old options
-
-    // Create buttons for each option
-    q.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = "w-full text-left p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all font-medium text-lg text-gray-700 dark:text-gray-200 shadow-sm hover:shadow-md active:scale-[0.98]";
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(opt, q.answer, btn);
-        optionsContainer.appendChild(btn);
-    });
-}
-
-/**
- * Validates the user's selection
- * @param {string} selected - The option text clicked
- * @param {string} correct - The correct answer text
- * @param {HTMLElement} btnElement - The button element clicked
- */
-function checkAnswer(selected, correct, btnElement) {
-    const isCorrect = selected === correct;
-    const optionsContainer = document.getElementById('options');
-    const buttons = optionsContainer.getElementsByTagName('button');
-
-    // Disable all buttons to prevent double answers
-    for (let btn of buttons) {
-        btn.disabled = true;
-        btn.classList.add('opacity-70', 'cursor-not-allowed');
-        if (btn.textContent === correct) {
-            // Highlight correct answer Green
-            btn.classList.remove('border-gray-200', 'hover:border-blue-500');
-            btn.classList.add('bg-green-100', 'border-green-500', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-200');
-        }
-    }
-
-    if (isCorrect) {
-        score++;
-        streak++;
-        updateStreak(streak);
-        document.getElementById('feedback').textContent = "Correct! Great job."; // Trigger mutation observer
-    } else {
-        streak = 0;
-        updateStreak(streak);
-        document.getElementById('feedback').textContent = `Incorrect. The answer was ${correct}.`; // Trigger mutation observer
-
-        // Highlight chosen wrong answer Red
-        btnElement.classList.add('bg-red-100', 'border-red-500', 'text-red-800', 'dark:bg-red-900', 'dark:text-red-200');
-    }
-
-    // Update Progress
-    currentQuestionIndex++;
-    updateProgressBar((score / currentQuestions.length) * 100);
-
-    // Show Next Button
-    const nextBtn = document.getElementById('next-btn');
-    nextBtn.classList.remove('hidden');
-    nextBtn.disabled = false;
-
-    // Focus next button for accessibility
-    nextBtn.focus();
-}
-
-/**
- * Reveals the hint
- */
-function showHint() {
-    const hintBox = document.getElementById('hintText');
-    hintBox.classList.remove('hidden');
-    hintBox.classList.add('animate-pulse');
-    setTimeout(() => hintBox.classList.remove('animate-pulse'), 1000);
-}
-
-/**
- * Updates the visual progress bar
- */
-function updateProgressBar(percent) {
-    const bar = document.querySelector('.progress-bar-animated');
-    const text = document.querySelector('.progress-bar-text');
-    if (bar && text) {
-        bar.style.width = `${percent}%`;
-        text.textContent = `${Math.round(percent)}%`;
-    }
-}
-
-/**
- * Updates the streak counter UI
- */
-function updateStreak(count) {
-    const streakEl = document.getElementById('streak-counter');
-    if (count > 1) {
-        streakEl.classList.remove('hidden');
-        streakEl.textContent = `🔥 ${count} Streak!`;
-    } else {
-        streakEl.classList.add('hidden');
-    }
-}
-
-/**
- * Handles End of Game State
- */
-function finishQuiz() {
-    const container = document.getElementById('options');
-    document.getElementById('question').textContent = "Assessment Complete!";
-    document.getElementById('question-count').classList.add('hidden');
-    document.getElementById('next-btn').classList.add('hidden');
-
-    const finalScore = Math.round((score / currentQuestions.length) * 100);
-
-    let message = "";
-    let icon = "";
-
-    if (finalScore === 100) { message = "Perfect Score! You're a superstar!"; icon = "🏆"; }
-    else if (finalScore >= 80) { message = "Great job! You know your stuff."; icon = "🌟"; }
-    else if (finalScore >= 50) { message = "Good effort! Keep practicing."; icon = "📚"; }
-    else { message = "Keep trying! Practice makes perfect."; icon = "💪"; }
-
-    container.innerHTML = `
-        <div class="text-center p-8 bg-blue-50 dark:bg-gray-700 rounded-xl">
-            <div class="text-6xl mb-4">${icon}</div>
-            <h3 class="text-2xl font-bold mb-2">You scored ${finalScore}%</h3>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">${message}</p>
-            <button onclick="location.reload()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
-                Try Again
-            </button>
-        </div>
-    `;
-}
+})();

@@ -6,13 +6,29 @@ include 'src/header.php';
 <main class="flex-grow">
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-green-600 to-teal-500 text-white py-12 md:py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 font-playful">Teacher's Resources</h1>
-            <p class="text-xl opacity-90 max-w-2xl mx-auto">Supporting educators with standards-aligned materials and
-                tools.</p>
+    <!-- Hero Section -->
+    <div
+        class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <i class="fas fa-chalkboard-teacher absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
+            <i
+                class="fas fa-apple-alt absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
         </div>
-    </section>
+
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-sm font-bold mb-4 uppercase tracking-wider backdrop-blur-md shadow-sm">
+                Educator Portal
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md">
+                Teacher's Resources
+            </h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed">
+                Supporting educators with standards-aligned materials and tools.
+            </p>
+        </div>
+    </div>
 
     <!-- Content -->
     <section class="container mx-auto px-4 py-12 md:py-16">
