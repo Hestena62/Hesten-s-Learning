@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8" />
@@ -16,28 +16,26 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Hesten's">
 
-    <!-- Open Graph / Social Media -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Hesten's Learning" />
     <meta property="og:description" content="Personalized, accessible learning for everyone." />
     <meta property="og:type" content="website" />
 
-    <title>Hesten's Learning</title>
+    <title><?php echo isset($pageTitle) ? $pageTitle : "Hesten's Learning"; ?></title>
 
-    <!-- 1. Resource Hints for Speed -->
+    <!-- Resource Hints -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
-    <!-- 2. Optimized Font Loading -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@400;600;700&family=Cookie&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    </noscript>
+    <!-- Font Loading -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@400;600;700&family=Cookie&family=Comic+Neue:wght@400;700&family=Merriweather:wght@400;700&family=Roboto+Mono:wght@400;700&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- 3. Tailwind CSS (CDN) -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -45,22 +43,33 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        // The var() needs to be the first item. 
-                        // If the variable is "Open Dyslexic", Tailwind generates: font-family: "Open Dyslexic", ui-sans-serif, ...
-                        sans: ["var(--site-font-family, 'Inter')", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+                        sans: ["var(--site-font-family)", "Inter", "ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
                         dyslexic: ['"Open Dyslexic"', 'sans-serif'],
                         mono: ['"Roboto Mono"', 'monospace'],
                         handwriting: ['"Cookie"', 'cursive'],
+                        outfit: ['"Outfit"', 'sans-serif'],
                     },
                     colors: {
-                        'primary': 'var(--color-primary, #1D4ED8)',
-                        'secondary': 'var(--color-secondary, #3B82F6)',
-                        'accent': 'var(--color-accent, #60A5FA)',
-                        'base-bg': 'var(--color-base-bg, #F9FAFB)',
-                        'content-bg': 'var(--color-content-bg, #FFFFFF)',
-                        'text-default': 'var(--color-text-default, #1F2937)',
-                        'text-secondary': 'var(--color-text-secondary, #6B7280)',
+                        'primary': 'var(--color-primary)',
+                        'secondary': 'var(--color-secondary)',
+                        'accent': 'var(--color-accent)',
+                        'base-bg': 'var(--color-base-bg)',
+                        'content-bg': 'var(--color-content-bg)',
+                        'text-default': 'var(--color-text-default)',
+                        'text-secondary': 'var(--color-text-secondary)',
                         'header-bg': 'var(--color-header-bg)',
+                        // Compatibility Aliases
+                        'card-bg': 'var(--color-content-bg)',
+                        'text-primary': 'var(--color-text-default)',
+                        'text-text-primary': 'var(--color-text-default)',
+                    },
+                    borderRadius: {
+                        'base-rounded': '1.5rem',
+                        'DEFAULT': '0.75rem',
+                        'lg': '1rem',
+                        'xl': '1.5rem',
+                        '2xl': '2rem',
+                        '3xl': '2.5rem',
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
@@ -94,52 +103,30 @@
 
     <style>
         /* Base Styles & Variables */
-
-        /* FIX: Using jsDelivr for stable OpenDyslexic hosting.
-           These paths point directly to the npm package content.
-        */
-
-        /* 1. Open Dyslexic - Regular */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.woff2') format('woff2'),
-                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
 
-        /* 2. Open Dyslexic - Bold */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.woff2') format('woff2'),
-                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.woff2') format('woff2');
             font-weight: bold;
             font-style: normal;
             font-display: swap;
         }
 
-        /* 3. Open Dyslexic - Italic */
         @font-face {
             font-family: 'Open Dyslexic';
-            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.woff2') format('woff2'),
-                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.otf') format('opentype');
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.woff2') format('woff2');
             font-weight: normal;
             font-style: italic;
             font-display: swap;
         }
 
-        /* 4. Open Dyslexic - Bold Italic */
-        @font-face {
-            font-family: 'Open Dyslexic';
-            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-BoldItalic.woff2') format('woff2'),
-                url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-BoldItalic.otf') format('opentype');
-            font-weight: bold;
-            font-style: italic;
-            font-display: swap;
-        }
-
-        /* CRITICAL FIX: Prevent Horizontal Scroll caused by off-canvas elements */
         html {
             overflow-x: hidden;
             max-width: 100vw;
@@ -148,204 +135,141 @@
         body {
             background-color: var(--color-base-bg);
             background-image: var(--site-bg-gradient);
-            background-attachment: scroll;
+            background-attachment: fixed;
             background-size: cover;
             color: var(--color-text-default);
             font-size: var(--site-font-size, 1rem);
             line-height: var(--site-line-height, 1.6);
-            transition: background-color 0.3s, color 0.3s, font-family 0.3s;
+            letter-spacing: var(--site-letter-spacing, normal);
+            word-spacing: var(--site-word-spacing, normal);
+            transition: background-color 0.5s, color 0.3s;
             min-height: 100vh;
-            /* Default fallback if variable fails */
-            font-family: var(--site-font-family, 'Inter'), sans-serif;
+            font-family: var(--site-font-family, 'Outfit'), ui-sans-serif, system-ui, sans-serif;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* Redundant safety */
             opacity: 0;
             animation: pageReveal 0.5s ease-out forwards;
         }
 
-        /* TEACHER MODE STYLES */
+        /* Accessibilty Classes */
+        .cursor-large,
+        .cursor-large * {
+            cursor: -webkit-image-set(url('https://cdn-icons-png.flaticon.com/512/5759/5759160.png') 2x) 24 24, auto !important;
+        }
+
+        .hide-images img,
+        .hide-images video,
+        .hide-images .hide-on-no-img {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        /* Global Softness */
+        * {
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        button,
+        .btn {
+            border-radius: 9999px !important;
+        }
+
+        /* 1. Friendly & Playful (Light) */
+        .light {
+            --color-primary: #8b5cf6;
+            --color-secondary: #ec4899;
+            --color-accent: #06b6d4;
+            --color-header-bg: rgba(255, 255, 255, 0.85);
+            --color-link: #7c3aed;
+            --color-base-bg: #fffbf0;
+            --color-content-bg: #ffffff;
+            --color-text-default: #334155;
+            --color-text-secondary: #64748b;
+            --site-bg-gradient: linear-gradient(135deg, #fffbf0 0%, #fff1f2 40%, #f0f9ff 100%);
+        }
+
+        /* 2. Soft Midnight (Dark) */
+        .dark {
+            --color-primary: #a78bfa;
+            --color-secondary: #f472b6;
+            --color-accent: #22d3ee;
+            --color-header-bg: rgba(15, 23, 42, 0.85);
+            --color-base-bg: #0f172a;
+            --color-content-bg: #1e293b;
+            --color-text-default: #f8fafc;
+            --color-text-secondary: #94a3b8;
+            --site-bg-gradient: linear-gradient(to bottom right, #0f172a, #1e1b4b);
+        }
+
+        .high-contrast {
+            --color-primary: #ffff00;
+            --color-secondary: #00ffff;
+            --color-accent: #ff00ff;
+            --color-header-bg: #000;
+            --color-base-bg: #000;
+            --color-content-bg: #000;
+            --color-text-default: #ffff00;
+            --color-text-secondary: #fff;
+            --site-bg-gradient: none;
+        }
+
+        .high-contrast a {
+            text-decoration: underline;
+            color: #00ffff !important;
+        }
+
+        .sepia {
+            --color-primary: #8f5902;
+            --color-secondary: #a06703;
+            --color-accent: #ce5c00;
+            --color-header-bg: rgba(244, 236, 216, 0.95);
+            --color-base-bg: #f4ecd8;
+            --color-content-bg: #fdf6e3;
+            --color-text-default: #433422;
+            --color-text-secondary: #5c4118;
+            --site-bg-gradient: linear-gradient(to bottom, #f4ecd8, #e8dbc3);
+        }
+
+        .midnight {
+            --color-primary: #82aaff;
+            --color-secondary: #c792ea;
+            --color-accent: #89ddff;
+            --color-header-bg: rgba(1, 22, 39, 0.9);
+            --color-base-bg: #011627;
+            --color-content-bg: #062137;
+            --color-text-default: #d6deeb;
+            --color-text-secondary: #9aa9bd;
+            --site-bg-gradient: linear-gradient(to bottom, #011627, #01101e);
+        }
+
         .teacher-only {
             display: none;
         }
 
-        body.teacher-mode .teacher-only {
+        .teacher-mode .teacher-only {
             display: block;
-            border: 2px dashed #f59e0b;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0.5rem;
-            background-color: rgba(254, 243, 199, 0.5);
-            position: relative;
+            border: 2px dashed var(--color-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 230, 0, 0.1);
         }
 
-        .dark body.teacher-mode .teacher-only {
-            background-color: rgba(120, 53, 15, 0.2);
-            border-color: #d97706;
-        }
-
-        body.teacher-mode .teacher-only::before {
-            content: 'Teacher Mode Only';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: #f59e0b;
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        /* PRINT STYLES */
-        @media print {
-            body {
-                background: white !important;
-                color: black !important;
-                opacity: 1 !important;
-            }
-
-            /* Hide non-printable elements */
-            #fixed-tools-container,
-            header,
-            footer,
-            #announcement-bar,
-            #a11y-settings-panel,
-            #scratchpad-panel,
-            #timer-panel,
-            #citation-panel,
-            #reading-mask {
-                display: none !important;
-            }
-
-            /* Reset layout */
-            #main-content,
-            .container {
-                width: 100% !important;
-                max-width: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* Ensure links are readable */
-            a {
-                text-decoration: underline !important;
-                color: black !important;
-            }
-
-            a[href^="http"]:after {
-                content: " (" attr(href) ")";
-                font-size: 0.8em;
-            }
-
-            /* Break pages nicely */
-            h1,
-            h2 {
-                page-break-before: auto;
-            }
-
-            p,
-            blockquote {
-                page-break-inside: avoid;
-            }
-        }
-
-        @keyframes pageReveal {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Themes */
-        .light {
-            --color-primary: #4F46E5;
-            --color-secondary: #6366F1;
-            --color-accent: #818CF8;
-            --color-header-bg: #1F2937;
-            --color-link: #4F46E5;
-            --color-base-bg: #F3F4F6;
-            --color-content-bg: #FFFFFF;
-            --color-text-default: #1F2937;
-            --color-text-secondary: #4B5563;
-            --site-bg-gradient: linear-gradient(120deg, #fdfbf7 0%, #f0fdfa 50%, #eff6ff 100%);
-        }
-
-        .dark {
-            --color-primary: #818CF8;
-            --color-secondary: #A5B4FC;
-            --color-accent: #C7D2FE;
-            --color-header-bg: #111827;
-            --color-base-bg: #111827;
-            --color-content-bg: #1F2937;
-            --color-text-default: #F3F4F6;
-            --color-text-secondary: #D1D5DB;
-            --site-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-        }
-
-        .high-contrast {
-            --color-primary: #FFFF00;
-            --color-secondary: #00FFFF;
-            --color-accent: #00FFFF;
-            --color-header-bg: #000000;
-            --color-base-bg: #000000;
-            --color-content-bg: #000000;
-            --color-text-default: #FFFF00;
-            --color-text-secondary: #FFFFFF;
-            --site-bg-gradient: none;
-        }
-
-        /* Focus Mode Overrides */
-        body.focus-mode header,
-        body.focus-mode #announcement-bar,
-        body.focus-mode footer,
-        body.focus-mode #resume-banner {
+        .focus-mode header,
+        .focus-mode #announcement-bar,
+        .focus-mode footer,
+        .focus-mode .fixed-tools-container {
             display: none !important;
         }
 
-        body.focus-mode #main-content {
+        .focus-mode #main-content {
             margin-top: 2rem;
         }
 
-        /* High Contrast Specifics */
-        .high-contrast a {
-            color: var(--color-link) !important;
-            text-decoration: underline;
-        }
-
-        .high-contrast .bg-primary {
-            background-color: #000000 !important;
-            border: 2px solid #FFFF00 !important;
-            color: #FFFF00 !important;
-        }
-
-        .high-contrast .level-card {
-            border: 2px solid white;
-        }
-
-        /* Utilities */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border-width: 0;
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Reading Guide */
         #reading-mask {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             pointer-events: none;
             z-index: 50;
         }
@@ -353,19 +277,20 @@
         #reading-guide {
             position: absolute;
             width: 100%;
-            height: 2.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-top: 2px solid var(--color-base-bg);
-            border-bottom: 2px solid var(--color-base-bg);
-            cursor: ns-resize;
-            pointer-events: auto;
+            height: 3rem;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+            border-top: 2px solid var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+            cursor: row-resize;
+            pointer-events: none;
+            /* Crucial Fix: Allows clicking through the guide */
         }
 
-        /* Loader */
         #initial-loader {
             position: fixed;
             inset: 0;
-            background: white;
+            background: var(--color-base-bg);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -373,18 +298,12 @@
             transition: opacity 0.5s;
         }
 
-        .dark #initial-loader {
-            background: #111827;
-        }
-
         .loader-spinner {
-            width: 48px;
-            height: 48px;
-            border: 5px solid #4F46E5;
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--color-primary);
             border-bottom-color: transparent;
             border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
             animation: rotation 1s linear infinite;
         }
 
@@ -398,9 +317,14 @@
             }
         }
 
-        /* Custom Scrollbar */
+        @keyframes pageReveal {
+            to {
+                opacity: 1;
+            }
+        }
+
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
@@ -409,248 +333,359 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--color-primary);
-            border-radius: 5px;
+            border-radius: 6px;
+            border: 3px solid var(--color-base-bg);
         }
     </style>
 </head>
 
 <body class="light antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
 
-    <!-- Fixed Tools Container -->
-    <div id="fixed-tools-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
-        <!-- Scroll Top -->
-        <button id="scroll-to-top" class="w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center" aria-label="Scroll to top" type="button">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-
-        <!-- Printable View (NEW) -->
-        <button id="print-view-toggle" class="w-12 h-12 bg-gray-600 text-white rounded-full shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Print Page" type="button">
-            <i class="fas fa-print"></i>
-        </button>
-
-        <!-- Citation Generator Toggle (NEW) -->
-        <button id="citation-toggle" class="w-14 h-14 bg-pink-600 text-white rounded-full shadow-2xl hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Citation Generator" aria-expanded="false" aria-controls="citation-panel" type="button">
-            <i class="fas fa-quote-right text-xl"></i>
-        </button>
-
-        <!-- Focus Timer Toggle -->
-        <button id="timer-toggle" class="w-14 h-14 bg-green-600 text-white rounded-full shadow-2xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Focus Timer" aria-expanded="false" aria-controls="timer-panel" type="button">
-            <i class="fas fa-stopwatch text-xl"></i>
-        </button>
-
-        <!-- Scratchpad Toggle -->
-        <button id="scratchpad-toggle" class="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Quick Notes" aria-expanded="false" aria-controls="scratchpad-panel" type="button">
-            <i class="fas fa-sticky-note text-xl"></i>
-        </button>
-
-        <!-- A11y Toggle -->
-        <button id="a11y-toggle-button" class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-accent transition-all duration-300 transform hover:scale-105 flex items-center justify-center" aria-label="Open Accessibility Settings" aria-expanded="false" aria-controls="a11y-settings-panel" type="button">
-            <i class="fas fa-universal-access text-2xl"></i>
-        </button>
+    <!-- Fixed Tools Container (Increased Z-index to sit above Reading Mask) -->
+    <div id="fixed-tools-container" class="fixed bottom-6 right-6 z-[60] flex flex-col gap-3 items-end print:hidden">
+        <button id="scroll-to-top"
+            class="w-12 h-12 bg-content-bg backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center"
+            type="button"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="window.print()"
+            class="w-12 h-12 bg-gray-600 text-white rounded-full shadow-lg hover:scale-105 flex items-center justify-center transition-all"
+            title="Print Page" type="button"><i class="fas fa-print"></i></button>
+        <button id="citation-toggle"
+            class="w-14 h-14 bg-pink-500 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-quote-right text-xl"></i></button>
+        <button id="timer-toggle"
+            class="w-14 h-14 bg-green-600 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-stopwatch text-xl"></i></button>
+        <button id="scratchpad-toggle"
+            class="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-pen text-xl"></i></button>
+        <button id="a11y-toggle-button"
+            class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary transition-all transform hover:scale-105 flex items-center justify-center animate-bounce-short"
+            type="button"><i class="fas fa-universal-access text-2xl"></i></button>
     </div>
 
-    <!-- Citation Panel (NEW) -->
-    <div id="citation-panel" class="fixed bottom-24 right-6 w-80 bg-pink-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-pink-500 origin-bottom-right" role="dialog" aria-labelledby="citation-title">
-        <div class="p-4">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="citation-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-quote-left text-pink-600"></i> Cite This Page
-                </h3>
-                <button id="citation-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Citation Tool" type="button"><i class="fas fa-times"></i></button>
-            </div>
-
-            <div class="space-y-3">
-                <div class="flex gap-2">
-                    <button id="cite-auto-fill" class="flex-1 bg-pink-100 text-pink-700 hover:bg-pink-200 py-1.5 rounded text-xs font-bold transition-colors">Auto-Fill Metadata</button>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Page Title</label>
-                    <input type="text" id="cite-title" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Page Title">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">URL</label>
-                    <input type="text" id="cite-url" class="w-full p-2 rounded border text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="https://...">
-                </div>
-
-                <div class="flex gap-2 pt-2">
-                    <button id="cite-generate-apa" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded text-xs font-bold">Gen APA</button>
-                    <button id="cite-generate-mla" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded text-xs font-bold">Gen MLA</button>
-                </div>
-
-                <div class="relative">
-                    <textarea id="cite-result" readonly class="w-full h-20 p-2 text-xs bg-white dark:bg-gray-900 border rounded resize-none font-mono text-gray-600 dark:text-gray-300" placeholder="Citation will appear here..."></textarea>
-                    <button id="cite-copy" class="absolute bottom-2 right-2 bg-pink-600 text-white p-1.5 rounded shadow hover:bg-pink-700 text-xs" title="Copy to Clipboard"><i class="fas fa-copy"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Timer Panel -->
-    <div id="timer-panel" class="fixed bottom-24 right-6 w-64 bg-green-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-green-500 origin-bottom-right" role="dialog" aria-labelledby="timer-title">
+    <!-- PANELS -->
+    <div id="timer-panel"
+        class="fixed bottom-24 right-6 w-64 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-green-500 origin-bottom-right">
         <div class="p-4 text-center">
             <div class="flex justify-between items-center mb-2">
-                <h3 id="timer-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-clock text-green-600"></i> Focus Timer
-                </h3>
-                <button id="timer-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Timer" type="button"><i class="fas fa-times"></i></button>
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-clock text-green-600"></i> Timer</h3>
+                <button id="timer-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
             </div>
-            <div class="text-4xl font-mono font-bold text-gray-800 dark:text-white mb-4 tracking-wider" id="timer-display">25:00</div>
+            <div class="text-4xl font-mono font-bold text-text-default mb-4" id="timer-display">25:00</div>
             <div class="flex justify-center gap-2">
-                <button id="timer-start" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm"><i class="fas fa-play mr-1"></i> Start</button>
-                <button id="timer-reset" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 font-bold text-sm dark:bg-gray-600 dark:text-gray-200"><i class="fas fa-redo"></i></button>
-            </div>
-            <div class="mt-3 flex justify-around text-xs text-gray-500 font-bold">
-                <button onclick="setTimer(25)" class="hover:text-green-600">25m</button>
-                <button onclick="setTimer(10)" class="hover:text-green-600">10m</button>
-                <button onclick="setTimer(5)" class="hover:text-green-600">5m</button>
+                <button id="timer-start"
+                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm">Start</button>
+                <button id="timer-reset"
+                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 font-bold text-sm">Reset</button>
             </div>
         </div>
     </div>
 
-    <!-- Scratchpad Panel -->
-    <div id="scratchpad-panel" class="fixed bottom-24 right-6 w-80 bg-yellow-50 dark:bg-gray-800 rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-yellow-400 dark:border-indigo-500 origin-bottom-right" role="dialog" aria-labelledby="scratchpad-title">
+    <div id="scratchpad-panel"
+        class="fixed bottom-24 right-6 w-80 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-indigo-500 origin-bottom-right">
         <div class="p-4">
             <div class="flex justify-between items-center mb-2">
-                <h3 id="scratchpad-title" class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-pen-fancy text-yellow-600 dark:text-yellow-400"></i> Quick Notes
-                </h3>
-                <button id="scratchpad-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2" aria-label="Close Notes" type="button"><i class="fas fa-times"></i></button>
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-pen text-indigo-600"></i> Notes</h3>
+                <button id="scratchpad-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
             </div>
-            <textarea id="quick-notes-area" class="w-full h-48 p-3 bg-white dark:bg-gray-700 rounded-lg border-0 shadow-inner resize-none focus:ring-2 focus:ring-yellow-400 text-sm leading-relaxed text-gray-700 dark:text-gray-200" placeholder="Type your thoughts here... they save automatically!"></textarea>
-            <div class="mt-2 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
-                <span id="scratchpad-status" aria-live="polite">Saved</span>
-                <div class="flex gap-2">
-                    <button id="download-notes" class="hover:text-indigo-500 font-bold flex items-center gap-1" type="button"><i class="fas fa-download"></i> Save</button>
-                    <span class="text-gray-300">|</span>
-                    <button onclick="document.getElementById('quick-notes-area').value = ''; localStorage.setItem('hl_scratchpad', '');" class="hover:text-red-500" type="button">Clear</button>
-                </div>
+            <textarea id="quick-notes-area"
+                class="w-full h-40 p-3 bg-base-bg rounded-lg border-none resize-none text-sm text-text-default focus:ring-2 focus:ring-primary"
+                placeholder="Type here..."></textarea>
+            <div class="flex justify-between mt-2">
+                <span id="scratchpad-status" class="text-xs text-text-secondary">Saved</span>
+                <button id="download-notes" class="text-xs font-bold text-primary hover:underline">Download</button>
             </div>
         </div>
     </div>
 
-    <!-- Accessibility Panel -->
-    <div id="a11y-settings-panel" class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l border-white/20 ring-1 ring-black/5" role="dialog" aria-modal="true" aria-labelledby="a11y-title">
+    <div id="citation-panel"
+        class="fixed bottom-24 right-6 w-80 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-pink-500 origin-bottom-right">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-quote-right text-pink-600"></i> Cite</h3>
+                <button id="citation-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <input type="text" id="cite-title" placeholder="Page Title"
+                class="w-full p-2 mb-2 bg-base-bg rounded text-sm text-text-default">
+            <button id="cite-gen" class="w-full bg-pink-500 text-white rounded p-1 mb-2">Generate APA/MLA</button>
+            <textarea id="cite-result" readonly
+                class="w-full h-20 bg-base-bg text-text-default text-xs p-2 rounded"></textarea>
+        </div>
+    </div>
+
+    <!-- A11y Panel -->
+    <div id="a11y-settings-panel"
+        class="fixed top-0 right-0 h-full w-full sm:w-96 bg-content-bg shadow-2xl z-[70] transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l border-white/20 backdrop-blur-xl">
         <div class="flex justify-between items-center mb-6">
-            <h2 id="a11y-title" class="text-xl font-bold text-primary">Accessibility</h2>
-            <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2 rounded-full" aria-label="Close settings" type="button"><i class="fas fa-times text-lg"></i></button>
+            <h2 class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fas fa-sliders-h"></i>
+                Settings</h2>
+            <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2"><i
+                    class="fas fa-times text-xl"></i></button>
         </div>
         <div class="space-y-6">
-
-            <!-- Text to Speech -->
-            <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                <label class="text-sm font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2 mb-2">
-                    <i class="fas fa-volume-up"></i> Read Aloud
-                </label>
-                <div class="flex gap-2">
-                    <button id="tts-play" class="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 text-sm font-bold"><i class="fas fa-play mr-1"></i> Read Page</button>
-                    <button id="tts-stop" class="w-10 bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-white"><i class="fas fa-stop"></i></button>
-                </div>
-                <p class="text-xs text-blue-700 dark:text-blue-300 mt-2">Reads main content aloud.</p>
-            </div>
-
-            <!-- Focus Mode -->
-            <div class="bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
-                <div class="flex items-center justify-between">
-                    <label for="toggle-focus-mode" class="text-sm font-bold text-indigo-900 dark:text-indigo-200 flex items-center gap-2">
-                        <i class="fas fa-eye-slash"></i> Focus Mode
-                    </label>
-                    <input type="checkbox" id="toggle-focus-mode" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-indigo-600 transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
-                </div>
-                <p class="text-xs text-indigo-700 dark:text-indigo-300 mt-1">Hides menu, footer, and banners.</p>
-            </div>
-
-            <!-- Teacher Mode (NEW) -->
-            <div class="bg-orange-50 dark:bg-orange-900/30 p-4 rounded-lg border border-orange-100 dark:border-orange-800">
-                <div class="flex items-center justify-between">
-                    <label for="toggle-teacher-mode" class="text-sm font-bold text-orange-900 dark:text-orange-200 flex items-center gap-2">
-                        <i class="fas fa-chalkboard-teacher"></i> Teacher View
-                    </label>
-                    <input type="checkbox" id="toggle-teacher-mode" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-orange-600 transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
-                </div>
-                <p class="text-xs text-orange-700 dark:text-orange-300 mt-1">Reveals lesson plans & keys.</p>
-            </div>
-
-            <fieldset>
-                <legend class="text-sm font-medium mb-2 text-text-default">Contrast & Theme</legend>
-                <div class="flex space-x-2">
-                    <button id="theme-light" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700 dark:text-gray-200" type="button"><i class="fas fa-sun"></i> Light</button>
-                    <button id="theme-dark" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-500" type="button"><i class="fas fa-moon"></i> Dark</button>
-                    <button id="theme-contrast" class="flex-1 py-2 rounded-lg border hover:bg-gray-100 font-bold dark:border-gray-600 dark:text-gray-200" type="button"><i class="fas fa-low-vision"></i> High</button>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend class="text-sm font-medium mb-2 text-text-default">Font Style</legend>
-                <div id="font-selection-buttons" class="grid grid-cols-1 gap-2">
-                    <button type="button" data-font="Inter" class="font-selector py-2 px-3 rounded border text-left text-sm bg-primary text-white" style="font-family: 'Inter', sans-serif;">Standard (Inter)</button>
-                    <button type="button" data-font="Open Dyslexic" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Open Dyslexic', sans-serif;">Dyslexic Friendly</button>
-                    <button type="button" data-font="Lexend" class="font-selector py-2 px-3 rounded border text-left text-sm" style="font-family: 'Lexend', sans-serif;">Lexend (High Legibility)</button>
-                </div>
-            </fieldset>
-
             <div>
-                <label for="font-size-slider" class="block text-sm font-medium mb-2 text-text-default">Text Size (<span id="font-size-value">100</span>%)</label>
-                <input type="range" id="font-size-slider" min="0.8" max="1.5" step="0.1" value="1.0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-            </div>
-
-            <div class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div class="flex items-center justify-between">
-                    <label for="toggle-reading-mask" class="text-sm font-medium text-text-default">Reading Guide</label>
-                    <input type="checkbox" id="toggle-reading-mask" class="w-10 h-5 rounded-full appearance-none bg-gray-300 checked:bg-primary transition-all relative cursor-pointer before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4 before:h-4 before:bg-white before:rounded-full before:shadow-sm before:transition-transform checked:before:translate-x-5">
+                <h3 class="font-bold text-text-secondary mb-2 uppercase text-xs">Theme</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="p-2 border rounded bg-gray-50 text-black hover:border-primary"
+                        onclick="updateGlobalSetting('theme', 'light')">Light</button>
+                    <button class="p-2 border rounded bg-gray-900 text-white hover:border-primary"
+                        onclick="updateGlobalSetting('theme', 'dark')">Dark</button>
+                    <button class="p-2 border rounded bg-black text-yellow-300 hover:border-yellow-400"
+                        onclick="updateGlobalSetting('theme', 'high-contrast')">Contrast</button>
+                    <button class="p-2 border rounded bg-[#f4ecd8] text-[#433422] hover:border-amber-600"
+                        onclick="updateGlobalSetting('theme', 'sepia')">Sepia</button>
+                    <button class="col-span-2 p-2 border rounded bg-[#011627] text-[#d6deeb] hover:border-blue-400"
+                        onclick="updateGlobalSetting('theme', 'midnight')">Midnight</button>
                 </div>
             </div>
-            <button id="reset-a11y-settings" class="w-full bg-red-100 text-red-700 hover:bg-red-200 py-2 rounded-lg mt-4 text-sm font-bold transition-colors" type="button">Reset Settings</button>
+            <div>
+                <h3 class="font-bold text-text-secondary mb-2 uppercase text-xs">Font</h3>
+                <select id="panel-font" onchange="updateGlobalSetting('fontFamily', this.value)"
+                    class="w-full p-2 rounded bg-base-bg border text-text-default">
+                    <option value="Outfit">Outfit (Modern)</option>
+                    <option value="Inter">Inter (Standard)</option>
+                    <option value="Open Dyslexic">Open Dyslexic</option>
+                    <option value="Lexend">Lexend</option>
+                    <option value="Comic Neue">Comic Neue</option>
+                    <option value="Roboto Mono">Monospace</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Text Size</label>
+                <input type="range" id="panel-size" class="w-full accent-primary" min="0.8" max="2.0" step="0.1"
+                    oninput="updateGlobalSetting('fontSize', this.value)">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Line Height</label>
+                <input type="range" id="panel-line" class="w-full accent-primary" min="1.0" max="2.5" step="0.1"
+                    oninput="updateGlobalSetting('lineHeight', this.value)">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Saturation</label>
+                <input type="range" id="panel-saturation" class="w-full accent-primary" min="0" max="200" step="10"
+                    oninput="updateGlobalSetting('saturation', this.value)">
+            </div>
+            <div class="space-y-3">
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Reading Mask</span>
+                    <input type="checkbox" id="panel-mask" onchange="updateGlobalSetting('readingMask', this.checked)"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Large Cursor</span>
+                    <input type="checkbox" id="panel-cursor"
+                        onchange="updateGlobalSetting('cursorSize', this.checked ? 'large' : 'normal')"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Hide Images</span>
+                    <input type="checkbox" id="panel-images" onchange="updateGlobalSetting('hideImages', this.checked)"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Teacher Mode</span>
+                    <input type="checkbox" id="panel-teacher"
+                        onchange="updateGlobalSetting('teacherMode', this.checked)" class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Focus Mode</span>
+                    <input type="checkbox" id="panel-focus" onchange="updateGlobalSetting('focusMode', this.checked)"
+                        class="accent-primary">
+                </label>
+            </div>
+            <button onclick="localStorage.removeItem('hl_accessibility_settings'); location.reload()"
+                class="w-full py-2 bg-red-100 text-red-700 rounded font-bold mt-4">Reset</button>
+            <div class="text-center pt-2">
+                <a href="/settings.php" class="text-primary text-sm hover:underline">Full Settings Page</a>
+            </div>
         </div>
     </div>
 
-    <!-- Reading Mask -->
     <div id="reading-mask" class="hidden">
-        <div id="reading-guide" style="top: 30%"></div>
+        <div id="reading-guide" style="top:30%"></div>
     </div>
 
-    <!-- Announcement Bar -->
-    <div id="announcement-bar" class="bg-primary text-white text-center py-2 px-8 relative transition-colors duration-300 shadow-md z-40" role="status">
-        <p class="text-sm font-medium"><i class="fas fa-hammer mr-2"></i> Work in Progress: We are updating sections daily. Check <a class="underline" href="https://github.com/Hestena62/Hesten-s-Learning">GitHub</a> for updates.</p>
-        <button id="close-announcement" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 rounded-full" aria-label="Close announcement" type="button"><i class="fas fa-times"></i></button>
-    </div>
 
-    <!-- HEADER -->
-    <header class="bg-header-bg shadow-lg sticky top-0 z-40 transition-colors duration-300 backdrop-blur-sm bg-opacity-95">
+    <header
+        class="bg-header-bg shadow-sm sticky top-0 z-40 transition-colors duration-300 backdrop-blur-md border-b border-white/10 print:hidden">
         <div class="container mx-auto px-4 py-3">
-            <nav class="flex items-center justify-between flex-wrap" aria-label="Main Navigation">
-                <!-- Logo -->
-                <a class="flex items-center flex-shrink-0 text-white mr-6 rounded-lg p-1" href="#">
-                    <div class="h-10 w-10 mr-3 border-2 border-white/20 rounded-full flex items-center justify-center bg-indigo-500 font-bold text-xl">H</div>
-                    <span class="font-bold text-xl tracking-tight">Hesten's Learning</span>
+            <nav class="flex items-center justify-between flex-wrap">
+                <a class="flex items-center flex-shrink-0 text-primary mr-8 group" href="/">
+                    <div
+                        class="h-10 w-10 mr-3 bg-gradient-to-br from-primary to-secondary text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:rotate-12 transition-transform">
+                        H</div>
+                    <span class="font-bold text-xl tracking-tight text-text-default">Hesten's Learning</span>
                 </a>
-
-                <!-- Mobile Menu Button -->
                 <div class="block lg:hidden">
-                    <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white" aria-label="Toggle Menu" type="button">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                    <button id="nav-toggle"
+                        class="flex items-center px-3 py-2 border rounded text-text-default border-gray-400 hover:text-primary transition-colors"><i
+                            class="fas fa-bars"></i></button>
                 </div>
-
-                <!-- Nav Links -->
-                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300" id="nav-content">
-                    <div class="text-sm lg:flex-grow">
-                        <a href="/" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md bg-white/10 text-white font-bold"><i class="fas fa-home mr-1"></i> Home</a>
-                        <a href="/learning.php" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-book mr-1"></i> Learning</a>
-                        <a href="/assessment" class="block mt-4 lg:inline-block lg:mt-0 mr-4 p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/5"><i class="fas fa-tasks mr-1"></i> Assessment</a>
+                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300 gap-6"
+                    id="nav-content">
+                    <div class="text-sm lg:flex-grow flex flex-col lg:flex-row gap-2 lg:gap-6 mt-4 lg:mt-0 font-medium">
+                        <a href="/" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-home mr-1"></i> Home</a>
+                        <a href="/learning.php"
+                            class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-book mr-1"></i> Learning</a>
+                        <a href="/assessment" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-tasks mr-1"></i> Assessment</a>
+                        <a href="/library" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-book-open mr-1"></i> Library</a>
                     </div>
-                    <!-- Search -->
                     <div class="relative mt-4 lg:mt-0">
-                        <form id="search-form" onsubmit="event.preventDefault();" role="search">
-                            <label for="global-search-input" class="sr-only">Search</label>
-                            <div class="relative group">
-                                <input type="text" id="global-search-input" placeholder="Search site..." class="bg-gray-700/50 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary w-48 focus:w-64 transition-all placeholder-gray-400 border border-transparent" />
-                                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-white"></i>
-                            </div>
+                        <form action="/search.php" method="GET" class="flex items-center group">
+                            <input type="text" name="q" placeholder="Search..."
+                                class="bg-base-bg text-text-default rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary w-full lg:w-48 border border-gray-200 dark:border-gray-700" />
+                            <i class="fas fa-search absolute left-3 text-gray-400 group-hover:text-primary"></i>
                         </form>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
+
+    <script>
+        // --- CORE SETTINGS ---
+        const STORAGE_KEY = 'hl_accessibility_settings';
+        const defaultSettings = {
+            theme: 'light',
+            fontSize: 1.0,
+            lineHeight: 1.6,
+            fontFamily: 'Outfit',
+            letterSpacing: 0,
+            wordSpacing: 0,
+            saturation: 100,
+            readingMask: false,
+            cursorSize: 'normal',
+            hideImages: false,
+            focusMode: false,
+            teacherMode: false
+        };
+        let currentSettings = defaultSettings;
+
+        (function init() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) currentSettings = {
+                    ...defaultSettings,
+                    ...JSON.parse(stored)
+                };
+                // CRITICAL FIX: Expose settings to window for footer scripts (like Reading Mask)
+                window.currentSettings = currentSettings;
+            } catch (e) {
+                console.warn('LocalStorage access denied', e);
+            }
+        })();
+
+        // Define functions globally so they can be called by other scripts
+        function updateGlobalSetting(key, value) {
+            currentSettings[key] = value;
+            window.currentSettings = currentSettings; // Keep window reference synced
+            saveSettingsInternal(); // Call local function
+            applySettings(currentSettings);
+        }
+
+        function saveSettingsInternal() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(currentSettings));
+                // Dispatch event for updated synchronization
+                window.dispatchEvent(new CustomEvent('settings-changed', {
+                    detail: currentSettings
+                }));
+            } catch (e) {
+                console.warn('Could not save settings', e);
+            }
+        }
+
+        // Expose API
+        window.loadSettings = () => currentSettings;
+        window.saveSettings = (s) => {
+            currentSettings = {
+                ...currentSettings,
+                ...s
+            };
+            window.currentSettings = currentSettings;
+            saveSettingsInternal();
+            applySettings(currentSettings);
+        };
+        window.updateGlobalSetting = updateGlobalSetting;
+        window.syncPanelInputs = syncPanelInputs;
+
+        function applySettings(s) {
+            if (!s) s = defaultSettings;
+            const r = document.documentElement; // HTML tag
+            const b = document.body; // Body tag
+
+            // CSS Variables (Applied to Body for simple variable inheritance)
+            b.style.setProperty('--site-font-size', `${s.fontSize}rem`);
+            b.style.setProperty('--site-line-height', s.lineHeight);
+            b.style.setProperty('--site-letter-spacing', `${s.letterSpacing}em`);
+            b.style.setProperty('--site-word-spacing', `${s.wordSpacing}em`);
+            b.style.setProperty('--site-font-family', s.fontFamily.includes(' ') ? `"${s.fontFamily}"` : s.fontFamily);
+            r.style.filter = `saturate(${s.saturation}%)`;
+
+            // Classes - Apply to BOTH HTML (for Tailwind) and Body (for CSS selectors)
+            const themes = ['light', 'dark', 'high-contrast', 'sepia', 'midnight'];
+            r.classList.remove(...themes);
+            b.classList.remove(...themes);
+
+            r.classList.add(s.theme);
+            b.classList.add(s.theme);
+
+            // Toggles
+            const toggleClass = (el, cls, cond) => {
+                if (cond) el.classList.add(cls);
+                else el.classList.remove(cls);
+            };
+
+            toggleClass(b, 'focus-mode', !!s.focusMode);
+            toggleClass(b, 'teacher-mode', !!s.teacherMode);
+            toggleClass(b, 'cursor-large', s.cursorSize === 'large');
+            toggleClass(b, 'hide-images', !!s.hideImages);
+
+            // Also apply to HTML for consistency if needed
+            toggleClass(r, 'focus-mode', !!s.focusMode);
+
+            // Mask
+            const m = document.getElementById('reading-mask');
+            if (m) m.classList.toggle('hidden', !s.readingMask);
+
+            // Sync Panel UI
+            syncPanelInputs(s);
+        }
+
+        // Expose applySettings for debugging or external use
+        window.applySettings = applySettings;
+
+        function syncPanelInputs(s) {
+            const el = (id) => document.getElementById(id);
+            if (el('panel-font')) el('panel-font').value = s.fontFamily;
+            if (el('panel-size')) el('panel-size').value = s.fontSize;
+            if (el('panel-line')) el('panel-line').value = s.lineHeight;
+            if (el('panel-saturation')) el('panel-saturation').value = s.saturation;
+
+            if (el('panel-mask')) el('panel-mask').checked = !!s.readingMask;
+            if (el('panel-cursor')) el('panel-cursor').checked = (s.cursorSize === 'large');
+            if (el('panel-images')) el('panel-images').checked = !!s.hideImages;
+            if (el('panel-teacher')) el('panel-teacher').checked = !!s.teacherMode;
+            if (el('panel-focus')) el('panel-focus').checked = !!s.focusMode;
+        }
+
+        // Apply immediately to prevent FOUC
+        applySettings(currentSettings);
+
+        // Listen for internal system updates
+        window.addEventListener('settings-changed', (e) => {
+            currentSettings = e.detail;
+            window.currentSettings = currentSettings;
+            applySettings(currentSettings);
+        });
+    </script>
