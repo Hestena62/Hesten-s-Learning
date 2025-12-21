@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en-US" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Grade 5 Module 1 Lesson 1: Place Value Understanding" />
+    <meta name="keywords" content="math, grade 5, place value, decimals, interactive" />
+    <meta name="author" content="Hesten's Learning" />
+
+    <!-- PWA & Mobile Meta Tags -->
+    <meta name="theme-color" content="#4F46E5" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hesten's">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Grade 5 Mod 1 Lesson 1" />
+    <meta property="og:description" content="Reason concretely and pictorially using place value understanding." />
+    <meta property="og:type" content="website" />
+
+    <title>Grade 5 Module 1 Lesson 1 | Hesten's Learning</title>
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- Font Loading -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@400;600;700&family=Cookie&family=Comic+Neue:wght@400;700&family=Merriweather:wght@400;700&family=Roboto+Mono:wght@400;700&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["var(--site-font-family)", "Inter", "ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
+                        dyslexic: ['"Open Dyslexic"', 'sans-serif'],
+                        mono: ['"Roboto Mono"', 'monospace'],
+                        handwriting: ['"Cookie"', 'cursive'],
+                        outfit: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': 'var(--color-primary)',
+                        'secondary': 'var(--color-secondary)',
+                        'accent': 'var(--color-accent)',
+                        'base-bg': 'var(--color-base-bg)',
+                        'content-bg': 'var(--color-content-bg)',
+                        'text-default': 'var(--color-text-default)',
+                        'text-secondary': 'var(--color-text-secondary)',
+                        'header-bg': 'var(--color-header-bg)',
+                        // Compatibility Aliases
+                        'card-bg': 'var(--color-content-bg)',
+                        'text-primary': 'var(--color-text-default)',
+                        'text-text-primary': 'var(--color-text-default)',
+                    },
+                    borderRadius: {
+                        'base-rounded': '1.5rem',
+                        'DEFAULT': '0.75rem',
+                        'lg': '1rem',
+                        'xl': '1.5rem',
+                        '2xl': '2rem',
+                        '3xl': '2.5rem',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'bounce-short': 'bounceShort 1s ease-in-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(10px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        bounceShort: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+
+    <style>
+        /* Base Styles & Variables */
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Open Dyslexic';
+            src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Italic.woff2') format('woff2');
+            font-weight: normal;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        body {
+            background-color: var(--color-base-bg);
+            background-image: var(--site-bg-gradient);
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--color-text-default);
+            font-size: var(--site-font-size, 1rem);
+            line-height: var(--site-line-height, 1.6);
+            letter-spacing: var(--site-letter-spacing, normal);
+            word-spacing: var(--site-word-spacing, normal);
+            transition: background-color 0.5s, color 0.3s;
+            min-height: 100vh;
+            font-family: var(--site-font-family, 'Outfit'), ui-sans-serif, system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: pageReveal 0.5s ease-out forwards;
+        }
+
+        /* Accessibilty Classes */
+        .cursor-large,
+        .cursor-large * {
+            cursor: -webkit-image-set(url('https://cdn-icons-png.flaticon.com/512/5759/5759160.png') 2x) 24 24, auto !important;
+        }
+
+        .hide-images img,
+        .hide-images video,
+        .hide-images .hide-on-no-img {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        /* Global Softness */
+        * {
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        button,
+        .btn {
+            border-radius: 9999px !important;
+        }
+
+        /* 1. Friendly & Playful (Light) */
+        .light {
+            --color-primary: #8b5cf6;
+            --color-secondary: #ec4899;
+            --color-accent: #06b6d4;
+            --color-header-bg: rgba(255, 255, 255, 0.85);
+            --color-link: #7c3aed;
+            --color-base-bg: #fffbf0;
+            --color-content-bg: #ffffff;
+            --color-text-default: #334155;
+            --color-text-secondary: #64748b;
+            --site-bg-gradient: linear-gradient(135deg, #fffbf0 0%, #fff1f2 40%, #f0f9ff 100%);
+        }
+
+        /* 2. Soft Midnight (Dark) */
+        .dark {
+            --color-primary: #a78bfa;
+            --color-secondary: #f472b6;
+            --color-accent: #22d3ee;
+            --color-header-bg: rgba(15, 23, 42, 0.85);
+            --color-base-bg: #0f172a;
+            --color-content-bg: #1e293b;
+            --color-text-default: #f8fafc;
+            --color-text-secondary: #94a3b8;
+            --site-bg-gradient: linear-gradient(to bottom right, #0f172a, #1e1b4b);
+        }
+
+        .high-contrast {
+            --color-primary: #ffff00;
+            --color-secondary: #00ffff;
+            --color-accent: #ff00ff;
+            --color-header-bg: #000;
+            --color-base-bg: #000;
+            --color-content-bg: #000;
+            --color-text-default: #ffff00;
+            --color-text-secondary: #fff;
+            --site-bg-gradient: none;
+        }
+
+        .high-contrast a {
+            text-decoration: underline;
+            color: #00ffff !important;
+        }
+
+        .sepia {
+            --color-primary: #8f5902;
+            --color-secondary: #a06703;
+            --color-accent: #ce5c00;
+            --color-header-bg: rgba(244, 236, 216, 0.95);
+            --color-base-bg: #f4ecd8;
+            --color-content-bg: #fdf6e3;
+            --color-text-default: #433422;
+            --color-text-secondary: #5c4118;
+            --site-bg-gradient: linear-gradient(to bottom, #f4ecd8, #e8dbc3);
+        }
+
+        .midnight {
+            --color-primary: #82aaff;
+            --color-secondary: #c792ea;
+            --color-accent: #89ddff;
+            --color-header-bg: rgba(1, 22, 39, 0.9);
+            --color-base-bg: #011627;
+            --color-content-bg: #062137;
+            --color-text-default: #d6deeb;
+            --color-text-secondary: #9aa9bd;
+            --site-bg-gradient: linear-gradient(to bottom, #011627, #01101e);
+        }
+
+        .teacher-only {
+            display: none;
+        }
+
+        .teacher-mode .teacher-only {
+            display: block;
+            border: 2px dashed var(--color-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 230, 0, 0.1);
+        }
+
+        .focus-mode header,
+        .focus-mode #announcement-bar,
+        .focus-mode footer,
+        .focus-mode .fixed-tools-container {
+            display: none !important;
+        }
+
+        .focus-mode #main-content {
+            margin-top: 2rem;
+        }
+
+        #reading-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        #reading-guide {
+            position: absolute;
+            width: 100%;
+            height: 3rem;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+            border-top: 2px solid var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+            cursor: row-resize;
+            pointer-events: none;
+        }
+
+        #initial-loader {
+            position: fixed;
+            inset: 0;
+            background: var(--color-base-bg);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--color-primary);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pageReveal {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Lesson Specific Styles */
+        .place-value-cell {
+            transition: all 0.3s ease;
+        }
+        .place-value-cell.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            transform: scale(1.05);
+        }
+        .pv-input {
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-text-default);
+        }
+        .pv-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="light antialiased font-sans overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- Fixed Tools Container -->
+    <div id="fixed-tools-container" class="fixed bottom-6 right-6 z-[60] flex flex-col gap-3 items-end print:hidden">
+        <button id="scroll-to-top"
+            class="w-12 h-12 bg-content-bg backdrop-blur border border-gray-200 dark:border-gray-700 text-primary rounded-full shadow-lg hover:scale-110 focus:outline-none transition-all duration-300 transform translate-y-24 opacity-0 flex items-center justify-center"
+            type="button"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="window.print()"
+            class="w-12 h-12 bg-gray-600 text-white rounded-full shadow-lg hover:scale-105 flex items-center justify-center transition-all"
+            title="Print Page" type="button"><i class="fas fa-print"></i></button>
+        <button id="citation-toggle"
+            class="w-14 h-14 bg-pink-500 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-quote-right text-xl"></i></button>
+        <button id="timer-toggle"
+            class="w-14 h-14 bg-green-600 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-stopwatch text-xl"></i></button>
+        <button id="scratchpad-toggle"
+            class="w-14 h-14 bg-indigo-600 text-white rounded-full shadow-2xl hover:scale-105 flex items-center justify-center transition-all"
+            type="button"><i class="fas fa-pen text-xl"></i></button>
+        <button id="a11y-toggle-button"
+            class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:bg-secondary transition-all transform hover:scale-105 flex items-center justify-center animate-bounce-short"
+            type="button"><i class="fas fa-universal-access text-2xl"></i></button>
+    </div>
+
+    <!-- PANELS -->
+    <div id="timer-panel"
+        class="fixed bottom-24 right-6 w-64 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-green-500 origin-bottom-right">
+        <div class="p-4 text-center">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-clock text-green-600"></i> Timer</h3>
+                <button id="timer-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="text-4xl font-mono font-bold text-text-default mb-4" id="timer-display">25:00</div>
+            <div class="flex justify-center gap-2">
+                <button id="timer-start"
+                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-bold text-sm">Start</button>
+                <button id="timer-reset"
+                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 font-bold text-sm">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scratchpad-panel"
+        class="fixed bottom-24 right-6 w-80 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-indigo-500 origin-bottom-right">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-pen text-indigo-600"></i> Notes</h3>
+                <button id="scratchpad-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <textarea id="quick-notes-area"
+                class="w-full h-40 p-3 bg-base-bg rounded-lg border-none resize-none text-sm text-text-default focus:ring-2 focus:ring-primary"
+                placeholder="Type here..."></textarea>
+            <div class="flex justify-between mt-2">
+                <span id="scratchpad-status" class="text-xs text-text-secondary">Saved</span>
+                <button id="download-notes" class="text-xs font-bold text-primary hover:underline">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="citation-panel"
+        class="fixed bottom-24 right-6 w-80 bg-content-bg rounded-xl shadow-2xl transform scale-90 opacity-0 pointer-events-none transition-all duration-300 z-50 border-t-8 border-pink-500 origin-bottom-right">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-text-default gap-2 flex items-center"><i
+                        class="fas fa-quote-right text-pink-600"></i> Cite</h3>
+                <button id="citation-close" class="text-text-secondary hover:text-red-500"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <input type="text" id="cite-title" placeholder="Page Title"
+                class="w-full p-2 mb-2 bg-base-bg rounded text-sm text-text-default">
+            <button id="cite-gen" class="w-full bg-pink-500 text-white rounded p-1 mb-2">Generate APA/MLA</button>
+            <textarea id="cite-result" readonly
+                class="w-full h-20 bg-base-bg text-text-default text-xs p-2 rounded"></textarea>
+        </div>
+    </div>
+
+    <!-- A11y Panel -->
+    <div id="a11y-settings-panel"
+        class="fixed top-0 right-0 h-full w-full sm:w-96 bg-content-bg shadow-2xl z-[70] transform translate-x-full transition-transform duration-300 overflow-y-auto p-6 border-l border-white/20 backdrop-blur-xl">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-primary flex items-center gap-2"><i class="fas fa-sliders-h"></i>
+                Settings</h2>
+            <button id="a11y-close-button" class="text-text-secondary hover:text-text-default p-2"><i
+                    class="fas fa-times text-xl"></i></button>
+        </div>
+        <div class="space-y-6">
+            <div>
+                <h3 class="font-bold text-text-secondary mb-2 uppercase text-xs">Theme</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="p-2 border rounded bg-gray-50 text-black hover:border-primary"
+                        onclick="updateGlobalSetting('theme', 'light')">Light</button>
+                    <button class="p-2 border rounded bg-gray-900 text-white hover:border-primary"
+                        onclick="updateGlobalSetting('theme', 'dark')">Dark</button>
+                    <button class="p-2 border rounded bg-black text-yellow-300 hover:border-yellow-400"
+                        onclick="updateGlobalSetting('theme', 'high-contrast')">Contrast</button>
+                    <button class="p-2 border rounded bg-[#f4ecd8] text-[#433422] hover:border-amber-600"
+                        onclick="updateGlobalSetting('theme', 'sepia')">Sepia</button>
+                    <button class="col-span-2 p-2 border rounded bg-[#011627] text-[#d6deeb] hover:border-blue-400"
+                        onclick="updateGlobalSetting('theme', 'midnight')">Midnight</button>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-bold text-text-secondary mb-2 uppercase text-xs">Font</h3>
+                <select id="panel-font" onchange="updateGlobalSetting('fontFamily', this.value)"
+                    class="w-full p-2 rounded bg-base-bg border text-text-default">
+                    <option value="Outfit">Outfit (Modern)</option>
+                    <option value="Inter">Inter (Standard)</option>
+                    <option value="Open Dyslexic">Open Dyslexic</option>
+                    <option value="Lexend">Lexend</option>
+                    <option value="Comic Neue">Comic Neue</option>
+                    <option value="Roboto Mono">Monospace</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Text Size</label>
+                <input type="range" id="panel-size" class="w-full accent-primary" min="0.8" max="2.0" step="0.1"
+                    oninput="updateGlobalSetting('fontSize', this.value)">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Line Height</label>
+                <input type="range" id="panel-line" class="w-full accent-primary" min="1.0" max="2.5" step="0.1"
+                    oninput="updateGlobalSetting('lineHeight', this.value)">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-text-default mb-1">Saturation</label>
+                <input type="range" id="panel-saturation" class="w-full accent-primary" min="0" max="200" step="10"
+                    oninput="updateGlobalSetting('saturation', this.value)">
+            </div>
+            <div class="space-y-3">
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Reading Mask</span>
+                    <input type="checkbox" id="panel-mask" onchange="updateGlobalSetting('readingMask', this.checked)"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Large Cursor</span>
+                    <input type="checkbox" id="panel-cursor"
+                        onchange="updateGlobalSetting('cursorSize', this.checked ? 'large' : 'normal')"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Hide Images</span>
+                    <input type="checkbox" id="panel-images" onchange="updateGlobalSetting('hideImages', this.checked)"
+                        class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Teacher Mode</span>
+                    <input type="checkbox" id="panel-teacher"
+                        onchange="updateGlobalSetting('teacherMode', this.checked)" class="accent-primary">
+                </label>
+                <label class="flex justify-between items-center p-2 bg-base-bg rounded">
+                    <span class="text-sm font-bold text-text-default">Focus Mode</span>
+                    <input type="checkbox" id="panel-focus" onchange="updateGlobalSetting('focusMode', this.checked)"
+                        class="accent-primary">
+                </label>
+            </div>
+            <button onclick="localStorage.removeItem('hl_accessibility_settings'); location.reload()"
+                class="w-full py-2 bg-red-100 text-red-700 rounded font-bold mt-4">Reset</button>
+            <div class="text-center pt-2">
+                <a href="/settings.php" class="text-primary text-sm hover:underline">Full Settings Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="reading-mask" class="hidden">
+        <div id="reading-guide" style="top:30%"></div>
+    </div>
+
+
+    <header
+        class="bg-header-bg shadow-sm sticky top-0 z-40 transition-colors duration-300 backdrop-blur-md border-b border-white/10 print:hidden">
+        <div class="container mx-auto px-4 py-3">
+            <nav class="flex items-center justify-between flex-wrap">
+                <a class="flex items-center flex-shrink-0 text-primary mr-8 group" href="/">
+                    <div
+                        class="h-10 w-10 mr-3 bg-gradient-to-br from-primary to-secondary text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:rotate-12 transition-transform">
+                        H</div>
+                    <span class="font-bold text-xl tracking-tight text-text-default">Hesten's Learning</span>
+                </a>
+                <div class="block lg:hidden">
+                    <button id="nav-toggle"
+                        class="flex items-center px-3 py-2 border rounded text-text-default border-gray-400 hover:text-primary transition-colors"><i
+                            class="fas fa-bars"></i></button>
+                </div>
+                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden transition-all duration-300 gap-6"
+                    id="nav-content">
+                    <div class="text-sm lg:flex-grow flex flex-col lg:flex-row gap-2 lg:gap-6 mt-4 lg:mt-0 font-medium">
+                        <a href="/" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-home mr-1"></i> Home</a>
+                        <a href="/learning.php"
+                            class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-book mr-1"></i> Learning</a>
+                        <a href="/assessment" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-tasks mr-1"></i> Assessment</a>
+                        <a href="/library" class="block lg:inline-block p-2 text-text-default hover:text-primary"><i
+                                class="fas fa-book-open mr-1"></i> Library</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        // --- CORE SETTINGS ---
+        const STORAGE_KEY = 'hl_accessibility_settings';
+        const defaultSettings = {
+            theme: 'light',
+            fontSize: 1.0,
+            lineHeight: 1.6,
+            fontFamily: 'Outfit',
+            letterSpacing: 0,
+            wordSpacing: 0,
+            saturation: 100,
+            readingMask: false,
+            cursorSize: 'normal',
+            hideImages: false,
+            focusMode: false,
+            teacherMode: false
+        };
+        let currentSettings = defaultSettings;
+
+        (function init() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) currentSettings = {
+                    ...defaultSettings,
+                    ...JSON.parse(stored)
+                };
+                window.currentSettings = currentSettings;
+            } catch (e) {
+                console.warn('LocalStorage access denied', e);
+            }
+        })();
+
+        function updateGlobalSetting(key, value) {
+            currentSettings[key] = value;
+            window.currentSettings = currentSettings; 
+            saveSettingsInternal(); 
+            applySettings(currentSettings);
+        }
+
+        function saveSettingsInternal() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(currentSettings));
+                window.dispatchEvent(new CustomEvent('settings-changed', {
+                    detail: currentSettings
+                }));
+            } catch (e) {
+                console.warn('Could not save settings', e);
+            }
+        }
+
+        window.loadSettings = () => currentSettings;
+        window.saveSettings = (s) => {
+            currentSettings = {
+                ...currentSettings,
+                ...s
+            };
+            window.currentSettings = currentSettings;
+            saveSettingsInternal();
+            applySettings(currentSettings);
+        };
+        window.updateGlobalSetting = updateGlobalSetting;
+        window.syncPanelInputs = syncPanelInputs;
+
+        function applySettings(s) {
+            if (!s) s = defaultSettings;
+            const r = document.documentElement; 
+            const b = document.body; 
+
+            b.style.setProperty('--site-font-size', `${s.fontSize}rem`);
+            b.style.setProperty('--site-line-height', s.lineHeight);
+            b.style.setProperty('--site-letter-spacing', `${s.letterSpacing}em`);
+            b.style.setProperty('--site-word-spacing', `${s.wordSpacing}em`);
+            b.style.setProperty('--site-font-family', s.fontFamily.includes(' ') ? `"${s.fontFamily}"` : s.fontFamily);
+            r.style.filter = `saturate(${s.saturation}%)`;
+
+            const themes = ['light', 'dark', 'high-contrast', 'sepia', 'midnight'];
+            r.classList.remove(...themes);
+            b.classList.remove(...themes);
+
+            r.classList.add(s.theme);
+            b.classList.add(s.theme);
+
+            const toggleClass = (el, cls, cond) => {
+                if (cond) el.classList.add(cls);
+                else el.classList.remove(cls);
+            };
+
+            toggleClass(b, 'focus-mode', !!s.focusMode);
+            toggleClass(b, 'teacher-mode', !!s.teacherMode);
+            toggleClass(b, 'cursor-large', s.cursorSize === 'large');
+            toggleClass(b, 'hide-images', !!s.hideImages);
+            toggleClass(r, 'focus-mode', !!s.focusMode);
+
+            const m = document.getElementById('reading-mask');
+            if (m) m.classList.toggle('hidden', !s.readingMask);
+
+            syncPanelInputs(s);
+        }
+
+        window.applySettings = applySettings;
+
+        function syncPanelInputs(s) {
+            const el = (id) => document.getElementById(id);
+            if (el('panel-font')) el('panel-font').value = s.fontFamily;
+            if (el('panel-size')) el('panel-size').value = s.fontSize;
+            if (el('panel-line')) el('panel-line').value = s.lineHeight;
+            if (el('panel-saturation')) el('panel-saturation').value = s.saturation;
+
+            if (el('panel-mask')) el('panel-mask').checked = !!s.readingMask;
+            if (el('panel-cursor')) el('panel-cursor').checked = (s.cursorSize === 'large');
+            if (el('panel-images')) el('panel-images').checked = !!s.hideImages;
+            if (el('panel-teacher')) el('panel-teacher').checked = !!s.teacherMode;
+            if (el('panel-focus')) el('panel-focus').checked = !!s.focusMode;
+        }
+
+        applySettings(currentSettings);
+
+        window.addEventListener('settings-changed', (e) => {
+            currentSettings = e.detail;
+            window.currentSettings = currentSettings;
+            applySettings(currentSettings);
+        });
+    </script>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+        
+        <!-- Lesson Header -->
+        <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-6">
+            <span class="text-sm font-bold tracking-wider text-secondary uppercase mb-2 block">Grade 5 &bull; Module 1 &bull; Topic A</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Lesson 1: Place Value</h1>
+            <p class="text-xl text-text-default leading-relaxed max-w-3xl">
+                Reason concretely and pictorially using place value understanding to relate adjacent base ten units from millions to thousandths.
+            </p>
+        </div>
+
+        <!-- Teacher Notes (Only visible in Teacher Mode) -->
+        <div class="teacher-only rounded-xl">
+            <h3 class="font-bold text-lg mb-2 text-yellow-800"><i class="fas fa-chalkboard-teacher mr-2"></i> Teacher Guide</h3>
+            <p class="mb-2"><strong>Objective:</strong> Reason concretely and pictorially using place value understanding to relate adjacent base ten units from millions to thousandths.</p>
+            <p class="mb-2"><strong>Fluency Practice (12 min):</strong> Sprint, Rename Units, Decimal Place Value.</p>
+            <p><strong>Notes:</strong> Remind students that 0.2 is "2 tenths". This builds parallels between whole numbers and decimals.</p>
+        </div>
+
+        <!-- Part 1: Fluency Sprint -->
+        <section class="mb-12 bg-content-bg rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-text-default flex items-center gap-3">
+                    <span class="bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Fluency Sprint: Multiply by 10
+                </h2>
+                <button onclick="document.getElementById('sprint-content').classList.toggle('hidden')" class="text-primary hover:text-secondary text-sm font-bold">Show/Hide</button>
+            </div>
+            
+            <div id="sprint-content" class="hidden space-y-4">
+                <p class="text-text-secondary italic mb-4">Complete as many as you can!</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Sample Sprint Items -->
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">12 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="120">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">14 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="140">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">81 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="810">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">0.4 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="4">
+                    </div>
+                    <!-- More generated items -->
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">0.04 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="0.4">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono">2.43 x 10 =</span>
+                        <input type="number" class="w-20 bg-base-bg border border-gray-300 rounded p-1 text-center" data-answer="24.3">
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button onclick="checkSprint()" class="bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-secondary transition-colors">Check Answers</button>
+                    <span id="sprint-result" class="ml-4 font-bold text-green-600"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Part 2: Application Problem -->
+        <section class="mb-12 bg-content-bg rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700">
+            <h2 class="text-2xl font-bold text-text-default mb-4 flex items-center gap-3">
+                <span class="bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                Application Problem
+            </h2>
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl mb-6">
+                <p class="text-lg leading-relaxed mb-4">
+                    Farmer Jim keeps 12 hens in every coop. If Farmer Jim has 20 coops, how many hens does he have in all? 
+                    If every hen lays 9 eggs on Monday, how many eggs will Farmer Jim collect on Monday?
+                </p>
+                <div class="flex gap-2">
+                    <button onclick="document.getElementById('app-hint').classList.remove('hidden')" class="text-sm text-primary font-bold hover:underline"><i class="fas fa-lightbulb"></i> Need a hint?</button>
+                </div>
+                <p id="app-hint" class="hidden mt-3 text-sm text-text-secondary bg-white dark:bg-gray-800 p-3 rounded border-l-4 border-yellow-400">
+                    Hint: First, find the total hens (coops × hens per coop). Then, multiply total hens by eggs per hen.
+                </p>
+            </div>
+            
+            <textarea class="w-full bg-base-bg border-2 border-dashed border-gray-300 rounded-xl p-4 min-h-[150px] mb-4 focus:border-primary outline-none" placeholder="Show your work here... (Explain using words, numbers, or pictures)"></textarea>
+            
+            <button onclick="document.getElementById('app-solution').classList.remove('hidden')" class="bg-gray-200 dark:bg-gray-700 text-text-default px-4 py-2 rounded-lg font-bold text-sm">Reveal Solution</button>
+            
+            <div id="app-solution" class="hidden mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <p class="font-bold mb-2">Solution:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>12 hens × 20 coops = 240 hens</li>
+                    <li>240 hens × 9 eggs = 2,160 eggs</li>
+                    <li><strong>Farmer Jim will collect 2,160 eggs on Monday.</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Part 3: Interactive Place Value Chart -->
+        <section class="mb-12 bg-content-bg rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"></div>
+            <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center gap-3">
+                <span class="bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                Interactive Place Value Chart
+            </h2>
+            
+            <p class="mb-6 text-text-secondary">Enter a number, then use the buttons to multiply or divide by 10. Watch how the digits shift!</p>
+
+            <div class="overflow-x-auto pb-4">
+                <div class="min-w-[800px] grid grid-cols-10 gap-1 border border-gray-300 rounded-lg p-2 bg-base-bg text-center" id="pv-chart">
+                    <!-- Headers -->
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Millions</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Hundred Thousands</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Ten Thousands</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Thousands</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Hundreds</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Tens</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Ones</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1 border-l-2 border-primary/50">Tenths</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Hundredths</div>
+                    <div class="text-xs font-bold uppercase text-text-secondary p-1">Thousandths</div>
+
+                    <!-- Values -->
+                    <div class="text-[0.6rem] text-text-secondary mb-2">1,000,000</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">100,000</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">10,000</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">1,000</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">100</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">10</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">1</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2 border-l-2 border-primary/50">1/10</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">1/100</div>
+                    <div class="text-[0.6rem] text-text-secondary mb-2">1/1000</div>
+
+                    <!-- Inputs -->
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-6"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-5"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-4"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-3"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-2"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv-1"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell relative">
+                        <input type="text" maxlength="1" class="pv-input" id="pv-0">
+                        <span class="absolute -right-2 bottom-2 text-4xl text-primary font-bold">.</span>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell border-l-2 border-primary/50"><input type="text" maxlength="1" class="pv-input" id="pv--1"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv--2"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded p-2 place-value-cell"><input type="text" maxlength="1" class="pv-input" id="pv--3"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <button onclick="shiftValues(1)" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-secondary transition-all shadow-md active:scale-95 flex items-center gap-2">
+                    <i class="fas fa-arrow-left"></i> Multiply by 10
+                </button>
+                <button onclick="shiftValues(-1)" class="bg-accent text-white px-6 py-3 rounded-xl font-bold hover:bg-teal-500 transition-all shadow-md active:scale-95 flex items-center gap-2">
+                    Divide by 10 <i class="fas fa-arrow-right"></i>
+                </button>
+                <button onclick="clearChart()" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-400 transition-all shadow-md">
+                    Clear
+                </button>
+            </div>
+            
+            <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg text-sm text-center">
+                <p><strong>Note:</strong> When we multiply by 10, digits shift one place to the left (getting larger). When we divide by 10, digits shift one place to the right (getting smaller).</p>
+            </div>
+        </section>
+
+        <!-- Part 4: Problem Set Check -->
+        <section class="mb-12 bg-content-bg rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700">
+            <h2 class="text-2xl font-bold text-text-default mb-6 flex items-center gap-3">
+                <span class="bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                Quick Check
+            </h2>
+            
+            <div class="space-y-6">
+                <!-- Q1 -->
+                <div class="p-4 bg-base-bg rounded-lg">
+                    <p class="font-bold mb-3">1. Convert 3.452</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="block">
+                            <span class="text-sm">3.452 × 10 =</span>
+                            <input type="text" class="w-full mt-1 p-2 rounded border border-gray-300 focus:border-primary" id="q1a">
+                        </label>
+                        <label class="block">
+                            <span class="text-sm">3.452 × 100 =</span>
+                            <input type="text" class="w-full mt-1 p-2 rounded border border-gray-300 focus:border-primary" id="q1b">
+                        </label>
+                        <label class="block">
+                            <span class="text-sm">3.452 × 1,000 =</span>
+                            <input type="text" class="w-full mt-1 p-2 rounded border border-gray-300 focus:border-primary" id="q1c">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-4 bg-base-bg rounded-lg">
+                    <p class="font-bold mb-3">2. Microscope Problem</p>
+                    <p class="text-sm mb-3">A microscope magnifies an object 100 times. If an insect is 0.095 cm long, how long will it appear?</p>
+                    <div class="flex items-center gap-2">
+                        <input type="text" class="flex-1 p-2 rounded border border-gray-300 focus:border-primary" id="q2" placeholder="Answer in cm">
+                        <button onclick="checkProblemSet()" class="bg-primary text-white px-4 py-2 rounded font-bold">Check</button>
+                    </div>
+                    <p id="problem-feedback" class="mt-2 text-sm font-bold"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800 font-sans print:hidden">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- About -->
+                <div class="mb-6 md:mb-0">
+                    <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Hesten's Learning</h4>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Empowering students with learning disabilities through personalized, accessible learning experiences
+                        in Math, ELA, and Science.
+                    </p>
+                    <div class="flex gap-4">
+                        <!-- Socials or Icons could go here -->
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/curriculum.php" class="hover:text-white transition-colors">Curriculum</a></li>
+                        <li><a href="/research" class="hover:text-white transition-colors">Research</a></li>
+                        <li><a href="/library" class="hover:text-white transition-colors">Library</a></li>
+                        <li><a href="/help-center.php" class="hover:text-white transition-colors">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/contact.php" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="/students.php" class="hover:text-white transition-colors">For Students</a></li>
+                        <li><a href="/parents.php" class="hover:text-white transition-colors">For Parents</a></li>
+                        <li><a href="/teachers.php" class="hover:text-white transition-colors">For Teachers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal & Settings -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.php" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms-of-use.php" class="hover:text-white transition-colors">Terms of Use</a></li>
+                        <li><a href="/settings.php" class="hover:text-white transition-colors">Accessibility Settings</a>
+                        </li>
+                        <li><a href="/about.php" class="hover:text-white transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; <span id="year">2025</span> Hesten's Learning. All rights reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <div class="gtranslate_wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Modals -->
+    <div id="message-box" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden items-center justify-center z-[100]"
+        role="alertdialog" aria-modal="true">
+        <div
+            class="bg-content-bg rounded-xl shadow-2xl p-6 max-w-sm w-full text-center border border-gray-200 dark:border-gray-700">
+            <h4 id="message-title" class="text-xl font-bold mb-4 text-primary">Notification</h4>
+            <p id="message-text" class="mb-6 text-text-default">Message content.</p>
+            <button id="message-ok-button"
+                class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-secondary"
+                type="button">OK</button>
+        </div>
+    </div>
+
+    <!-- GTranslate -->
+    <script>
+        window.gtranslateSettings = {
+            default_language: "en",
+            native_language_names: true,
+            wrapper_selector: ".gtranslate_wrapper",
+            flag_style: "3d",
+            alt_flags: {
+                en: "usa"
+            }
+        };
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <!-- Footer Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const y = document.getElementById("year");
+            if (y) y.textContent = new Date().getFullYear();
+        });
+
+        // Helper: Message Box
+        window.showMessageBox = function(msg) {
+            const b = document.getElementById("message-box");
+            if (b) {
+                document.getElementById("message-text").textContent = msg;
+                b.classList.remove("hidden");
+                b.style.display = 'flex';
+                document.getElementById("message-ok-button").onclick = () => {
+                    b.classList.add("hidden");
+                    b.style.display = 'none';
+                };
+            } else {
+                console.log(msg);
+            }
+        };
+
+        // Helper: Confetti (Load on demand)
+        window.triggerConfetti = function(origin) {
+            if (typeof confetti === 'function') confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: origin || {
+                    y: 0.6
+                }
+            });
+            else {
+                const s = document.createElement('script');
+                s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js';
+                s.onload = () => confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: origin || {
+                        y: 0.6
+                    }
+                });
+                document.body.appendChild(s);
+            }
+        };
+
+        // --- MAIN INITIALIZATION & FEATURES ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Remove Loader
+            const loader = document.getElementById('initial-loader');
+            if (loader) setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 500);
+            }, 300);
+
+            // 2. Mobile Nav Toggle
+            document.getElementById("nav-toggle")?.addEventListener("click", () => document.getElementById("nav-content").classList.toggle("hidden"));
+
+            // 3. Init Panels
+            setupPanel('a11y-toggle-button', 'a11y-settings-panel', 'a11y-close-button');
+            setupPanel('timer-toggle', 'timer-panel', 'timer-close');
+            setupPanel('scratchpad-toggle', 'scratchpad-panel', 'scratchpad-close');
+            setupPanel('citation-toggle', 'citation-panel', 'citation-close');
+
+            // 4. Init Features
+            initReadingMask();
+            initTimer();
+            initScratchpad();
+            initCitation();
+            initScrollTop();
+
+            // 5. Ensure Inputs are Synced (Safely)
+            if (typeof window.syncPanelInputs === 'function') {
+                const settings = window.loadSettings ? window.loadSettings() : (window.currentSettings || {});
+                window.syncPanelInputs(settings);
+            }
+        });
+
+        function setupPanel(tid, pid, cid) {
+            const t = document.getElementById(tid);
+            const p = document.getElementById(pid);
+            const c = document.getElementById(cid);
+            if (!t || !p) return;
+            const toggle = () => {
+                if (pid.includes('settings')) p.classList.toggle('translate-x-full');
+                else {
+                    p.classList.toggle('opacity-0');
+                    p.classList.toggle('pointer-events-none');
+                    p.classList.toggle('scale-90');
+                }
+            };
+            t.onclick = toggle;
+            if (c) c.onclick = toggle;
+        }
+
+        function initReadingMask() {
+            const g = document.getElementById('reading-guide');
+            if (g) {
+                document.addEventListener('mousemove', e => {
+                    const s = window.loadSettings ? window.loadSettings() : window.currentSettings;
+                    if (s && s.readingMask) {
+                        g.style.top = (e.clientY - 24) + 'px';
+                    }
+                });
+            }
+        }
+
+        function initTimer() {
+            let iv, time = 1500;
+            const d = document.getElementById('timer-display');
+            const s = document.getElementById('timer-start');
+            const r = document.getElementById('timer-reset');
+            if (!d) return;
+            const update = () => {
+                const m = Math.floor(time / 60);
+                const sc = time % 60;
+                d.textContent = `${m}:${sc.toString().padStart(2, '0')}`;
+            };
+            s.onclick = () => {
+                if (iv) {
+                    clearInterval(iv);
+                    iv = null;
+                    s.innerText = 'Start';
+                } else {
+                    s.innerText = 'Pause';
+                    iv = setInterval(() => {
+                        time--;
+                        update();
+                        if (time <= 0) {
+                            clearInterval(iv);
+                            window.showMessageBox('Time up!');
+                            s.innerText = 'Start';
+                        }
+                    }, 1000);
+                }
+            };
+            r.onclick = () => {
+                clearInterval(iv);
+                iv = null;
+                time = 1500;
+                update();
+                s.innerText = 'Start';
+            };
+        }
+
+        function initScratchpad() {
+            const t = document.getElementById('quick-notes-area');
+            if (!t) return;
+            try {
+                t.value = localStorage.getItem('hl_scratchpad') || '';
+                t.addEventListener('input', () => {
+                    localStorage.setItem('hl_scratchpad', t.value);
+                    document.getElementById('scratchpad-status').innerText = 'Saving...';
+                    setTimeout(() => document.getElementById('scratchpad-status').innerText = 'Saved', 1000);
+                });
+            } catch (e) {
+                console.warn('LocalStorage restricted');
+            }
+
+            document.getElementById('download-notes').onclick = () => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([t.value], {
+                    type: 'text/plain'
+                }));
+                a.download = 'notes.txt';
+                a.click();
+            };
+        }
+
+        function initCitation() {
+            const btn = document.getElementById('cite-gen');
+            if (btn) btn.onclick = () => {
+                const t = document.getElementById('cite-title').value || document.title;
+                const d = new Date();
+                document.getElementById('cite-result').value = `${t}. (${d.getFullYear()}). Hesten's Learning. Retrieved ${d.toLocaleDateString()}.`;
+            };
+        }
+
+        function initScrollTop() {
+            const b = document.getElementById('scroll-to-top');
+            if (b) {
+                window.addEventListener('scroll', () => b.classList.toggle('opacity-0', window.scrollY < 300));
+                b.onclick = () => window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // --- INTERACTIVE LESSON LOGIC ---
+        
+        // 1. Sprint Logic
+        function checkSprint() {
+            const inputs = document.querySelectorAll('#sprint-content input');
+            let correct = 0;
+            inputs.forEach(input => {
+                if (parseFloat(input.value) === parseFloat(input.dataset.answer)) {
+                    input.classList.add('bg-green-100', 'border-green-500');
+                    input.classList.remove('bg-base-bg', 'border-red-500');
+                    correct++;
+                } else {
+                    input.classList.add('bg-red-50', 'border-red-500');
+                    input.classList.remove('bg-base-bg', 'border-green-500');
+                }
+            });
+            const res = document.getElementById('sprint-result');
+            res.textContent = `Score: ${correct} / ${inputs.length}`;
+            if(correct === inputs.length) window.triggerConfetti();
+        }
+
+        // 2. Place Value Logic
+        // Indices: 6=Millions ... 0=Ones ... -1=Tenths ... -3=Thousandths
+        const chartIds = [6, 5, 4, 3, 2, 1, 0, -1, -2, -3];
+
+        function shiftValues(direction) {
+            // Direction: 1 (Multiply/Left), -1 (Divide/Right)
+            const currentValues = {};
+            // Read values
+            chartIds.forEach(id => {
+                const el = document.getElementById(`pv-${id}`);
+                if (el.value !== '') {
+                    currentValues[id] = el.value;
+                }
+            });
+
+            // Clear inputs visually
+            chartIds.forEach(id => {
+                document.getElementById(`pv-${id}`).value = '';
+                document.getElementById(`pv-${id}`).parentElement.classList.remove('active');
+            });
+
+            // Write new values
+            let overflow = false;
+            Object.keys(currentValues).forEach(key => {
+                const oldIdx = parseInt(key);
+                const newIdx = oldIdx + direction;
+                
+                if (chartIds.includes(newIdx)) {
+                    const el = document.getElementById(`pv-${newIdx}`);
+                    el.value = currentValues[key];
+                    // Animation effect
+                    const parent = el.parentElement;
+                    parent.classList.add('active');
+                    setTimeout(() => parent.classList.remove('active'), 500);
+                } else {
+                    overflow = true;
+                }
+            });
+
+            if (overflow) window.showMessageBox("Some digits moved off the chart!");
+        }
+
+        function clearChart() {
+            chartIds.forEach(id => {
+                document.getElementById(`pv-${id}`).value = '';
+            });
+        }
+
+        // 3. Quick Check Logic
+        function checkProblemSet() {
+            const a = document.getElementById('q1a').value.trim();
+            const b = document.getElementById('q1b').value.trim();
+            const c = document.getElementById('q1c').value.trim();
+            const q2 = document.getElementById('q2').value.trim();
+            
+            let allCorrect = true;
+
+            if(a !== '34.52') { document.getElementById('q1a').classList.add('border-red-500'); allCorrect = false; }
+            else document.getElementById('q1a').classList.remove('border-red-500');
+
+            if(b !== '345.2') { document.getElementById('q1b').classList.add('border-red-500'); allCorrect = false; }
+            else document.getElementById('q1b').classList.remove('border-red-500');
+            
+            if(c !== '3452') { document.getElementById('q1c').classList.add('border-red-500'); allCorrect = false; }
+            else document.getElementById('q1c').classList.remove('border-red-500');
+
+            if(q2 !== '9.5') { document.getElementById('q2').classList.add('border-red-500'); allCorrect = false; }
+            else document.getElementById('q2').classList.remove('border-red-500');
+
+            const fb = document.getElementById('problem-feedback');
+            if(allCorrect) {
+                fb.textContent = "Great job! All answers are correct.";
+                fb.className = "mt-2 text-sm font-bold text-green-600";
+                window.triggerConfetti();
+            } else {
+                fb.textContent = "Keep trying! Check the red boxes.";
+                fb.className = "mt-2 text-sm font-bold text-red-500";
+            }
+        }
+
+    </script>
+</body>
+</html>

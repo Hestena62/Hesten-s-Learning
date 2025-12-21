@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Analytics Dashboard</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom Map Container Styling to ensure responsiveness */
+        #map_wrapper {
+            width: 100%;
+            height: auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        /* Ensure the SVG scales nicely */
+        #map svg {
+            max-width: 100%;
+            height: auto !important;
+            filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 7m0 13V7m0 0L9 4" />
+                </svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-800">GeoAnalytics Platform</h1>
+        </div>
+        <div class="flex gap-4 text-sm font-medium text-gray-500">
+            <span id="current-date"></span>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                System Active
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-1 overflow-hidden relative">
+        
+        <!-- Left: Map Area -->
+        <main class="flex-1 bg-slate-50 relative flex flex-col items-center justify-center p-4 md:p-8 overflow-y-auto">
+            
+            <!-- Map Controls / Filters -->
+            <div class="absolute top-6 left-6 z-10 flex gap-2">
+                <button onclick="resetMap()" class="bg-white hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg shadow-sm border border-gray-200 text-sm font-semibold transition-all">
+                    Reset View
+                </button>
+                <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 text-sm font-semibold text-gray-600">
+                    Interact: <span class="text-indigo-600">Click a state</span>
+                </div>
+            </div>
+
+            <!-- The Actual Map Container -->
+            <div id="map_wrapper" class="w-full max-w-5xl aspect-video rounded-xl transition-all duration-500">
+                <div id="map" class="w-full"></div>
+            </div>
+
+            <!-- Loading State (Hidden by JS when map loads) -->
+            <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-slate-50/80 z-20">
+                <div class="text-center">
+                    <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
+                    <p class="text-gray-500 font-medium">Loading Map Data...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right: Information Sidebar -->
+        <aside class="w-96 bg-white border-l border-gray-200 shadow-xl z-20 flex flex-col transform transition-transform duration-300 absolute right-0 top-0 bottom-0 md:relative translate-x-full md:translate-x-0" id="sidebar">
+            
+            <!-- Default Empty State -->
+            <div id="sidebar-empty" class="flex-1 flex flex-col items-center justify-center p-8 text-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-600">Select a Location</h3>
+                <p class="text-sm mt-2">Click on any state in the map to view detailed analytics and performance metrics.</p>
+            </div>
+
+            <!-- Active Content State (Hidden by default) -->
+            <div id="sidebar-content" class="hidden flex-col h-full">
+                <!-- Header -->
+                <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-medium bg-white/20 px-2 py-1 rounded text-indigo-50 tracking-wide uppercase">US State</span>
+                            <h2 id="detail-name" class="text-3xl font-bold mt-2">California</h2>
+                        </div>
+                        <div class="text-right">
+                            <span id="detail-abbr" class="text-4xl font-black text-white/10">CA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="p-6 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Status</p>
+                        <p class="text-lg font-semibold text-green-600 mt-1 flex items-center gap-1">
+                            Active
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Region</p>
+                        <p id="detail-region" class="text-lg font-semibold text-gray-800 mt-1">West</p>
+                    </div>
+                </div>
+
+                <!-- Detailed Description -->
+                <div class="px-6 pb-6 flex-1 overflow-y-auto">
+                    <h4 class="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">Overview</h4>
+                    <p id="detail-desc" class="text-gray-600 leading-relaxed text-sm">
+                        Loading description...
+                    </p>
+
+                    <!-- Mock Data Chart Bars -->
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">Performance Metrics</h4>
+                        
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-600">Population Density</span>
+                                <span class="font-bold text-indigo-600">High</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-indigo-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-600">Economic Growth</span>
+                                <span class="font-bold text-indigo-600">+4.2%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="p-6 border-t border-gray-100 bg-gray-50">
+                    <button class="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg shadow-sm transition-colors">
+                        Download Report
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- SCRIPTS -->
+    
+    <!-- 1. Load the User's Map Data (Must exist in subfolder) -->
+    <script src="html5usmapv4.5/mapdata.js"></script>
+
+    <!-- 2. INJECT: Custom Logic to override/enhance the map settings -->
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+        // Ensure the simplemaps object exists
+        if (typeof simplemaps_usmap_mapdata === 'undefined') {
+            console.error("Critical Error: simplemaps_usmap_mapdata not found. Please ensure html5usmapv4.5/mapdata.js is in the correct path.");
+            document.getElementById('map').innerHTML = "<div class='text-red-500 font-bold p-10'>Error: Could not load mapdata.js. Please check file paths.</div>";
+        } else {
+            console.log("Map Data Loaded. Injecting overrides...");
+
+            // --- CONFIGURATION OVERRIDES ---
+            
+            // 1. Make the map responsive and interactive
+            simplemaps_usmap_mapdata.main_settings.auto_load = 'yes'; // Ensure it loads
+            simplemaps_usmap_mapdata.main_settings.state_hover_color = '#4F46E5'; // Indigo-600 (Tailwind)
+            simplemaps_usmap_mapdata.main_settings.state_selected_hover_color = '#4338CA'; // Indigo-700
+            
+            // 2. Define the click handler
+            // This hooks into the library's standard click event
+            simplemaps_usmap_mapdata.main_settings.state_click = function(id) {
+                updateSidebar(id);
+            };
+
+            // 3. Add some dummy 'Region' data since standard mapdata might not have it
+            // We interpret the ID to guess regions for demo purposes
+            const getRegion = (id) => {
+                const regions = {
+                    'WA':'West', 'OR':'West', 'CA':'West', 'NV':'West', 'ID':'West', 'MT':'West', 'WY':'West', 'UT':'West', 'CO':'West', 'AZ':'West', 'NM':'West',
+                    'ND':'Midwest', 'SD':'Midwest', 'NE':'Midwest', 'KS':'Midwest', 'MN':'Midwest', 'IA':'Midwest', 'MO':'Midwest', 'WI':'Midwest', 'IL':'Midwest', 'IN':'Midwest', 'MI':'Midwest', 'OH':'Midwest',
+                    'TX':'South', 'OK':'South', 'AR':'South', 'LA':'South', 'KY':'South', 'TN':'South', 'MS':'South', 'AL':'South', 'WV':'South', 'VA':'South', 'NC':'South', 'SC':'South', 'GA':'South', 'FL':'South',
+                    'ME':'Northeast', 'NH':'Northeast', 'VT':'Northeast', 'MA':'Northeast', 'RI':'Northeast', 'CT':'Northeast', 'NY':'Northeast', 'NJ':'Northeast', 'PA':'Northeast'
+                };
+                return regions[id] || 'USA';
+            };
+
+            // --- UI FUNCTIONS ---
+
+            function updateSidebar(stateId) {
+                const stateData = simplemaps_usmap_mapdata.state_specific[stateId];
+                const stateName = stateData ? stateData.name : stateId;
+                const description = stateData && stateData.description && stateData.description !== 'default' 
+                                    ? stateData.description 
+                                    : `Data analysis for ${stateName} shows steady trends across key sectors. Interact with the map to explore more regions.`;
+
+                // Update DOM elements
+                document.getElementById('detail-name').innerText = stateName;
+                document.getElementById('detail-abbr').innerText = stateId;
+                document.getElementById('detail-desc').innerText = description;
+                document.getElementById('detail-region').innerText = getRegion(stateId);
+
+                // Toggle Views
+                document.getElementById('sidebar-empty').classList.add('hidden');
+                document.getElementById('sidebar-content').classList.remove('hidden');
+                document.getElementById('sidebar-content').classList.add('flex');
+
+                // Mobile Handling: Scroll to sidebar if on small screen
+                if (window.innerWidth < 768) {
+                    document.getElementById('sidebar').classList.remove('translate-x-full');
+                    document.getElementById('sidebar').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function resetMap() {
+                // If the library supports a zoom_out function, call it.
+                // Otherwise, we just reset the sidebar.
+                document.getElementById('sidebar-empty').classList.remove('hidden');
+                document.getElementById('sidebar-content').classList.add('hidden');
+                document.getElementById('sidebar-content').classList.remove('flex');
+                
+                // Close mobile sidebar
+                document.getElementById('sidebar').classList.add('translate-x-full');
+            }
+        }
+
+        // Hide loading indicator when page is fully loaded (and map is likely rendered)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-indicator').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-indicator').style.display = 'none';
+                }, 500);
+            }, 800);
+        });
+    </script>
+
+    <!-- 3. Load the Map Engine (Must be last) -->
+    <script src="C:\Users\Heste\OneDrive\Documents\GitHub\Hesten-s-Learning\html5usmapv4.5\mapdata.js"></script>
+
+</body>
+</html>
