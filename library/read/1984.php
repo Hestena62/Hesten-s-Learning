@@ -1,12 +1,12 @@
 <?php
 // --- Page-Specific Variables ---
-$pageTitle       = "1984 | Hesten's Learning";
+$pageTitle = "1984 | Hesten's Learning";
 $pageDescription = "Read 1984 by George Orwell online at Hesten's Learning e-library, with full accessibility support.";
-$pageKeywords    = "ebook, online reader, 1984, George Orwell, accessible reading";
-$pageAuthor      = "Hesten Allison";
+$pageKeywords = "ebook, online reader, 1984, George Orwell, accessible reading";
+$pageAuthor = "Hesten Allison";
 
 // --- Welcome Popup Variables (from header.php) ---
-$welcomeMessage   = "Welcome to the Reader";
+$welcomeMessage = "Welcome to the Reader";
 $welcomeParagraph = "Use the accessibility panel (bottom-right icon) to adjust your reading settings.";
 
 // --- INCLUDE THE HEADER (Root) ---
@@ -91,30 +91,81 @@ include '../../src/header.php';
 
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 220px;
-    background-color: var(--color-card-bg);
+    width: 240px;
+    background-color: var(--color-content-bg, #ffffff);
     color: var(--color-text-default);
     border: 1px solid var(--color-text-secondary);
     text-align: center;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 12px;
+    padding: 12px;
     position: absolute;
-    z-index: 10;
-    bottom: 135%;
+    z-index: 100;
+    bottom: 140%;
     left: 50%;
     transform: translateX(-50%);
-    /* Better centering */
+    /* Better centering and animation */
     opacity: 0;
-    transition: opacity 0.3s, bottom 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-weight: normal;
-    font-size: 0.9em;
+    transition: opacity 0.3s, transform 0.3s, bottom 0.3s;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    font-size: 0.95em;
+    line-height: 1.4;
+    pointer-events: auto;
+    /* Enable interaction */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Transparent bridge to maintain hover state while moving mouse to tooltip */
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background: transparent;
   }
 
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-    bottom: 125%;
+    bottom: 130%;
+  }
+
+  /* Tooltip Action Buttons */
+  .tooltip-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-top: 1px solid var(--color-text-secondary);
+    padding-top: 10px;
+    margin-top: 4px;
+  }
+
+  .tooltip-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tooltip-btn:hover {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .tooltip-btn i {
+    font-size: 0.9rem;
   }
 
   /* Chapter Navigation styling */
@@ -356,7 +407,8 @@ include '../../src/header.php';
               or pictures</span></span> <span class="tooltip"><strong>occurring</strong><span
               class="tooltiptext">Happening</span></span> against no background and mostly <span
             class="tooltip"><strong>unintelligible</strong><span class="tooltiptext">Impossible to
-              understand</span></span>.</p>
+              understand</span></span>.
+        </p>
 
         <p>The Ministry of Truth--Minitrue, in Newspeak [Newspeak was the official language of Oceania. For an account
           of its structure and etymology see Appendix.]--was startlingly different from any other object in sight. It
@@ -393,7 +445,8 @@ include '../../src/header.php';
               class="tooltiptext">Kept in existence or continued</span></span> law and order. And the Ministry of
           Plenty, which was responsible for <span class="tooltip"><strong>economic</strong><span
               class="tooltiptext">Related to the economy</span></span> affairs. Their names, in Newspeak: Minitrue,
-          Minipax, Miniluv, and Miniplenty.</p>
+          Minipax, Miniluv, and Miniplenty.
+        </p>
 
         <p>The Ministry of Love was the really <span class="tooltip"><strong>frightening</strong><span
               class="tooltiptext">Causing fear or alarm</span></span> one. There were no windows in it at all. Winston
@@ -411,7 +464,8 @@ include '../../src/header.php';
               class="tooltiptext">Having a face like a gorilla</span></span> guards in black uniforms, armed with <span
             class="tooltip"><strong>jointed</strong><span class="tooltiptext">Having joints where movement can
               occur</span></span> <span class="tooltip"><strong>truncheons</strong><span class="tooltiptext">Short,
-              thick sticks used as weapons</span></span>.</p>
+              thick sticks used as weapons</span></span>.
+        </p>
 
         <p>Winston turned round <span class="tooltip"><strong>abruptly</strong><span class="tooltiptext">Suddenly and
               unexpectedly</span></span>. He had set his <span class="tooltip"><strong>features</strong><span
@@ -442,7 +496,8 @@ include '../../src/header.php';
             class="tooltip"><strong>crumpled</strong><span class="tooltiptext">Crushed into wrinkles</span></span>
           packet marked VICTORY CIGARETTES and <span class="tooltip"><strong>incautiously</strong><span
               class="tooltiptext">Without being careful</span></span> held it upright, whereupon the tobacco fell out on
-          to the floor. With the next he was more successful.</p>
+          to the floor. With the next he was more successful.
+        </p>
 
         <!-- (Retaining the rest of Chapter 1 Content for brevity in this tool call, assume all text is here...) -->
 
@@ -566,7 +621,62 @@ include '../../src/header.php';
 
     document.getElementById('go-to-top-btn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    // --- Tooltip Enhancement ---
+    function initTooltipButtons() {
+      const tooltips = document.querySelectorAll('.tooltiptext');
+      tooltips.forEach(tt => {
+        // Use textContent because innerText is often empty for hidden elements
+        // Also collapse multiple spaces/newlines from the HTML source
+        const originalText = tt.textContent.replace(/\s+/g, ' ').trim();
+        
+        if (!originalText) return; // Skip if empty
+
+        // Build the interactive UI
+        tt.innerHTML = `
+          <div class="tooltip-def-text" style="margin-bottom: 8px;">${originalText}</div>
+          <div class="tooltip-actions" onclick="event.stopPropagation()">
+            <button class="tooltip-btn copy-btn" title="Copy definition">
+              <i class="fas fa-copy"></i> Copy
+            </button>
+            <button class="tooltip-btn speak-btn" title="Read definition aloud">
+              <i class="fas fa-volume-up"></i> Listen
+            </button>
+          </div>
+        `;
+
+        // Handle Copy
+        const copyBtn = tt.querySelector('.copy-btn');
+        copyBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigator.clipboard.writeText(originalText).then(() => {
+            const originalContent = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check text-green-400"></i> Copied!';
+            setTimeout(() => { copyBtn.innerHTML = originalContent; }, 2000);
+          });
+        };
+
+        // Handle TTS for definition
+        const speakBtn = tt.querySelector('.speak-btn');
+        speakBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const defUtterance = new SpeechSynthesisUtterance(originalText);
+            defUtterance.rate = 0.9;
+            window.speechSynthesis.speak(defUtterance);
+
+            const originalContent = speakBtn.innerHTML;
+            speakBtn.innerHTML = '<i class="fas fa-wave-square text-blue-400"></i> Reading...';
+            defUtterance.onend = () => { speakBtn.innerHTML = originalContent; };
+          }
+        };
+      });
+    }
+
     // Init
+    initTooltipButtons();
     showChapter(currentChapter);
   });
 </script>
