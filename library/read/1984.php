@@ -209,6 +209,105 @@ include '../../src/header.php';
   #go-to-top-btn:hover {
     transform: translateY(-2px);
   }
+
+  /* TOC Modal Styles */
+  #toc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  #toc-modal.active {
+    display: flex;
+    animation: fadeInModal 0.3s forwards;
+  }
+
+  @keyframes fadeInModal {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .toc-content {
+    background: var(--color-base-bg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--color-text-secondary);
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 1rem;
+  }
+
+  .toc-close {
+    background: transparent;
+    border: none;
+    color: var(--color-text-default);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .toc-close:hover {
+    color: var(--color-secondary);
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+
+  .toc-link {
+    display: block;
+    padding: 1rem;
+    background: var(--color-content-bg);
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--color-text-default);
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .toc-link:hover {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .toc-link.active {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+  }
 </style>
 
 <!-- Progress Bar -->
@@ -510,13 +609,103 @@ include '../../src/header.php';
           <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 3</div>
           <p>Chapter 3 content...</p>
         </div>
-        <!-- ... -->
+        <div id="chapter-4" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 4</div>
+          <p>Chapter 4 content...</p>
+        </div>
+        <div id="chapter-5" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 5</div>
+          <p>Chapter 5 content...</p>
+        </div>
+        <div id="chapter-6" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 6</div>
+          <p>Chapter 6 content...</p>
+        </div>
+        <div id="chapter-7" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 7</div>
+          <p>Chapter 7 content...</p>
+        </div>
+        <div id="chapter-8" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 8</div>
+          <p>Chapter 8 content...</p>
+        </div>
+        <div id="chapter-9" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 9</div>
+          <p>Chapter 9 content...</p>
+        </div>
+        <div id="chapter-10" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 10</div>
+          <p>Chapter 10 content...</p>
+        </div>
+        <div id="chapter-11" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 11</div>
+          <p>Chapter 11 content...</p>
+        </div>
+        <div id="chapter-12" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 12</div>
+          <p>Chapter 12 content...</p>
+        </div>
+        <div id="chapter-13" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 13</div>
+          <p>Chapter 13 content...</p>
+        </div>
+        <div id="chapter-14" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 14</div>
+          <p>Chapter 14 content...</p>
+        </div>
+        <div id="chapter-15" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 15</div>
+          <p>Chapter 15 content...</p>
+        </div>
+        <div id="chapter-16" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 16</div>
+          <p>Chapter 16 content...</p>
+        </div>
+        <div id="chapter-17" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 17</div>
+          <p>Chapter 17 content...</p>
+        </div>
+        <div id="chapter-18" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 18</div>
+          <p>Chapter 18 content...</p>
+        </div>
+        <div id="chapter-19" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 19</div>
+          <p>Chapter 19 content...</p>
+        </div>
+        <div id="chapter-20" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 20</div>
+          <p>Chapter 20 content...</p>
+        </div>
+        <div id="chapter-21" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 21</div>
+          <p>Chapter 21 content...</p>
+        </div>
+        <div id="chapter-22" class="chapter-section">
+          <div class="chapter-title text-3xl font-bold text-center mb-8 text-primary">Chapter 22</div>
+          <p>Chapter 22 content...</p>
+        </div>
 
       </div>
     </article>
   </div>
 
 </main>
+<div id="toc-modal" role="dialog" aria-labelledby="toc-title">
+  <div class="toc-content">
+    <div class="toc-header">
+      <h2 id="toc-title" class="text-2xl font-bold text-primary">Table of Contents</h2>
+      <button class="toc-close" id="close-toc-modal" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="toc-grid">
+      <?php for ($i = 1; $i <= 22; $i++): ?>
+        <a href="#" class="toc-link" data-chapter="<?php echo $i; ?>">CH
+          <?php echo $i; ?>
+        </a>
+      <?php endfor; ?>
+    </div>
+  </div>
+</div>
 
 <!-- To Top Button -->
 <button id="go-to-top-btn" aria-label="Go to top">
@@ -568,7 +757,42 @@ include '../../src/header.php';
 
       // Save
       try { localStorage.setItem(BOOK_ID, num); } catch (e) { }
+
+      // Update TOC Highlight
+      document.querySelectorAll('.toc-link').forEach(link => {
+        link.classList.toggle('active', parseInt(link.dataset.chapter) === num);
+      });
     }
+
+    // --- TOC Modal Logic ---
+    const tocModal = document.getElementById('toc-modal');
+    const openTocBtn = document.getElementById('open-toc-modal');
+    const closeTocBtn = document.getElementById('close-toc-modal');
+
+    openTocBtn.onclick = () => {
+      tocModal.classList.add('active');
+    };
+
+    closeTocBtn.onclick = () => {
+      tocModal.classList.remove('active');
+    };
+
+    // Close on background click
+    window.onclick = (event) => {
+      if (event.target == tocModal) {
+        tocModal.classList.remove('active');
+      }
+    };
+
+    // TOC Link Clicks
+    document.querySelectorAll('.toc-link').forEach(link => {
+      link.onclick = (e) => {
+        e.preventDefault();
+        const chapterNum = parseInt(link.dataset.chapter);
+        showChapter(chapterNum);
+        tocModal.classList.remove('active');
+      };
+    });
 
     // --- Event Listeners ---
     document.getElementById('prev-chapter').onclick = () => showChapter(currentChapter - 1);
