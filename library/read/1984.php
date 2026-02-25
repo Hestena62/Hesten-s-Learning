@@ -628,7 +628,7 @@ include '../../src/header.php';
         // Use textContent because innerText is often empty for hidden elements
         // Also collapse multiple spaces/newlines from the HTML source
         const originalText = tt.textContent.replace(/\s+/g, ' ').trim();
-        
+
         if (!originalText) return; // Skip if empty
 
         // Build the interactive UI
