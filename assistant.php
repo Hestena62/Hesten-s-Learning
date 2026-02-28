@@ -10,7 +10,7 @@
  * sends back a JSON response, and stops.
  */
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question'])) {
-    
+
     // Tell the browser we're sending back JSON
     header('Content-Type: application/json');
 
@@ -23,17 +23,17 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' &
     // --- END: cURL Check ---
 
     // --- START: Gemini API Call ---
-    
+
     // !!! IMPORTANT !!!
     // Replace 'YOUR_GEMINI_API_KEY' with your actual Google Gemini API key.
     // Get one for free from Google AI Studio.
-    $apiKey = 'AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw'; 
-    
+    $apiKey = 'AIzaSyCnNSOVMVcPmUV1JQAX08IFUWuLfngHZIw';
+
     // We'll use the gemini-2.5-flash-preview model, which is fast and capable.
     $apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' . $apiKey;
 
     $userQuestion = $_POST['question'];
-    
+
     // This system prompt guides the AI to be a helpful learning assistant
     $systemPrompt = "You are an expert learning assistant. Your role is to help users understand complex topics across all core learning subjects (Math, Science, History, Literature, etc.). Explain concepts clearly, provide step-by-step solutions for problems, and answer factual questions. Be encouraging and supportive. Your responses should be formatted with Markdown for readability (e.g., use lists, bold text, etc.).";
 
@@ -54,7 +54,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' &
         'tools' => [
             [
                 // Enable Google Search to get up-to-date information
-                'google_search' => new stdClass() 
+                'google_search' => new stdClass()
             ]
         ]
     ];
@@ -80,10 +80,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' &
     // --- Process the API Response ---
     if ($httpcode == 200 && $response) {
         $result = json_decode($response, true);
-        
+
         if (isset($result['candidates'][0]['content']['parts'][0]['text'])) {
             $generatedText = $result['candidates'][0]['content']['parts'][0]['text'];
-            
+
             // Check for and extract grounding metadata (sources)
             $sources = [];
             if (isset($result['candidates'][0]['groundingMetadata']['groundingAttributions'])) {
@@ -96,7 +96,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' &
                     }
                 }
             }
-            
+
             // Send the reply and sources back to the JavaScript
             echo json_encode(['reply' => $generatedText, 'sources' => $sources]);
 
@@ -108,9 +108,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' &
         // Handle cURL errors or non-200 API responses
         echo json_encode(['error' => "API call failed with HTTP code $httpcode. Error: $error. Response: $response"]);
     }
-    
+
     // Stop the script. Only the JSON response is sent.
-    exit; 
+    exit;
 }
 
 /**
@@ -131,7 +131,7 @@ $welcomeParagraph = "Ask me anything about your school subjects, and I'll do my 
 
 // 1. Include your header.php file
 // Make sure 'header.php' is in the same directory or update the path.
-include 'src/header.php'; 
+include 'src/header.php';
 ?>
 
 <!-- Main Content for the Learning Assistant -->
@@ -139,7 +139,7 @@ include 'src/header.php';
 <main class="container mx-auto mt-10 mb-20 px-4">
     <div
         class="bg-content-bg shadow-lg rounded-xl max-w-3xl mx-auto overflow-hidden transition-colors duration-300 border border-gray-200 dark:border-gray-700">
-        
+
         <!-- Chat Header -->
         <header class="bg-primary/10 dark:bg-primary/20 p-4 border-b border-gray-200 dark:border-gray-700">
             <h1 class="text-2xl font-bold text-primary flex items-center">
@@ -148,7 +148,7 @@ include 'src/header.php';
             </h1>
             <p class="text-text-secondary">Powered by PHP &amp; Google Gemini</p>
         </header>
-        
+
         <!-- Chat Message Display Area -->
         <!-- h-96 sets a fixed height, overflow-y-auto makes it scrollable -->
         <div id="chat-box" class="p-6 h-96 overflow-y-auto space-y-4">
@@ -158,9 +158,9 @@ include 'src/header.php';
                     class="flex-shrink-0 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center mr-3">
                     <i class="fas fa-robot"></i>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg rounded-tl-none shadow max-w-lg">
-                    <p class="text-text-default">Hello! I'm your learning assistant. How can I help you today? Ask me a question about math, science, history, or any other subject!</p>
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg rounded-tl-none shadow max-w-lg">
+                    <p class="text-text-default">Hello! I'm your learning assistant. How can I help you today? Ask me a
+                        question about math, science, history, or any other subject!</p>
                 </div>
             </div>
             <!-- New messages will be appended here by JavaScript -->
@@ -168,18 +168,17 @@ include 'src/header.php';
 
         <!-- Loading Indicator (hidden by default) -->
         <div id="loading-indicator" class="px-6 pb-2 text-text-secondary hidden">
-             <div class="flex items-center">
+            <div class="flex items-center">
                 <div
                     class="flex-shrink-0 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center mr-3">
                     <i class="fas fa-robot animate-pulse"></i>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg rounded-tl-none shadow">
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg rounded-tl-none shadow">
                     <span class="italic text-text-secondary">Typing...</span>
                 </div>
             </div>
         </div>
-        
+
         <!-- Chat Input Form -->
         <form id="chat-form" class="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700">
             <label for="message-input" class="sr-only">Your message</label>
@@ -202,7 +201,7 @@ include 'src/header.php';
 <script>
     // Wait until the full page is loaded before running script
     document.addEventListener('DOMContentLoaded', function () {
-        
+
         // Get references to our HTML elements
         const chatForm = document.getElementById('chat-form');
         const messageInput = document.getElementById('message-input');
@@ -222,7 +221,7 @@ include 'src/header.php';
         });
 
         // Add 'Enter' key submission (Shift+Enter for new line)
-        messageInput.addEventListener('keydown', function(e) {
+        messageInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault(); // Prevent new line
                 chatForm.dispatchEvent(new Event('submit')); // Trigger form submit
@@ -232,7 +231,7 @@ include 'src/header.php';
         // Handle the form submission
         chatForm.addEventListener('submit', async function (e) {
             e.preventDefault(); // Stop the page from reloading
-            
+
             const question = messageInput.value.trim();
             if (question === '') {
                 return; // Don't send empty messages
@@ -240,12 +239,12 @@ include 'src/header.php';
 
             // 1. Display the user's message immediately
             appendMessage(question, 'user');
-            
+
             // 2. Clear the input box and reset its height
             messageInput.value = '';
             messageInput.style.height = 'auto';
             messageInput.focus();
-            
+
             // 3. Show the "Typing..." indicator
             loadingIndicator.classList.remove('hidden');
 
@@ -275,7 +274,7 @@ include 'src/header.php';
                 } else {
                     // 6b. Display the bot's reply
                     let replyContent = result.reply;
-                    
+
                     // Add sources if the AI provided them
                     if (result.sources && result.sources.length > 0) {
                         replyContent += '\n\n**Sources:**\n';
@@ -286,6 +285,10 @@ include 'src/header.php';
                     }
 
                     appendMessage(replyContent, 'bot');
+
+                    // Gamification: Reward for asking a question
+                    if (window.addXP) window.addXP(5, 'Asked a question');
+                    if (window.incrementStat) window.incrementStat('questionsAsked', 1);
                 }
 
             } catch (error) {
@@ -306,7 +309,7 @@ include 'src/header.php';
             messageDiv.className = 'flex'; // Base class for all messages
 
             let messageContent = '';
-            
+
             if (sender === 'user') {
                 messageDiv.classList.add('justify-end'); // Align user messages to the right
                 messageContent = `
@@ -337,7 +340,7 @@ include 'src/header.php';
 
             messageDiv.innerHTML = messageContent;
             chatBox.appendChild(messageDiv);
-            
+
             // Automatically scroll to the new message
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -348,7 +351,7 @@ include 'src/header.php';
          * @param {string} text
          */
         function formatText(text) {
-             if (window.marked && window.marked.parse) {
+            if (window.marked && window.marked.parse) {
                 // Use marked to parse Markdown into HTML
                 // This handles lists, bold, code blocks, etc.
                 return window.marked.parse(text, { breaks: true, gfm: true });
@@ -365,7 +368,7 @@ include 'src/header.php';
          * @param {string} str
          */
         function escapeHTML(str) {
-            return str.replace(/[&<>"']/g, function(m) {
+            return str.replace(/[&<>"']/g, function (m) {
                 return {
                     '&': '&amp;',
                     '<': '&lt;',
@@ -382,5 +385,5 @@ include 'src/header.php';
 <?php
 // 2. Include your footer.php file
 // Make sure 'footer.php' is in the same directory or update the path.
-include 'src/footer.php'; 
+include 'src/footer.php';
 ?>

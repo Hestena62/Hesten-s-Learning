@@ -71,6 +71,48 @@
     </div>
 </div>
 
+<!-- Global Command Palette (The Lighthouse) -->
+<div id="lighthouse-palette"
+    class="fixed inset-0 z-[200] hidden items-start justify-center pt-24 px-4 bg-slate-900/40 backdrop-blur-sm lighthouse-overlay"
+    role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lighthouse-label">
+    <div
+        class="w-full max-w-2xl bg-content-bg/90 backdrop-blur-2xl rounded-3xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] border border-white/20 overflow-hidden lighthouse-modal flex flex-col ring-1 ring-black/5">
+        <!-- Search Header -->
+        <div class="p-6 border-b border-white/10 flex items-center gap-4 bg-white/5">
+            <div
+                class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center text-xl shadow-lg shadow-primary/20">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="flex-grow relative">
+                <label id="lighthouse-label" for="lighthouse-input" class="sr-only">Search commands</label>
+                <input type="text" id="lighthouse-input" placeholder="What can I help you find today?"
+                    class="w-full bg-transparent border-none focus:ring-0 text-xl font-bold text-text-default placeholder-text-secondary/50 outline-none"
+                    autocomplete="off" spellcheck="false">
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                    <span
+                        class="px-2 py-1 rounded bg-base-bg text-[10px] font-mono text-text-secondary border border-black/5 shadow-sm uppercase">Esc
+                        to close</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Area -->
+        <div id="lighthouse-results" class="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2">
+            <!-- Injected by command-palette.js -->
+        </div>
+
+        <!-- Footer Hint -->
+        <div
+            class="p-4 bg-base-bg/50 border-t border-white/10 text-[10px] text-text-secondary flex justify-between items-center px-8 uppercase tracking-widest font-bold">
+            <div class="flex gap-4">
+                <span><i class="fas fa-arrow-up mr-1 text-primary"></i> Navigate</span>
+                <span><i class="fas fa-level-down-alt mr-1 text-primary rotate-90"></i> Select</span>
+            </div>
+            <div>The Lighthouse Command Palette</div>
+        </div>
+    </div>
+</div>
+
 <!-- GTranslate -->
 <script>
     window.gtranslateSettings = {
@@ -93,7 +135,7 @@
     });
 
     // Helper: Message Box
-    window.showMessageBox = function(msg) {
+    window.showMessageBox = function (msg) {
         const b = document.getElementById("message-box");
         if (b) {
             document.getElementById("message-text").textContent = msg;
@@ -109,7 +151,7 @@
     };
 
     // Helper: Confetti (Load on demand)
-    window.triggerConfetti = function(origin) {
+    window.triggerConfetti = function (origin) {
         if (typeof confetti === 'function') confetti({
             particleCount: 100,
             spread: 70,
@@ -216,6 +258,8 @@
                     if (time <= 0) {
                         clearInterval(iv);
                         window.showMessageBox('Time up!');
+                        if (window.addXP) window.addXP(10, 'Timer completed');
+                        if (window.awardBadge) window.awardBadge('timer_pro');
                         s.innerText = 'Start';
                     }
                 }, 1000);
@@ -238,6 +282,10 @@
             t.addEventListener('input', () => {
                 localStorage.setItem('hl_scratchpad', t.value);
                 document.getElementById('scratchpad-status').innerText = 'Saving...';
+                
+                // Track stats for badges
+                if (window.incrementStat) window.incrementStat('notesTaken', 1);
+
                 setTimeout(() => document.getElementById('scratchpad-status').innerText = 'Saved', 1000);
             });
         } catch (e) {
@@ -273,4 +321,5 @@
             });
         }
     }
-</script>
+</script><script src='/JS/command-palette.js' defer></script>
+<script src='/JS/gamification.js' defer></script>

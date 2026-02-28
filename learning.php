@@ -1,9 +1,9 @@
 <?php
 // --- Page Configuration ---
-$pageTitle       = "Curriculum & Learning | Hesten's Learning";
+$pageTitle = "Curriculum & Learning | Hesten's Learning";
 $pageDescription = "Browse our complete K-12 curriculum including Math, ELA, and Science. Accessible learning for everyone.";
-$pageKeywords    = "curriculum, grades, k-12, math, ela, science, special education";
-$pageAuthor      = "Hesten's Learning";
+$pageKeywords = "curriculum, grades, k-12, math, ela, science, special education";
+$pageAuthor = "Hesten's Learning";
 
 // --- Dynamic Content Array (Duplicated from index.php) ---
 $learningLevels = [
@@ -142,7 +142,7 @@ include 'src/header.php';
     <!-- Grid -->
     <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         aria-labelledby="learning-levels-heading">
-        <?php foreach ($learningLevels as $index => $level) :
+        <?php foreach ($learningLevels as $index => $level):
             $theme = isset($themeMap[$level['category']]) ? $themeMap[$level['category']] : $themeMap['elem'];
             ?>
             <article class="level-card group relative flex flex-col h-full"
@@ -292,11 +292,20 @@ include 'src/header.php';
             // Complete
             btn.classList.remove('bg-base-bg', 'text-text-secondary');
             btn.classList.add('bg-green-100', 'text-green-600');
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+
+            // Gamification: Reward for completing a level
+            if (window.addXP) window.addXP(50, 'Lesson completed');
+            if (window.incrementStat) window.incrementStat('lessonsCompleted', 1);
+
+            if (window.triggerConfetti) {
+                window.triggerConfetti({ y: 0.6 });
+            } else if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         }
     }
 

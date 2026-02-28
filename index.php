@@ -1,7 +1,8 @@
 <?php include 'src/header.php'; ?>
 
 <!-- MAIN HERO -->
-<div class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
+<div
+    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <i class="fas fa-shapes absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
         <i class="fas fa-calculator absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
@@ -9,15 +10,21 @@
 
     <div class="relative z-10 max-w-5xl mx-auto text-center">
         <div class="bg-white/20 border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl animate-fade-in-up">
-            <span class="inline-block py-1 px-4 rounded-full bg-black/20 text-white text-xs font-bold mb-6 tracking-wide uppercase border border-white/20 shadow-sm">Accessible Education for All</span>
+            <span
+                class="inline-block py-1 px-4 rounded-full bg-black/20 text-white text-xs font-bold mb-6 tracking-wide uppercase border border-white/20 shadow-sm">Accessible
+                Education for All</span>
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight drop-shadow-lg text-white">
-                Learning Without <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-100">Limits</span>
+                Learning Without <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-100">Limits</span>
             </h1>
-            <p class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">
-                Empowering every student with personalized, accessible, and engaging educational experiences designed for <span class="font-bold text-white border-b-2 border-teal-300/50">how you learn</span>.
+            <p
+                class="text-lg md:text-2xl mb-10 text-blue-50 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md">
+                Empowering every student with personalized, accessible, and engaging educational experiences designed
+                for <span class="font-bold text-white border-b-2 border-teal-300/50">how you learn</span>.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#level-grid" class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
+                <a href="#level-grid"
+                    class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg flex items-center justify-center gap-2">
                     <span>Start Learning</span> <i class="fas fa-arrow-down"></i>
                 </a>
             </div>
@@ -26,7 +33,8 @@
         <!-- Stats Bar -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 text-center">
             <div class="p-4 rounded-xl bg-black/30 border border-white/10 shadow-lg">
-                <div class="text-3xl font-bold text-teal-300 mb-1 flex justify-center"><span id="user-progress-stat">0</span>%</div>
+                <div class="text-3xl font-bold text-teal-300 mb-1 flex justify-center"><span
+                        id="user-progress-stat">0</span>%</div>
                 <div class="text-sm text-blue-100">Your Progress</div>
             </div>
             <!-- Streak -->
@@ -52,21 +60,29 @@
 <main class="container mx-auto my-10 px-4 scroll-mt-24" id="main-content" tabindex="-1">
 
     <!-- Resume Banner -->
-    <div id="resume-banner" class="hidden mb-12 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-1 shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer group">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 h-full border border-white/10">
+    <div id="resume-banner"
+        class="hidden mb-12 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-1 shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer group">
+        <div
+            class="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 h-full border border-white/10">
             <div class="flex items-center gap-4 text-white">
-                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner"><i class="fas fa-play"></i></div>
+                <div
+                    class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                    <i class="fas fa-play"></i></div>
                 <div>
                     <h2 class="text-xl font-bold">Welcome Back!</h2>
-                    <p class="text-blue-50">Ready to continue with <span id="next-level-name" class="font-bold underline text-white decoration-amber-400 decoration-2"></span>?</p>
+                    <p class="text-blue-50">Ready to continue with <span id="next-level-name"
+                            class="font-bold underline text-white decoration-amber-400 decoration-2"></span>?</p>
                 </div>
             </div>
-            <button class="bg-white text-teal-700 px-8 py-3 rounded-full font-bold hover:bg-teal-50 transition-colors shadow-md" type="button">Resume Learning</button>
+            <button
+                class="bg-white text-teal-700 px-8 py-3 rounded-full font-bold hover:bg-teal-50 transition-colors shadow-md"
+                type="button">Resume Learning</button>
         </div>
     </div>
 
     <!-- Filter Controls -->
-    <div class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-24 z-30 transition-colors duration-300">
+    <div
+        class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-24 z-30 transition-colors duration-300">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
                 <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm"></span>
@@ -76,31 +92,46 @@
                 <!-- Search -->
                 <div class="relative w-full sm:w-64">
                     <label for="level-search" class="sr-only">Filter grades</label>
-                    <input type="text" id="level-search" placeholder="Filter grades..." class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary transition-all shadow-sm">
+                    <input type="text" id="level-search" placeholder="Filter grades..."
+                        class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary transition-all shadow-sm">
                     <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <button id="clear-search" onclick="resetFilters()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none" aria-label="Clear Search" type="button"><i class="fas fa-times-circle"></i></button>
+                    <button id="clear-search" onclick="resetFilters()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none"
+                        aria-label="Clear Search" type="button"><i class="fas fa-times-circle"></i></button>
                 </div>
                 <!-- Categories -->
                 <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter Categories">
-                    <button onclick="setCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white transition-all shadow-sm" data-filter="all" type="button">All</button>
-                    <button onclick="setCategory('elem')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 transition-all" data-filter="elem" type="button">Elem</button>
-                    <button onclick="setCategory('middle')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 transition-all" data-filter="middle" type="button">Middle</button>
-                    <button onclick="setCategory('high')" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 transition-all" data-filter="high" type="button">High</button>
+                    <button onclick="setCategory('all')"
+                        class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white transition-all shadow-sm"
+                        data-filter="all" type="button">All</button>
+                    <button onclick="setCategory('elem')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 transition-all"
+                        data-filter="elem" type="button">Elem</button>
+                    <button onclick="setCategory('middle')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 transition-all"
+                        data-filter="middle" type="button">Middle</button>
+                    <button onclick="setCategory('high')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 transition-all"
+                        data-filter="high" type="button">High</button>
                 </div>
             </div>
         </div>
-        <div class="mt-2 text-sm text-text-secondary text-right" id="results-count" aria-live="polite">Showing all levels</div>
+        <div class="mt-2 text-sm text-text-secondary text-right" id="results-count" aria-live="polite">Showing all
+            levels</div>
     </div>
 
     <!-- Grid Container -->
-    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-label="Grade Levels"></section>
+    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" aria-label="Grade Levels">
+    </section>
 
     <!-- Empty State -->
     <div id="no-results" class="hidden text-center py-24 px-4">
-        <div class="inline-block p-6 rounded-full bg-base-bg mb-4"><i class="fas fa-search text-4xl text-gray-300"></i></div>
+        <div class="inline-block p-6 rounded-full bg-base-bg mb-4"><i class="fas fa-search text-4xl text-gray-300"></i>
+        </div>
         <h3 class="text-xl font-bold text-text-default mb-2">No levels found</h3>
         <p class="text-text-secondary mb-6">We couldn't find anything matching your search.</p>
-        <button onclick="resetFilters()" class="text-primary font-bold hover:underline" type="button">Clear Search & Filters</button>
+        <button onclick="resetFilters()" class="text-primary font-bold hover:underline" type="button">Clear Search &
+            Filters</button>
     </div>
 </main>
 
@@ -108,125 +139,125 @@
 <script>
     // --- DATA ---
     const learningLevels = [{
-            id: 'pre-k',
-            category: 'elem',
-            title: 'Pre-K',
-            description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.',
-            link: '/Level/a.php',
-            icon: 'fas fa-shapes'
-        },
-        {
-            id: 'kindergarten',
-            category: 'elem',
-            title: 'Kindergarten',
-            description: 'Basic math concepts, phonics, early reading. Building blocks for a strong start.',
-            link: '#',
-            icon: 'fas fa-puzzle-piece'
-        },
-        {
-            id: 'grade-1',
-            category: 'elem',
-            title: 'Grade 1',
-            description: 'Adding, subtracting, sentence formation. Developing independence.',
-            link: '#',
-            icon: 'fas fa-pencil-alt'
-        },
-        {
-            id: 'grade-2',
-            category: 'elem',
-            title: 'Grade 2',
-            description: 'Basic multiplication, reading fluency. Expanding foundational knowledge.',
-            link: '#',
-            icon: 'fas fa-book-open'
-        },
-        {
-            id: 'grade-3',
-            category: 'elem',
-            title: 'Grade 3',
-            description: 'Multiplication, division, reading comprehension. Critical thinking.',
-            link: '#',
-            icon: 'fas fa-calculator'
-        },
-        {
-            id: 'grade-4',
-            category: 'elem',
-            title: 'Grade 4',
-            description: 'Advanced multiplication, division, reading comprehension. Deeper dives.',
-            link: '#',
-            icon: 'fas fa-divide'
-        },
-        {
-            id: 'grade-5',
-            category: 'elem',
-            title: 'Grade 5',
-            description: 'Decimals, essay writing, ecosystems. Preparing for middle school.',
-            link: '#',
-            icon: 'fas fa-atom'
-        },
-        {
-            id: 'grade-6',
-            category: 'middle',
-            title: 'Grade 6',
-            description: 'Fractions, essay writing, earth science. Transitioning to complex subjects.',
-            link: '#',
-            icon: 'fas fa-globe-americas'
-        },
-        {
-            id: 'grade-7',
-            category: 'middle',
-            title: 'Grade 7',
-            description: 'Proportional relationships, persuasive writing, life science. Middle school mastery.',
-            link: '#',
-            icon: 'fas fa-dna'
-        },
-        {
-            id: 'grade-8',
-            category: 'middle',
-            title: 'Grade 8',
-            description: 'Linear equations, historical analysis, earth science. Pre-high school readiness.',
-            link: '#',
-            icon: 'fas fa-history'
-        },
-        {
-            id: 'grade-9',
-            category: 'high',
-            title: 'Grade 9',
-            description: 'Algebra, literature, physical science. Introduction to high school.',
-            link: '#',
-            icon: 'fas fa-flask'
-        },
-        {
-            id: 'grade-10',
-            category: 'high',
-            title: 'Grade 10',
-            description: 'Geometry, world history, biology. Broadening academic horizons.',
-            link: '#',
-            icon: 'fas fa-project-diagram'
-        },
-        {
-            id: 'grade-11',
-            category: 'high',
-            title: 'Grade 11',
-            description: 'Pre-calculus, advanced literature, chemistry. College prep.',
-            link: '#',
-            icon: 'fas fa-microscope'
-        },
-        {
-            id: 'grade-12',
-            category: 'high',
-            title: 'Grade 12',
-            description: 'Advanced calculus, literature analysis, physics. Final preparations.',
-            link: '#',
-            icon: 'fas fa-graduation-cap'
-        },
-        {
-            id: 'test-section',
-            category: 'extra',
-            title: 'Test/Extra',
-            description: 'Practice with quizzes, review extra materials, and challenge yourself.',
-            link: '#',
-            icon: 'fas fa-star'
-        }
+        id: 'pre-k',
+        category: 'elem',
+        title: 'Pre-K',
+        description: 'Counting objects, letter names, rhyming words, and more. Foundational skills.',
+        link: '/Level/a.php',
+        icon: 'fas fa-shapes'
+    },
+    {
+        id: 'kindergarten',
+        category: 'elem',
+        title: 'Kindergarten',
+        description: 'Basic math concepts, phonics, early reading. Building blocks for a strong start.',
+        link: '#',
+        icon: 'fas fa-puzzle-piece'
+    },
+    {
+        id: 'grade-1',
+        category: 'elem',
+        title: 'Grade 1',
+        description: 'Adding, subtracting, sentence formation. Developing independence.',
+        link: '#',
+        icon: 'fas fa-pencil-alt'
+    },
+    {
+        id: 'grade-2',
+        category: 'elem',
+        title: 'Grade 2',
+        description: 'Basic multiplication, reading fluency. Expanding foundational knowledge.',
+        link: '#',
+        icon: 'fas fa-book-open'
+    },
+    {
+        id: 'grade-3',
+        category: 'elem',
+        title: 'Grade 3',
+        description: 'Multiplication, division, reading comprehension. Critical thinking.',
+        link: '#',
+        icon: 'fas fa-calculator'
+    },
+    {
+        id: 'grade-4',
+        category: 'elem',
+        title: 'Grade 4',
+        description: 'Advanced multiplication, division, reading comprehension. Deeper dives.',
+        link: '#',
+        icon: 'fas fa-divide'
+    },
+    {
+        id: 'grade-5',
+        category: 'elem',
+        title: 'Grade 5',
+        description: 'Decimals, essay writing, ecosystems. Preparing for middle school.',
+        link: '#',
+        icon: 'fas fa-atom'
+    },
+    {
+        id: 'grade-6',
+        category: 'middle',
+        title: 'Grade 6',
+        description: 'Fractions, essay writing, earth science. Transitioning to complex subjects.',
+        link: '#',
+        icon: 'fas fa-globe-americas'
+    },
+    {
+        id: 'grade-7',
+        category: 'middle',
+        title: 'Grade 7',
+        description: 'Proportional relationships, persuasive writing, life science. Middle school mastery.',
+        link: '#',
+        icon: 'fas fa-dna'
+    },
+    {
+        id: 'grade-8',
+        category: 'middle',
+        title: 'Grade 8',
+        description: 'Linear equations, historical analysis, earth science. Pre-high school readiness.',
+        link: '#',
+        icon: 'fas fa-history'
+    },
+    {
+        id: 'grade-9',
+        category: 'high',
+        title: 'Grade 9',
+        description: 'Algebra, literature, physical science. Introduction to high school.',
+        link: '#',
+        icon: 'fas fa-flask'
+    },
+    {
+        id: 'grade-10',
+        category: 'high',
+        title: 'Grade 10',
+        description: 'Geometry, world history, biology. Broadening academic horizons.',
+        link: '#',
+        icon: 'fas fa-project-diagram'
+    },
+    {
+        id: 'grade-11',
+        category: 'high',
+        title: 'Grade 11',
+        description: 'Pre-calculus, advanced literature, chemistry. College prep.',
+        link: '#',
+        icon: 'fas fa-microscope'
+    },
+    {
+        id: 'grade-12',
+        category: 'high',
+        title: 'Grade 12',
+        description: 'Advanced calculus, literature analysis, physics. Final preparations.',
+        link: '#',
+        icon: 'fas fa-graduation-cap'
+    },
+    {
+        id: 'test-section',
+        category: 'extra',
+        title: 'Test/Extra',
+        description: 'Practice with quizzes, review extra materials, and challenge yourself.',
+        link: '#',
+        icon: 'fas fa-star'
+    }
     ];
 
     const themeMap = {
@@ -415,7 +446,7 @@
             if (storedComp) completedLevels = JSON.parse(storedComp);
             const storedBook = localStorage.getItem('hl_bookmarked_levels');
             if (storedBook) bookmarkedLevels = JSON.parse(storedBook);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     function checkStreak() {
@@ -463,6 +494,11 @@
             const rect = btn.getBoundingClientRect();
             const x = rect.left / window.innerWidth;
             const y = rect.top / window.innerHeight;
+
+            // Gamification: Reward for completing a level
+            if (window.addXP) window.addXP(50, 'Lesson completed');
+            if (window.incrementStat) window.incrementStat('lessonsCompleted', 1);
+
             triggerConfetti({
                 x,
                 y
