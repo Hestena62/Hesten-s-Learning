@@ -1,9 +1,9 @@
 <?php
 // Page-Specific Metadata
-$pageTitle       = "Pre-K Level A | Hesten's Learning";
+$pageTitle = "Pre-K Level A | Hesten's Learning";
 $pageDescription = "Foundational Skills in Math, Language Arts, Science, and Social Studies designed for early learners.";
-$pageKeywords    = "Pre-K, math, language arts, science, social studies, early learning";
-$pageAuthor      = "Hesten's Learning";
+$pageKeywords = "Pre-K, math, language arts, science, social studies, early learning";
+$pageAuthor = "Hesten's Learning";
 
 // Include Global Header (Adjust path if necessary)
 include '../src/header.php';
@@ -98,7 +98,7 @@ include '../src/header.php';
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
                         onclick="toggleSpeech(this)" data-title="Topic A: Matching Objects"
-                        data-desc="Learn to identify identical objects and match things that go together."
+                        data-desc="Learn to identify identical objects and match things that go together.This follows EngageNY Module 1 Topic A."
                         aria-label="Read description aloud">
                         <i class="fas fa-volume-up"></i>
                     </button>
@@ -114,7 +114,7 @@ include '../src/header.php';
                     <ul class="space-y-3 mb-6 lesson-list">
                         <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
                             <button onclick="toggleLesson('topic-a-1', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
                                 aria-label="Mark Lesson 1 as complete" aria-pressed="false">
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
@@ -128,7 +128,7 @@ include '../src/header.php';
                         </li>
                         <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
                             <button onclick="toggleLesson('topic-a-2', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
                                 aria-label="Mark Lesson 2-3 as complete" aria-pressed="false">
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
@@ -140,23 +140,9 @@ include '../src/header.php';
                                 <strong>Lesson 2–3:</strong> Match 2 objects that are the same.
                             </a>
                         </li>
-                        <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
-                            <button onclick="toggleLesson('topic-a-3', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
-                                aria-label="Mark Lesson 4 as complete" aria-pressed="false">
-                                <div
-                                    class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                            </button>
-                            <a href="#"
-                                class="text-sm text-text-default hover:text-primary transition-colors leading-snug pt-0.5 lesson-link">
-                                <strong>Lesson 4:</strong> Match 2 objects that are used together.
-                            </a>
-                        </li>
                     </ul>
 
-                    <!-- TEACHER RESOURCES (Hidden by default) -->
+                    <!-- TEACHER RESOURCES -->
                     <div class="teacher-only mt-4 pt-4 border-t border-dashed border-yellow-500/50">
                         <div class="flex items-center justify-between mb-3">
                             <h4 class="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-wider">
@@ -166,19 +152,10 @@ include '../src/header.php';
                         <div class="flex flex-wrap gap-2">
                             <button
                                 class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
-                                <i class="fas fa-file-alt"></i> Lesson Plan (PDF)
-                            </button>
-                            <button
-                                class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
-                                <i class="fas fa-key"></i> Answer Key
-                            </button>
-                            <button
-                                class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
-                                <i class="fas fa-list-ol"></i> Standards
+                                <i class="fas fa-file-alt"></i> Module 1 Guide
                             </button>
                         </div>
                     </div>
-
                 </div>
             </article>
 
@@ -186,17 +163,15 @@ include '../src/header.php';
             <article
                 class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                 <div class="p-6 flex-grow relative">
-                    <!-- Progress Bar for this Card -->
                     <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
                         <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
                             id="progress-topic-b"></div>
                     </div>
 
-                    <!-- TTS Button -->
                     <button type="button"
                         class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
                         onclick="toggleSpeech(this)" data-title="Topic B: Sorting"
-                        data-desc="Understand attributes and how to sort items into groups."
+                        data-desc="Understand attributes and how to sort items into groups. This follows EngageNY Module 1 Topic B."
                         aria-label="Read description aloud">
                         <i class="fas fa-volume-up"></i>
                     </button>
@@ -211,7 +186,7 @@ include '../src/header.php';
                     <ul class="space-y-3 mb-6 lesson-list">
                         <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
                             <button onclick="toggleLesson('topic-b-1', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
                                 aria-label="Mark Lesson 5 as complete" aria-pressed="false">
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
@@ -223,10 +198,52 @@ include '../src/header.php';
                                 <strong>Lesson 5:</strong> Make one group with a given attribute.
                             </a>
                         </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Module 2 Header (NEW) -->
+            <div
+                class="col-span-1 lg:col-span-2 flex items-center gap-4 mt-8 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div
+                    class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg shadow-md">
+                    <i class="fas fa-shapes"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-text-default">Module 2: Shapes</h2>
+                    <p class="text-text-secondary text-xs">Exploring two and three-dimensional shapes.</p>
+                </div>
+            </div>
+
+            <!-- Shapes Card -->
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <div class="p-6 flex-grow relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                            id="progress-shapes"></div>
+                    </div>
+
+                    <button type="button"
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
+                        onclick="toggleSpeech(this)" data-title="Topic A: Circles and Squares"
+                        data-desc="Identifying and describing circles and squares in our world."
+                        aria-label="Read description aloud">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+
+                    <div class="text-xs font-semibold text-primary/80 mb-1 uppercase tracking-wider">CCSS Range: PK.G.1
+                        - PK.G.3</div>
+                    <h3 class="text-xl font-bold text-text-default mb-2 pr-12">Topic A: 2D Shapes</h3>
+                    <p class="text-text-secondary mb-4 leading-relaxed">
+                        Learn to recognize circles, squares, and triangles.
+                    </p>
+
+                    <ul class="space-y-3 mb-6 lesson-list">
                         <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
-                            <button onclick="toggleLesson('topic-b-2', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
-                                aria-label="Mark Lesson 6 as complete" aria-pressed="false">
+                            <button onclick="toggleLesson('shapes-1', this)"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
+                                aria-label="Mark Lesson 1 as complete" aria-pressed="false">
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
@@ -234,13 +251,13 @@ include '../src/header.php';
                             </button>
                             <a href="#"
                                 class="text-sm text-text-default hover:text-primary transition-colors leading-snug pt-0.5 lesson-link">
-                                <strong>Lesson 6:</strong> Sort into two groups.
+                                <strong>Lesson 1:</strong> Find the circles in the room.
                             </a>
                         </li>
                         <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
-                            <button onclick="toggleLesson('topic-b-3', this)"
-                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
-                                aria-label="Mark Lesson 7 as complete" aria-pressed="false">
+                            <button onclick="toggleLesson('shapes-2', this)"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
+                                aria-label="Mark Lesson 2 as complete" aria-pressed="false">
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
                                     <i class="fas fa-check"></i>
@@ -248,30 +265,10 @@ include '../src/header.php';
                             </button>
                             <a href="#"
                                 class="text-sm text-text-default hover:text-primary transition-colors leading-snug pt-0.5 lesson-link">
-                                <strong>Lesson 7:</strong> Sort the same group in two ways.
+                                <strong>Lesson 2:</strong> Sort shapes by sides.
                             </a>
                         </li>
                     </ul>
-
-                    <!-- TEACHER RESOURCES (Hidden by default) -->
-                    <div class="teacher-only mt-4 pt-4 border-t border-dashed border-yellow-500/50">
-                        <div class="flex items-center justify-between mb-3">
-                            <h4 class="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-wider">
-                                <i class="fas fa-chalkboard-teacher mr-1"></i> Teacher Resources
-                            </h4>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <button
-                                class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
-                                <i class="fas fa-file-alt"></i> Lesson Plan (PDF)
-                            </button>
-                            <button
-                                class="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded text-xs font-bold text-yellow-800 dark:text-yellow-200 hover:bg-yellow-100 transition-colors flex items-center gap-1">
-                                <i class="fas fa-key"></i> Answer Key
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
             </article>
 
@@ -280,40 +277,183 @@ include '../src/header.php';
 
     <!-- LANGUAGE ARTS SECTION (Placeholder) -->
     <section id="content-ela" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div
-            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
-            <div
-                class="w-20 h-20 bg-pink-100 dark:bg-pink-900 rounded-full flex items-center justify-center text-pink-500 text-3xl mb-4">
-                <i class="fas fa-pencil-alt"></i>
+
+        <!-- Domain 1 Header -->
+        <div class="flex items-center gap-4 mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-12 h-12 rounded-xl bg-pink-600 text-white flex items-center justify-center text-xl shadow-lg">
+                <i class="fas fa-child"></i>
             </div>
-            <h2 class="text-2xl font-bold text-text-default">Language Arts</h2>
-            <p class="text-text-secondary mt-2">Content for letters and rhyming is coming soon!</p>
+            <div>
+                <h2 class="text-2xl font-bold text-text-default">Domain 1: All About Me</h2>
+                <p class="text-text-secondary text-sm">Understanding our bodies and feelings (EngageNY CKLA).</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Topic: The Five Senses -->
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <div class="p-6 flex-grow relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                            id="progress-ela-senses"></div>
+                    </div>
+
+                    <button type="button"
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
+                        onclick="toggleSpeech(this)" data-title="Topic: The Five Senses"
+                        data-desc="Learn about how we see, hear, smell, taste, and touch the world."
+                        aria-label="Read description aloud">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+
+                    <h3 class="text-xl font-bold text-text-default mb-2 pr-12">The Five Senses</h3>
+                    <p class="text-text-secondary mb-4 leading-relaxed">
+                        Discover the amazing tools our bodies use to learn.
+                    </p>
+
+                    <ul class="space-y-3 mb-6 lesson-list">
+                        <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
+                            <button onclick="toggleLesson('ela-senses-1', this)"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
+                                aria-label="Mark Lesson 1 as complete">
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </button>
+                            <span class="text-sm text-text-default pt-0.5 lesson-link"><strong>Lesson 1:</strong> Sight
+                                and Hearing.</span>
+                        </li>
+                        <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
+                            <button onclick="toggleLesson('ela-senses-2', this)"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
+                                aria-label="Mark Lesson 2 as complete">
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </button>
+                            <span class="text-sm text-text-default pt-0.5 lesson-link"><strong>Lesson 2:</strong> Smell,
+                                Taste, and Touch.</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Topic: Nursery Rhymes -->
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <div class="p-6 flex-grow relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                        <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                            id="progress-ela-rhymes"></div>
+                    </div>
+
+                    <button type="button"
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full bg-base-bg text-primary hover:bg-primary hover:text-white transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary"
+                        onclick="toggleSpeech(this)" data-title="Topic: Nursery Rhymes"
+                        data-desc="Exploring language through fun rhymes and classic fables."
+                        aria-label="Read description aloud">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+
+                    <h3 class="text-xl font-bold text-text-default mb-2 pr-12">Nursery Rhymes</h3>
+                    <p class="text-text-secondary mb-4 leading-relaxed">
+                        Rhymes help us hear sounds in words and build vocabulary.
+                    </p>
+
+                    <ul class="space-y-3 mb-6 lesson-list">
+                        <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg transition-colors group">
+                            <button onclick="toggleLesson('ela-rhymes-1', this)"
+                                class="flex-shrink-0 mt-0.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full transition-transform active:scale-90"
+                                aria-label="Mark Lesson 1 as complete">
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </button>
+                            <span class="text-sm text-text-default pt-0.5 lesson-link"><strong>Lesson 1:</strong> Humpty
+                                Dumpty & Little Bo Peep.</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
         </div>
     </section>
 
-    <!-- SCIENCE SECTION (Placeholder) -->
     <section id="content-science" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div
-            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
+        <div class="flex items-center gap-4 mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div
-                class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-500 text-3xl mb-4">
+                class="w-12 h-12 rounded-xl bg-green-600 text-white flex items-center justify-center text-xl shadow-lg">
                 <i class="fas fa-leaf"></i>
             </div>
-            <h2 class="text-2xl font-bold text-text-default">Science</h2>
-            <p class="text-text-secondary mt-2">Content for nature and observation is coming soon!</p>
+            <div>
+                <h2 class="text-2xl font-bold text-text-default">Science</h2>
+                <p class="text-text-secondary text-sm">Exploring nature and the changing world.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                    <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                        id="progress-sci-weather"></div>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Weather & Seasons</h3>
+                <p class="text-text-secondary mb-4">Observe how the sky changes and how we dress for the weather.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg group">
+                        <button onclick="toggleLesson('sci-weather-1', this)"
+                            class="flex-shrink-0 mt-0.5 transition-transform active:scale-90">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </button>
+                        <span class="text-sm pt-0.5 lesson-link">Types of weather (Sunny, Rainy, Snowy).</span>
+                    </li>
+                </ul>
+            </article>
         </div>
     </section>
 
-    <!-- SOCIAL STUDIES SECTION (Placeholder) -->
+    <!-- SOCIAL STUDIES SECTION -->
     <section id="content-social" class="tab-content hidden animate-fade-in-up" role="tabpanel">
-        <div
-            class="flex flex-col items-center justify-center py-20 bg-content-bg rounded-3xl border border-dashed border-gray-300 dark:border-gray-700">
+        <div class="flex items-center gap-4 mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div
-                class="w-20 h-20 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center text-orange-500 text-3xl mb-4">
+                class="w-12 h-12 rounded-xl bg-orange-500 text-white flex items-center justify-center text-xl shadow-lg">
                 <i class="fas fa-users"></i>
             </div>
-            <h2 class="text-2xl font-bold text-text-default">Social Studies</h2>
-            <p class="text-text-secondary mt-2">Content for community and family is coming soon!</p>
+            <div>
+                <h2 class="text-2xl font-bold text-text-default">Social Studies</h2>
+                <p class="text-text-secondary text-sm">Learning about families and our neighborhood.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <article
+                class="bg-content-bg rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-100 dark:bg-gray-700">
+                    <div class="h-full bg-green-500 transition-all duration-500" style="width: 0%"
+                        id="progress-soc-family"></div>
+                </div>
+                <h3 class="text-xl font-bold mb-2">My Community</h3>
+                <p class="text-text-secondary mb-4">Discovering who lives in our house and who helps in our town.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-bg group">
+                        <button onclick="toggleLesson('soc-family-1', this)"
+                            class="flex-shrink-0 mt-0.5 transition-transform active:scale-90">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 flex items-center justify-center text-xs text-transparent group-hover:border-primary transition-all check-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </button>
+                        <span class="text-sm pt-0.5 lesson-link">Family members and friends.</span>
+                    </li>
+                </ul>
+            </article>
         </div>
     </section>
 
@@ -393,10 +533,6 @@ include '../src/header.php';
     }
 
     function toggleLesson(lessonId, btn) {
-        // Prevent default if it's inside a form or other container issues, generally not needed but good practice
-        // event.stopPropagation? No event passed directly unless we change HTML to pass 'event'. 
-        // But btn is the button element.
-
         const index = completedLessons.indexOf(lessonId);
         let isComplete = false;
 
@@ -406,28 +542,38 @@ include '../src/header.php';
         } else {
             completedLessons.push(lessonId);
             isComplete = true;
-            // Small burst of confetti
-            confetti({
-                particleCount: 30,
-                spread: 50,
-                origin: { y: 0.8 },
-                colors: ['#22c55e', '#ffffff'] // Green and white
-            });
+
+            // --- GLOBAL GAMIFICATION INTEGRATION ---
+            if (window.addXP) {
+                window.addXP(10, 'Lesson Completed');
+            }
+            if (window.incrementStat) {
+                window.incrementStat('lessonsCompleted');
+            }
+
+            // Confetti effect
+            if (window.triggerConfetti) {
+                window.triggerConfetti({ y: 0.7 });
+            }
         }
 
         localStorage.setItem('hl_completed_lessons_granular', JSON.stringify(completedLessons));
         updateLessonBtnUI(btn, isComplete);
 
-        // Update bar
-        const topicId = lessonId.split('-').slice(0, 2).join('-'); // topic-a
-        updateTopicProgress(topicId);
+        // Update progress bars
+        // Prefix is usually before the first or second dash (e.g., topic-a, ela-senses)
+        const parts = lessonId.split('-');
+        let topicPrefix = parts[0];
+        if (parts.length > 2) topicPrefix = parts.slice(0, 2).join('-');
+
+        updateTopicProgress(topicPrefix);
     }
 
     function updateLessonBtnUI(btn, isComplete) {
         const checkIcon = btn.querySelector('.check-icon');
-        // The link is now a sibling <a> tag in the closest <li> container
-        // Structure: <li> <button>...</button> <a ...>...</a> </li>
-        const link = btn.closest('li')?.querySelector('a.lesson-link');
+        // Handle both <a> sibling and <span> sibling structures
+        const parent = btn.closest('li') || btn.closest('article');
+        const link = parent.querySelector('.lesson-link');
 
         if (isComplete) {
             btn.setAttribute('aria-pressed', 'true');
@@ -437,7 +583,6 @@ include '../src/header.php';
             }
             if (link) {
                 link.classList.add('line-through', 'text-text-secondary', 'opacity-60');
-                link.classList.remove('text-text-default');
             }
         } else {
             btn.setAttribute('aria-pressed', 'false');
@@ -447,16 +592,15 @@ include '../src/header.php';
             }
             if (link) {
                 link.classList.remove('line-through', 'text-text-secondary', 'opacity-60');
-                link.classList.add('text-text-default');
             }
         }
     }
 
     function updateTopicProgress(topicPrefix) {
-        // Find buttons that start with the topic prefix in their toggleLesson call
+        // Find buttons that contain the topic prefix in their toggleLesson call
         const allBtns = document.querySelectorAll('button[onclick^="toggleLesson"]');
         const topicBtns = Array.from(allBtns).filter(b =>
-            b.getAttribute('onclick').includes(topicPrefix)
+            b.getAttribute('onclick').includes(`'${topicPrefix}`)
         );
 
         const total = topicBtns.length;
@@ -469,9 +613,37 @@ include '../src/header.php';
 
         const pct = Math.round((completed / total) * 100);
 
-        // Find progress bar
+        // Find progress bar (id format: progress-topic-a, progress-ela-senses, etc.)
         const bar = document.getElementById(`progress-${topicPrefix}`);
         if (bar) bar.style.width = `${pct}%`;
+    }
+
+    // --- TTS Logic ---
+    function toggleSpeech(btn) {
+        const title = btn.getAttribute('data-title');
+        const desc = btn.getAttribute('data-desc');
+        const textToSpeak = `${title}. ${desc}`;
+
+        if ('speechSynthesis' in window) {
+            // If already speaking, stop it
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                btn.classList.remove('bg-primary', 'text-white');
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.rate = 0.9; // Slightly slower for Pre-K
+            utterance.pitch = 1.1; // Slightly friendlier tone
+
+            utterance.onstart = () => btn.classList.add('bg-primary', 'text-white');
+            utterance.onend = () => btn.classList.remove('bg-primary', 'text-white');
+            utterance.onerror = () => btn.classList.remove('bg-primary', 'text-white');
+
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Sorry, your browser doesn't support Text-to-Speech.");
+        }
     }
 
     // AI Placeholder Logic

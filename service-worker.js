@@ -1,43 +1,28 @@
-const CACHE_NAME = 'hestens-learning-v1';
+const CACHE_NAME = 'hestens-learning-v2';
 const ASSETS_TO_CACHE = [
-
-  // Main Directory Files A-Z
   '/',
+  '/index.php',
+  '/manifest.json',
   '/about-me.php',
-  '/about-us.php',
-  '/assessment.php',
-  '/contact.php',
+  '/about.php',
   '/curriculum.php',
   '/games.php',
   '/help-center.php',
-  '/index.php',
-  '/manifest.json',
   '/mission.php',
   '/parents.php',
   '/privacy-policy.php',
-  '/search.php',
-  '/service-worker.js',
   '/settings.php',
   '/standard.php',
   '/students.php',
-  '/teachers.php', // Link is teachers.php
+  '/teachers.php',
   '/terms-of-use.php',
-
-  // Images
-  '/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png',
-
-  // CSS
-  '/src/style.css',
-  '/src/w3.css',
-
-  // JavaScript
+  '/JS/gamification.js',
   '/JS/assessment-core.js',
   '/JS/questionGenerator.js',
-
-  // SRC Files
-  '/src/footer.php',
-  '/src/header.php',
-
+  '/Images/6791421e-7ca7-40bd-83d3-06a479bf7f36.png',
+  '/font/OpenDyslexic/OpenDyslexic-Regular.otf',
+  '/font/OpenDyslexic/OpenDyslexic-Bold.otf',
+  '/font/OpenDyslexic/OpenDyslexic-Italic.otf'
 ];
 
 // Install Event: Caches critical assets immediately

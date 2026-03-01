@@ -1,314 +1,278 @@
 <?php
 // --- Page Configuration ---
-$pageTitle       = "Curriculum & Learning | Hesten's Learning";
-$pageDescription = "Browse our complete K-12 curriculum including Math, ELA, and Science. Accessible learning for everyone.";
-$pageKeywords    = "curriculum, grades, k-12, math, ela, science, special education";
+$pageTitle       = "My Learning Journey | Hesten's Learning";
+$pageDescription = "Track your progress, earn badges, and continue your personalized learning path.";
+$pageKeywords    = "dashboard, learning journey, progress, badges, k-12, accessibility";
 $pageAuthor      = "Hesten's Learning";
 
-// --- Dynamic Content Array (Duplicated from index.php) ---
+// --- Dynamic Content Array ---
 $learningLevels = [
-    ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more. Foundational skills.', 'link' => '/Level/a.php', 'icon' => 'fas fa-shapes'],
-    ['id' => 'kindergarten', 'category' => 'elem', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks for a strong start.', 'link' => '/Level/b.php', 'icon' => 'fas fa-puzzle-piece'],
+    ['id' => 'pre-k', 'category' => 'elem', 'title' => 'Pre-K', 'description' => 'Counting objects, letter names, rhyming words, and more.', 'link' => '/Level/a.php', 'icon' => 'fas fa-shapes'],
+    ['id' => 'kindergarten', 'category' => 'elem', 'title' => 'Kindergarten', 'description' => 'Basic math concepts, phonics, early reading. Building blocks.', 'link' => '/Level/b.php', 'icon' => 'fas fa-puzzle-piece'],
     ['id' => 'grade-1', 'category' => 'elem', 'title' => 'Grade 1', 'description' => 'Adding, subtracting, sentence formation. Developing independence.', 'link' => '/Level/c.php', 'icon' => 'fas fa-pencil-alt'],
-    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding foundational knowledge.', 'link' => '/Level/d.php', 'icon' => 'fas fa-book-open'],
+    ['id' => 'grade-2', 'category' => 'elem', 'title' => 'Grade 2', 'description' => 'Basic multiplication, reading fluency. Expanding knowledge.', 'link' => '/Level/d.php', 'icon' => 'fas fa-book-open'],
     ['id' => 'grade-3', 'category' => 'elem', 'title' => 'Grade 3', 'description' => 'Multiplication, division, reading comprehension. Critical thinking.', 'link' => '/Level/e.php', 'icon' => 'fas fa-calculator'],
-    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, reading comprehension. Deeper dives.', 'link' => '/Level/f.php', 'icon' => 'fas fa-divide'],
-    ['id' => 'grade-5', 'category' => 'elem', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Preparing for middle school.', 'link' => '/Level/g.php', 'icon' => 'fas fa-atom'],
-    ['id' => 'grade-6', 'category' => 'middle', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science. Transitioning to complex subjects.', 'link' => '/Level/h.php', 'icon' => 'fas fa-globe-americas'],
-    ['id' => 'grade-7', 'category' => 'middle', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science. Middle school mastery.', 'link' => '/Level/i.php', 'icon' => 'fas fa-dna'],
-    ['id' => 'grade-8', 'category' => 'middle', 'title' => 'Grade 8', 'description' => 'Linear equations, historical analysis, earth science. Pre-high school readiness.', 'link' => '/Level/j.php', 'icon' => 'fas fa-history'],
-    ['id' => 'grade-9', 'category' => 'high', 'title' => 'Grade 9', 'description' => 'Algebra, literature, physical science. Introduction to high school.', 'link' => '/Level/k.php', 'icon' => 'fas fa-flask'],
-    ['id' => 'grade-10', 'category' => 'high', 'title' => 'Grade 10', 'description' => 'Geometry, world history, biology. Broadening academic horizons.', 'link' => '/Level/l.php', 'icon' => 'fas fa-project-diagram'],
-    ['id' => 'grade-11', 'category' => 'high', 'title' => 'Grade 11', 'description' => 'Pre-calculus, advanced literature, chemistry. College prep.', 'link' => '/Level/m.php', 'icon' => 'fas fa-microscope'],
-    ['id' => 'grade-12', 'category' => 'high', 'title' => 'Grade 12', 'description' => 'Advanced calculus, literature analysis, physics. Final preparations.', 'link' => '/Level/n.php', 'icon' => 'fas fa-graduation-cap'],
-    ['id' => 'test-section', 'category' => 'extra', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes, review extra materials, and challenge yourself.', 'link' => '/test', 'icon' => 'fas fa-star']
+    ['id' => 'grade-4', 'category' => 'elem', 'title' => 'Grade 4', 'description' => 'Advanced multiplication, division, deeper dives.', 'link' => '/Level/f.php', 'icon' => 'fas fa-divide'],
+    ['id' => 'grade-5', 'category' => 'elem', 'title' => 'Grade 5', 'description' => 'Decimals, essay writing, ecosystems. Middle school prep.', 'link' => '/Level/g.php', 'icon' => 'fas fa-atom'],
+    ['id' => 'grade-6', 'category' => 'middle', 'title' => 'Grade 6', 'description' => 'Fractions, essay writing, earth science.', 'link' => '/Level/h.php', 'icon' => 'fas fa-globe-americas'],
+    ['id' => 'grade-7', 'category' => 'middle', 'title' => 'Grade 7', 'description' => 'Proportional relationships, persuasive writing, life science.', 'link' => '/Level/i.php', 'icon' => 'fas fa-dna'],
+    ['id' => 'grade-8', 'category' => 'middle', 'title' => 'Grade 8', 'description' => 'Linear equations, historical analysis, pre-high school readiness.', 'link' => '/Level/j.php', 'icon' => 'fas fa-history'],
+    ['id' => 'grade-9', 'category' => 'high', 'title' => 'Grade 9', 'description' => 'Algebra, literature, physical science.', 'link' => '/Level/k.php', 'icon' => 'fas fa-flask'],
+    ['id' => 'grade-10', 'category' => 'high', 'title' => 'Grade 10', 'description' => 'Geometry, world history, biology.', 'link' => '/Level/l.php', 'icon' => 'fas fa-project-diagram'],
+    ['id' => 'grade-11', 'category' => 'high', 'title' => 'Grade 11', 'description' => 'Pre-calculus, advanced literature, chemistry.', 'link' => '/Level/m.php', 'icon' => 'fas fa-microscope'],
+    ['id' => 'grade-12', 'category' => 'high', 'title' => 'Grade 12', 'description' => 'Advanced calculus, literature analysis, physics.', 'link' => '/Level/n.p-hp', 'icon' => 'fas fa-graduation-cap'],
+    ['id' => 'test-section', 'category' => 'extra', 'title' => 'Test/Extra', 'description' => 'Practice with quizzes and review extra materials.', 'link' => '/test', 'icon' => 'fas fa-star']
 ];
 
-// --- Theme Mapping ---
 $themeMap = [
-    'elem' => [
-        'border' => 'border-teal-400 dark:border-teal-500',
-        'icon_bg' => 'bg-teal-100 dark:bg-teal-900',
-        'icon_text' => 'text-teal-600 dark:text-teal-300',
-        'hover_border' => 'hover:border-teal-500',
-        'button_hover' => 'hover:bg-teal-500 hover:text-white',
-        'accent' => 'text-teal-600 dark:text-teal-400'
-    ],
-    'middle' => [
-        'border' => 'border-amber-400 dark:border-amber-500',
-        'icon_bg' => 'bg-amber-100 dark:bg-amber-900',
-        'icon_text' => 'text-amber-600 dark:text-amber-300',
-        'hover_border' => 'hover:border-amber-500',
-        'button_hover' => 'hover:bg-amber-500 hover:text-white',
-        'accent' => 'text-amber-600 dark:text-amber-400'
-    ],
-    'high' => [
-        'border' => 'border-rose-400 dark:border-rose-500',
-        'icon_bg' => 'bg-rose-100 dark:bg-rose-900',
-        'icon_text' => 'text-rose-600 dark:text-rose-300',
-        'hover_border' => 'hover:border-rose-500',
-        'button_hover' => 'hover:bg-rose-500 hover:text-white',
-        'accent' => 'text-rose-600 dark:text-rose-400'
-    ],
-    'extra' => [
-        'border' => 'border-violet-400 dark:border-violet-500',
-        'icon_bg' => 'bg-violet-100 dark:bg-violet-900',
-        'icon_text' => 'text-violet-600 dark:text-violet-300',
-        'hover_border' => 'hover:border-violet-500',
-        'button_hover' => 'hover:bg-violet-500 hover:text-white',
-        'accent' => 'text-violet-600 dark:text-violet-400'
-    ]
+    'elem' => ['border' => 'border-teal-400', 'icon_bg' => 'bg-teal-100', 'icon_text' => 'text-teal-600', 'accent' => 'text-teal-600'],
+    'middle' => ['border' => 'border-amber-400', 'icon_bg' => 'bg-amber-100', 'icon_text' => 'text-amber-600', 'accent' => 'text-amber-600'],
+    'high' => ['border' => 'border-rose-400', 'icon_bg' => 'bg-rose-100', 'icon_text' => 'text-rose-600', 'accent' => 'text-rose-600'],
+    'extra' => ['border' => 'border-violet-400', 'icon_bg' => 'bg-violet-100', 'icon_text' => 'text-violet-600', 'accent' => 'text-violet-600']
 ];
 
 include 'src/header.php';
 ?>
 
-<!-- Confetti Library -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" defer></script>
-
-<!-- Hero Section -->
-<div
-    class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-20 px-4 rounded-b-[2.5rem] shadow-2xl overflow-hidden mb-12 border-b border-white/10">
-    <!-- Abstract Background Shapes -->
+<!-- Hero / Dashboard Top -->
+<div class="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-900 dark:via-blue-900 dark:to-purple-900 text-white pt-20 pb-32 px-4 rounded-b-[3rem] shadow-2xl overflow-hidden mb-[-4rem]">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <i class="fas fa-book absolute top-10 left-10 text-8xl text-white/10 transform-gpu"></i>
-        <i
-            class="fas fa-graduation-cap absolute bottom-20 right-10 text-[12rem] text-white/5 rotate-12 transform-gpu"></i>
+        <i class="fas fa-meteor absolute top-10 left-10 text-8xl text-white/10 rotate-45"></i>
+        <i class="fas fa-star absolute bottom-20 right-10 text-[12rem] text-white/5"></i>
     </div>
 
-    <div class="container mx-auto px-4 relative z-10 text-center">
-        <span
-            class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-sm font-bold mb-4 uppercase tracking-wider backdrop-blur-md shadow-sm">
-            Curriculum
-        </span>
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md">
-            Complete Learning Path
-        </h1>
-        <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed">
-            Explore all grade levels and subjects available on Hesten's Learning.
-        </p>
-    </div>
-</div>
-
-<main class="container mx-auto px-4 mb-20" id="main-content">
-
-    <!-- Filter & Search Controls -->
-    <div
-        class="bg-content-bg p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 mb-10 sticky top-4 z-30 transition-colors duration-300">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm"
-                    aria-hidden="true"></span>
-                <h2 id="learning-levels-heading" class="text-2xl font-bold text-text-default">Select Your Grade</h2>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <span class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-xs font-bold mb-4 uppercase tracking-wider backdrop-blur-md">Your Dashboard</span>
+                <h1 class="text-4xl md:text-5xl font-black mb-2 tracking-tight">My Learning Journey</h1>
+                <p class="text-blue-100 text-lg font-light max-w-xl">Welcome back! Every lesson you complete brings you closer to your goals.</p>
             </div>
-
-            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
-                <!-- Search -->
-                <div class="relative w-full sm:w-64">
-                    <label for="level-search" class="sr-only">Filter grades</label>
-                    <input type="text" id="level-search" placeholder="Filter grades..."
-                        class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-base-bg text-text-default focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm">
-                    <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                        aria-hidden="true"></i>
-                    <button id="clear-search" onclick="resetFilters()"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary hidden focus:outline-none"
-                        aria-label="Clear filter">
-                        <i class="fas fa-times-circle"></i>
-                    </button>
+            
+            <!-- Quick Stats -->
+            <div class="flex gap-4">
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-xl text-center w-28">
+                    <div class="text-3xl font-black text-teal-300" id="dash-streak">0</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest opacity-70">Streak</div>
                 </div>
-
-                <!-- Categories -->
-                <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
-                    <button onclick="setCategory('all')"
-                        class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 transition-all shadow-sm ring-offset-2 focus:ring-2"
-                        aria-pressed="true" data-filter="all">All</button>
-                    <!-- Color-Coded Filter Buttons -->
-                    <button onclick="setCategory('elem')"
-                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-900/30 dark:text-teal-300 dark:hover:bg-teal-900/50 transition-all border border-transparent hover:border-teal-200"
-                        aria-pressed="false" data-filter="elem">Elem</button>
-                    <button onclick="setCategory('middle')"
-                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50 transition-all border border-transparent hover:border-amber-200"
-                        aria-pressed="false" data-filter="middle">Middle</button>
-                    <button onclick="setCategory('high')"
-                        class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50 transition-all border border-transparent hover:border-rose-200"
-                        aria-pressed="false" data-filter="high">High</button>
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-xl text-center w-32">
+                    <div class="text-3xl font-black text-amber-300" id="dash-level">1</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest opacity-70">Level</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-xl text-center w-28">
+                    <div class="text-3xl font-black text-rose-300" id="dash-badges">0</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest opacity-70">Badges</div>
                 </div>
             </div>
         </div>
-        <div class="mt-2 text-sm text-text-secondary text-right" aria-live="polite" id="results-count">Showing all
-            levels</div>
+    </div>
+</div>
+
+<main class="container mx-auto px-4 mb-20 relative z-20">
+    
+    <!-- DASHBOARD GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        
+        <!-- Continue Learning -->
+        <div class="lg:col-span-2 bg-content-bg rounded-[2.5rem] shadow-xl border border-gray-100 dark:border-gray-800 p-8 flex flex-col md:flex-row items-center gap-8 group">
+            <div class="w-32 h-32 rounded-3xl bg-primary/10 flex items-center justify-center text-5xl text-primary shrink-0 transition-transform group-hover:scale-110" id="continue-icon">
+                <i class="fas fa-play"></i>
+            </div>
+            <div class="flex-grow text-center md:text-left">
+                <div class="text-xs font-bold text-primary uppercase tracking-widest mb-1">Recommended for you</div>
+                <h2 class="text-3xl font-black text-text-default mb-2" id="continue-title">Start Your Journey</h2>
+                <p class="text-text-secondary mb-6 line-clamp-2" id="continue-desc">Pick a grade level below to begin your personalized learning path.</p>
+                <a href="#browse-all" id="continue-btn" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-secondary transition-all transform hover:scale-105 shadow-lg">
+                    <span>Continue Now</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="bg-content-bg rounded-[2.5rem] shadow-xl border border-gray-100 dark:border-gray-800 p-8">
+            <h3 class="font-black text-xl mb-6 flex items-center gap-2 text-text-default">
+                <i class="fas fa-chart-line text-primary"></i> Level Progress
+            </h3>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between text-sm font-bold mb-2">
+                        <span class="text-text-secondary">Current XP</span>
+                        <span class="text-primary" id="dash-xp-val">0 / 100</span>
+                    </div>
+                    <div class="w-full h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden p-1 shadow-inner">
+                        <div id="dash-xp-bar" class="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-base-bg rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div class="text-xs font-bold text-text-secondary uppercase mb-1">Completed</div>
+                        <div class="text-2xl font-black text-text-default" id="dash-stat-lessons">0</div>
+                    </div>
+                    <div class="p-4 bg-base-bg rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div class="text-xs font-bold text-text-secondary uppercase mb-1">AI Questions</div>
+                        <div class="text-2xl font-black text-text-default" id="dash-stat-questions">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Grid -->
-    <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        aria-labelledby="learning-levels-heading">
-        <?php foreach ($learningLevels as $index => $level) :
-            $theme = isset($themeMap[$level['category']]) ? $themeMap[$level['category']] : $themeMap['elem'];
+    <!-- BADGE CASE -->
+    <div class="bg-content-bg rounded-[2.5rem] shadow-xl border border-gray-100 dark:border-gray-800 p-8 mb-12 overflow-hidden">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="font-black text-2xl flex items-center gap-3 text-text-default">
+                <i class="fas fa-award text-amber-500 text-3xl"></i> My Badge Case
+            </h3>
+            <span class="text-sm font-bold text-text-secondary" id="badge-count-text">0 / 7 Unlocked</span>
+        </div>
+        
+        <div class="flex flex-wrap gap-6 justify-center" id="badge-gallery">
+            <!-- Badges injected by JS -->
+        </div>
+    </div>
+
+    <!-- BROWSE ALL SECTION -->
+    <div id="browse-all" class="scroll-mt-24">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div class="flex items-center gap-3">
+                <span class="w-2 h-8 bg-gradient-to-b from-primary to-accent rounded-full shadow-sm"></span>
+                <h2 class="text-3xl font-black text-text-default">Explore Curriculum</h2>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-2">
+                <button onclick="setCategory('all')" class="filter-btn active px-6 py-2 rounded-full text-sm font-black bg-primary text-white shadow-lg transition-all" data-filter="all">All</button>
+                <button onclick="setCategory('elem')" class="filter-btn px-6 py-2 rounded-full text-sm font-black bg-teal-50 text-teal-700 hover:bg-teal-100 transition-all" data-filter="elem">Elementary</button>
+                <button onclick="setCategory('middle')" class="filter-btn px-6 py-2 rounded-full text-sm font-black bg-amber-50 text-amber-700 hover:bg-amber-100 transition-all" data-filter="middle">Middle</button>
+                <button onclick="setCategory('high')" class="filter-btn px-6 py-2 rounded-full text-sm font-black bg-rose-50 text-rose-700 hover:bg-rose-100 transition-all" data-filter="high">High School</button>
+            </div>
+        </div>
+
+        <section id="level-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <?php foreach ($learningLevels as $level) : 
+                $theme = $themeMap[$level['category']];
             ?>
-            <article class="level-card group relative flex flex-col h-full"
-                data-category="<?php echo htmlspecialchars($level['category']); ?>"
-                data-title="<?php echo htmlspecialchars(strtolower($level['title'])); ?>"
-                data-desc="<?php echo htmlspecialchars(strtolower($level['description'])); ?>"
-                data-id="<?php echo htmlspecialchars($level['id']); ?>"
-                data-link="<?php echo htmlspecialchars($level['link']); ?>">
-
-                <!-- Card Container with Dynamic Border Color -->
-                <div
-                    class="bg-content-bg h-full rounded-2xl shadow-lg border-t-8 <?php echo $theme['border']; ?> border-l border-r border-b border-gray-100 dark:border-gray-700 hover:border-transparent <?php echo $theme['hover_border']; ?> transition-all duration-300 p-8 flex flex-col overflow-hidden hover:shadow-2xl hover:-translate-y-1">
-
-                    <!-- Decorative Icon Background (Faded) -->
-                    <div
-                        class="absolute -right-6 -bottom-6 text-[8rem] opacity-5 transform rotate-12 group-hover:scale-110 transition-transform duration-500 pointer-events-none <?php echo $theme['accent']; ?>">
-                        <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
-                    </div>
-
-                    <!-- Actions Top Right -->
-                    <div class="absolute top-4 right-4 flex gap-2 z-20">
-                        <!-- TTS -->
-                        <button type="button"
-                            class="w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-                            onclick="toggleSpeech(this, '<?php echo htmlspecialchars(addslashes($level['title'])); ?>', '<?php echo htmlspecialchars(addslashes($level['description'])); ?>')"
-                            aria-label="Listen to description">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <!-- Mark Complete -->
-                        <button type="button"
-                            class="completion-toggle w-10 h-10 rounded-full bg-base-bg text-text-secondary hover:text-green-600 hover:bg-green-100 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
-                            onclick="toggleCompletion('<?php echo htmlspecialchars($level['id']); ?>', this)"
-                            aria-label="Mark as complete">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </div>
-
-                    <!-- Content Header with Dynamic Icon Colors -->
-                    <div class="flex items-center gap-4 mb-4 relative z-10">
-                        <div
-                            class="w-16 h-16 rounded-2xl <?php echo $theme['icon_bg']; ?> <?php echo $theme['icon_text']; ?> flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform duration-300">
-                            <i class="<?php echo htmlspecialchars($level['icon']); ?>"></i>
+            <div class="level-card group" data-category="<?= $level['category'] ?>">
+                <div class="bg-content-bg rounded-3xl p-8 border border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border-t-8 <?= $theme['border'] ?>">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl <?= $theme['icon_bg'] ?> <?= $theme['icon_text'] ?> flex items-center justify-center text-2xl group-hover:rotate-12 transition-transform shadow-inner">
+                            <i class="<?= $level['icon'] ?>"></i>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-text-default group-hover:text-primary transition-colors">
-                                <?php echo htmlspecialchars($level['title']); ?>
-                            </h3>
-                            <span
-                                class="text-xs uppercase tracking-wider font-semibold text-text-secondary bg-base-bg px-2 py-1 rounded-md border border-gray-200 dark:border-gray-700">
-                                <?php echo htmlspecialchars(ucfirst($level['category'])); ?>
-                            </span>
-                        </div>
+                        <h4 class="text-xl font-black text-text-default"><?= $level['title'] ?></h4>
                     </div>
-
-                    <!-- Description -->
-                    <p class="text-text-secondary leading-relaxed mb-8 flex-grow relative z-10">
-                        <?php echo htmlspecialchars($level['description']); ?>
-                    </p>
-
-                    <!-- CTA Button -->
-                    <a href="<?php echo htmlspecialchars($level['link']); ?>"
-                        class="w-full block text-center py-3 px-6 rounded-xl border-2 font-bold transition-all duration-300 transform group-hover:scale-105 <?php echo $theme['border']; ?> <?php echo $theme['accent']; ?> <?php echo $theme['button_hover']; ?> bg-transparent relative z-10">
-                        Start Learning <i class="fas fa-arrow-right ml-2"></i>
+                    <p class="text-text-secondary text-sm mb-8 line-clamp-2 leading-relaxed"><?= $level['description'] ?></p>
+                    <a href="<?= $level['link'] ?>" class="flex items-center justify-between w-full bg-base-bg p-4 rounded-2xl font-bold group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                        <span>Explore Skills</span>
+                        <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
-            </article>
-        <?php endforeach; ?>
-    </section>
+            </div>
+            <?php endforeach; ?>
+        </section>
+    </div>
 </main>
 
 <script>
-    // --- Filter Logic ---
-    function setCategory(category) {
-        // Update Buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            if (btn.dataset.filter === category) {
-                btn.classList.add('active', 'bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900', 'shadow-sm', 'ring-offset-2', 'focus:ring-2');
-                btn.classList.remove('bg-teal-50', 'text-teal-700', 'bg-amber-50', 'text-amber-700', 'bg-rose-50', 'text-rose-700', 'dark:bg-teal-900/30', 'dark:text-teal-300', 'dark:bg-amber-900/30', 'dark:text-amber-300', 'dark:bg-rose-900/30', 'dark:text-rose-300');
-                btn.setAttribute('aria-pressed', 'true');
-            } else {
-                btn.classList.remove('active', 'bg-gray-800', 'text-white', 'dark:bg-gray-200', 'dark:text-gray-900', 'shadow-sm', 'ring-offset-2', 'focus:ring-2');
-                btn.setAttribute('aria-pressed', 'false');
-
-                // Add back original color classes based on filter type
-                const filter = btn.dataset.filter;
-                if (filter === 'elem') btn.classList.add('bg-teal-50', 'text-teal-700', 'dark:bg-teal-900/30', 'dark:text-teal-300');
-                else if (filter === 'middle') btn.classList.add('bg-amber-50', 'text-amber-700', 'dark:bg-amber-900/30', 'dark:text-amber-300');
-                else if (filter === 'high') btn.classList.add('bg-rose-50', 'text-rose-700', 'dark:bg-rose-900/30', 'dark:text-rose-300');
-            }
-        });
-
-        const cards = document.querySelectorAll('.level-card');
-        const searchTerm = document.getElementById('level-search').value.toLowerCase();
-        let count = 0;
-
-        cards.forEach(card => {
-            const cardCat = card.dataset.category;
-            const matchesCategory = category === 'all' || cardCat === category;
-            const matchesSearch = card.dataset.title.includes(searchTerm) || card.dataset.desc.includes(searchTerm);
-
-            if (matchesCategory && matchesSearch) {
-                card.style.display = 'flex'; // Restore flex display
-                count++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        updateCount(count);
-    }
-
-    function resetFilters() {
-        document.getElementById('level-search').value = '';
-        document.getElementById('clear-search').classList.add('hidden');
-        setCategory('all');
-    }
-
-    // Search Input Listener
-    document.getElementById('level-search').addEventListener('keyup', (e) => {
-        const val = e.target.value.toLowerCase();
-        const clearBtn = document.getElementById('clear-search');
-        if (val.length > 0) clearBtn.classList.remove('hidden');
-        else clearBtn.classList.add('hidden');
-
-        // Trigger filter with current active category
-        const activeCat = document.querySelector('.filter-btn.active').dataset.filter;
-        setCategory(activeCat);
+    document.addEventListener('DOMContentLoaded', () => {
+        updateDashboard();
+        // Listen for updates
+        window.addEventListener('gamification-updated', updateDashboard);
     });
 
-    function updateCount(count) {
-        const countEl = document.getElementById('results-count');
-        if (count === 0) countEl.innerText = 'No levels found';
-        else countEl.innerText = `Showing ${count} level${count !== 1 ? 's' : ''}`;
+    function updateDashboard() {
+        if (!window.getGamificationData) return;
+        
+        const data = window.getGamificationData();
+        const defs = window.getBadgeDefinitions();
+        
+        // Update Stats
+        document.getElementById('dash-streak').textContent = data.streak || 0;
+        document.getElementById('dash-level').textContent = data.level;
+        document.getElementById('dash-badges').textContent = data.badges.length;
+        
+        document.getElementById('dash-stat-lessons').textContent = data.stats.lessonsCompleted;
+        document.getElementById('dash-stat-questions').textContent = data.stats.questionsAsked;
+        
+        // Progress Bar
+        const nextXP = window.getNextLevelXP(data.level);
+        const pct = (data.xp / nextXP) * 100;
+        document.getElementById('dash-xp-val').textContent = `${data.xp} / ${nextXP}`;
+        document.getElementById('dash-xp-bar').style.width = `${pct}%`;
+        
+        // Badge Gallery
+        const gallery = document.getElementById('badge-gallery');
+        gallery.innerHTML = '';
+        defs.forEach(badge => {
+            const isEarned = data.badges.includes(badge.id);
+            const badgeEl = document.createElement('div');
+            badgeEl.className = `flex flex-col items-center gap-2 p-4 rounded-2xl w-28 text-center transition-all ${isEarned ? 'bg-base-bg shadow-md scale-105 border border-primary/20' : 'opacity-30 grayscale'}`;
+            badgeEl.innerHTML = `
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-xl ${badge.color}">
+                    <i class="${badge.icon}"></i>
+                </div>
+                <div class="text-[10px] font-black text-text-default uppercase leading-tight">${badge.title}</div>
+            `;
+            badgeEl.title = isEarned ? badge.desc : 'Locked: ' + badge.desc;
+            gallery.appendChild(badgeEl);
+        });
+        document.getElementById('badge-count-text').textContent = `${data.badges.length} / ${defs.length} Unlocked`;
+
+        // Update "Continue Learning"
+        updateRecommended(data);
     }
 
-    // --- Interactive Utilities (Completion & TTS) ---
-    // These functions rely on global logic but are initialized here for the grid cards
-    function toggleCompletion(id, btn) {
-        // Simple toggle visual for now (actual logic handled in footer/global js generally)
-        // In a real app, this would save to localStorage
-        const icon = btn.querySelector('i');
-        if (btn.classList.contains('bg-green-100')) {
-            // Undo
-            btn.classList.remove('bg-green-100', 'text-green-600');
-            btn.classList.add('bg-base-bg', 'text-text-secondary');
-        } else {
-            // Complete
-            btn.classList.remove('bg-base-bg', 'text-text-secondary');
-            btn.classList.add('bg-green-100', 'text-green-600');
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+    function updateRecommended(data) {
+        const completed = JSON.parse(localStorage.getItem('hl_completed_levels') || '[]');
+        const levels = [
+            {id:'pre-k', title:'Pre-K', icon:'fas fa-shapes', desc:'Ready to start the basics?'},
+            {id:'kindergarten', title:'Kindergarten', icon:'fas fa-puzzle-piece', desc:'Phonics and counting fun!'},
+            {id:'grade-1', title:'Grade 1', icon:'fas fa-pencil-alt', desc:'Sentences and addition.'},
+            {id:'grade-2', title:'Grade 2', icon:'fas fa-book-open', desc:'Multiplication and reading fluency.'},
+            {id:'grade-3', title:'Grade 3', icon:'fas fa-calculator', desc:'Division and comprehension.'},
+            {id:'grade-4', title:'Grade 4', icon:'fas fa-divide', desc:'Advanced math and deep dives.'},
+            {id:'grade-5', title:'Grade 5', icon:'fas fa-atom', desc:'Essay writing and ecosystems.'},
+            {id:'grade-6', title:'Grade 6', icon:'fas fa-globe-americas', desc:'Fractions and earth science.'},
+            {id:'grade-7', title:'Grade 7', icon:'fas fa-dna', desc:'Life science and proportions.'},
+            {id:'grade-8', title:'Grade 8', icon:'fas fa-history', desc:'Historical analysis and equations.'},
+            {id:'grade-9', title:'Grade 9', icon:'fas fa-flask', desc:'Algebra and physics intro.'},
+            {id:'grade-10', title:'Grade 10', icon:'fas fa-project-diagram', desc:'Geometry and biology.'},
+            {id:'grade-11', title:'Grade 11', icon:'fas fa-microscope', desc:'Calculus and chemistry prep.'},
+            {id:'grade-12', title:'Grade 12', icon:'fas fa-graduation-cap', desc:'The final academic step!'}
+        ];
+
+        const next = levels.find(l => !completed.includes(l.id)) || levels[0];
+        const titleEl = document.getElementById('continue-title');
+        const descEl = document.getElementById('continue-desc');
+        const iconEl = document.getElementById('continue-icon');
+        const btnEl = document.getElementById('continue-btn');
+
+        if (completed.length > 0) {
+            titleEl.textContent = `Resume ${next.title}`;
+            descEl.textContent = next.desc;
+            iconEl.innerHTML = `<i class="${next.icon}"></i>`;
+            btnEl.href = `/Level/${String.fromCharCode(97 + levels.indexOf(next))}.php`;
         }
     }
 
-    function toggleSpeech(btn, title, desc) {
-        if ('speechSynthesis' in window) {
-            if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-                return;
+    function setCategory(cat) {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            if (btn.dataset.filter === cat) {
+                btn.classList.add('active', 'bg-primary', 'text-white', 'shadow-lg');
+                btn.classList.remove('bg-teal-50', 'text-teal-700', 'bg-amber-50', 'text-amber-700', 'bg-rose-50', 'text-rose-700');
+            } else {
+                btn.classList.remove('active', 'bg-primary', 'text-white', 'shadow-lg');
+                const f = btn.dataset.filter;
+                if (f === 'elem') btn.classList.add('bg-teal-50', 'text-teal-700');
+                if (f === 'middle') btn.classList.add('bg-amber-50', 'text-amber-700');
+                if (f === 'high') btn.classList.add('bg-rose-50', 'text-rose-700');
+                if (f === 'all') btn.classList.add('bg-gray-100', 'text-gray-700');
             }
-            const utterance = new SpeechSynthesisUtterance(title + ". " + desc);
-            window.speechSynthesis.speak(utterance);
-        }
+        });
+
+        document.querySelectorAll('.level-card').forEach(card => {
+            if (cat === 'all' || card.dataset.category === cat) card.style.display = 'block';
+            else card.style.display = 'none';
+        });
     }
 </script>
 
