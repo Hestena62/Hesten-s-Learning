@@ -606,8 +606,13 @@ include '../../src/header.php';
           down and the world began to look more cheerful. He took a cigarette from a <span
             class="tooltip"><strong>crumpled</strong><span class="tooltiptext">Crushed into wrinkles</span></span>
           packet marked VICTORY CIGARETTES and <span class="tooltip"><strong>incautiously</strong><span
+<<<<<<< Updated upstream
             class="tooltiptext">Without being careful</span></span> held it upright, whereupon the tobacco fell out on
           to the floor. With the next he was more successful. He went back to the living-room and sat down at a small table that stood to the left of the telescreen. From the table drawer he took out a penholder, a bottle of ink, and a thick, quarto-sized blank book with a red back and a marbled cover.
+=======
+              class="tooltiptext">Without being careful</span></span> held it upright, whereupon the tobacco fell out on
+          to the floor. With the next he was more successful.
+>>>>>>> Stashed changes
         </p>
 
         <p>For some reason the telescreen in the living-room was in an unusual position. Instead of being placed, as was normal, in the end wall, where it could command the whole room, it was in the longer wall, opposite the window. To one side of it there was a shallow <span class="tooltip"><strong>alcove</strong><span class="tooltiptext">A small recess opening off a larger room</span></span> in which Winston was now sitting, and which, when the flats were built, had probably been intended to hold bookshelves. By sitting in the alcove, and keeping well back, Winston was able to remain outside the range of the telescreen, so far as sight went. He could be heard, of course, but so long as he stayed in his present position he could not be seen. It was partly the unusual geography of the room that had suggested to him the thing that he was now about to do.</p>

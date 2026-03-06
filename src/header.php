@@ -333,8 +333,109 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--color-primary);
+<<<<<<< Updated upstream
             border-radius: 6px;
             border: 3px solid var(--color-base-bg);
+=======
+            color: white;
+            position: relative;
+            z-index: 50;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .announcement-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0.5rem 3rem;
+            position: relative;
+        }
+
+        .announcement-slide {
+            display: none;
+            text-align: center;
+            font-size: 0.875rem;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .announcement-slide.active {
+            display: block;
+        }
+
+        .announcement-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .announcement-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            scale: 1.1;
+        }
+
+        .announcement-prev {
+            left: 0.75rem;
+        }
+
+        .announcement-next {
+            right: 3.5rem;
+        }
+
+        .announcement-close {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .announcement-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .high-contrast #announcement-bar-container {
+            background: #000;
+            border-bottom: 2px solid #ffff00;
+            color: #ffff00;
+        }
+
+        .high-contrast .announcement-btn {
+            border: 1px solid #ffff00;
+        }
+
+        .focus-mode #announcement-bar-container {
+            display: none !important;
+>>>>>>> Stashed changes
         }
     </style>
 </head>
@@ -662,6 +763,71 @@
             syncPanelInputs(s);
         }
 
+<<<<<<< Updated upstream
+=======
+        // --- ANNOUNCEMENT BAR ---
+        const announcements = [
+            "Welcome to Hesten's Learning! We're empowering students with personalized lessons.",
+            "New Math lessons are now available in the Learning section. Check them out!",
+            "I am working on each section a little at a time. If you have any feedback please email me at admin@hestena62.com",
+            "Try our new Assessment tools to track your progress!"
+        ];
+
+        let currentAnnouncementIndex = 0;
+        const BAR_STORAGE_KEY = 'hl_announcement_closed';
+
+        function initAnnouncementBar() {
+            const container = document.getElementById('announcement-bar-container');
+            const carousel = document.getElementById('announcement-carousel');
+            const closeBtn = document.getElementById('close-announcement-bar');
+
+            if (!container || !carousel || !closeBtn) return;
+
+            // Check if user has closed the bar
+            if (localStorage.getItem(BAR_STORAGE_KEY) === 'true') {
+                return;
+            }
+
+            // Populate carousel
+            announcements.forEach((text, index) => {
+                const slide = document.createElement('div');
+                slide.className = `announcement-slide ${index === 0 ? 'active' : ''}`;
+                slide.innerHTML = `<p class="font-medium">${text}</p>`;
+                carousel.appendChild(slide);
+            });
+
+            container.classList.remove('hidden');
+
+            // Controls
+            const prevBtn = document.querySelector('.announcement-prev');
+            const nextBtn = document.querySelector('.announcement-next');
+
+            if (prevBtn) prevBtn.addEventListener('click', () => showAnnouncement(currentAnnouncementIndex - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => showAnnouncement(currentAnnouncementIndex + 1));
+
+            closeBtn.addEventListener('click', () => {
+                container.style.height = '0';
+                container.style.opacity = '0';
+                setTimeout(() => container.classList.add('hidden'), 300);
+                localStorage.setItem(BAR_STORAGE_KEY, 'true');
+            });
+        }
+
+        function showAnnouncement(index) {
+            const slides = document.querySelectorAll('.announcement-slide');
+            if (slides.length === 0) return;
+
+            slides[currentAnnouncementIndex].classList.remove('active');
+            currentAnnouncementIndex = (index + slides.length) % slides.length;
+            slides[currentAnnouncementIndex].classList.add('active');
+        }
+
+        // Initialize on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initAnnouncementBar();
+        });
+
+>>>>>>> Stashed changes
         // Expose applySettings for debugging or external use
         window.applySettings = applySettings;
 

@@ -263,8 +263,22 @@ if (typeof finishQuiz === 'function') {
                 downloadBtn.innerHTML = '<i class="fas fa-file-download mr-2"></i> Download Results';
                 downloadBtn.onclick = generateAndDownloadText;
 
+                // Create Send to Adult Button
+                const sendBtn = document.createElement('button');
+                sendBtn.className = "bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition mt-4 md:ml-4 block md:inline-block w-full md:w-auto shadow-lg shadow-blue-500/30";
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Send to Adult';
+                sendBtn.onclick = () => {
+                    // Open the modal
+                    const modal = document.getElementById('send-report-modal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    }
+                };
+
                 // Append to the result card
                 resultDiv.appendChild(downloadBtn);
+                resultDiv.appendChild(sendBtn);
             }
         }, 100);
     };

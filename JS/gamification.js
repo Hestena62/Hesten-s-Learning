@@ -49,11 +49,45 @@ function loadGamificationData() {
 function saveGamificationData() {
     localStorage.setItem(GAMIFICATION_KEY, JSON.stringify(userData));
     updateHUD();
+<<<<<<< Updated upstream
+=======
+    // Dispatch event for dashboard updates
+    window.dispatchEvent(new CustomEvent('gamification-updated', { detail: userData }));
+}
+
+function checkStreakLogic() {
+    const today = new Date().toDateString();
+    const lastVisit = localStorage.getItem('hl_last_visit');
+    const streakCount = parseInt(localStorage.getItem('hl_streak') || '0');
+
+    if (lastVisit !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        if (lastVisit === yesterday.toDateString()) {
+            userData.streak = streakCount + 1;
+        } else {
+            userData.streak = 1;
+        }
+        localStorage.setItem('hl_streak', userData.streak);
+        localStorage.setItem('hl_last_visit', today);
+        saveGamificationData();
+    } else {
+        userData.streak = streakCount;
+    }
+>>>>>>> Stashed changes
 }
 
 /**
  * Add XP to user and handle level ups
  */
+<<<<<<< Updated upstream
+=======
+window.getBadgeDefinitions = () => badgeDefinitions;
+window.getGamificationData = () => userData;
+window.getNextLevelXP = (level) => level * 100;
+
+>>>>>>> Stashed changes
 window.addXP = function (amount, reason) {
     userData.xp += amount;
     const nextLevelXP = userData.level * 100;
@@ -68,9 +102,12 @@ window.addXP = function (amount, reason) {
     if (reason) showXPPopup(amount, reason);
 };
 
+<<<<<<< Updated upstream
 /**
  * Award a badge if the user doesn't already have it
  */
+=======
+>>>>>>> Stashed changes
 window.awardBadge = function (badgeId) {
     if (!userData.badges.includes(badgeId)) {
         userData.badges.push(badgeId);
@@ -83,14 +120,20 @@ window.awardBadge = function (badgeId) {
     }
 };
 
+<<<<<<< Updated upstream
 /**
  * Increment a specific stat and check for rewards
  */
+=======
+>>>>>>> Stashed changes
 window.incrementStat = function (statName, amount = 1) {
     if (userData.stats[statName] !== undefined) {
         userData.stats[statName] += amount;
 
+<<<<<<< Updated upstream
         // Logical checks
+=======
+>>>>>>> Stashed changes
         if (statName === 'questionsAsked' && userData.stats.questionsAsked >= 5) awardBadge('assistant_fan');
         if (statName === 'lessonsCompleted' && userData.stats.lessonsCompleted >= 1) awardBadge('first_step');
         if (statName === 'lessonsCompleted' && userData.stats.lessonsCompleted >= 5) awardBadge('scholar');
@@ -117,7 +160,10 @@ function injectLevelHUD() {
         <div class="text-[10px] font-bold text-text-default uppercase tracking-widest opacity-70 cursor-help" id="hud-xp-text" title="Next level at ${userData.level * 100} XP">${userData.xp} XP</div>
     `;
 
+<<<<<<< Updated upstream
     // Insert before search or at end
+=======
+>>>>>>> Stashed changes
     const searchForm = nav.querySelector('form');
     if (searchForm) {
         nav.insertBefore(hud, searchForm);

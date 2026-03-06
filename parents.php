@@ -4,10 +4,10 @@
 // It features a modern, fresh design with interactive elements.
 
 // --- Page-Specific Variables for Header ---
-$pageTitle       = 'Parents Hub - Hesten\'s Learning';
+$pageTitle = 'Parents Hub - Hesten\'s Learning';
 $pageDescription = 'Parent resource hub. Find guides, tracking tools, and interactive homeschool law maps.';
-$pageKeywords    = 'parents, wiki, resource, homeschool, learning support, laws';
-$pageAuthor      = 'Hesten\'s Learning';
+$pageKeywords = 'parents, wiki, resource, homeschool, learning support, laws';
+$pageAuthor = 'Hesten\'s Learning';
 
 // --- Include Header Template ---
 include 'src/header.php';
@@ -107,6 +107,26 @@ include 'src/header.php';
                 <nav aria-label="Quick Navigation">
                     <ul class="space-y-2">
                         <li>
+                            <a href="#about"
+                                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all group font-medium">
+                                <span
+                                    class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-info-circle text-sm"></i>
+                                </span>
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#benefits"
+                                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-900/20 text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 transition-all group font-medium">
+                                <span
+                                    class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                                    <i class="fas fa-star text-sm"></i>
+                                </span>
+                                Benefits
+                            </a>
+                        </li>
+                        <li>
                             <a href="#resources"
                                 class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all group font-medium">
                                 <span
@@ -166,6 +186,98 @@ include 'src/header.php';
 
         <!-- MAIN CONTENT -->
         <main class="w-full lg:w-3/4 space-y-12">
+
+            <!-- About Section -->
+            <section id="about" class="scroll-mt-28">
+                <div class="glass-panel rounded-3xl p-8 md:p-10 shadow-lg relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                            <i class="fas fa-info-circle"></i> Getting Started
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-4">How to Homeschool</h2>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed text-lg font-light">
+                            Transitioning to homeschooling is a rewarding journey. It offers you the unparalleled
+                            opportunity to tailor your child's education to their unique learning style and pace. Here
+                            are the fundamental steps to begin:
+                        </p>
+                        <ul class="space-y-4 text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center flex-shrink-0 text-indigo-500">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <p><strong>Understand Your State Laws:</strong> Every state has different requirements
+                                    for homeschooling. Use our interactive map below to learn your state's regulations,
+                                    required forms, and contact points.</p>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center flex-shrink-0 text-indigo-500">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <p><strong>Choose a Curriculum:</strong> We provide structured, adaptable learning paths
+                                    designed to foster curiosity and mastery. Select materials that best fit your
+                                    child's needs.</p>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center flex-shrink-0 text-indigo-500">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <p><strong>Establish a Routine:</strong> Consistency is key. Create a flexible schedule
+                                    that incorporates academics, breaks, physical activity, and enrichment.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits Section -->
+            <section id="benefits" class="scroll-mt-28">
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Why Homeschool?</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="glass-panel p-6 rounded-2xl shadow-sm hover-lift border-t-4 border-amber-400">
+                        <div
+                            class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center text-amber-600 mb-4 text-xl">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Personalized Learning</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Adapt lessons instantly to focus on
+                            subjects where your child struggles and accelerate where they excel.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl shadow-sm hover-lift border-t-4 border-emerald-400">
+                        <div
+                            class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center text-emerald-600 mb-4 text-xl">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Flexible Schedule</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Learn at any time of day, take breaks when
+                            needed, and structure your year around family life.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl shadow-sm hover-lift border-t-4 border-rose-400">
+                        <div
+                            class="w-12 h-12 bg-rose-100 dark:bg-rose-900/30 rounded-xl flex items-center justify-center text-rose-600 mb-4 text-xl">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Stronger Family Bond</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Spend more quality time together,
+                            fostering deep relationships and shared learning experiences.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl shadow-sm hover-lift border-t-4 border-blue-400">
+                        <div
+                            class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600 mb-4 text-xl">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Safe Environment</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Control social interactions and provide a
+                            physically and emotionally secure space for learning.</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- Resources Section -->
             <section id="resources" class="scroll-mt-28">
@@ -396,16 +508,41 @@ include 'src/header.php';
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Legal Requirements Summary</p>
                     </div>
 
-                    <div class="bg-teal-50 dark:bg-teal-900/20 rounded-xl p-4 mb-6">
-                        <p id="modal-summary"
-                            class="text-sm text-slate-700 dark:text-slate-300 text-center leading-relaxed">
-                            Loading...
-                        </p>
+                    <div class="space-y-4 mb-6">
+                        <div
+                            class="bg-slate-50 dark:bg-gray-700/50 rounded-xl p-4 border border-slate-100 dark:border-gray-600">
+                            <h4 class="text-xs font-bold uppercase text-slate-400 dark:text-slate-500 mb-1">State
+                                Contact</h4>
+                            <p id="modal-contact" class="text-sm text-slate-700 dark:text-white font-medium">Department
+                                Name</p>
+                            <p id="modal-contact-phone" class="text-sm text-slate-500 dark:text-slate-400 mt-1"><i
+                                    class="fas fa-phone"></i> (555) 555-5555</p>
+                            <a id="modal-online-link" href="#" target="_blank"
+                                class="text-sm text-teal-600 dark:text-teal-400 hover:underline mt-2 inline-block"><i
+                                    class="fas fa-globe"></i> Offical Website</a>
+                        </div>
+
+                        <div
+                            class="bg-slate-50 dark:bg-gray-700/50 rounded-xl p-4 border border-slate-100 dark:border-gray-600">
+                            <h4 class="text-xs font-bold uppercase text-slate-400 dark:text-slate-500 mb-1">Required
+                                Forms</h4>
+                            <p id="modal-forms" class="text-sm text-slate-700 dark:text-white font-medium">Notice of
+                                Intent</p>
+                        </div>
+
+                        <div
+                            class="bg-teal-50 dark:bg-teal-900/20 rounded-xl p-4 border border-teal-100 dark:border-teal-800/30">
+                            <h4 class="text-xs font-bold uppercase text-teal-600 dark:text-teal-400 mb-1">Law Summary
+                            </h4>
+                            <p id="modal-laws" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                                Law text...
+                            </p>
+                        </div>
                     </div>
 
                     <a id="modal-hslda-link" href="#" target="_blank"
                         class="block w-full bg-teal-600 hover:bg-teal-500 text-white text-center font-bold py-3.5 rounded-xl shadow-lg shadow-teal-600/30 transition-all transform hover:-translate-y-0.5">
-                        View Official Requirements <i class="fas fa-external-link-alt ml-2 text-sm opacity-70"></i>
+                        Read Full HSLDA Guide <i class="fas fa-external-link-alt ml-2 text-sm opacity-70"></i>
                     </a>
                 </div>
             </div>
@@ -413,209 +550,8 @@ include 'src/header.php';
     </div>
 </div>
 
+<script src="src/states_data.js"></script>
 <script>
-    // --- Data ---
-    const states = [{
-        name: "Alabama",
-        url: "https://hslda.org/legal/alabama"
-    },
-    {
-        name: "Alaska",
-        url: "https://hslda.org/legal/alaska"
-    },
-    {
-        name: "Arizona",
-        url: "https://hslda.org/legal/arizona"
-    },
-    {
-        name: "Arkansas",
-        url: "https://hslda.org/legal/arkansas"
-    },
-    {
-        name: "California",
-        url: "https://hslda.org/legal/california"
-    },
-    {
-        name: "Colorado",
-        url: "https://hslda.org/legal/colorado"
-    },
-    {
-        name: "Connecticut",
-        url: "https://hslda.org/legal/connecticut"
-    },
-    {
-        name: "Delaware",
-        url: "https://hslda.org/legal/delaware"
-    },
-    {
-        name: "Florida",
-        url: "https://hslda.org/legal/florida"
-    },
-    {
-        name: "Georgia",
-        url: "https://hslda.org/legal/georgia"
-    },
-    {
-        name: "Hawaii",
-        url: "https://hslda.org/legal/hawaii"
-    },
-    {
-        name: "Idaho",
-        url: "https://hslda.org/legal/idaho"
-    },
-    {
-        name: "Illinois",
-        url: "https://hslda.org/legal/illinois"
-    },
-    {
-        name: "Indiana",
-        url: "https://hslda.org/legal/indiana"
-    },
-    {
-        name: "Iowa",
-        url: "https://hslda.org/legal/iowa"
-    },
-    {
-        name: "Kansas",
-        url: "https://hslda.org/legal/kansas"
-    },
-    {
-        name: "Kentucky",
-        url: "https://hslda.org/legal/kentucky"
-    },
-    {
-        name: "Louisiana",
-        url: "https://hslda.org/legal/louisiana"
-    },
-    {
-        name: "Maine",
-        url: "https://hslda.org/legal/maine"
-    },
-    {
-        name: "Maryland",
-        url: "https://hslda.org/legal/maryland"
-    },
-    {
-        name: "Massachusetts",
-        url: "https://hslda.org/legal/massachusetts"
-    },
-    {
-        name: "Michigan",
-        url: "https://hslda.org/legal/michigan"
-    },
-    {
-        name: "Minnesota",
-        url: "https://hslda.org/legal/minnesota"
-    },
-    {
-        name: "Mississippi",
-        url: "https://hslda.org/legal/mississippi"
-    },
-    {
-        name: "Missouri",
-        url: "https://hslda.org/legal/missouri"
-    },
-    {
-        name: "Montana",
-        url: "https://hslda.org/legal/montana"
-    },
-    {
-        name: "Nebraska",
-        url: "https://hslda.org/legal/nebraska"
-    },
-    {
-        name: "Nevada",
-        url: "https://hslda.org/legal/nevada"
-    },
-    {
-        name: "New Hampshire",
-        url: "https://hslda.org/legal/new-hampshire"
-    },
-    {
-        name: "New Jersey",
-        url: "https://hslda.org/legal/new-jersey"
-    },
-    {
-        name: "New Mexico",
-        url: "https://hslda.org/legal/new-mexico"
-    },
-    {
-        name: "New York",
-        url: "https://hslda.org/legal/new-york"
-    },
-    {
-        name: "North Carolina",
-        url: "https://hslda.org/legal/north-carolina"
-    },
-    {
-        name: "North Dakota",
-        url: "https://hslda.org/legal/north-dakota"
-    },
-    {
-        name: "Ohio",
-        url: "https://hslda.org/legal/ohio"
-    },
-    {
-        name: "Oklahoma",
-        url: "https://hslda.org/legal/oklahoma"
-    },
-    {
-        name: "Oregon",
-        url: "https://hslda.org/legal/oregon"
-    },
-    {
-        name: "Pennsylvania",
-        url: "https://hslda.org/legal/pennsylvania"
-    },
-    {
-        name: "Rhode Island",
-        url: "https://hslda.org/legal/rhode-island"
-    },
-    {
-        name: "South Carolina",
-        url: "https://hslda.org/legal/south-carolina"
-    },
-    {
-        name: "South Dakota",
-        url: "https://hslda.org/legal/south-dakota"
-    },
-    {
-        name: "Tennessee",
-        url: "https://hslda.org/legal/tennessee"
-    },
-    {
-        name: "Texas",
-        url: "https://hslda.org/legal/texas"
-    },
-    {
-        name: "Utah",
-        url: "https://hslda.org/legal/utah"
-    },
-    {
-        name: "Vermont",
-        url: "https://hslda.org/legal/vermont"
-    },
-    {
-        name: "Virginia",
-        url: "https://hslda.org/legal/virginia"
-    },
-    {
-        name: "Washington",
-        url: "https://hslda.org/legal/washington"
-    },
-    {
-        name: "West Virginia",
-        url: "https://hslda.org/legal/west-virginia"
-    },
-    {
-        name: "Wisconsin",
-        url: "https://hslda.org/legal/wisconsin"
-    },
-    {
-        name: "Wyoming",
-        url: "https://hslda.org/legal/wyoming"
-    }
-    ];
 
     // --- State Grid Logic ---
     const grid = document.getElementById('stateGrid');
@@ -627,7 +563,7 @@ include 'src/header.php';
         let count = 0;
         const lowerFilter = filterText.toLowerCase();
 
-        states.forEach(state => {
+        statesData.forEach(state => {
             if (state.name.toLowerCase().includes(lowerFilter)) {
                 // Chip/Pill Style Button
                 const btn = document.createElement('button');
@@ -656,12 +592,26 @@ include 'src/header.php';
     const modalClose = document.getElementById('modal-close');
     const modalName = document.getElementById('modal-state-name');
     const modalLink = document.getElementById('modal-hslda-link');
-    const modalSummary = document.getElementById('modal-summary');
+    const modalContact = document.getElementById('modal-contact');
+    const modalContactPhone = document.getElementById('modal-contact-phone');
+    const modalForms = document.getElementById('modal-forms');
+    const modalLaws = document.getElementById('modal-laws');
+    const modalOnlineLink = document.getElementById('modal-online-link');
 
     function openModal(state) {
         modalName.textContent = state.name;
         modalLink.href = state.url;
-        modalSummary.textContent = `Homeschooling in ${state.name} is regulated by state statute. Tap the button below to see the specific forms and Notice of Intent requirements.`;
+        modalContact.textContent = state.contact;
+        modalContactPhone.innerHTML = `<i class="fas fa-phone"></i> ${state.contact_phone}`;
+        modalForms.textContent = state.forms;
+        modalLaws.textContent = state.laws;
+
+        if (state.online_link) {
+            modalOnlineLink.href = state.online_link;
+            modalOnlineLink.style.display = 'inline-block';
+        } else {
+            modalOnlineLink.style.display = 'none';
+        }
 
         modal.classList.remove('hidden');
         setTimeout(() => {
